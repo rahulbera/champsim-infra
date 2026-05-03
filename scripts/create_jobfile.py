@@ -15,9 +15,10 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 
 class Trace:
-    def __init__(self, name, path, workload, category, subcategory):
+    def __init__(self, name, path, version, workload, category, subcategory):
         self.name = name
         self.path = path
+        self.version = version
         self.workload = workload
         self.category = category
         self.subcategory = subcategory
@@ -50,10 +51,11 @@ def create_traces(data):
         for entry in traces:
             for name, info in entry.items():
                 path = info.get("path")
+                version = info.get("version", 1)
                 workload = info.get("workload")
                 category = info.get("category")
                 subcategory = info.get("subcategory")
-                trace_list.append(Trace(name, path, workload, category, subcategory))
+                trace_list.append(Trace(name, path, version, workload, category, subcategory))
     return trace_list
 
 
@@ -192,7 +194,7 @@ def main():
         for trace in traces:
             for exp in experiments:
                 tag = f"{trace.name}_{exp.name}"
-                inner = f"{exe_to_use} {exp.params} {trace.name} -traces {trace.path}"
+                inner = f"{exe_to_use} {exp.params} --trace_version={trace.version} -traces {trace.path}"
 
                 if args.local:
                     print(
@@ -222,9 +224,10 @@ def main():
             sys.exit(f"--smoke-test-idx {args.smoke_test_idx} out of range [0, {len(pairs)})")
         trace, exp = pairs[args.smoke_test_idx]
         inner = (
-            f"{exe_to_use} {exp.params} {trace.name} -traces {trace.path}"
+            f"{exe_to_use} {exp.params}"
             f" --warmup_instructions={args.smoke_warmup}"
             f" --simulation_instructions={args.smoke_sim}"
+            f" --trace_version={trace.version} -traces {trace.path}"
         )
         print(f"[smoke-test] pair #{args.smoke_test_idx}: trace={trace.name}, exp={exp.name}", file=sys.stderr)
         print(f"[smoke-test] command: {inner}", file=sys.stderr)
