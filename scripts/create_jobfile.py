@@ -2,8 +2,10 @@
 
 import yaml
 import argparse
+import errno
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 import os
@@ -70,6 +72,27 @@ def create_experiments(data):
     return experiments
 
 
+def snapshot_exe(exe_path, output_path):
+    """Hardlink exe into <output_dir>/bin/<basename>.<UTC-timestamp>; fall back to copy on EXDEV."""
+    if not os.path.isfile(exe_path):
+        sys.exit(f"--snapshot-exe: executable not found: {exe_path}")
+    src = os.path.abspath(exe_path)
+    bin_dir = os.path.join(os.path.dirname(os.path.abspath(output_path)), "bin")
+    os.makedirs(bin_dir, exist_ok=True)
+    ts = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+    dst = os.path.join(bin_dir, f"{os.path.basename(src)}.{ts}")
+    try:
+        os.link(src, dst)
+        kind = "hardlink"
+    except OSError as e:
+        if e.errno != errno.EXDEV:
+            raise
+        shutil.copy2(src, dst)
+        kind = "copy (cross-filesystem)"
+    print(f"Snapshotted exe to {dst} ({kind})", file=sys.stderr)
+    return dst
+
+
 def merge_with_dedup(named_groups, kind, source_flag):
     """Concatenate items from multiple files, aborting if a name appears more than once across all inputs."""
     name_to_files = {}
@@ -125,10 +148,13 @@ def main():
     parser.add_argument('--smoke-sim', type=int, default=1_000_000, help='Simulation instructions used during --smoke-test (default: 1M)')
     parser.add_argument('--local', action='store_true', help='Emit raw ChampSim commands instead of sbatch lines, so the jobfile runs locally on this host')
     parser.add_argument('--local-parallel', type=int, default=1, help='Max number of local commands to run in parallel when --local is set (default: 1)')
+    parser.add_argument('--snapshot-exe', action=argparse.BooleanOptionalAction, default=True, help='Hardlink the executable to <output-dir>/bin/<basename>.<UTC-timestamp> and reference that snapshot in the jobfile, so all jobs use the same binary even if the original is rebuilt before they finish queuing. Default: on (use --no-snapshot-exe to disable).')
     args = parser.parse_args()
 
     if args.local_parallel < 1:
         sys.exit(f"--local-parallel must be >= 1 (got {args.local_parallel})")
+
+    exe_to_use = snapshot_exe(args.exe, args.output) if args.snapshot_exe else args.exe
 
     trace_groups = [(p, create_traces(load_yaml(p))) for p in args.tlist]
     exp_groups = [(p, create_experiments(load_yaml(p))) for p in args.exp]
@@ -166,7 +192,7 @@ def main():
         for trace in traces:
             for exp in experiments:
                 tag = f"{trace.name}_{exp.name}"
-                inner = f"{args.exe} {exp.params} {trace.name} -traces {trace.path}"
+                inner = f"{exe_to_use} {exp.params} {trace.name} -traces {trace.path}"
 
                 if args.local:
                     print(
@@ -196,7 +222,7 @@ def main():
             sys.exit(f"--smoke-test-idx {args.smoke_test_idx} out of range [0, {len(pairs)})")
         trace, exp = pairs[args.smoke_test_idx]
         inner = (
-            f"{args.exe} {exp.params} {trace.name} -traces {trace.path}"
+            f"{exe_to_use} {exp.params} {trace.name} -traces {trace.path}"
             f" --warmup_instructions={args.smoke_warmup}"
             f" --simulation_instructions={args.smoke_sim}"
         )
