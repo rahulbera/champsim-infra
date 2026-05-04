@@ -1,229 +1,308 @@
 #!/usr/bin/env python3
 
-import yaml
-import toml
 import argparse
-import re
-import os
 import csv
-from multiprocessing import Pool
+import os
+import re
+import sys
+import yaml
+from concurrent.futures import ProcessPoolExecutor, as_completed
+
+
+# Keywords (case-insensitive) that mark a simulation as failed when present in
+# the .err file. Refine this list as more failure modes are observed.
+FAILURE_KEYWORDS = [
+    "segmentation fault",
+    "aborted",
+    "terminate called",
+    "assertion failed",
+    "killed",
+    "core dumped",
+    "bad_alloc",
+    "fatal error",
+    "std::exception",
+    "stack smashing detected",
+]
+
+FAILURE_PATTERN = re.compile(
+    "|".join(re.escape(k) for k in FAILURE_KEYWORDS), re.IGNORECASE
+)
+
+VAR_PATTERN = re.compile(r"\$\(([^)]+)\)")
 
 
 class Trace:
-    def __init__(self, name, path, workload, category, subcategory):
+    def __init__(self, name):
         self.name = name
-        self.path = path
-        self.workload = workload
-        self.category = category
-        self.subcategory = subcategory
 
 
 class Experiment:
-    def __init__(self, name, params, pintool_args, scarab_args):
+    def __init__(self, name, params):
         self.name = name
         self.params = params
-        self.pintool_args = pintool_args
-        self.scarab_args = scarab_args
 
 
 def load_yaml(file_path):
-    with open(file_path, "r") as file:
-        return yaml.safe_load(file)
+    with open(file_path, "r") as f:
+        return yaml.safe_load(f)
 
 
 def replace_variables(value, definitions):
-    pattern = r"\$\((.*?)\)"
-    matches = re.findall(pattern, value)
-    for match in matches:
+    if not isinstance(value, str):
+        return value
+    for match in VAR_PATTERN.findall(value):
         if match not in definitions:
             sys.exit(f"Encountered undefined variable: {match}")
         value = value.replace(f"$({match})", definitions[match])
     return value
 
 
-def create_traces(data):
-    trace_list = []
-    for suite, traces in data.items():
-        for entry in traces:
-            for name, info in entry.items():
-                path = info.get("path")
-                workload = info.get("workload")
-                category = info.get("category")
-                subcategory = info.get("subcategory")
-                trace_list.append(Trace(name, path, workload, category, subcategory))
-    return trace_list
+def _record(store, key, value, source, kind):
+    """Insert key→value into store; abort if it conflicts with a prior source."""
+    if key in store:
+        prev_value, prev_source = store[key]
+        if prev_value != value:
+            sys.exit(
+                f"Conflict: {kind} '{key}' has different definitions in "
+                f"'{prev_source}' and '{source}'"
+            )
+        return False
+    store[key] = (value, source)
+    return True
 
 
-def create_experiments(data):
-    definitions = {
-        list(d.keys())[0]: list(d.values())[0] for d in data.get("definitions", [])
-    }
+def create_traces(paths):
+    """Merge trace YAMLs by trace name. Order = first-seen across files."""
+    store = {}
+    for path in paths:
+        data = load_yaml(path) or {}
+        for _suite, entries in data.items():
+            for entry in entries or []:
+                for name, info in entry.items():
+                    _record(store, name, info, path, "trace")
+    return [Trace(n) for n in store]
+
+
+def create_experiments(paths):
+    """Merge experiment YAMLs (definitions + experiments) by name."""
+    def_store = {}
+    exp_store = {}
+    for path in paths:
+        data = load_yaml(path) or {}
+        for d in data.get("definitions", []) or []:
+            for k, v in d.items():
+                _record(def_store, k, v, path, "definition")
+        for entry in data.get("experiments", []) or []:
+            for name, raw in entry.items():
+                _record(exp_store, name, raw, path, "experiment")
+
+    definitions = {k: v for k, (v, _) in def_store.items()}
     experiments = []
-
-    for exp in data.get("experiments", []):
-        for name, details in exp.items():
-            params = details.get("params", "")
-            pintool_args = details.get("pintool_args", "")
-            scarab_args = details.get("scarab_args", "")
-
-            params = replace_variables(params, definitions)
-            pintool_args = replace_variables(pintool_args, definitions)
-            scarab_args = replace_variables(scarab_args, definitions)
-
-            experiments.append(Experiment(name, params, pintool_args, scarab_args))
-
+    for name, (raw, _) in exp_store.items():
+        params = raw.get("params", "") if isinstance(raw, dict) else raw
+        params = replace_variables(params, definitions)
+        experiments.append(Experiment(name, params))
     return experiments
 
 
-def evaluate_expression(expression, values):
-    # Safely evaluate the mathematical expression
-    for k, v in values.items():
-        expression = expression.replace(f"$({k})", str(v))
+def parse_metric_definitions(paths):
+    """Merge metric YAMLs by metric name. Order = first-seen across files."""
+    store = {}
+    for path in paths:
+        data = load_yaml(path) or []
+        for entry in data:
+            for name, expr in entry.items():
+                expr_str = str(expr)
+                _record(store, str(name).strip(), expr_str, path, "metric")
+    metrics = []
+    for name, (expr_str, _) in store.items():
+        keys = VAR_PATTERN.findall(expr_str)
+        metrics.append((name, expr_str, keys))
+    return metrics
 
-    # Create a safe environment for evaluation
-    allowed_names = {"__builtins__": {}}
-    safe_functions = {"abs": abs, "min": min, "max": max, "round": round}
-    allowed_names.update(safe_functions)
-    
+
+def check_failure(err_path):
+    """True if err is missing, or contains a failure keyword. Empty err => pass."""
     try:
-        result = eval(expression, allowed_names)
-        if isinstance(result, float):
-            # Limit precision to 6 digits for fractional values
-            result = round(result, 6)
-        return result
-    except ZeroDivisionError:
-        return float('inf')  # Handle division by zero gracefully
-    except Exception as e:
-        raise ValueError(f"Error evaluating expression '{expression}': {e}")
+        size = os.path.getsize(err_path)
+    except OSError:
+        return True
+    if size == 0:
+        return False
+    try:
+        with open(err_path, "r", errors="replace") as f:
+            content = f.read()
+    except OSError:
+        return True
+    return bool(FAILURE_PATTERN.search(content))
 
 
-def extract_and_compute(mfile, stats):
-    results = []
-    for param in mfile:
-        for key, value in param.items():
-            target = value["target"]
-            if target.startswith("$(") and target.endswith(")"):
-                # Find all expressions in the form of $(...) in the target
-                keys = re.findall(r"\$\((.*?)\)", target)
+def extract_stats_from_out(out_path, required_stats):
+    """Stream the out file once and pull only the stats we need.
 
-                # Create a dictionary to hold extracted values
-                values = {}
-                for key_path in keys:
-                    section, param_name = key_path.split(".")
+    Each interesting line is "<stat name><whitespace><value>". Stops as soon
+    as every required stat has been captured.
+    """
+    found = {}
+    if not required_stats:
+        return found
+    remaining = set(required_stats)
+    try:
+        with open(out_path, "r", errors="replace") as f:
+            for line in f:
+                if not remaining:
+                    break
+                parts = line.split(None, 1)
+                if len(parts) != 2:
+                    continue
+                key = parts[0]
+                if key in remaining:
+                    val_token = parts[1].split(None, 1)[0]
                     try:
-                        # Extract the value from the stats dictionary
-                        values[key_path] = stats[section][param_name]
-                    except KeyError:
-                        print(
-                            f"Error: The target '{target}' is not valid in the stats TOML file."
-                        )
-                        return None
-
-                # Evaluate the expression
-                result = evaluate_expression(target, values)
-                results.append(result)
-
-    return results
+                        found[key] = float(val_token)
+                        remaining.discard(key)
+                    except ValueError:
+                        pass
+    except OSError:
+        pass
+    return found
 
 
-def process_trace(trace, experiments, mfile):
-    output_data = []
-    error_occurred = False  # Flag to indicate if any experiment has an error
+_EVAL_GLOBALS = {
+    "__builtins__": {},
+    "abs": abs,
+    "min": min,
+    "max": max,
+    "round": round,
+}
 
-    # Process each experiment for this trace
-    for exp in experiments:
-        # Construct the stat file and stderr file names
-        stat_file_name = os.path.join(os.getcwd(), f"{trace}.{exp}/statdb.0.toml")
-        stderr_file_name = os.path.join(os.getcwd(), f"{trace}.{exp}.err")
 
-        # Initialize all results as zeros
-        result_values = [0] * len(
-            mfile
-        )  # Assuming the number of metrics is equal to mfile length
+def evaluate_metric(expr, stats):
+    """Substitute $(name) tokens with extracted values and evaluate."""
+    keys = VAR_PATTERN.findall(expr)
+    for k in keys:
+        if k not in stats:
+            return None
+        expr = expr.replace(f"$({k})", repr(stats[k]))
+    try:
+        result = eval(expr, _EVAL_GLOBALS)
+    except ZeroDivisionError:
+        return float("inf")
+    except Exception:
+        return None
+    if isinstance(result, float):
+        return round(result, 6)
+    return result
 
-        filter_value = 1  # Default to 1 (no error)
 
-        # Check if the stat file exists
-        if not os.path.isfile(stat_file_name):
-            filter_value = 0  # Set Filter to 0 since the stat file is missing
-            error_occurred = True
-            output_data.append([trace, exp, filter_value] + result_values)
+def process_trace(trace_name, exp_names, metrics, stats_dir):
+    """Process every experiment for one trace. Returns list of CSV rows."""
+    rows = []
+    required = set()
+    for _, _, keys in metrics:
+        required.update(keys)
+
+    trace_failed = False
+    for exp_name in exp_names:
+        base = os.path.join(stats_dir, f"{trace_name}_{exp_name}")
+        out_path = base + ".out"
+        err_path = base + ".err"
+
+        out_exists = os.path.isfile(out_path)
+        err_exists = os.path.isfile(err_path)
+
+        if not out_exists or not err_exists or check_failure(err_path):
+            trace_failed = True
+            rows.append([trace_name, exp_name] + ["" for _ in metrics] + [0])
             continue
 
-        # Check if the stderr file exists and is not empty
-        if os.path.isfile(stderr_file_name) and os.path.getsize(stderr_file_name) > 0:
-            filter_value = 0  # Set to 0 if stderr file is not empty
-            error_occurred = True  # Set flag if there's an error
+        stats = extract_stats_from_out(out_path, required)
+        values = []
+        for _name, expr, _keys in metrics:
+            v = evaluate_metric(expr, stats)
+            values.append("" if v is None else v)
+        rows.append([trace_name, exp_name] + values + [1])
 
-        # Load the stats from the TOML file
-        with open(stat_file_name, "r") as toml_file:
-            stats = toml.load(toml_file)
-
-        # Extract metrics for this trace and experiment
-        extracted_results = extract_and_compute(mfile, stats)
-        if extracted_results is not None:
-            output_data.append([trace, exp, filter_value] + extracted_results)
-
-    # If any experiment in the trace had an error, set all to filter value 0
-    if error_occurred:
-        for row in output_data:
-            row[2] = 0  # Set the filter value to 0 for all experiments of this trace
-
-    return output_data
+    if trace_failed:
+        for row in rows:
+            row[-1] = 0
+    return rows
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Process YAML and TOML files.")
-    parser.add_argument(
-        "--mfile", type=str, required=True, help="The path to the YAML file"
+    parser = argparse.ArgumentParser(
+        description="Roll up ChampSim per-(trace,exp) stats into a single CSV."
     )
     parser.add_argument(
-        "--tlist", required=True, help="Path to the input trace YAML file"
+        "--mfile",
+        required=True,
+        nargs="+",
+        help="One or more metrics YAML files (merged; conflicting names abort)",
     )
     parser.add_argument(
-        "--exp", required=True, help="Path to the input experiment YAML file"
+        "--tlist",
+        required=True,
+        nargs="+",
+        help="One or more trace YAML files (merged; conflicting names abort)",
     )
     parser.add_argument(
-        "--threads", type=int, default=1, help="Number of threads to use"
+        "--exp",
+        required=True,
+        nargs="+",
+        help="One or more experiment YAML files (merged; conflicting names abort)",
     )
     parser.add_argument(
-        "-o", "--output", type=str, default="stats.txt", help="Stats output file name"
+        "-d",
+        "--stats-dir",
+        required=True,
+        help="Directory containing the {trace}_{exp}.out and .err files",
     )
-
+    parser.add_argument(
+        "--threads",
+        type=int,
+        default=os.cpu_count() or 1,
+        help="Number of worker processes (default: cpu_count)",
+    )
+    parser.add_argument(
+        "-o", "--output", default="stats.csv", help="Output CSV filename"
+    )
     args = parser.parse_args()
 
-    trace_data = load_yaml(args.tlist)
-    exp_data = load_yaml(args.exp)
+    if not os.path.isdir(args.stats_dir):
+        sys.exit(f"Stats directory does not exist: {args.stats_dir}")
 
-    traces = create_traces(trace_data)
-    experiments = create_experiments(exp_data)
+    traces = create_traces(args.tlist)
+    experiments = create_experiments(args.exp)
+    metrics = parse_metric_definitions(args.mfile)
 
-    trace_names = [trace.name for trace in traces]
-    exp_names = [exp.name for exp in experiments]
+    metric_names = [m[0] for m in metrics]
+    exp_names = [e.name for e in experiments]
 
-    with open(args.mfile, "r") as yaml_file:
-        mfile = yaml.safe_load(yaml_file)
+    results: list[list[list]] = [[] for _ in traces]
+    workers = max(1, min(args.threads, len(traces)))
 
-    # Prepare to use multiprocessing
-    with Pool(processes=args.threads) as pool:
-        results = pool.starmap(
-            process_trace, [(trace, exp_names, mfile) for trace in trace_names]
-        )
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        futures = {
+            pool.submit(
+                process_trace, trace.name, exp_names, metrics, args.stats_dir
+            ): i
+            for i, trace in enumerate(traces)
+        }
+        for fut in as_completed(futures):
+            results[futures[fut]] = fut.result()
 
-    # Combine results from all traces
-    output_data = [item for sublist in results for item in sublist]
+    with open(args.output, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["TraceName", "ExpName"] + metric_names + ["Filter"])
+        for trace_rows in results:
+            writer.writerows(trace_rows)
 
-    # Write results to CSV
-    with open(args.output, mode="w", newline="") as csv_file:
-        writer = csv.writer(csv_file)
-        # Write header
-        writer.writerow(
-            ["Trace", "Experiment", "Filter"] + [key for metric in mfile for key in metric.keys()]
-        )
-        # Write data rows
-        writer.writerows(output_data)
-
-    print(f"Results written to '{args.output}'.")
+    total = sum(len(r) for r in results)
+    passed = sum(1 for r in results for row in r if row[-1] == 1)
+    print(
+        f"Wrote {total} rows ({passed} passed, {total - passed} filtered) "
+        f"to '{args.output}'"
+    )
 
 
 if __name__ == "__main__":
