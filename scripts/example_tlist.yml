@@ -1,7 +1,7 @@
 ---
 
 dlrm:
-        - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s0:
+      - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s0:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s0.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -9,7 +9,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_1day
                 tags: []
-        - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s1:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s1:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s1.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -17,7 +18,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_1day
                 tags: []
-        - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s2:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s2:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s2.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -25,7 +27,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_1day
                 tags: []
-        - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s3:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s3:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s3.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -33,7 +36,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_1day
                 tags: []
-        - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s4:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s4:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d14_dim128_bs128_emb5GB_5x1B_t223078_master_s4.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -41,7 +45,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_1day
                 tags: []
-        - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s0:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s0:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s0.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -49,7 +54,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_4days
                 tags: []
-        - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s1:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s1:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s1.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -57,7 +63,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_4days
                 tags: []
-        - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s2:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s2:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s2.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -65,7 +72,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_4days
                 tags: []
-        - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s3:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s3:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s3.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -73,7 +81,8 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_4days
                 tags: []
-        - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s4:
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+      - dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s4:
                 path: /home/rahbera/tracezoo/champsim/version2/dlrm/dlrm_criteo_d2-5_dim128_bs128_emb15GB_5x1B_t274021_master_s4.champsim2.zst
                 version: 2
                 workload: fbgemm_dlrm
@@ -81,3 +90,4 @@ dlrm:
                 category: dlrm
                 subcategory: criteo_4days
                 tags: []
+                checksum: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef

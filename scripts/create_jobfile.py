@@ -15,13 +15,14 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 
 class Trace:
-    def __init__(self, name, path, version, workload, category, subcategory):
+    def __init__(self, name, path, version, workload, category, subcategory, checksum=None):
         self.name = name
         self.path = path
         self.version = version
         self.workload = workload
         self.category = category
         self.subcategory = subcategory
+        self.checksum = checksum
 
 
 class Experiment:
@@ -55,7 +56,8 @@ def create_traces(data):
                 workload = info.get("workload")
                 category = info.get("category")
                 subcategory = info.get("subcategory")
-                trace_list.append(Trace(name, path, version, workload, category, subcategory))
+                checksum = info.get("checksum") or None
+                trace_list.append(Trace(name, path, version, workload, category, subcategory, checksum))
     return trace_list
 
 
@@ -110,6 +112,22 @@ def merge_with_dedup(named_groups, kind, source_flag):
     return [item for _, items in named_groups for item in items]
 
 
+def wrap_with_orchestrator(champsim_cmd, trace, args):
+    """Prefix a raw ChampSim command with the run_champsim.py wrapper so
+    the trace gets fetched into a node-local cache first. If the wrapper
+    is disabled (--no-wrapper) the command is returned unchanged.
+    """
+    if not args.wrapper:
+        return champsim_cmd
+    parts = [args.wrapper]
+    if trace.checksum:
+        parts.append(f"--trace-checksum={trace.checksum}")
+    if args.cache_dir:
+        parts.append(f"--cache-dir={args.cache_dir}")
+    parts.extend(["--", champsim_cmd])
+    return " ".join(parts)
+
+
 JOBFILE_PREAMBLE_SLURM = (
     "#!/bin/bash\n"
     "#\n"
@@ -151,6 +169,9 @@ def main():
     parser.add_argument('--local', action='store_true', help='Emit raw ChampSim commands instead of sbatch lines, so the jobfile runs locally on this host')
     parser.add_argument('--local-parallel', type=int, default=1, help='Max number of local commands to run in parallel when --local is set (default: 1)')
     parser.add_argument('--snapshot-exe', action=argparse.BooleanOptionalAction, default=True, help='Hardlink the executable to <output-dir>/bin/<basename>.<UTC-timestamp> and reference that snapshot in the jobfile, so all jobs use the same binary even if the original is rebuilt before they finish queuing. Default: on (use --no-snapshot-exe to disable).')
+    parser.add_argument('--wrapper', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'run_champsim.py'), help='Path to the orchestrator script that fetches traces into a node-local cache before launching ChampSim. Default: run_champsim.py next to this script.')
+    parser.add_argument('--no-wrapper', dest='wrapper', action='store_const', const=None, help='Emit raw ChampSim commands without the trace-cache wrapper (matches pre-wrapper behavior).')
+    parser.add_argument('--cache-dir', default=None, help='Forwarded to run_champsim.py as --cache-dir (override the wrapper default).')
     args = parser.parse_args()
 
     if args.local_parallel < 1:
@@ -194,7 +215,8 @@ def main():
         for trace in traces:
             for exp in experiments:
                 tag = f"{trace.name}_{exp.name}"
-                inner = f"{exe_to_use} {exp.params} --trace_version={trace.version} -traces {trace.path}"
+                champsim_cmd = f"{exe_to_use} {exp.params} --trace_version={trace.version} -traces {trace.path}"
+                inner = wrap_with_orchestrator(champsim_cmd, trace, args)
 
                 if args.local:
                     print(
@@ -223,12 +245,13 @@ def main():
         if not (0 <= args.smoke_test_idx < len(pairs)):
             sys.exit(f"--smoke-test-idx {args.smoke_test_idx} out of range [0, {len(pairs)})")
         trace, exp = pairs[args.smoke_test_idx]
-        inner = (
+        champsim_cmd = (
             f"{exe_to_use} {exp.params}"
             f" --warmup_instructions={args.smoke_warmup}"
             f" --simulation_instructions={args.smoke_sim}"
             f" --trace_version={trace.version} -traces {trace.path}"
         )
+        inner = wrap_with_orchestrator(champsim_cmd, trace, args)
         print(f"[smoke-test] pair #{args.smoke_test_idx}: trace={trace.name}, exp={exp.name}", file=sys.stderr)
         print(f"[smoke-test] command: {inner}", file=sys.stderr)
         start = time.monotonic()
