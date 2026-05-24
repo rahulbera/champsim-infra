@@ -170,8 +170,8 @@ def main():
     parser.add_argument('--local-parallel', type=int, default=1, help='Max number of local commands to run in parallel when --local is set (default: 1)')
     parser.add_argument('--snapshot-exe', action=argparse.BooleanOptionalAction, default=True, help='Hardlink the executable to <output-dir>/bin/<basename>.<UTC-timestamp> and reference that snapshot in the jobfile, so all jobs use the same binary even if the original is rebuilt before they finish queuing. Default: on (use --no-snapshot-exe to disable).')
     parser.add_argument('--wrapper', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'run_champsim.py'), help='Path to the orchestrator script that fetches traces into a node-local cache before launching ChampSim. Default: run_champsim.py next to this script.')
-    parser.add_argument('--no-wrapper', dest='wrapper', action='store_const', const=None, help='Emit raw ChampSim commands without the trace-cache wrapper (matches pre-wrapper behavior).')
-    parser.add_argument('--cache-dir', default=None, help='Forwarded to run_champsim.py as --cache-dir (override the wrapper default).')
+    parser.add_argument('--no-trace-cache', dest='wrapper', action='store_const', const=None, help='Skip the trace cache: each job reads its trace directly from NFS (or wherever --tlist points), exactly as before fetch_trace existed. Use when you do not want fetch_trace involved at all.')
+    parser.add_argument('--trace-cache-dir', dest='cache_dir', default=None, help='Forwarded to run_champsim.py as --cache-dir (override the wrapper default).')
     args = parser.parse_args()
 
     if args.local_parallel < 1:
