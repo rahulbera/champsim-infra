@@ -22,6 +22,7 @@ FAILURE_KEYWORDS = [
     "fatal error",
     "std::exception",
     "stack smashing detected",
+    "deadlock",
 ]
 
 FAILURE_PATTERN = re.compile(
