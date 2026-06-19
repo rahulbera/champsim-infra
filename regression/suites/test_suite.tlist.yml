@@ -1,0 +1,20 @@
+---
+# Regression trace suite — local SPEC traces. Format consumed by
+# create_jobfile.py and rollup.py (suite -> [ {name: {path, version, ...}} ]).
+# Trace names here become the {trace}_{exp}.out output basenames.
+test_suite:
+  - 462.libquantum-1343B:
+      path: /home/rahbera/thesis/runs/test_suite/462.libquantum-1343B.champsimtrace.xz
+      version: 1
+  - 605.mcf_s-1536B:
+      path: /home/rahbera/thesis/runs/test_suite/605.mcf_s-1536B.champsimtrace.xz
+      version: 1
+  - 607.cactuBSSN_s-2421B:
+      path: /home/rahbera/thesis/runs/test_suite/607.cactuBSSN_s-2421B.champsimtrace.xz
+      version: 1
+  - 621.wrf_s-8065B:
+      path: /home/rahbera/thesis/runs/test_suite/621.wrf_s-8065B.champsimtrace.xz
+      version: 1
+  - 654.roms_s-1390B:
+      path: /home/rahbera/thesis/runs/test_suite/654.roms_s-1390B.champsimtrace.xz
+      version: 1

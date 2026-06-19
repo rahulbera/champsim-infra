@@ -1,0 +1,23 @@
+---
+# Regression experiments. Each experiment's value is the full ChampSim flag
+# string (everything except the binary, `-traces`, and `--trace_version`, which
+# create_jobfile.py appends). $(VAR) tokens expand from `definitions`.
+#
+# Add experiments freely — the regression harness runs every (trace x experiment)
+# pair and rolls up the metrics for each. Commented examples below show how to
+# add core XPT or the future uncore variants (offchip_pred_location=uncore, where
+# XPT can finally key on the physical address).
+# IMPORTANT: flag order is significant. Hermes applies CLI flags and --config
+# files in sequence with last-wins semantics, so a CLI override (e.g.
+# --ddrp_req_latency=6) MUST come AFTER the --config that also sets it
+# (hermes_base.ini sets ddrp_req_latency=0). Keep the exact order from test.sh.
+definitions:
+  - CFG: "/home/rahbera/thesis/Hermes/config"
+  - HEAD: "--warmup_instructions=10000000 --simulation_instructions=30000000 --llc_replacement_type=ship"
+  - ROB:  "--num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2"
+  - TAIL: "--ddrp_req_latency=6"
+
+experiments:
+  - core_popet: "$(HEAD) --config=$(CFG)/nopref.ini $(ROB) --config=$(CFG)/ocp_hermes.ini --config=$(CFG)/hermes_base.ini $(TAIL)"
+  # - core_xpt:   "$(HEAD) --config=$(CFG)/nopref.ini $(ROB) --config=$(CFG)/ocp_xpt.ini --config=$(CFG)/hermes_base.ini $(TAIL)"
+  # - uncore_xpt: "$(HEAD) --config=$(CFG)/nopref.ini $(ROB) --config=$(CFG)/ocp_xpt.ini --config=$(CFG)/hermes_base.ini $(TAIL) --offchip_pred_location=uncore --ocp_xpt_use_physical_address=true"

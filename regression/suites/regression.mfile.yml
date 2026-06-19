@@ -1,0 +1,7 @@
+---
+# Metrics rolled up by rollup.py. Each entry is `name: "<expr>"` where the
+# expression references raw ChampSim stat names as $(STAT_NAME). Add lines to
+# track more stats; the regression comparator picks them up automatically.
+- ipc: "$(Core_0_cumulative_IPC)"
+- precision: "$(Core_0_offchip_pred_precision)"
+- recall: "$(Core_0_offchip_pred_recall)"
