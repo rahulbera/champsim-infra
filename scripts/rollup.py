@@ -2,11 +2,30 @@
 
 import argparse
 import csv
+import json
 import os
 import re
 import sys
 import yaml
 from concurrent.futures import ProcessPoolExecutor, as_completed
+
+# Markers wrapping the machine-readable JSON report on stdout (--report-json -),
+# so an orchestrator can recover the report even amid other stdout noise. The
+# same markers are used by create_jobfile.py and parsed by cluster_run.py.
+INFRA_JSON_BEGIN = "===INFRA-JSON-BEGIN==="
+INFRA_JSON_END = "===INFRA-JSON-END==="
+
+
+def emit_report(report, dest):
+    """Write `report` as JSON to a file, or to stdout (delimited) when dest=='-'."""
+    text = json.dumps(report, indent=2)
+    if dest == "-":
+        print(INFRA_JSON_BEGIN)
+        print(text)
+        print(INFRA_JSON_END)
+    else:
+        with open(dest, "w") as f:
+            f.write(text + "\n")
 
 
 # Keywords (case-insensitive) that mark a simulation as failed when present in
@@ -122,20 +141,36 @@ def parse_metric_definitions(paths):
     return metrics
 
 
-def check_failure(err_path):
-    """True if err is missing, or contains a failure keyword. Empty err => pass."""
+def failure_reason(err_path):
+    """Classify an EXISTING err file: (is_failure, error_id, reason).
+
+    Empty err => pass. A matched FAILURE_KEYWORD => fail (the matched keyword is
+    embedded in the error_id so the orchestrator can see why). Stat/read errors
+    are treated as failures, matching check_failure's historical behavior.
+    """
     try:
         size = os.path.getsize(err_path)
     except OSError:
-        return True
+        return True, "RU_ERR_UNREADABLE", f"cannot stat {err_path}"
     if size == 0:
-        return False
+        return False, "RU_OK", ""
     try:
         with open(err_path, "r", errors="replace") as f:
             content = f.read()
     except OSError:
+        return True, "RU_ERR_UNREADABLE", f"cannot read {err_path}"
+    m = FAILURE_PATTERN.search(content)
+    if m:
+        return True, f"RU_FAILURE_KEYWORD:{m.group(0).lower()}", f"matched failure keyword '{m.group(0)}'"
+    return False, "RU_OK", ""
+
+
+def check_failure(err_path):
+    """True if err is missing, unreadable, or contains a failure keyword. Empty => pass."""
+    if not os.path.isfile(err_path):
         return True
-    return bool(FAILURE_PATTERN.search(content))
+    failed, _error_id, _reason = failure_reason(err_path)
+    return failed
 
 
 def extract_stats_from_out(out_path, required_stats):
@@ -197,11 +232,24 @@ def evaluate_metric(expr, stats):
 
 
 def process_trace(trace_name, exp_names, metrics, stats_dir):
-    """Process every experiment for one trace. Returns list of CSV rows."""
+    """Process every experiment for one trace.
+
+    Returns (rows, reports): `rows` are the CSV rows exactly as before; `reports`
+    is a parallel list of per-(trace,exp) dicts {trace, exp, status, error_id,
+    reason} for the structured JSON report. A pair is 'fail' if its own run is
+    bad, 'filtered' if it passed but is zeroed because a sibling experiment for
+    the same trace failed, else 'ok'.
+    """
     rows = []
+    reports = []
     required = set()
     for _, _, keys in metrics:
         required.update(keys)
+
+    def add(status, error_id, reason, values):
+        rows.append([trace_name, exp_name] + values + [1 if status == "ok" else 0])
+        reports.append({"trace": trace_name, "exp": exp_name,
+                        "status": status, "error_id": error_id, "reason": reason})
 
     trace_failed = False
     for exp_name in exp_names:
@@ -209,12 +257,20 @@ def process_trace(trace_name, exp_names, metrics, stats_dir):
         out_path = base + ".out"
         err_path = base + ".err"
 
-        out_exists = os.path.isfile(out_path)
-        err_exists = os.path.isfile(err_path)
-
-        if not out_exists or not err_exists or check_failure(err_path):
+        empties = ["" for _ in metrics]
+        if not os.path.isfile(out_path):
             trace_failed = True
-            rows.append([trace_name, exp_name] + ["" for _ in metrics] + [0])
+            add("fail", "RU_MISSING_OUT", f"missing {out_path}", empties)
+            continue
+        if not os.path.isfile(err_path):
+            trace_failed = True
+            add("fail", "RU_MISSING_ERR", f"missing {err_path}", empties)
+            continue
+
+        failed, error_id, reason = failure_reason(err_path)
+        if failed:
+            trace_failed = True
+            add("fail", error_id, reason, empties)
             continue
 
         stats = extract_stats_from_out(out_path, required)
@@ -222,12 +278,17 @@ def process_trace(trace_name, exp_names, metrics, stats_dir):
         for _name, expr, _keys in metrics:
             v = evaluate_metric(expr, stats)
             values.append("" if v is None else v)
-        rows.append([trace_name, exp_name] + values + [1])
+        add("ok", "RU_OK", "", values)
 
     if trace_failed:
         for row in rows:
             row[-1] = 0
-    return rows
+        for rep in reports:
+            if rep["status"] == "ok":
+                rep["status"] = "filtered"
+                rep["error_id"] = "RU_FILTERED_SIBLING"
+                rep["reason"] = "zeroed: another experiment for this trace failed"
+    return rows, reports
 
 
 def main():
@@ -267,6 +328,12 @@ def main():
     parser.add_argument(
         "-o", "--output", default="stats.csv", help="Output CSV filename"
     )
+    parser.add_argument(
+        "--report-json", default=None, metavar="PATH",
+        help="Emit a machine-readable JSON report (per-run status + error_id) to "
+             "PATH, or to stdout (delimited) when PATH is '-'. stats.csv output is "
+             "unchanged; default behavior is unchanged when omitted.",
+    )
     args = parser.parse_args()
 
     if not os.path.isdir(args.stats_dir):
@@ -279,7 +346,8 @@ def main():
     metric_names = [m[0] for m in metrics]
     exp_names = [e.name for e in experiments]
 
-    results: list[list[list]] = [[] for _ in traces]
+    results = [[] for _ in traces]
+    reports = [[] for _ in traces]
     workers = max(1, min(args.threads, len(traces)))
 
     with ProcessPoolExecutor(max_workers=workers) as pool:
@@ -290,7 +358,8 @@ def main():
             for i, trace in enumerate(traces)
         }
         for fut in as_completed(futures):
-            results[futures[fut]] = fut.result()
+            i = futures[fut]
+            results[i], reports[i] = fut.result()
 
     with open(args.output, "w", newline="") as f:
         writer = csv.writer(f)
@@ -300,10 +369,26 @@ def main():
 
     total = sum(len(r) for r in results)
     passed = sum(1 for r in results for row in r if row[-1] == 1)
-    print(
+    summary = (
         f"Wrote {total} rows ({passed} passed, {total - passed} filtered) "
         f"to '{args.output}'"
     )
+    # Keep stdout clean for the delimited JSON when the report goes to stdout.
+    print(summary, file=sys.stderr if args.report_json == "-" else sys.stdout)
+
+    if args.report_json:
+        all_runs = [r for per in reports for r in per]
+        n_pass = sum(1 for r in all_runs if r["status"] == "ok")
+        n_filt = sum(1 for r in all_runs if r["status"] == "filtered")
+        n_fail = sum(1 for r in all_runs if r["status"] == "fail")
+        emit_report({
+            "tool": "rollup",
+            "status": "ok" if (n_fail == 0 and n_filt == 0) else "partial",
+            "stats_csv": os.path.abspath(args.output),
+            "summary": {"total": len(all_runs), "passed": n_pass,
+                        "filtered": n_filt, "failed": n_fail},
+            "runs": all_runs,
+        }, args.report_json)
 
 
 if __name__ == "__main__":

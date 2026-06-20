@@ -1,2 +1,4 @@
 .claude/
 pintool/obj-intel64/
+__pycache__/
+*.pyc
