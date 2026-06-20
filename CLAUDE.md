@@ -63,11 +63,15 @@ a torn copy. Optional SHA-256 checksum verification; cache key is the path
 basename. Importable (`fetch_trace.fetch(...)`) or a standalone CLI.
 
 **`rollup.py`** — fan-out (`ProcessPoolExecutor`, one task per trace) over the
-`{trace}_{exp}.out/.err` files in a stats dir. Streams each `.out` once pulling
+`{trace}_{exp}.out/.err` files in the stats dir(s). `-d` takes **one or more**
+directories, searched in order with first-`{trace}_{exp}.out`-match-wins, so a
+single rollup can span multiple batch output dirs. Streams each `.out` once pulling
 only needed stats, evaluates each metric expression, and writes `stats.csv`
 (`TraceName, ExpName, <metrics…>, Filter`). A run is filtered (`Filter=0`) if its
 `.err` matches a `FAILURE_KEYWORDS` pattern or files are missing; **if any
-experiment for a trace fails, all rows for that trace are filtered**.
+experiment for a trace fails, all rows for that trace are filtered** — and with
+multiple `-d` dirs this `trace_failed` rule spans them, keeping a combined table
+apples-to-apples per trace.
 
 ## Regression harness (regression/)
 
@@ -88,11 +92,11 @@ non-zero — CI-gate friendly; `--tol` allows relative tolerance). See
 
 `scripts/cluster_run.py` runs sims on an **SSH-only** Slurm cluster from the local
 machine (the cluster login node bars AI agents). Subcommands: `bootstrap | submit |
-status | rollup | list`. `submit` rsyncs the sim **and this repo** to the cluster,
-builds over SSH, smoke-gates on the login node, then launches the sbatch jobs.
-Per-repo state (config + per-batch job ledger) lives in `<sim-repo>/.cluster-run/`
-(gitignored). Driven by the global `cluster-run` skill. **Full runbook + caveats:
-`docs/cluster-run.md`.**
+status | rollup | combine | list`. `submit` rsyncs the sim **and this repo** to the
+cluster, builds over SSH, smoke-gates on the login node, then launches the sbatch
+jobs. Per-repo state (config + per-batch job ledger) lives in
+`<sim-repo>/.cluster-run/` (gitignored). Driven by the global `cluster-run` skill.
+**Full runbook + caveats: `docs/cluster-run.md`.**
 
 - It invokes `create_jobfile.py` / `rollup.py` **on the cluster** over SSH, so both
   gained machine-readable output behind flags (defaults unchanged): `--report-json
@@ -101,6 +105,13 @@ Per-repo state (config + per-batch job ledger) lives in `<sim-repo>/.cluster-run
   capturing exact `tag→job_id`).
 - `$(SIM_HOME_IN_CLUSTER)` in a tlist/exp resolves to the cluster sim path at submit
   time (for `--config` paths that live inside the rsynced sim tree).
+- `combine --batches A,B[,…]` merges several **finished** batches into one table for
+  incremental experiments (batch B adds an experiment without re-running A's): it
+  feeds every batch's `remote_run_dir` to one `rollup.py -d …` and concatenates their
+  exp/tlist/mfiles, writing a `combine_<name>/stats.csv` (no ledger, no diff). Only
+  `submit` rsyncs this repo; `status`/`rollup`/`combine` assume the **remote infra is
+  current**, so after editing a remote-executed script (`rollup.py`, …) you must rsync
+  it (or run a `submit`) before `rollup`/`combine`, else the cluster runs the stale copy.
 - **Pre-flight a new cluster** (`sinfo`, remote `python3 -c 'import yaml'`): the
   config defaults (`compute`, `python3.12`) are often wrong — kratos2 uses `cpu_part`
   + `python3.10`. SSH/rsync need network (run the orchestrator with the Bash sandbox

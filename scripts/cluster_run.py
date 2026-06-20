@@ -666,6 +666,78 @@ def _maybe_compare(repo, batch_id, new_dir, tol):
           else "OK: no change vs previous batch")
 
 
+def cmd_combine(args):
+    repo = get_repo(args)
+    batch_ids = [b.strip() for b in args.batches.split(",") if b.strip()]
+    if len(batch_ids) < 2:
+        raise ClusterRunError("combine needs at least two batches (--batches B1,B2)")
+    cfg = load_config(repo)
+    ledgers = [load_ledger(repo, b) for b in batch_ids]
+    host = args.cluster or ledgers[0]["cluster"]
+    clusters = {l["cluster"] for l in ledgers}
+    if len(clusters) > 1 and not args.cluster:
+        raise ClusterRunError(
+            f"batches span multiple clusters {sorted(clusters)}; pass --cluster to pick one")
+
+    # Each batch must be terminal; combining needs its .out files on the cluster.
+    for led in ledgers:
+        if not args.force and led.get("status") not in ("complete", "rolledup"):
+            _refresh_states(host, led["jobs"])
+            led["status"] = _batch_status(led["jobs"])
+            save_ledger(repo, led)
+            if led["status"] != "complete":
+                pending = [j["tag"] for j in led["jobs"] if not is_terminal(j.get("state", ""))]
+                raise ClusterRunError(
+                    f"batch {led['batch_id']} not complete ({len(pending)} job(s) still active); "
+                    "use --force to combine anyway")
+
+    # Assemble one rollup.py call over every batch's run dir + merged inputs.
+    # rollup.py merges duplicate-but-identical names and aborts on real conflicts.
+    run_dirs = [led["remote_run_dir"] for led in ledgers]
+    mfiles, tlists, exps = [], [], []
+    for led in ledgers:
+        ri = led["remote_inputs"]
+        mfiles += ri["mfile"]
+        tlists += ri["tlist"]
+        exps += ri["exp"]
+
+    name = args.out_name or ("combine_" + max(batch_ids))
+    remote_combo = cfg["remote_runs_base"] + "/" + name
+    out_csv = remote_combo + "/stats.csv"
+    remote_infra = ledgers[0].get("remote_infra_path") or cfg["remote_infra_path"]
+    remote_python = ledgers[0].get("remote_python") or cfg["remote_python"]
+    ru = os.path.join(remote_infra, "scripts", "rollup.py")
+    parts = [remote_python, ru, "--mfile", *mfiles,
+             "--tlist", *tlists, "--exp", *exps,
+             "-d", *run_dirs, "-o", out_csv, "--report-json", "-"]
+    res = ssh(host, f"mkdir -p {q(remote_combo)} && {remote_join(parts)}")
+    try:
+        report = extract_infra_json(res.stdout)
+    except ValueError:
+        raise ClusterRunError(
+            f"combine rollup produced no JSON report (rc={res.returncode}). "
+            f"stderr tail:\n{res.stderr[-800:]}")
+
+    local_dir = os.path.join(runs_dir(repo), name)
+    os.makedirs(local_dir, exist_ok=True)
+    fr = rsync(f"{host}:{out_csv}", local_dir + "/stats.csv", delete=False)
+    if fr.returncode != 0:
+        raise ClusterRunError(f"failed to fetch stats.csv: {fr.stderr.strip()}")
+    local_csv = os.path.join(local_dir, "stats.csv")
+
+    print(f"=== combined stats ({name}: {', '.join(batch_ids)}) ===")
+    _print_csv_table(local_csv)
+    s = report.get("summary", {})
+    print(f"combine: {report.get('status')} — total={s.get('total')} passed={s.get('passed')} "
+          f"filtered={s.get('filtered')} failed={s.get('failed')}")
+    for run in report.get("runs", []):
+        if run["status"] != "ok":
+            print(f"  {run['status'].upper():9} {run['trace']}/{run['exp']}: "
+                  f"{run['error_id']} ({run['reason']})")
+    print(f"combined stats.csv -> {local_csv}")
+    return 0
+
+
 def cmd_list(args):
     repo = get_repo(args)
     if not os.path.isfile(config_path(repo)):
@@ -744,6 +816,17 @@ def build_parser():
     rp.add_argument("--no-compare", action="store_true")
     rp.add_argument("--force", action="store_true", help="roll up even if jobs are still active")
     rp.set_defaults(func=cmd_rollup)
+
+    cp = sub.add_parser("combine", parents=[common],
+                        help="roll up several finished batches into one combined stats.csv")
+    cp.add_argument("--batches", required=True,
+                    help="comma-separated batch ids to combine (e.g. B1,B2)")
+    cp.add_argument("--cluster", default=None)
+    cp.add_argument("-o", "--out-name", default=None,
+                    help="name for the combined output dir (default: combine_<latest batch id>)")
+    cp.add_argument("--force", action="store_true",
+                    help="combine even if some jobs are still active")
+    cp.set_defaults(func=cmd_combine)
 
     lp = sub.add_parser("list", parents=[common], help="list logged batches")
     lp.set_defaults(func=cmd_list)

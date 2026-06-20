@@ -231,7 +231,7 @@ def evaluate_metric(expr, stats):
     return result
 
 
-def process_trace(trace_name, exp_names, metrics, stats_dir):
+def process_trace(trace_name, exp_names, metrics, stats_dirs):
     """Process every experiment for one trace.
 
     Returns (rows, reports): `rows` are the CSV rows exactly as before; `reports`
@@ -253,14 +253,21 @@ def process_trace(trace_name, exp_names, metrics, stats_dir):
 
     trace_failed = False
     for exp_name in exp_names:
-        base = os.path.join(stats_dir, f"{trace_name}_{exp_name}")
-        out_path = base + ".out"
-        err_path = base + ".err"
+        stem = f"{trace_name}_{exp_name}"
+        # Search the stats dirs in order; first dir holding the .out wins.
+        out_path = err_path = None
+        for d in stats_dirs:
+            cand = os.path.join(d, stem + ".out")
+            if os.path.isfile(cand):
+                out_path = cand
+                err_path = os.path.join(d, stem + ".err")
+                break
 
         empties = ["" for _ in metrics]
-        if not os.path.isfile(out_path):
+        if out_path is None:
             trace_failed = True
-            add("fail", "RU_MISSING_OUT", f"missing {out_path}", empties)
+            add("fail", "RU_MISSING_OUT",
+                f"missing {stem}.out in {', '.join(stats_dirs)}", empties)
             continue
         if not os.path.isfile(err_path):
             trace_failed = True
@@ -317,7 +324,9 @@ def main():
         "-d",
         "--stats-dir",
         required=True,
-        help="Directory containing the {trace}_{exp}.out and .err files",
+        nargs="+",
+        help="One or more directories containing the {trace}_{exp}.out and "
+             ".err files; searched in order, first match wins",
     )
     parser.add_argument(
         "--threads",
@@ -336,8 +345,9 @@ def main():
     )
     args = parser.parse_args()
 
-    if not os.path.isdir(args.stats_dir):
-        sys.exit(f"Stats directory does not exist: {args.stats_dir}")
+    for d in args.stats_dir:
+        if not os.path.isdir(d):
+            sys.exit(f"Stats directory does not exist: {d}")
 
     traces = create_traces(args.tlist)
     experiments = create_experiments(args.exp)
