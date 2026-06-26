@@ -139,7 +139,7 @@ def test_rollup_reports():
         check("Wrote 2 rows" in r.stdout, "default summary on stdout")
         csv = open(out).read()
         check("traceX,exp1,1.5,1" in csv, "passing row kept")
-        check("traceY,exp1,,0" in csv, "failing row zeroed")
+        check("traceY,exp1,0,0" in csv, "failing row prints 0 metrics with Filter=0")
 
         # report-json mode: structured statuses, summary moved off stdout
         r = subprocess.run(base + ["--report-json", "-"],
@@ -162,8 +162,9 @@ def test_rollup_missing_metric_zero():
         # from the out file -> that cell should print 0, not blank, run stays kept.
         write(os.path.join(s, "traceX_exp1.out"), "Core_0_cumulative_IPC 2.0\n")
         write(os.path.join(s, "traceX_exp1.err"), "")
-        # A crashed run's missing metrics must stay blank (only found-stats-file
-        # runs get zeros), so include a failing sibling to guard the scoping.
+        # A crashed run also prints 0 for every metric, but with Filter=0 -- the
+        # Filter column, not a blank cell, is what tells a placeholder 0 apart
+        # from a genuine 0. Include a failing sibling to assert that contract.
         write(os.path.join(s, "traceY_exp1.out"), "Core_0_cumulative_IPC 3.0\n")
         write(os.path.join(s, "traceY_exp1.err"), "Segmentation fault\n")
         write(os.path.join(d, "m.yml"),
@@ -182,8 +183,8 @@ def test_rollup_missing_metric_zero():
         csv = open(out).read()
         # found-stats-file run: present metric kept, absent metric -> 0, Filter=1
         check("traceX,exp1,2.0,0,1" in csv, "missing metric printed as 0 on a passing run")
-        # crashed run: metrics stay blank (not zeroed), Filter=0
-        check("traceY,exp1,,,0" in csv, "crashed run keeps blank metrics, not zeros")
+        # crashed run: every metric -> 0, distinguished only by Filter=0
+        check("traceY,exp1,0,0,0" in csv, "crashed run prints 0 metrics with Filter=0")
 
 
 def test_rollup_nan_metric():

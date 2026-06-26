@@ -269,21 +269,24 @@ def process_trace(trace_name, exp_names, metrics, stats_dirs):
                 err_path = os.path.join(d, stem + ".err")
                 break
 
-        empties = ["" for _ in metrics]
+        # A run that itself failed has no trustworthy stats, so every metric
+        # cell is a placeholder 0. The Filter=0 these rows always carry (see
+        # `add`) is what tells such a placeholder apart from a genuine 0.
+        zeros = [0 for _ in metrics]
         if out_path is None:
             trace_failed = True
             add("fail", "RU_MISSING_OUT",
-                f"missing {stem}.out in {', '.join(stats_dirs)}", empties)
+                f"missing {stem}.out in {', '.join(stats_dirs)}", zeros)
             continue
         if not os.path.isfile(err_path):
             trace_failed = True
-            add("fail", "RU_MISSING_ERR", f"missing {err_path}", empties)
+            add("fail", "RU_MISSING_ERR", f"missing {err_path}", zeros)
             continue
 
         failed, error_id, reason = failure_reason(err_path)
         if failed:
             trace_failed = True
-            add("fail", error_id, reason, empties)
+            add("fail", error_id, reason, zeros)
             continue
 
         stats = extract_stats_from_out(out_path, required)
@@ -293,8 +296,8 @@ def process_trace(trace_name, exp_names, metrics, stats_dirs):
             if v is None:
                 # The out file was found and the run passed, so a metric we still
                 # can't compute means its underlying stat is absent from the out.
-                # Emit 0 rather than a blank cell. (Crashed/missing runs above
-                # keep their blank `empties` row.)
+                # Emit 0 rather than a blank cell. (Filter stays 1 here unless a
+                # sibling experiment fails, matching the failed-run 0/Filter=0.)
                 values.append(0)
             elif isinstance(v, float) and not math.isfinite(v):
                 # A real but non-finite value (nan stat, or a divide-by-zero
