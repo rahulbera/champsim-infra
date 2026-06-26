@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import math
 import os
 import re
 import sys
@@ -210,6 +211,11 @@ _EVAL_GLOBALS = {
     "min": min,
     "max": max,
     "round": round,
+    # A stat emitted as nan/inf/-inf is repr()'d into the expression as the bare
+    # token nan/inf; bind them so eval yields the real float (and IEEE arithmetic
+    # propagates it) instead of raising NameError and losing the value to None.
+    "nan": float("nan"),
+    "inf": float("inf"),
 }
 
 
@@ -284,7 +290,19 @@ def process_trace(trace_name, exp_names, metrics, stats_dirs):
         values = []
         for _name, expr, _keys in metrics:
             v = evaluate_metric(expr, stats)
-            values.append("" if v is None else v)
+            if v is None:
+                # The out file was found and the run passed, so a metric we still
+                # can't compute means its underlying stat is absent from the out.
+                # Emit 0 rather than a blank cell. (Crashed/missing runs above
+                # keep their blank `empties` row.)
+                values.append(0)
+            elif isinstance(v, float) and not math.isfinite(v):
+                # A real but non-finite value (nan stat, or a divide-by-zero
+                # metric). Emit "NaN" so it stays visible and is never mistaken
+                # for a genuine 0 measurement.
+                values.append("NaN")
+            else:
+                values.append(v)
         add("ok", "RU_OK", "", values)
 
     if trace_failed:

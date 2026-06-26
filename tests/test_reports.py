@@ -154,10 +154,74 @@ def test_rollup_reports():
         check("Wrote 2 rows" not in r.stdout, "stdout clean of summary in json mode")
 
 
+def test_rollup_missing_metric_zero():
+    print("test_rollup_missing_metric_zero")
+    with tempfile.TemporaryDirectory() as d:
+        s = os.path.join(d, "stats"); os.makedirs(s)
+        # Run completed (out present, err empty) but one metric's stat is absent
+        # from the out file -> that cell should print 0, not blank, run stays kept.
+        write(os.path.join(s, "traceX_exp1.out"), "Core_0_cumulative_IPC 2.0\n")
+        write(os.path.join(s, "traceX_exp1.err"), "")
+        # A crashed run's missing metrics must stay blank (only found-stats-file
+        # runs get zeros), so include a failing sibling to guard the scoping.
+        write(os.path.join(s, "traceY_exp1.out"), "Core_0_cumulative_IPC 3.0\n")
+        write(os.path.join(s, "traceY_exp1.err"), "Segmentation fault\n")
+        write(os.path.join(d, "m.yml"),
+              "---\n- ipc: \"$(Core_0_cumulative_IPC)\"\n"
+              "- absent: \"$(Core_0_missing_stat)\"\n")
+        write(os.path.join(d, "t.yml"),
+              "---\nsuiteA:\n  - traceX: {path: /x, version: 2}\n"
+              "  - traceY: {path: /y, version: 2}\n")
+        write(os.path.join(d, "e.yml"), "---\nexperiments:\n  - exp1: \"--c\"\n")
+        out = os.path.join(d, "stats.csv")
+        base = [PY, ROLLUP, "--mfile", os.path.join(d, "m.yml"),
+                "--tlist", os.path.join(d, "t.yml"), "--exp", os.path.join(d, "e.yml"),
+                "-d", s, "-o", out]
+        r = subprocess.run(base, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        check(r.returncode == 0, "rollup rc 0")
+        csv = open(out).read()
+        # found-stats-file run: present metric kept, absent metric -> 0, Filter=1
+        check("traceX,exp1,2.0,0,1" in csv, "missing metric printed as 0 on a passing run")
+        # crashed run: metrics stay blank (not zeroed), Filter=0
+        check("traceY,exp1,,,0" in csv, "crashed run keeps blank metrics, not zeros")
+
+
+def test_rollup_nan_metric():
+    print("test_rollup_nan_metric")
+    with tempfile.TemporaryDirectory() as d:
+        s = os.path.join(d, "stats"); os.makedirs(s)
+        # Passing run (err empty) whose out carries a non-finite stat, plus a
+        # divide-by-zero metric and a genuinely-missing stat. Non-finite values
+        # must print "NaN" (visible, never a fake 0); only the truly-missing
+        # stat prints 0, so the two cases stay distinguishable.
+        write(os.path.join(s, "traceX_exp1.out"),
+              "Core_0_cumulative_IPC nan\nStat_B 5.0\nZero 0.0\n")
+        write(os.path.join(s, "traceX_exp1.err"), "")
+        write(os.path.join(d, "m.yml"),
+              "---\n- ipc: \"$(Core_0_cumulative_IPC)\"\n"
+              "- divzero: \"$(Stat_B) / $(Zero)\"\n"
+              "- missing: \"$(Not_Present)\"\n")
+        write(os.path.join(d, "t.yml"),
+              "---\nsuiteA:\n  - traceX: {path: /x, version: 2}\n")
+        write(os.path.join(d, "e.yml"), "---\nexperiments:\n  - exp1: \"--c\"\n")
+        out = os.path.join(d, "stats.csv")
+        base = [PY, ROLLUP, "--mfile", os.path.join(d, "m.yml"),
+                "--tlist", os.path.join(d, "t.yml"), "--exp", os.path.join(d, "e.yml"),
+                "-d", s, "-o", out]
+        r = subprocess.run(base, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        check(r.returncode == 0, "rollup rc 0")
+        csv = open(out).read()
+        # nan stat -> NaN, divide-by-zero -> NaN, missing stat -> 0, run kept
+        check("traceX,exp1,NaN,NaN,0,1" in csv,
+              "non-finite metrics print NaN; missing stat stays 0; run kept")
+
+
 def main():
     test_create_jobfile_autolaunch()
     test_create_jobfile_backward_compat()
     test_rollup_reports()
+    test_rollup_missing_metric_zero()
+    test_rollup_nan_metric()
     print(f"\n{_checks['pass']} passed, {_checks['fail']} failed")
     sys.exit(1 if _checks["fail"] else 0)
 
