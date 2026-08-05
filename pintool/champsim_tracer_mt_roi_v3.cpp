@@ -877,6 +877,20 @@ static uint8_t classify_instr(INS ins)
 // must be tested first or they fall through to NOT_BRANCH.
 static uint8_t classify_branch(INS ins)
 {
+  // XBEGIN/XEND satisfy INS_IsBranch(), but IARG_BRANCH_TAKEN is documented
+  // invalid for them ("Argument is invalid for XBEGIN and XEND instructions",
+  // types_vmapi.PH) and PIN kills the whole run with
+  //   "Pin does not support instrumenting this conditional branch"
+  // if you ask for it anyway. Because PIN instruments a trace up front, an
+  // xbegin merely sitting on a decoded fall-through path is enough -- it does
+  // not have to execute. Reachable via glibc lock elision on RTM hardware and
+  // in any HTM workload or JIT.
+  //
+  // They are transactional-memory markers, not branches a predictor should be
+  // asked about, so they are recorded as ordinary instructions.
+  if (INS_IsXbegin(ins) || INS_IsXend(ins))
+    return NOT_BRANCH;
+
   if (INS_IsRet(ins))
     return BRANCH_RETURN;
 
@@ -1604,7 +1618,12 @@ static void insert_full_analysis(INS ins, bool capture_values)
   //
   // This shifts is_branch relative to v1 traces. That is intended, and is
   // what TRACE_FEATURE_EXPLICIT_BRANCH_TYPE exists to announce.
-  if (INS_IsBranch(ins)) {
+  // The XBEGIN/XEND exclusion mirrors PIN's own regression test
+  // (source/tools/IArg/iarg_branch_taken_correct.cpp), which applies
+  // IARG_BRANCH_TAKEN to every instruction EXCEPT those two opcodes.
+  // classify_branch() returns NOT_BRANCH for them, so they fall to the last
+  // arm and are recorded as ordinary instructions.
+  if (INS_IsBranch(ins) && !INS_IsXbegin(ins) && !INS_IsXend(ins)) {
     // The only class with a dynamic direction: take it from PIN.
     INS_InsertCall(ins,
                    commit_point,

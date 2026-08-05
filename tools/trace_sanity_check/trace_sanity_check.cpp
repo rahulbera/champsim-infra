@@ -151,10 +151,27 @@ class TraceReader {
     piped_ = true;
   }
 
-  ~TraceReader() {
-    if (fp_ == nullptr) return;
-    if (piped_) ::pclose(fp_);
-    else        std::fclose(fp_);
+  ~TraceReader() { finish(); }
+
+  // Close the stream and report whether it ended cleanly. MUST be called after
+  // the read loop and its result MUST be checked.
+  //
+  // A decompressor that dies mid-stream -- truncated .zst, bit rot, disk full,
+  // SIGPIPE, OOM-killed -- simply stops producing bytes, which is byte-for-byte
+  // indistinguishable from end-of-trace at the read() level. Discarding
+  // pclose()'s status therefore turns half a trace into a "healthy short trace"
+  // that sails through the acceptance checks. Returns 0 on a clean end.
+  int finish() {
+    if (fp_ == nullptr) return status_;
+    if (read_error_) status_ = -1;
+    if (piped_) {
+      int st = ::pclose(fp_);
+      if (st != 0 && status_ == 0) status_ = st;
+    } else {
+      if (std::fclose(fp_) != 0 && status_ == 0) status_ = -1;
+    }
+    fp_ = nullptr;
+    return status_;
   }
 
   TraceReader(const TraceReader&)            = delete;
@@ -167,6 +184,7 @@ class TraceReader {
     size_t got = std::fread(dst, 1, n, fp_);
     if (got == n) return true;
     if (got != 0) partial_bytes_ = got;
+    if (std::ferror(fp_)) read_error_ = true;
     return false;
   }
 
@@ -191,6 +209,8 @@ class TraceReader {
   std::FILE* fp_            = nullptr;
   bool       piped_         = false;
   size_t     partial_bytes_ = 0;
+  bool       read_error_    = false;
+  int        status_        = 0;
 };
 
 // --- CLI --------------------------------------------------------------
@@ -712,6 +732,7 @@ int main(int argc, char** argv) {
   Stats  s;
   size_t record_size   = 0;
   size_t partial_bytes = 0;
+  int    stream_status = 0;
   auto   t0            = std::chrono::steady_clock::now();
   try {
     TraceReader tr(a.input);
@@ -726,6 +747,7 @@ int main(int argc, char** argv) {
       run_cs(tr, a, s);
     }
     partial_bytes = tr.partial_bytes();
+    stream_status = tr.finish();
   } catch (const std::exception& e) {
     std::fprintf(stderr, "error: %s (after %lu records)\n",
                  e.what(), (unsigned long)s.records);
@@ -743,6 +765,21 @@ int main(int argc, char** argv) {
   }
   if (s.records == 0) {
     std::fprintf(stderr, "error: no records read\n");
+    return 1;
+  }
+
+  // A failed decompressor looks exactly like end-of-trace, so this must be a
+  // hard failure -- otherwise half a trace passes the acceptance gate.
+  if (stream_status != 0) {
+    std::fprintf(stderr,
+                 "error: input stream did not end cleanly (decompressor status %d) "
+                 "after %lu records -- the trace is truncated or corrupt. "
+                 "Statistics above describe only the part that was readable.\n",
+                 stream_status, (unsigned long)s.records);
+    return 1;
+  }
+  if (partial_bytes != 0) {
+    std::fprintf(stderr, "error: trailing partial record -- refusing to certify\n");
     return 1;
   }
 
