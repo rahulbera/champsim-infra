@@ -51,10 +51,20 @@ regression/compare_runs.py <OLD_RUN_DIR> <NEW_RUN_DIR> [--tol 0.01]
 
 # C++ tools — `env -u …` is required here, see "conda hijacks" below
 env -u CXX -u CXXFLAGS -u LDFLAGS make -C tools/trace_cutter
-env -u CXX -u CXXFLAGS -u LDFLAGS make -C tools/trace_sanity_check CHAMPSIM_HOME=<champsim>
+env -u CXX -u CXXFLAGS -u LDFLAGS make -C tools/trace_sanity_check
 
-# Pintool (x86-64 host with an Intel PIN 4.0 kit only)
-cd pintool && bash make_tracer.sh
+# Verify a freshly generated trace is usable for branch-predictor work
+tools/trace_sanity_check/trace_sanity_check -i <trace>.champsim2.zst -f v2 --check
+
+# Pintool (x86-64 host with an Intel PIN 4.0 kit; PIN is at
+# /home/rbera/work/softwares/pin-external-4.0-99633-g5ca9893f2-gcc-linux here)
+cd pintool && env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS \
+  PIN_ROOT=<pin-kit> ZSTD_HOME=<dir with include/zstd.h + lib/libzstd.a> \
+  bash make_tracer.sh
+
+# Full tracer loop, ~1 minute end to end (no instrumented workload needed)
+<pin-kit>/pin -t pintool/obj-intel64/champsim_tracer_mt_roi_v3.so \
+  -use_markers 0 -o out -t 200000 -n 1 -- /bin/ls /usr/lib
 ```
 
 ## Environment gotchas
@@ -72,11 +82,18 @@ cd pintool && bash make_tracer.sh
   Always build with `env -u CXX -u CXXFLAGS -u LDFLAGS make …`; that falls back to system
   `g++` and system zstd, which works.
 - `ZSTD_HOME` (lab default `/home/rahbera/local`) points at a custom zstd for the tracer
-  and trace tools; unset ⇒ system zstd. `make_tracer.sh` **hardcodes** the lab host's
-  `PIN_ROOT`/`ZSTD_HOME` — edit those two lines before building the pintool elsewhere.
-- `tools/trace_sanity_check` compiles `src/trace_reader.cc` straight out of a ChampSim
-  checkout. The sibling `../ChampSim` here does **not** contain that file, so the tool
-  only builds against a fork that does.
+  and `trace_cutter`; unset ⇒ system zstd. `make_tracer.sh` defaults `PIN_ROOT`/`ZSTD_HOME`
+  to the lab host's paths but **both are environment-overridable** — pass them rather than
+  editing the file. `ZSTD_HOME` needs `include/zstd.h` + `lib/libzstd.a`; symlinks to the
+  system zstd work (`/usr` itself does not, its lib path is `lib/x86_64-linux-gnu/`).
+- **Conda also breaks the pintool build**, by a second mechanism: PIN derives its compiler
+  wrapper from `$CXX` (`PIN_WRAPPER_GCC := $(patsubst %g++,%gcc,$(CXX))`), so a conda `CXX`
+  reaches `pin-gcc` and fails on `-m64`. Strip `CC`/`CPPFLAGS` too, not just the three the
+  C++ tools need.
+- `tools/trace_sanity_check` is self-contained (pipes through the system `zstd`/`xz`/`gzip`
+  binaries). It no longer needs `CHAMPSIM_HOME` — the ChampSim file it used to link,
+  `src/trace_reader.cc`, was renamed to `src/tracereader.cc` upstream and is no longer a
+  drop-in.
 - **YAML must be space-indented** — PyYAML rejects tabs, so a tab-indented tlist/exp/mfile
   crashes `create_jobfile.py`/`rollup.py`. Convert leading tabs → spaces.
 
@@ -186,22 +203,32 @@ the global `cluster-run` skill. **Full runbook + caveats: `docs/cluster-run.md`.
 ## Trace generation & tooling
 
 - **pintool/** — Intel PIN 4.0 tracer emitting v2/v3 ChampSim traces (both write the same
-  512-byte `input_instr_v2` record; v3 adds multi-threaded gating and is a strict superset
-  of v2 at default knobs). ROI is bracketed by "magic NOP" markers (`xchg %rcx, %rcx` with
-  an opcode in RCX) defined in `champsim_markers.h`; the opcode constants are duplicated
-  between that header and the tracer `.cpp` — change both together. Markers are true
-  no-ops without PIN, so an instrumented workload still runs normally.
-- **Known limitation (v3 traces are unusable for branch-predictor work).** The tracer drops
-  the flags register, and ChampSim infers branch type from register usage, so conditional
-  branches are misread as always-taken direct jumps and every direction predictor scores
-  identically. Analysis + the planned fix (explicit branch type in `reserved[0..1]`, record
-  stays 512 B) is in `docs/handoff-branch-type-tracing.md`. Read it before touching
-  `champsim_tracer_mt_roi_v3.cpp`.
+  512-byte `input_instr_v2` record; v3 adds multi-threaded gating). ROI is bracketed by
+  "magic NOP" markers (`xchg %rcx, %rcx` with an opcode in RCX) defined in
+  `champsim_markers.h`; the opcode constants are duplicated between that header and the
+  tracer `.cpp` — change both together. Markers are true no-ops without PIN, so an
+  instrumented workload still runs normally.
+- **The two tracers are the same code at a fixed line offset** (v3 = v2 + ~124 lines in the
+  regions that matter), and they emit the same `.champsim2.zst` filename. **Any
+  record-format change must land in both**, or that filename covers two silently
+  incompatible classes of trace. Diff the regions before assuming they have diverged.
+- **Branch-type contract** (`docs/superpowers/specs/2026-08-05-branch-type-and-flags-tracing-design.md`):
+  `reserved[0]` = ChampSim's `branch_type` enum, `reserved[1]` = feature bitmask
+  (`0x01` explicit branch type, `0x02` flags recorded), `reserved[2]` = tracer identity.
+  Layout is unchanged at 512 B and there is deliberately **no trace-version bump** — a
+  version asserted on the CLI can be wrong in a way the data cannot. Consumers must key off
+  `reserved[1] & 0x01`, never off `reserved[0] != 0` (`0` is a valid `DIRECT_JUMP`).
+  `is_branch` now includes calls and returns, so count `reserved[0] != NOT_BRANCH` instead.
+  The flags register is recorded on both the source and destination side — either both or
+  neither, since a read-but-never-written register stalls nothing.
+  Deferred here, with measurements: destination register values for the RUNLTS value
+  channel (§9 of that design doc). Don't re-derive that analysis.
 - **tools/trace_cutter/** — splits a zstd v2 trace (fixed 512-byte records) into
   N-instruction `.zst` chunks.
 - **tools/trace_sanity_check/** — walks a `.gz`/`.xz`/`.zst` trace and prints aggregate
-  stats. Links `champsim/src/trace_reader.cc` directly for byte-for-byte parity with the
-  simulator, so `make` needs a `CHAMPSIM_HOME` that has it (default `../../../champsim`).
+  stats; self-contained (shells out to the reference decompressors). `--check` enforces the
+  branch-type invariants and exits 2 on failure — run it on every freshly generated trace.
+  The load-bearing one is the conditional taken rate being strictly inside (0, 100)%.
 
 ## Conventions & contracts
 

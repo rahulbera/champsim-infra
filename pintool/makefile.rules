@@ -52,6 +52,12 @@ DLL_ROOTS :=
 # This defines any static libraries (archives), that need to be built.
 LIB_ROOTS :=
 
+# PIN builds tools against its own musl CRT with -nostdinc-style specs, so
+# /usr/include is NOT on the search path -- zstd.h must be named explicitly
+# even when it is installed system-wide. Without this the build fails with
+# "fatal error: zstd.h: No such file or directory".
+TOOL_CXXFLAGS += -I$(ZSTD_HOME)/include
+
 TOOL_LIBS += $(ZSTD_HOME)/lib/libzstd.a
 
 ##############################################################

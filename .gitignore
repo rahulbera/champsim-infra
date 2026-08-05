@@ -2,3 +2,5 @@
 pintool/obj-intel64/
 __pycache__/
 *.pyc
+tools/trace_cutter/trace_cutter
+tools/trace_sanity_check/trace_sanity_check

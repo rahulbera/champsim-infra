@@ -95,6 +95,47 @@
 #define INSTR_TYPE_FP   1
 #define INSTR_TYPE_SIMD 2
 
+/* --- reserved[0]: explicit branch type -------------------------------------
+ * These are ChampSim's `branch_type` enum values verbatim
+ * (champsim/inc/instruction.h). DO NOT RENUMBER -- the consumer reads this
+ * byte as that enum.
+ *
+ * Recording the type explicitly replaces ChampSim's register-pattern
+ * inference, which derives a semantic property (what kind of control
+ * transfer is this?) from an incidental encoding one (which registers
+ * happened to fit in a 2-slot array). PIN knows the answer exactly.
+ */
+#define BRANCH_DIRECT_JUMP   0
+#define BRANCH_INDIRECT      1
+#define BRANCH_CONDITIONAL   2
+#define BRANCH_DIRECT_CALL   3
+#define BRANCH_INDIRECT_CALL 4
+#define BRANCH_RETURN        5
+#define BRANCH_OTHER         6
+#define NOT_BRANCH           7
+
+/* --- reserved[1]: feature bitmask ------------------------------------------
+ * Tells a consumer what this record actually carries, so old traces (all
+ * reserved bytes zero) keep working and new ones are self-describing. A
+ * bitmask rather than a version number because the trace, not the command
+ * line, is the thing that knows what it contains.
+ */
+#define TRACE_FEATURE_EXPLICIT_BRANCH_TYPE 0x01
+#define TRACE_FEATURE_FLAGS_REGISTER       0x02
+
+/* --- reserved[2]: which pintool wrote this record --------------------------
+ * Both tracers emit the same .champsim2.zst filename, so without this a
+ * trace on disk carries no record of its own provenance.
+ */
+#define TRACER_IDENTITY 2
+
+/* The flags register as it appears in a record, i.e. PIN's REG enum for
+ * the full flags register truncated to unsigned char. Must equal
+ * champsim::REG_FLAGS (champsim/inc/trace_instruction.h). Used only for
+ * drop accounting; the recorded value itself comes from REG_FullRegName.
+ */
+#define RECORDED_REG_FLAGS 25
+
 struct __attribute__((packed)) trace_instr_v2_t {
   // --- Block 1: vanilla 64-byte layout ---
   uint64_t ip;
@@ -112,6 +153,10 @@ struct __attribute__((packed)) trace_instr_v2_t {
   uint8_t  destination_memory_size[NUM_INSTR_DESTINATIONS];
   uint8_t  privilege;
   uint8_t  instr_type;
+  // reserved[0] = branch_type (ChampSim's enum, see BRANCH_* above)
+  // reserved[1] = feature bitmask (see TRACE_FEATURE_* above)
+  // reserved[2] = tracer identity (2 or 3)
+  // reserved[3..7] = zero, held for future use
   uint8_t  reserved[8];
 
   // --- Block 3: memory values (384 bytes) ---
@@ -308,6 +353,17 @@ static std::atomic<uint64_t> g_truncated_values{0};
 static std::atomic<uint64_t> g_safecopy_short_reads{0};
 static std::atomic<uint64_t> g_scattered_instrs_seen{0};
 static std::atomic<uint64_t> g_scatter_missed_store_values{0};
+
+// --- register-slot truncation ---
+// The record holds only NUM_INSTR_SOURCES/NUM_INSTR_DESTINATIONS register
+// numbers, so an instruction touching more of them loses some. That loss
+// used to be invisible: the fill loops simply ran off the end. Count it
+// instead, split by whether the casualty was the flags register or a real
+// one, so every trace run reports its own truncation error budget.
+static std::atomic<uint64_t> g_dropped_src_regs{0};
+static std::atomic<uint64_t> g_dropped_dst_regs{0};
+static std::atomic<uint64_t> g_dropped_src_flags{0};
+static std::atomic<uint64_t> g_dropped_dst_flags{0};
 
 // --- exit_on_done bookkeeping ---
 // Counts threads that ever entered TRACING and that ever reached DONE,
@@ -741,6 +797,38 @@ static uint8_t classify_instr(INS ins)
   return INSTR_TYPE_INT;
 }
 
+// Classify a control transfer exactly, at instrumentation time, into
+// ChampSim's branch_type enum. This is the whole point of the reserved[0]
+// field: PIN can answer this question precisely, so the consumer never has
+// to guess it back from which registers survived the record's 2/4 slots.
+//
+// Order matters. PIN's INS_IsBranch() EXCLUDES calls and returns, so those
+// must be tested first or they fall through to NOT_BRANCH.
+static uint8_t classify_branch(INS ins)
+{
+  if (INS_IsRet(ins))
+    return BRANCH_RETURN;
+
+  if (INS_IsCall(ins))
+    return INS_IsDirectCall(ins) ? BRANCH_DIRECT_CALL : BRANCH_INDIRECT_CALL;
+
+  if (INS_IsBranch(ins)) {
+    // A conditional branch is exactly one with an architectural
+    // fall-through path; an unconditional jmp has none.
+    if (INS_HasFallThrough(ins))
+      return BRANCH_CONDITIONAL;
+    return INS_IsDirectBranch(ins) ? BRANCH_DIRECT_JUMP : BRANCH_INDIRECT;
+  }
+
+  // Control flow that is neither branch nor call nor ret: syscall, int,
+  // iret, far transfers. BRANCH_OTHER is ChampSim's honest bucket for
+  // "transfers control, none of the above".
+  if (INS_IsIndirectControlFlow(ins))
+    return BRANCH_OTHER;
+
+  return NOT_BRANCH;
+}
+
 /* =========================================================================
  * Phase transition helpers
  * ========================================================================= */
@@ -1116,6 +1204,14 @@ VOID RecordRegRead(THREADID tid, UINT32 reg)
       return;
     }
   }
+
+  // No free slot -- this register is dropped from the record. PIN enumerates
+  // implicit operands (flags) last, so the casualty is usually flags rather
+  // than a real dependency, which is the priority we want.
+  if (static_cast<unsigned char>(reg) == RECORDED_REG_FLAGS)
+    g_dropped_src_flags.fetch_add(1, std::memory_order_relaxed);
+  else
+    g_dropped_src_regs.fetch_add(1, std::memory_order_relaxed);
 }
 
 VOID RecordRegWrite(THREADID tid, UINT32 reg)
@@ -1130,6 +1226,14 @@ VOID RecordRegWrite(THREADID tid, UINT32 reg)
       return;
     }
   }
+
+  // See RecordRegRead. Destinations are the tighter budget (2 slots), so
+  // this is the counter that matters when judging whether recording flags
+  // costs real register dependencies.
+  if (static_cast<unsigned char>(reg) == RECORDED_REG_FLAGS)
+    g_dropped_dst_flags.fetch_add(1, std::memory_order_relaxed);
+  else
+    g_dropped_dst_regs.fetch_add(1, std::memory_order_relaxed);
 }
 
 // Final commit: stamp IP / branch info / instr_type, write the record,
@@ -1152,7 +1256,8 @@ VOID RecordInstrCommit(THREADID  tid,
                        ADDRINT   ip,
                        UINT8     is_branch,
                        UINT8     branch_taken,
-                       UINT8     instr_type)
+                       UINT8     instr_type,
+                       UINT8     branch_type)
 {
   ThreadState *ts = get_state(tid);
   if (!ts || ts->phase != Phase::TRACING)
@@ -1163,7 +1268,11 @@ VOID RecordInstrCommit(THREADID  tid,
   ts->curr_instr.branch_taken = branch_taken;
   ts->curr_instr.privilege    = 0;            // PIN is user-mode
   ts->curr_instr.instr_type   = instr_type;
-  // destination_memory_pa / source_memory_pa / reserved already zero.
+  ts->curr_instr.reserved[0]  = branch_type;
+  ts->curr_instr.reserved[1]  = TRACE_FEATURE_EXPLICIT_BRANCH_TYPE
+                              | TRACE_FEATURE_FLAGS_REGISTER;
+  ts->curr_instr.reserved[2]  = TRACER_IDENTITY;
+  // destination_memory_pa / source_memory_pa / reserved[3..7] already zero.
 
   ts->compress_write(&ts->curr_instr, sizeof(trace_instr_v2_t));
 
@@ -1198,9 +1307,19 @@ static void insert_full_analysis(INS ins, bool capture_values)
 {
   uint8_t itype = classify_instr(ins);
 
+  // The flags register IS recorded, on both the source and the destination
+  // side. It is a genuinely renamed architectural register, and the
+  // cmp -> jcc edge through it is what gates a conditional branch's
+  // execution -- and therefore when a misprediction is discovered and paid
+  // for. Dropping it made branches resolve too early and understated
+  // misprediction cost. Both sides are required: a dependency needs a
+  // producer and a consumer, and an unwritten register is renamed to an
+  // already-valid physical register, so declaring only one half creates no
+  // edge at all. PIN's enumeration order is preserved deliberately (see the
+  // drop counters in RecordRegRead/RecordRegWrite).
   for (UINT32 i = 0; i < INS_MaxNumRRegs(ins); i++) {
     REG reg = INS_RegR(ins, i);
-    if (REG_valid(reg) && !REG_is_flags(reg) && !REG_is_seg(reg)) {
+    if (REG_valid(reg) && !REG_is_seg(reg)) {
       INS_InsertCall(ins,
                      IPOINT_BEFORE,
                      (AFUNPTR)RecordRegRead,
@@ -1213,7 +1332,7 @@ static void insert_full_analysis(INS ins, bool capture_values)
 
   for (UINT32 i = 0; i < INS_MaxNumWRegs(ins); i++) {
     REG reg = INS_RegW(ins, i);
-    if (REG_valid(reg) && !REG_is_flags(reg) && !REG_is_seg(reg)) {
+    if (REG_valid(reg) && !REG_is_seg(reg)) {
       INS_InsertCall(ins,
                      IPOINT_BEFORE,
                      (AFUNPTR)RecordRegWrite,
@@ -1350,9 +1469,20 @@ static void insert_full_analysis(INS ins, bool capture_values)
   IPOINT commit_point = (post_calls_ok && has_store) ? IPOINT_AFTER
                                                      : IPOINT_BEFORE;
 
-  UINT8 is_branch = INS_IsBranch(ins) ? 1 : 0;
+  UINT8 btype = classify_branch(ins);
 
-  if (is_branch) {
+  // is_branch covers every control transfer, not just what PIN calls a
+  // branch. PIN's INS_IsBranch() excludes calls and returns, and the old
+  // code additionally hard-coded branch_taken = 0 for them; ChampSim used
+  // to paper over both by re-deriving the type itself. Once a consumer
+  // trusts reserved[0], a BRANCH_DIRECT_CALL record carrying
+  // branch_taken = 0 is simply a wrong not-taken call -- so calls and
+  // returns are marked taken here, which they unconditionally are.
+  //
+  // This shifts is_branch relative to v1 traces. That is intended, and is
+  // what TRACE_FEATURE_EXPLICIT_BRANCH_TYPE exists to announce.
+  if (INS_IsBranch(ins)) {
+    // The only class with a dynamic direction: take it from PIN.
     INS_InsertCall(ins,
                    commit_point,
                    (AFUNPTR)RecordInstrCommit,
@@ -1363,6 +1493,24 @@ static void insert_full_analysis(INS ins, bool capture_values)
                    IARG_BRANCH_TAKEN,
                    IARG_UINT32,
                    (UINT32)itype,
+                   IARG_UINT32,
+                   (UINT32)btype,
+                   IARG_END);
+  } else if (btype != NOT_BRANCH) {
+    // Calls, returns, and other indirect control flow: always taken.
+    INS_InsertCall(ins,
+                   commit_point,
+                   (AFUNPTR)RecordInstrCommit,
+                   IARG_THREAD_ID,
+                   IARG_INST_PTR,
+                   IARG_UINT32,
+                   (UINT32)1,
+                   IARG_UINT32,
+                   (UINT32)1,
+                   IARG_UINT32,
+                   (UINT32)itype,
+                   IARG_UINT32,
+                   (UINT32)btype,
                    IARG_END);
   } else {
     INS_InsertCall(ins,
@@ -1376,6 +1524,8 @@ static void insert_full_analysis(INS ins, bool capture_values)
                    (UINT32)0,
                    IARG_UINT32,
                    (UINT32)itype,
+                   IARG_UINT32,
+                   (UINT32)btype,
                    IARG_END);
   }
 }
@@ -1614,6 +1764,16 @@ VOID Fini(INT32 /* code */, VOID * /* unused */)
             << g_scattered_instrs_seen.load() << "\n"
             << "  scatter store-value lanes skipped       : "
             << g_scatter_missed_store_values.load() << "\n"
+            // These four are disjoint: a dropped register is counted once,
+            // either as flags or as a real register, never both.
+            << "  dropped real regs, src (>4 reads/instr) : "
+            << g_dropped_src_regs.load() << "\n"
+            << "  dropped real regs, dst (>2 writes/instr): "
+            << g_dropped_dst_regs.load() << "\n"
+            << "  dropped flags reg, src                  : "
+            << g_dropped_src_flags.load() << "\n"
+            << "  dropped flags reg, dst                  : "
+            << g_dropped_dst_flags.load() << "\n"
             << "  threads started tracing                 : "
             << g_threads_started_tracing.load() << "\n"
             << "  threads reached DONE                    : "

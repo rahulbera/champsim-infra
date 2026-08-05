@@ -33,15 +33,29 @@ Build artifacts land in `obj-intel64/` (gitignored).
 
 ## Build
 
-Edit the two paths at the top of `make_tracer.sh` if your kit/zstd live
-elsewhere, then:
+`PIN_ROOT` and `ZSTD_HOME` are environment-overridable; the defaults in
+`make_tracer.sh` are the lab host's paths and will not exist elsewhere.
+`ZSTD_HOME` must contain `include/zstd.h` and `lib/libzstd.a` — symlinks to a
+system zstd work fine.
 
 ```bash
 cd pintool
-bash make_tracer.sh
+PIN_ROOT=/path/to/pin-4.0-kit ZSTD_HOME=/path/to/zstd bash make_tracer.sh
 # -> obj-intel64/champsim_tracer_mt_roi_v2.so
 # -> obj-intel64/champsim_tracer_mt_roi_v3.so
 ```
+
+Two things bite here:
+
+- **A conda environment breaks the build.** PIN derives its own compiler
+  wrapper from `$CXX` (`makefile.unix.config`: `PIN_WRAPPER_GCC := $(patsubst
+  %g++,%gcc,$(CXX))`), so a conda `CXX` propagates straight into `pin-gcc` and
+  fails with `unrecognized command-line option '-m64'`. Strip the toolchain
+  vars: `env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS bash
+  make_tracer.sh`.
+- **`makefile.rules` must name the zstd include path explicitly.** PIN builds
+  tools against its own musl CRT, so `/usr/include` is not searched and
+  `zstd.h` is invisible even when installed system-wide.
 
 ## Step 1 — instrument the workload
 
@@ -122,17 +136,83 @@ instructions seen, etc.) is printed at exit (`Fini`).
 
 - **v2** — single-threaded (or `main_only`) workloads, e.g. a FAISS driver where
   the marker-firing thread *is* the worker.
-- **v3** — multi-threaded workloads (e.g. a RocksDB driver). It's a strict
-  superset of v2: with every new knob at its default `0`, behavior and output are
-  identical to v2. The extra knobs exist to keep an orchestrator thread and
-  background pool threads from distorting sampling.
+- **v3** — multi-threaded workloads (e.g. a RocksDB driver). It's effectively a
+  superset of v2: with every new knob at its default `0`, single-threaded
+  behavior and output are identical to v2. The extra knobs exist to keep an
+  orchestrator thread and background pool threads from distorting sampling.
+
+The two tracers are the same code at a fixed line offset, and every record-format
+change applies to both — they emit the same `.champsim2.zst` filename, so a fix
+landing in only one would split that population into two silently incompatible
+classes. (Strictly, the "bit-identical" claim has one exception predating this:
+v3 flushes the JIT cache on the first thread's 0→1 tracing transition, which is
+reachable only with ≥2 threads in marker mode.)
 
 ## Trace format note
 
 The record layout is byte-for-byte `input_instr_v2` from
-`champsim/inc/instruction.h` (redefined locally so the pintool build doesn't pull
-in simulator headers; a `static_assert` guards the 512-byte size). Physical
-addresses and the privilege bit are **zero** under PIN — PIN only sees virtual
-addresses. Loads capture their value at `IPOINT_BEFORE`, stores at `IPOINT_AFTER`
-(no-fall-through stores leave the value zeroed and bump a counter reported in
-`Fini`).
+`champsim/inc/trace_instruction.h` (redefined locally so the pintool build
+doesn't pull in simulator headers; a `static_assert` guards the 512-byte size).
+Physical addresses and the privilege bit are **zero** under PIN — PIN only sees
+virtual addresses. Loads capture their value at `IPOINT_BEFORE`, stores at
+`IPOINT_AFTER` (no-fall-through stores leave the value zeroed and bump a counter
+reported in `Fini`).
+
+### `reserved[]` — the branch-type contract
+
+Three of the eight `reserved` bytes carry meaning. The layout is unchanged (still
+512 bytes), so old traces stay readable — they simply have these bytes zero.
+
+| byte | meaning |
+|------|---------|
+| `reserved[0]` | `branch_type`, ChampSim's `branch_type` enum **verbatim**: 0 `DIRECT_JUMP`, 1 `INDIRECT`, 2 `CONDITIONAL`, 3 `DIRECT_CALL`, 4 `INDIRECT_CALL`, 5 `RETURN`, 6 `OTHER`, 7 `NOT_BRANCH`. Do not renumber. |
+| `reserved[1]` | feature bitmask: `0x01` explicit branch type present, `0x02` flags register recorded. |
+| `reserved[2]` | which tracer wrote the record (`2` or `3`) — both emit the same filename, so this is the only provenance a trace carries. |
+| `reserved[3..7]` | zero, held for future use. |
+
+A consumer must key off `reserved[1] & 0x01`, **not** off `reserved[0]` being
+non-zero: `0` is a perfectly valid branch type (`DIRECT_JUMP`), so a pre-fix
+trace of all-zero reserved bytes is indistinguishable from a trace of nothing but
+direct jumps. There is deliberately no trace-format version bump — the layout did
+not change, and a version asserted on the command line can be wrong in a way the
+data cannot.
+
+### Why branch type is recorded rather than inferred
+
+ChampSim used to derive branch type from which registers appear in a record
+(`inc/instruction.h`). That makes a *semantic* property depend on an *encoding*
+accident — which registers happened to fit in the 2- and 4-slot arrays — and it
+failed silently: because the tracers dropped the flags register, every
+conditional branch matched the `BRANCH_DIRECT_JUMP` arm and had its direction
+overwritten to "taken". ChampSim saw **zero** conditional branches, and all four
+stock predictors reported identical MPKI because none was ever consulted. PIN
+knows the answer exactly, so it is now written down.
+
+### The flags register
+
+Both tracers record the flags register, as a **source and a destination**. This
+is not only for classification (`reserved[0]` handles that now) but for
+dependency modelling: ChampSim gates execution on all source registers being
+ready and starts the misprediction penalty when the branch completes, so a `jcc`
+with no flags source is not gated by the `cmp` that computes its condition — it
+resolves too early and misprediction cost comes out too low. Both sides are
+required; a register that is read but never written is renamed to an
+already-valid physical register and stalls nothing.
+
+`Fini` reports how many register numbers were dropped for lack of a free slot,
+split into real registers and flags, so the truncation cost is a measured number
+per run rather than an assumption. On a 200k-instruction `/bin/ls` trace it is
+270 drops — 0.135% of records.
+
+### `is_branch` covers calls and returns
+
+`is_branch` is set for **every** control transfer, including calls and returns,
+which PIN's `INS_IsBranch()` excludes; they are also marked taken, which they
+unconditionally are. Previously both fields were zero for calls and returns and
+ChampSim papered over it by re-deriving the type itself — but once a consumer
+trusts `reserved[0]`, a `BRANCH_DIRECT_CALL` carrying `branch_taken = 0` is
+simply a wrong not-taken call.
+
+**This shifts `is_branch` relative to v1 traces**, by roughly the call + return
+count. Any tooling that counts branches from `is_branch` will report more than it
+used to; count `reserved[0] != NOT_BRANCH` instead.

@@ -8,15 +8,17 @@
 // and (for v2 traces only) int/fp/simd split, user/kernel split, access
 // size histograms, and PA-side load footprint.
 //
-// The decompression backend is champsim/src/trace_reader.cc, linked in
-// directly. That guarantees byte-for-byte parity with how the simulator
-// itself walks the same files.
+// Compressed traces are read by piping through the system zstd / xz / gzip
+// / bzip2 binaries, chosen by file extension. The tool therefore needs no
+// ChampSim checkout and no compression libraries at build time, and the
+// reference decompressors are themselves the parity reference.
 //
 // Format is selected with --format {v1,v2,cloudsuite}, default v1.
-// Record layouts mirror champsim/inc/instruction.h and are
+// Record layouts mirror champsim/inc/trace_instruction.h and are
 // static_asserted to the canonical 64 / 512 / 96 byte sizes.
-
-#include "trace_reader.h"
+//
+// With --check, the v2 branch-type invariants are enforced and the tool
+// exits non-zero on failure, so it works as a CI gate on a fresh trace.
 
 #include <array>
 #include <chrono>
@@ -28,6 +30,7 @@
 #include <stdexcept>
 #include <string>
 #include <unordered_set>
+#include <vector>
 
 #include <getopt.h>
 
@@ -45,6 +48,33 @@ constexpr uint64_t BLOCK_BYTES                  = 1ull << BLOCK_SHIFT;
 constexpr uint8_t  INSTR_TYPE_INT  = 0;
 constexpr uint8_t  INSTR_TYPE_FP   = 1;
 constexpr uint8_t  INSTR_TYPE_SIMD = 2;
+
+// v2 reserved[] contract, written by the pintools. reserved[0] is
+// ChampSim's branch_type enum; reserved[1] is a feature bitmask;
+// reserved[2] names the tracer that produced the record.
+constexpr int NUM_BRANCH_TYPES = 8;
+const char* const BRANCH_TYPE_NAMES[NUM_BRANCH_TYPES] = {
+  "DIRECT_JUMP", "INDIRECT", "CONDITIONAL", "DIRECT_CALL",
+  "INDIRECT_CALL", "RETURN", "OTHER", "NOT_BRANCH"
+};
+constexpr uint8_t BT_DIRECT_JUMP   = 0;
+constexpr uint8_t BT_CONDITIONAL   = 2;
+constexpr uint8_t BT_DIRECT_CALL   = 3;
+constexpr uint8_t BT_INDIRECT_CALL = 4;
+constexpr uint8_t BT_RETURN        = 5;
+constexpr uint8_t BT_NOT_BRANCH    = 7;
+
+constexpr uint8_t TRACE_FEATURE_EXPLICIT_BRANCH_TYPE = 0x01;
+constexpr uint8_t TRACE_FEATURE_FLAGS_REGISTER       = 0x02;
+
+// Must match champsim::REG_FLAGS.
+constexpr uint8_t REG_FLAGS = 25;
+
+// A control transfer that is not a conditional branch is always taken.
+inline bool is_unconditional_transfer(uint8_t bt) {
+  return bt == BT_DIRECT_JUMP || bt == 1 /* INDIRECT */
+      || bt == BT_DIRECT_CALL || bt == BT_INDIRECT_CALL || bt == BT_RETURN;
+}
 
 // --- Record layouts (mirror champsim/inc/instruction.h) ---------------
 
@@ -93,6 +123,76 @@ struct cloudsuite_instr {
 };
 static_assert(sizeof(cloudsuite_instr) == 96, "cloudsuite_instr must be 96 bytes");
 
+// --- Trace reader -----------------------------------------------------
+//
+// Decompression is delegated to the reference command-line tools, selected
+// by file extension. This keeps the tool free of both a ChampSim checkout
+// and any compression -dev packages, and it cannot disagree with the
+// canonical decompressor because it *is* the canonical decompressor.
+
+class TraceReader {
+ public:
+  explicit TraceReader(const std::string& path) {
+    const char* decomp = nullptr;
+    if      (ends_with(path, ".gz"))  decomp = "gzip -dc";
+    else if (ends_with(path, ".xz"))  decomp = "xz -dc";
+    else if (ends_with(path, ".zst")) decomp = "zstd -dcq";
+    else if (ends_with(path, ".bz2")) decomp = "bzip2 -dc";
+
+    if (decomp == nullptr) {
+      fp_ = std::fopen(path.c_str(), "rb");
+      if (fp_ == nullptr) throw std::runtime_error("cannot open " + path);
+      return;
+    }
+
+    std::string cmd = std::string(decomp) + " " + shell_quote(path);
+    fp_ = ::popen(cmd.c_str(), "r");
+    if (fp_ == nullptr) throw std::runtime_error("cannot run: " + cmd);
+    piped_ = true;
+  }
+
+  ~TraceReader() {
+    if (fp_ == nullptr) return;
+    if (piped_) ::pclose(fp_);
+    else        std::fclose(fp_);
+  }
+
+  TraceReader(const TraceReader&)            = delete;
+  TraceReader& operator=(const TraceReader&) = delete;
+
+  // Read exactly one record. A short read at EOF ends the walk; a short
+  // read of a PARTIAL record means the trace is truncated, which is worth
+  // saying out loud rather than silently rounding down.
+  bool read(void* dst, size_t n) {
+    size_t got = std::fread(dst, 1, n, fp_);
+    if (got == n) return true;
+    if (got != 0) partial_bytes_ = got;
+    return false;
+  }
+
+  [[nodiscard]] size_t partial_bytes() const { return partial_bytes_; }
+
+ private:
+  static bool ends_with(const std::string& s, const char* suffix) {
+    size_t n = std::strlen(suffix);
+    return s.size() >= n && s.compare(s.size() - n, n, suffix) == 0;
+  }
+
+  static std::string shell_quote(const std::string& s) {
+    std::string q = "'";
+    for (char c : s) {
+      if (c == '\'') q += "'\\''";
+      else           q += c;
+    }
+    q += "'";
+    return q;
+  }
+
+  std::FILE* fp_            = nullptr;
+  bool       piped_         = false;
+  size_t     partial_bytes_ = 0;
+};
+
 // --- CLI --------------------------------------------------------------
 
 enum class Format { V1, V2, Cloudsuite };
@@ -111,6 +211,7 @@ struct Args {
   Format      format    = Format::V1;
   uint64_t    heartbeat = 10'000'000;
   bool        no_unique = false;
+  bool        check     = false;
 };
 
 void usage(const char* prog) {
@@ -123,17 +224,20 @@ void usage(const char* prog) {
     "                     cloudsuite (96B). Default: v1.\n"
     "      --heartbeat N  Progress report every N records (default 10M; 0=off).\n"
     "      --no-unique    Skip the unique-load-page set (saves RAM on huge traces).\n"
+    "      --check        Enforce the v2 branch-type invariants and exit\n"
+    "                     non-zero if any fails (CI gate). Requires -f v2.\n"
     "  -h, --help         Show this help.\n",
     prog);
 }
 
 bool parse_args(int argc, char** argv, Args& a) {
-  enum { OPT_HEARTBEAT = 1000, OPT_NO_UNIQUE };
+  enum { OPT_HEARTBEAT = 1000, OPT_NO_UNIQUE, OPT_CHECK };
   static const option longopts[] = {
     {"input",     required_argument, nullptr, 'i'},
     {"format",    required_argument, nullptr, 'f'},
     {"heartbeat", required_argument, nullptr, OPT_HEARTBEAT},
     {"no-unique", no_argument,       nullptr, OPT_NO_UNIQUE},
+    {"check",     no_argument,       nullptr, OPT_CHECK},
     {"help",      no_argument,       nullptr, 'h'},
     {nullptr, 0, nullptr, 0}
   };
@@ -151,6 +255,7 @@ bool parse_args(int argc, char** argv, Args& a) {
       }
       case OPT_HEARTBEAT: a.heartbeat = std::strtoull(optarg, nullptr, 10); break;
       case OPT_NO_UNIQUE: a.no_unique = true; break;
+      case OPT_CHECK:     a.check     = true; break;
       case 'h': usage(argv[0]); std::exit(0);
       default:  usage(argv[0]); return false;
     }
@@ -200,6 +305,16 @@ struct Stats {
   std::array<uint64_t, 256>       load_size_hist  = {};
   std::array<uint64_t, 256>       store_size_hist = {};
   std::unordered_set<uint64_t>    load_pa_pages;
+
+  // v2 branch-type accounting (reserved[0..2]).
+  std::array<uint64_t, NUM_BRANCH_TYPES> btype_hist  = {};
+  std::array<uint64_t, NUM_BRANCH_TYPES> btype_taken = {};
+  uint64_t                  explicit_bt_records = 0;  // reserved[1] bit0 set
+  uint64_t                  flags_feature_records = 0;
+  uint64_t                  call_ret_not_flagged = 0;  // call/ret with is_branch==0
+  std::array<bool, 256>     tracer_ids_seen = {};
+  uint64_t                  flags_in_src = 0;
+  uint64_t                  flags_in_dst = 0;
 };
 
 template <int NDST, int NSRC>
@@ -299,6 +414,31 @@ void run_v2(TraceReader& tr, const Args& a, Stats& s) {
     }
     if (r.privilege) s.kernel_inst++;
     else             s.user_inst++;
+
+    // reserved[0..2]: explicit branch type, feature bitmask, tracer id.
+    // Old traces have these all zero, which reads as branch_type =
+    // DIRECT_JUMP with the feature bit clear -- that is exactly why the
+    // feature bit exists, and why the checks below key off it.
+    uint8_t bt = r.reserved[0];
+    if (bt < NUM_BRANCH_TYPES) {
+      s.btype_hist[bt]++;
+      if (r.branch_taken) s.btype_taken[bt]++;
+    }
+    if (r.reserved[1] & TRACE_FEATURE_EXPLICIT_BRANCH_TYPE) s.explicit_bt_records++;
+    if (r.reserved[1] & TRACE_FEATURE_FLAGS_REGISTER)       s.flags_feature_records++;
+    s.tracer_ids_seen[r.reserved[2]] = true;
+
+    if ((bt == BT_DIRECT_CALL || bt == BT_INDIRECT_CALL || bt == BT_RETURN)
+        && !r.is_branch) {
+      s.call_ret_not_flagged++;
+    }
+
+    for (int i = 0; i < NUM_INSTR_SOURCES; ++i) {
+      if (r.source_registers[i] == REG_FLAGS) { s.flags_in_src++; break; }
+    }
+    for (int i = 0; i < NUM_INSTR_DESTINATIONS; ++i) {
+      if (r.destination_registers[i] == REG_FLAGS) { s.flags_in_dst++; break; }
+    }
     for (int i = 0; i < NUM_INSTR_SOURCES; ++i) {
       if (r.source_memory[i]) {
         s.load_size_hist[r.source_memory_size[i]]++;
@@ -441,7 +581,123 @@ void print_stats(const Args& a, const Stats& s, double sec, size_t record_size) 
                     i, s.store_size_hist[i]);
       }
     }
+
+    std::printf("\n-- v2: branch type (reserved[0]) --\n");
+    if (s.explicit_bt_records == 0) {
+      std::printf("  (no record carries the explicit-branch-type feature bit;\n"
+                  "   this trace predates the tracer fix, so the column below is\n"
+                  "   just zeroed reserved bytes read as DIRECT_JUMP)\n");
+    }
+    uint64_t branches = s.records - s.btype_hist[BT_NOT_BRANCH];
+    for (int i = 0; i < NUM_BRANCH_TYPES; ++i) {
+      if (s.btype_hist[i] == 0) continue;
+      double share = branches ? 100.0 * static_cast<double>(s.btype_hist[i])
+                                     / static_cast<double>(branches) : 0.0;
+      double taken = s.btype_hist[i]
+                       ? 100.0 * static_cast<double>(s.btype_taken[i])
+                               / static_cast<double>(s.btype_hist[i]) : 0.0;
+      std::printf("  %-14s %14" PRIu64 "  (%6.2f%% of branches, %6.2f%% taken)\n",
+                  BRANCH_TYPE_NAMES[i], s.btype_hist[i],
+                  i == BT_NOT_BRANCH ? 0.0 : share, taken);
+    }
+    print_count("control transfers", branches);
+
+    std::printf("\n-- v2: record features (reserved[1..2]) --\n");
+    print_pct("explicit branch type", s.explicit_bt_records, s.records);
+    print_pct("flags register recorded", s.flags_feature_records, s.records);
+    print_pct("records w/ FLAGS in src", s.flags_in_src, s.records);
+    print_pct("records w/ FLAGS in dst", s.flags_in_dst, s.records);
+    std::printf("  %-28s ", "tracer identity");
+    bool any_id = false;
+    for (int i = 0; i < 256; ++i) {
+      if (!s.tracer_ids_seen[i]) continue;
+      std::printf("%s%d", any_id ? ", " : "", i);
+      any_id = true;
+    }
+    std::printf("%s\n", any_id ? "" : "(none)");
   }
+}
+
+// --- Acceptance checks ------------------------------------------------
+//
+// Invariants a trace carrying explicit branch types must satisfy. Returns
+// the number of FAILED checks, so main() can exit non-zero as a CI gate.
+
+int run_checks(const Stats& s) {
+  int failures = 0;
+  auto report = [&](bool ok, const char* name, const std::string& detail) {
+    std::printf("  [%s] %-38s %s\n", ok ? "PASS" : "FAIL", name, detail.c_str());
+    if (!ok) failures++;
+  };
+  auto pct = [](uint64_t n, uint64_t d) {
+    return d ? 100.0 * static_cast<double>(n) / static_cast<double>(d) : 0.0;
+  };
+  char buf[256];
+
+  std::printf("\n==== acceptance checks ====\n");
+
+  if (!s.v2) {
+    std::printf("  --check applies to v2 traces only (use -f v2)\n");
+    return 1;
+  }
+
+  // 1. Every record must declare the feature, or nothing below is meaningful.
+  std::snprintf(buf, sizeof(buf), "%" PRIu64 " of %" PRIu64 " records",
+                s.explicit_bt_records, s.records);
+  report(s.records > 0 && s.explicit_bt_records == s.records,
+         "explicit branch type on every record", buf);
+
+  // 2. The field must actually vary; a constant column means it is not
+  //    being written (all-zero reserved reads as a valid DIRECT_JUMP).
+  int distinct = 0;
+  for (int i = 0; i < NUM_BRANCH_TYPES; ++i) {
+    if (s.btype_hist[i]) distinct++;
+  }
+  std::snprintf(buf, sizeof(buf), "%d distinct values present", distinct);
+  report(distinct >= 2, "branch type spans multiple values", buf);
+
+  // 3. THE check that would have caught the original bug: conditional
+  //    branches must exist and must not be uniformly taken or not-taken.
+  double cond_taken = pct(s.btype_taken[BT_CONDITIONAL], s.btype_hist[BT_CONDITIONAL]);
+  std::snprintf(buf, sizeof(buf), "%" PRIu64 " conditionals, %.2f%% taken",
+                s.btype_hist[BT_CONDITIONAL], cond_taken);
+  report(s.btype_hist[BT_CONDITIONAL] > 0 && cond_taken > 0.0 && cond_taken < 100.0,
+         "conditional taken rate strictly in (0,100)", buf);
+
+  // 4. Unconditional transfers are taken by definition.
+  uint64_t uncond = 0, uncond_taken = 0;
+  for (int i = 0; i < NUM_BRANCH_TYPES; ++i) {
+    if (!is_unconditional_transfer(static_cast<uint8_t>(i))) continue;
+    uncond       += s.btype_hist[i];
+    uncond_taken += s.btype_taken[i];
+  }
+  std::snprintf(buf, sizeof(buf), "%" PRIu64 " of %" PRIu64 " taken (%.2f%%)",
+                uncond_taken, uncond, pct(uncond_taken, uncond));
+  report(uncond > 0 && uncond_taken == uncond,
+         "unconditional transfers are 100% taken", buf);
+
+  // 5. Calls and returns must be flagged as control transfers.
+  std::snprintf(buf, sizeof(buf), "%" PRIu64 " call/ret records with is_branch=0",
+                s.call_ret_not_flagged);
+  report(s.call_ret_not_flagged == 0, "calls and returns have is_branch=1", buf);
+
+  // 6. Flags must reach the record, or ChampSim cannot build the
+  //    cmp -> jcc dependency edge even with branch types correct.
+  std::snprintf(buf, sizeof(buf), "src %.2f%%, dst %.2f%% of records",
+                pct(s.flags_in_src, s.records), pct(s.flags_in_dst, s.records));
+  report(s.flags_in_src > 0 && s.flags_in_dst > 0,
+         "flags register present on both sides", buf);
+
+  // Informational: workload-dependent, so not a gate.
+  uint64_t branches = s.records - s.btype_hist[BT_NOT_BRANCH];
+  std::printf("  [INFO] %-38s %.2f%% (typical integer workload: 60-85%%)\n",
+              "conditional share of branches",
+              pct(s.btype_hist[BT_CONDITIONAL], branches));
+
+  std::printf("\n%s (%d failed)\n",
+              failures ? "ACCEPTANCE CHECKS FAILED" : "all acceptance checks passed",
+              failures);
+  return failures;
 }
 
 }  // namespace
@@ -454,8 +710,9 @@ int main(int argc, char** argv) {
                a.input.c_str(), fmt_name(a.format));
 
   Stats  s;
-  size_t record_size = 0;
-  auto   t0          = std::chrono::steady_clock::now();
+  size_t record_size   = 0;
+  size_t partial_bytes = 0;
+  auto   t0            = std::chrono::steady_clock::now();
   try {
     TraceReader tr(a.input);
     if (a.format == Format::V1) {
@@ -468,6 +725,7 @@ int main(int argc, char** argv) {
       record_size = sizeof(cloudsuite_instr);
       run_cs(tr, a, s);
     }
+    partial_bytes = tr.partial_bytes();
   } catch (const std::exception& e) {
     std::fprintf(stderr, "error: %s (after %lu records)\n",
                  e.what(), (unsigned long)s.records);
@@ -476,5 +734,18 @@ int main(int argc, char** argv) {
   double sec = secs_since(t0);
 
   print_stats(a, s, sec, record_size);
+
+  if (partial_bytes != 0) {
+    std::fprintf(stderr,
+                 "warning: trailing %zu bytes are not a whole %zu-byte record "
+                 "-- trace is truncated or the format is wrong\n",
+                 partial_bytes, record_size);
+  }
+  if (s.records == 0) {
+    std::fprintf(stderr, "error: no records read\n");
+    return 1;
+  }
+
+  if (a.check) return run_checks(s) == 0 ? 0 : 2;
   return 0;
 }
