@@ -527,6 +527,27 @@ int main(int argc, char **argv)
   ConvertStats stats = {0};
   int          exit_status = 0; /* set to 1 on any truncated/corrupt record */
 
+  /* Direction is only a QUESTION for conditional branches. Every other
+   * control transfer is taken by definition -- an unconditional jump, a call
+   * and a return all transfer control unconditionally.
+   *
+   * That distinction matters because the lookahead below infers direction
+   * geometrically (taken == the next IP is not the fall-through), and the
+   * geometry is not always faithful. `jmp .+0` (e9 00 00 00 00) targets its
+   * own fall-through address, so the lookahead calls it not-taken; the Linux
+   * kernel leaves these behind after alternatives/return-thunk patching, and
+   * one showed up in an 8M-instruction capture. A not-taken direct jump --
+   * or worse, a not-taken call or return -- is not a thing, and downstream it
+   * is indistinguishable from a real not-taken branch.
+   *
+   * So the type decides, and the lookahead only settles the cases where the
+   * answer is genuinely unknown. This also makes the ordinary path agree with
+   * the end-of-file path, which has no successor to look ahead to. */
+  #define BRANCH_DIRECTION_IS_KNOWN_TAKEN(bt)                                 \
+    ((bt) == CS_BRANCH_DIRECT_JUMP || (bt) == CS_BRANCH_INDIRECT ||           \
+     (bt) == CS_BRANCH_DIRECT_CALL || (bt) == CS_BRANCH_INDIRECT_CALL ||      \
+     (bt) == CS_BRANCH_RETURN)
+
   /* We need to look ahead one instruction to determine branch_taken.
    * Strategy: decode current instruction, but defer writing until we
    * know the next IP. */
@@ -646,10 +667,13 @@ int main(int argc, char **argv)
 
     /* Determine branch_taken for PREVIOUS instruction */
     if (has_prev) {
-      /* A branch is "taken" if the next IP is not prev_ip + prev_instr_size */
       if (prev_record.is_branch) {
+        uint8_t pbt = prev_record.reserved[TRACE_RESERVED_BRANCH_TYPE];
         prev_record.branch_taken =
-          (ip != prev_ip + prev_instr_size) ? 1 : 0;
+          BRANCH_DIRECTION_IS_KNOWN_TAKEN(pbt)
+            ? 1
+            /* conditional (or OTHER): the next IP is the only evidence */
+            : ((ip != prev_ip + prev_instr_size) ? 1 : 0);
       }
       /* Write previous record */
       if (!writer_write(writer, &prev_record, sizeof(prev_record))) {
@@ -798,26 +822,20 @@ int main(int argc, char **argv)
    * is not a thing. With rotate=N the boundary recurs once per chunk, so this
    * is not a one-off.
    *
-   * An unconditional transfer is taken by definition, so say so. A trailing
-   * CONDITIONAL branch is genuinely unknowable -- drop it rather than guess a
-   * direction, since a fabricated direction is indistinguishable from a real
-   * one downstream. One instruction per file is a rounding error; a silently
-   * wrong one is not. */
+   * An unconditional transfer is taken by definition, so say so -- the same
+   * rule the ordinary path applies via BRANCH_DIRECTION_IS_KNOWN_TAKEN(). A
+   * trailing CONDITIONAL branch is genuinely unknowable: drop it rather than
+   * guess a direction, since a fabricated direction is indistinguishable from
+   * a real one downstream. One instruction per file is a rounding error; a
+   * silently wrong one is not. */
   if (has_prev) {
     bool drop_final = false;
     if (prev_record.is_branch) {
       uint8_t bt = prev_record.reserved[TRACE_RESERVED_BRANCH_TYPE];
-      switch (bt) {
-      case CS_BRANCH_DIRECT_JUMP:
-      case CS_BRANCH_INDIRECT:
-      case CS_BRANCH_DIRECT_CALL:
-      case CS_BRANCH_INDIRECT_CALL:
-      case CS_BRANCH_RETURN:
+      if (BRANCH_DIRECTION_IS_KNOWN_TAKEN(bt)) {
         prev_record.branch_taken = 1;
-        break;
-      default: /* CONDITIONAL, OTHER: direction not derivable */
+      } else { /* CONDITIONAL, OTHER: direction not derivable */
         drop_final = true;
-        break;
       }
     }
     if (drop_final) {
