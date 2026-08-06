@@ -98,6 +98,8 @@ arch=auto,capture_pa=on,values=on \
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <errno.h>
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -308,6 +310,30 @@ static uint64_t memops_dropped = 0;       /* ops beyond MAX_MEM_OPS */
 
 static void check_trigger(void)
 {
+/* Build with -DTRIGGER_DEBUG to trace every poll (timestamp, call number,
+ * errno). Compiled out entirely by default.
+ *
+ * Worth keeping because a trigger that "does not fire" is ambiguous from the
+ * outside: the plugin polls only while instructions are retiring, so if the
+ * guest finishes its workload before you touch the file, the checks simply
+ * STOP and the run ends with "Trigger was never activated" -- identical
+ * symptom to a path or permission problem. The timestamps disambiguate:
+ * compare the last check's time against when you touched the file. Sizing the
+ * guest workload so it is still running is the fix. */
+#ifdef TRIGGER_DEBUG
+    {
+        static int nchk = 0;
+        int rc = access(trigger_file, F_OK);
+        int e = errno;
+        time_t now = time(NULL);
+        struct tm tmv;
+        char ts[32];
+        localtime_r(&now, &tmv);
+        strftime(ts, sizeof(ts), "%H:%M:%S", &tmv);
+        fprintf(stderr, "[trigger-dbg] %s check #%d access('%s') = %d errno=%d (%s)\n",
+                ts, ++nchk, trigger_file, rc, e, strerror(e));
+    }
+#endif
     if (access(trigger_file, F_OK) == 0)
     {
         tracing_enabled = true;
