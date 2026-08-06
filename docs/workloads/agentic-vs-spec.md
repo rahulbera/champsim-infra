@@ -43,6 +43,19 @@ comparison below is at identical geometry.
   nothing exits 0 having run zero tests; an incremental `make` after a build
   compiles nothing and exits 0. Both are structurally perfect and semantically
   empty.
+- **The replay must start from the disk state the recording started from.**
+  Replay restores the *provisioned* image and injects the cassettes, not the
+  post-record snapshot. This is the one failure no gate can catch: the replay
+  originally ran `git clean -xfd`, and `-x` deletes ignored files — the entire
+  build tree. The agent's first `make` then became a from-scratch build of the
+  project and all its vendored dependencies, where the recording did a one-file
+  incremental rebuild.
+
+  The actions are identical either way, because they come from replayed LLM
+  responses rather than from observations, so the trajectory comparison reports
+  a perfect match. Only the *work* differs — and the work is the entire
+  measurement. **A trajectory can match perfectly and still describe a
+  completely different amount of computation.**
 
 ### Known modelling caveats
 
