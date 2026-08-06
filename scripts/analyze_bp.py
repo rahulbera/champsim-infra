@@ -55,7 +55,7 @@ def run_one(trace, binary, warmup, sim, keep_json=None):
         core = (data[0] if isinstance(data, list) else data)["roi"]["cores"][0]
         if keep_json:
             os.replace(jpath, os.path.join(keep_json, name + ".json"))
-        jpath = None
+            jpath = None   # moved; nothing left to clean up
     except Exception as e:                                  # noqa: BLE001
         return {"trace": name, "error": f"{type(e).__name__}: {e}"}
     finally:

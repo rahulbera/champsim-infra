@@ -1,0 +1,246 @@
+#!/usr/bin/env bash
+#
+# capture_agentic.sh <instance_id> <phase> — HOST-side driver for one capture.
+#
+# Phases, in order:
+#   record   boot KVM (network up), run the agent once against the real LLM,
+#            snapshot the image. Needs LLM_API_KEY. Spends credits.
+#   verify   boot KVM, replay offline from cassettes; asserts 0 replay misses.
+#   profile  boot TCG with profile=on, replay, and read the instruction total.
+#   trace    boot TCG with sampling derived from the profile, replay, capture.
+#   convert  raw -> ChampSim v2 + validation.
+#
+# Each phase starts from a known image so a failed phase never contaminates the
+# next: record works on <inst>.qcow2 and snapshots to <inst>.recorded.qcow2;
+# verify/profile/trace each RESTORE from that snapshot first. Without the
+# restore, the profile pass would measure a tree the trace pass does not have.
+#
+set -euo pipefail
+
+INSTANCE=${1:?usage: capture_agentic.sh <instance_id> <phase>}
+PHASE=${2:?usage: capture_agentic.sh <instance_id> <phase>}
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd)
+IMAGES=$ROOT/images
+WORK=$IMAGES/guest-$INSTANCE.qcow2
+RECORDED=$IMAGES/guest-$INSTANCE.recorded.qcow2
+META=$IMAGES/capture-$INSTANCE.meta
+TRIGGER=/tmp/swe_roi_trigger
+SSH_KEY=$IMAGES/id_ed25519
+KVM_PORT=2222
+TCG_PORT=2223
+
+# Capture geometry. 300M matches the SPEC SimPoint slice length used in
+# champsim-infra, so agentic-vs-SPEC comparisons are at identical geometry.
+WINDOWS=${WINDOWS:-4}
+WINDOW_LEN=${WINDOW_LEN:-300000000}
+
+say() { printf '\n=== %s ===\n' "$*"; }
+die() { printf '  [FAIL] %s\n' "$*" >&2; exit 1; }
+
+ssh_guest() {  # ssh_guest <port> <cmd...>
+  local port=$1; shift
+  ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+      -o ConnectTimeout=5 -o ServerAliveInterval=30 -o ServerAliveCountMax=10000 \
+      -i "$SSH_KEY" -p "$port" ubuntu@127.0.0.1 "$@"
+}
+
+wait_ssh() {  # wait_ssh <port> <timeout-s>
+  local port=$1 limit=${2:-600} t=0
+  while [ $t -lt "$limit" ]; do
+    ssh_guest "$port" true 2>/dev/null && { echo "  ssh up after ${t}s"; return 0; }
+    sleep 5; t=$((t+5))
+  done
+  return 1
+}
+
+# QEMU's process name is truncated to 15 chars ("qemu-system-x86"), so -x needs
+# the truncated form. Never match by pattern: `pkill -f qemu` also matches this
+# script's own shell.
+qemu_running() { pgrep -x qemu-system-x86 >/dev/null; }
+stop_qemu() {
+  qemu_running || return 0
+  pkill -x qemu-system-x86 || true
+  local t=0; while qemu_running && [ $t -lt 30 ]; do sleep 1; t=$((t+1)); done
+  qemu_running && pkill -9 -x qemu-system-x86 || true
+  sleep 2
+}
+
+shutdown_guest() {  # graceful, so the plugin's atexit writes its manifest
+  local port=$1
+  ssh_guest "$port" 'sudo systemctl poweroff' 2>/dev/null || true
+  local t=0; while qemu_running && [ $t -lt 180 ]; do sleep 2; t=$((t+2)); done
+  qemu_running && { echo "  guest did not power off in ${t}s, forcing"; stop_qemu; }
+}
+
+restore_from_recorded() {
+  [ -f "$RECORDED" ] || die "no recorded snapshot at $RECORDED -- run the record phase first"
+  stop_qemu
+  cp --reflink=auto "$RECORDED" "$WORK"
+  echo "  restored $WORK from the recorded snapshot"
+}
+
+boot_kvm() {  # boot_kvm <serial-log>
+  stop_qemu
+  ( cd "$IMAGES" && sg kvm -c "IMG=$(basename "$WORK") nohup bash boot_build.sh > $1 2>&1 &" )
+  sleep 5
+  qemu_running || { tail -20 "$1"; die "qemu failed to start"; }
+  wait_ssh "$KVM_PORT" 600 || { tail -20 "$1"; die "guest never came up"; }
+}
+
+boot_tcg() {  # boot_tcg <outdir> <plugin-extra> <serial-log>
+  local outdir=$1 extra=$2 log=$3
+  stop_qemu
+  rm -f "$TRIGGER"
+  ( cd "$IMAGES" && IMG=$(basename "$WORK") nohup bash boot_tcg_trace.sh "$outdir" "$extra" > "$log" 2>&1 & )
+  sleep 5
+  qemu_running || { tail -20 "$log"; die "qemu failed to start under TCG"; }
+  # TCG boots are slow; the guest kernel is emulated instruction by instruction.
+  wait_ssh "$TCG_PORT" 2400 || { tail -30 "$log"; die "guest never came up under TCG"; }
+}
+
+arm_trigger_on_marker() {  # arm_trigger_on_marker <serial-log>
+  # The guest prints TRACE_ROI_BEGIN to /dev/console immediately before the
+  # agent starts. Watch for it and arm the plugin. Backgrounded so the caller
+  # can start the workload; it exits on its own once armed.
+  local log=$1
+  rm -f "$log.trigger"
+  ( t=0
+    while [ $t -lt 14400 ]; do
+      if grep -q TRACE_ROI_BEGIN "$log" 2>/dev/null; then
+        touch "$TRIGGER"
+        echo "armed at $(date +%T)" >> "$log.trigger"
+        exit 0
+      fi
+      sleep 1; t=$((t+1))
+    done
+    echo "NEVER SAW THE MARKER" >> "$log.trigger" ) &
+}
+
+case "$PHASE" in
+
+record)
+  : "${LLM_API_KEY:?LLM_API_KEY must be set for the record phase}"
+  say "RECORD — $INSTANCE (spends API credits)"
+  [ -f "$WORK" ] || die "no provisioned image at $WORK"
+  boot_kvm "$IMAGES/record-$INSTANCE.boot.log"
+  ssh_guest $KVM_PORT "sudo LLM_API_KEY='$LLM_API_KEY' \
+      bash /opt/swe-agent-tools/record_trajectory.sh $INSTANCE" 2>&1 | tail -50
+  shutdown_guest $KVM_PORT
+  cp --reflink=auto "$WORK" "$RECORDED"
+  echo "  snapshot -> $RECORDED"
+  ;;
+
+verify)
+  say "VERIFY — deterministic replay of $INSTANCE"
+  restore_from_recorded
+  boot_kvm "$IMAGES/verify-$INSTANCE.boot.log"
+  ssh_guest $KVM_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -30
+  shutdown_guest $KVM_PORT
+  ;;
+
+profile)
+  say "PROFILE — sizing the trajectory for $INSTANCE"
+  restore_from_recorded
+  LOG=$IMAGES/profile-$INSTANCE.boot.log
+  boot_tcg "$IMAGES/profile_out" ",profile=on" "$LOG"
+  arm_trigger_on_marker "$LOG"
+  ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
+  shutdown_guest $TCG_PORT
+
+  # The plugin starts DORMANT and only counts once the trigger file appears, so
+  # an unarmed trigger yields a profile of nothing rather than of the agent run.
+  grep -q 'armed' "$LOG.trigger" 2>/dev/null \
+    || die "the trigger never armed -- this profile does not describe the agent run"
+
+  line=$(grep -h 'PROFILE:' "$LOG" | tail -1) || true
+  [ -n "$line" ] || die "no PROFILE line in $LOG -- the plugin never reported a total"
+  total=$(sed -n 's/.*PROFILE: \([0-9]*\) instructions.*/\1/p'   <<<"$line")
+  user=$(sed  -n 's/.*(\([0-9]*\) user.*/\1/p'                   <<<"$line")
+  kern=$(sed  -n 's/.*user, \([0-9]*\) kernel.*/\1/p'            <<<"$line")
+  [ -n "$user" ] && [ "$user" -gt 0 ] || die "parsed a zero/absent user total from: $line"
+
+  need=$((WINDOWS * WINDOW_LEN))
+  [ "$user" -gt "$need" ] || die "trajectory is only $user user insns; $WINDOWS x $WINDOW_LEN needs $need"
+  gap=$(( (user - need) / (WINDOWS - 1) ))
+
+  { echo "instance=$INSTANCE"
+    echo "profile_total=$total"
+    echo "profile_user=$user"
+    echo "profile_kernel=$kern"
+    echo "windows=$WINDOWS"
+    echo "window_len=$WINDOW_LEN"
+    echo "sample_gap=$gap"; } > "$META"
+  echo "  total  $total  (user $user / kernel $kern)"
+  echo "  gap    $gap   -> $WINDOWS x $WINDOW_LEN on the user clock"
+  echo "  wrote  $META"
+  ;;
+
+trace)
+  say "TRACE — $WINDOWS x $WINDOW_LEN windows of $INSTANCE"
+  [ -f "$META" ] || die "no $META -- run the profile phase first"
+  # shellcheck disable=SC1090
+  . "$META"
+  restore_from_recorded
+  OUT=$IMAGES/trace_out-$INSTANCE
+  rm -rf "$OUT"; mkdir -p "$OUT"
+  LOG=$IMAGES/trace-$INSTANCE.boot.log
+  boot_tcg "$OUT" \
+    ",sample_len=$window_len,sample_gap=$sample_gap,sample_count=$windows,sample_clock=user" \
+    "$LOG"
+  arm_trigger_on_marker "$LOG"
+  ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
+  shutdown_guest $TCG_PORT
+
+  grep -q 'armed' "$LOG.trigger" 2>/dev/null || die "the trigger never armed -- no window was captured"
+  n=$(find "$OUT" -name 'trace_vcpu*_c*.raw.zst' | wc -l)
+  echo "  chunks: $n"
+  [ "$n" -eq "$windows" ] || die "expected $windows chunks, got $n"
+  cat "$OUT"/*manifest.txt 2>/dev/null | sed 's/^/  /'
+  ;;
+
+convert)
+  say "CONVERT + VALIDATE — $INSTANCE"
+  OUT=$IMAGES/trace_out-$INSTANCE
+  DST=$IMAGES/champsim_out/$INSTANCE
+  mkdir -p "$DST"
+  # raw2champsim links capstone (for the AArch64 decoder) and the build here
+  # resolves it from a user prefix rather than a system path.
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/home/rbera/local/lib
+  SANITY=${SANITY:-/home/rbera/work/bpeval/champsim-infra/tools/trace_sanity_check/trace_sanity_check}
+
+  shopt -s nullglob
+  raws=("$OUT"/trace_vcpu*_c*.raw.zst)
+  [ ${#raws[@]} -gt 0 ] || die "no raw chunks in $OUT"
+  fail=0
+  for raw in "${raws[@]}"; do
+    idx=$(sed -n 's/.*_c\([0-9]*\)\.raw\.zst/\1/p' <<<"$raw")
+    dst=$DST/${INSTANCE}_w${idx}.champsim2.zst
+    echo "  $(basename "$raw") -> $(basename "$dst")"
+    # CLI is positional: raw2champsim [-v] [-n COUNT] <in.raw.zst> [out.zst]
+    "$ROOT/converter/raw2champsim" "$raw" "$dst" 2>&1 \
+      | grep -iE 'instruction|user|kernel|branch|decode fail|Type ' | sed 's/^/    /'
+
+    # Validation is a gate, not a report. --check enforces the branch-type
+    # invariants and exits 2 on failure; the load-bearing one is the conditional
+    # taken rate being strictly inside (0,100)%, which is what catches a trace
+    # whose branch metadata is structurally present but meaningless.
+    if [ -x "$SANITY" ]; then
+      if "$SANITY" -i "$dst" -f v2 --check > "$dst.check.log" 2>&1; then
+        echo "    [ok] sanity --check passed"
+      else
+        echo "    [FAIL] sanity --check failed:"; tail -12 "$dst.check.log" | sed 's/^/      /'
+        fail=1
+      fi
+    else
+      echo "    [warn] no trace_sanity_check at $SANITY -- NOT validated"
+      fail=1
+    fi
+  done
+  ls -la "$DST"/*.champsim2.zst
+  [ "$fail" -eq 0 ] || die "one or more windows failed validation"
+  echo "  all $((${#raws[@]})) windows converted and validated"
+  ;;
+
+*) die "unknown phase '$PHASE' (record|verify|profile|trace|convert)" ;;
+esac
