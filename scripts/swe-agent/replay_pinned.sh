@@ -65,8 +65,12 @@ export LITELLM_LOCAL_MODEL_COST_MAP=True
 # tracing trigger when it appears. Kept short on purpose: ISA serial is one
 # outb per byte, and under TCG every byte is emulated instructions inside the
 # capture window.
+# Write to /dev/console, NOT stdout. This script runs over ssh, so stdout is
+# the ssh pipe (and is usually redirected to a log besides) -- it never reaches
+# the serial console that the host tails to arm the trigger. Writing to the
+# console device is what makes the marker visible to the host.
 sleep 2
-echo "TRACE_ROI_BEGIN"
+echo "TRACE_ROI_BEGIN" | tee /dev/console
 sleep 2
 
 # --env.repo.reset=False is REQUIRED offline. PreExistingRepoConfig's reset
@@ -95,7 +99,7 @@ taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --output_dir="$TRAJ" \
     2>&1 | tail -25
 
-echo "TRACE_ROI_END"
+echo "TRACE_ROI_END" | tee /dev/console
 
 say "3. replay integrity"
 # A cassette MISS is a hard 500 from the proxy. If any occurred, the agent
