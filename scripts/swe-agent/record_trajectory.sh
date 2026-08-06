@@ -25,24 +25,42 @@ TRAJ=/opt/trajectories
 
 say() { printf '\n=== %s ===\n' "$*"; }
 
+# MUST run as root. SWE-agent hardcodes its tool paths -- /root/tools,
+# /root/state.json and /root/.swe-agent-env are f-strings in
+# sweagent/tools/tools.py, not configuration. That is harmless under Docker,
+# where the agent owns the container, but under the LOCAL deployment it means
+# the agent process needs a writable /root. Running as root does not weaken the
+# isolation: taskset and cgroup cpuset pin root exactly as they pin any user.
+[ "$(id -u)" -eq 0 ] || { echo "must run as root (SWE-agent writes to /root/tools); use: sudo -E $0"; exit 1; }
+
 say "0. preflight"
+# The repo is owned by ubuntu but git now runs as root, tripping git's
+# dubious-ownership check. It surfaces as "detected dubious ownership", or via
+# -buildvcs as "error obtaining VCS status: exit status 128" -- which reads like
+# a network fault and is not.
+git config --global --add safe.directory "/$REPO_NAME"
 cd "/$REPO_NAME"
 [ "$(git rev-parse HEAD)" = "$BASE_COMMIT" ] || { echo "HEAD != base_commit"; exit 1; }
 [ -z "$(git status --porcelain)" ] || { echo "tree dirty before recording"; exit 1; }
 echo "  repo clean at $(git rev-parse --short=12 HEAD)"
 
 mkdir -p "$CASS" "$TRAJ"
+[ -w "$CASS" ] && [ -w "$TRAJ" ] || { echo "cassette/trajectory dirs not writable"; exit 1; }
 
+# Logs go to /root, not /tmp. Ubuntu sets fs.protected_regular=1, which blocks
+# even root from opening an existing file owned by another user inside a sticky
+# world-writable directory -- so a /tmp log left behind by an earlier non-root
+# run makes this fail with a bare "Permission denied" that looks impossible.
 say "1. start proxy in RECORD mode"
 python3 /opt/swe-agent-tools/replay_proxy.py \
     --mode record --cassettes "$CASS" --upstream "$UPSTREAM" --port 8000 \
-    > /tmp/proxy_record.log 2>&1 &
+    > /root/proxy_record.log 2>&1 &
 PROXY_PID=$!
 # Kill by PID, never by pattern: a `pkill -f replay_proxy` also matches the
 # shell running THIS script and takes it down with the proxy.
 trap 'kill $PROXY_PID 2>/dev/null || true' EXIT
 sleep 3
-kill -0 $PROXY_PID 2>/dev/null || { echo "proxy failed to start"; cat /tmp/proxy_record.log; exit 1; }
+kill -0 $PROXY_PID 2>/dev/null || { echo "proxy failed to start"; cat /root/proxy_record.log; exit 1; }
 echo "  proxy pid $PROXY_PID on :8000 -> $UPSTREAM"
 
 say "2. run SWE-agent (this spends API credits)"
