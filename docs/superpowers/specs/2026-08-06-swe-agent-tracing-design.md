@@ -135,11 +135,33 @@ DORMANT --(trigger)--> CAPTURING(N) <--> SKIPPING(M) --(K windows)--> DONE
 record building), so skipped stretches run at ~300 MIPS rather than the ~30 MIPS
 of active tracing.
 
-`sample_clock=user` advances the counters only on user-mode instructions. The
-privilege bit is already computed per instruction from the VA threshold, so this
-costs nothing. **Note it is an address heuristic (`vaddr >= 0xFFFF800000000000`),
-not the architectural CPL** — reliable for the x86-64 canonical split, but it is
-a VA test and should be described as such.
+`sample_clock=user` has a deliberately asymmetric meaning, because the obvious
+symmetric reading would break the SPEC comparability that §1 rests on:
+
+| phase | `sample_clock=user` | `sample_clock=all` |
+|---|---|---|
+| **gap** (`sample_gap`) | advances on **user-mode instructions only** | advances on every instruction |
+| **window start** | begins at the **first user-mode instruction** after the gap completes | begins immediately |
+| **window length** (`sample_len`) | **every instruction counts** | every instruction counts |
+
+So a window is always **exactly `sample_len` records**, which is what keeps it
+comparable to a 300 M SPEC slice. If the user-mode clock also governed window
+length, a window would contain `sample_len` user instructions *plus* however many
+kernel instructions interleaved — no longer a 300 M slice, and not comparable.
+
+What the user-mode clock buys is that idle stretches neither consume the gap nor
+start a window.
+
+The privilege bit is already computed per instruction, so this costs nothing.
+**Note it is an address heuristic (`vaddr >= 0xFFFF800000000000`), not the
+architectural CPL** — reliable for the x86-64 canonical split, but it is a VA
+test and should be described as such.
+
+**Implementation hazard.** `finalize_pending_insn()` is what clears
+`has_pending`, and `mem_cb` gates on that flag. The transition from capturing to
+skipping must call `finalize_pending_insn()` first; otherwise memory operations
+belonging to *skipped* instructions attach themselves to the last *captured*
+instruction, silently corrupting its operand list.
 
 Each window is emitted as its own chunk, reusing the existing `rotate=` naming
 and manifest (`trace_vcpu1_c00000.raw.zst`, plus start-instruction / count /
