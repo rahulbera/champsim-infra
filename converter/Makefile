@@ -39,8 +39,9 @@ OBJS = raw2champsim.o decode_x86.o decode_aarch64.o
 
 TESTS_DIR       = tests
 DECODE_TEST_BIN = $(TESTS_DIR)/decode_aarch64_test
+X86_TEST_BIN    = $(TESTS_DIR)/decode_x86_test
 
-.PHONY: all clean distclean check-zstd check-capstone decode_test
+.PHONY: all clean distclean check-zstd check-capstone decode_test decode_x86_test test
 
 all: check-zstd check-capstone $(TARGET)
 
@@ -69,6 +70,22 @@ decode_test: check-capstone $(DECODE_TEST_BIN)
 $(DECODE_TEST_BIN): $(TESTS_DIR)/decode_aarch64_test.c decode_aarch64.o decode.h
 	$(CC) $(CFLAGS) $(CAPSTONE_CFLAGS) -o $@ $(TESTS_DIR)/decode_aarch64_test.c \
 		decode_aarch64.o $(CAPSTONE_LDFLAGS)
+
+# -- x86-64 golden unit test -------------------
+#
+# Links decode_x86.o + Zydis directly. Encodings are real `as --64` output;
+# the table is the oracle (see the header comment before weakening a row).
+
+decode_x86_test: $(X86_TEST_BIN)
+	./$(X86_TEST_BIN)
+
+$(X86_TEST_BIN): $(TESTS_DIR)/decode_x86_test.c decode_x86.o decode.h $(ZYDIS_LIB) $(ZYCORE_LIB)
+	$(CC) $(CFLAGS) -o $@ $(TESTS_DIR)/decode_x86_test.c \
+		decode_x86.o $(ZYDIS_LIB) $(ZYCORE_LIB)
+
+# Run every unit test.
+test: decode_x86_test decode_test
+	./$(DECODE_TEST_BIN)
 
 # ── Zydis: clone and build if not present ────
 
