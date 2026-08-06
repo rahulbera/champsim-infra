@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# record_trajectory.sh — Pass 2, run INSIDE the guest with network UP.
+# record_trajectory.sh <instance_id> — Pass 2, run INSIDE the guest, network UP.
 #
 # Starts the replay proxy in RECORD mode, runs SWE-agent once against the real
 # LLM through it, and leaves a cassette per exchange. After this, every replay
@@ -11,19 +11,14 @@
 #
 set -euo pipefail
 
-INSTANCE=prometheus__prometheus-15142
-REPO_NAME=prometheus
-BASE_COMMIT=16bba78f1549cfd7909b61ebd7c55c822c86630b
-MODEL=openai/glm-5.2                       # litellm: openai-compatible provider
-UPSTREAM=https://api.z.ai                  # ORIGIN only -- the proxy passes the
-                                           # request path through verbatim
+SWE_TOOLS_DIR=${SWE_TOOLS_DIR:-/opt/swe-agent-tools}
+. "$SWE_TOOLS_DIR/lib/common.sh"
+load_instance "${1:-}"
+
 API_BASE=http://127.0.0.1:8000/api/paas/v4
-CASS=/opt/cassettes/$INSTANCE
-TRAJ=/opt/trajectories
+TRAJ=/opt/trajectories/$INSTANCE
 
 : "${LLM_API_KEY:?LLM_API_KEY must be set (Pass 2 only)}"
-
-say() { printf '\n=== %s ===\n' "$*"; }
 
 # MUST run as root. SWE-agent hardcodes its tool paths -- /root/tools,
 # /root/state.json and /root/.swe-agent-env are f-strings in
@@ -31,28 +26,25 @@ say() { printf '\n=== %s ===\n' "$*"; }
 # where the agent owns the container, but under the LOCAL deployment it means
 # the agent process needs a writable /root. Running as root does not weaken the
 # isolation: taskset and cgroup cpuset pin root exactly as they pin any user.
-[ "$(id -u)" -eq 0 ] || { echo "must run as root (SWE-agent writes to /root/tools); use: sudo -E $0"; exit 1; }
+[ "$(id -u)" -eq 0 ] || die "must run as root (SWE-agent writes /root/tools); use: sudo -E $0 $INSTANCE"
 
 say "0. preflight"
 # The repo is owned by ubuntu but git now runs as root, tripping git's
 # dubious-ownership check. It surfaces as "detected dubious ownership", or via
-# -buildvcs as "error obtaining VCS status: exit status 128" -- which reads like
-# a network fault and is not.
-git config --global --add safe.directory "/$REPO_NAME"
-cd "/$REPO_NAME"
-[ "$(git rev-parse HEAD)" = "$BASE_COMMIT" ] || { echo "HEAD != base_commit"; exit 1; }
-[ -z "$(git status --porcelain)" ] || { echo "tree dirty before recording"; exit 1; }
-echo "  repo clean at $(git rev-parse --short=12 HEAD)"
+# Go's -buildvcs as "error obtaining VCS status: exit status 128" -- which reads
+# like a network fault and is not.
+assert_repo_pristine
+[ -f "$PROBLEM_STATEMENT" ] || die "no problem statement at $PROBLEM_STATEMENT"
 
 mkdir -p "$CASS" "$TRAJ"
-[ -w "$CASS" ] && [ -w "$TRAJ" ] || { echo "cassette/trajectory dirs not writable"; exit 1; }
+[ -w "$CASS" ] && [ -w "$TRAJ" ] || die "cassette/trajectory dirs not writable"
 
 # Logs go to /root, not /tmp. Ubuntu sets fs.protected_regular=1, which blocks
 # even root from opening an existing file owned by another user inside a sticky
 # world-writable directory -- so a /tmp log left behind by an earlier non-root
 # run makes this fail with a bare "Permission denied" that looks impossible.
 say "1. start proxy in RECORD mode"
-python3 /opt/swe-agent-tools/replay_proxy.py \
+python3 "$SWE_TOOLS_DIR/replay_proxy.py" \
     --mode record --cassettes "$CASS" --upstream "$UPSTREAM" --port 8000 \
     > /root/proxy_record.log 2>&1 &
 PROXY_PID=$!
@@ -60,7 +52,7 @@ PROXY_PID=$!
 # shell running THIS script and takes it down with the proxy.
 trap 'kill $PROXY_PID 2>/dev/null || true' EXIT
 sleep 3
-kill -0 $PROXY_PID 2>/dev/null || { echo "proxy failed to start"; cat /root/proxy_record.log; exit 1; }
+kill -0 $PROXY_PID 2>/dev/null || { cat /root/proxy_record.log; die "proxy failed to start"; }
 echo "  proxy pid $PROXY_PID on :8000 -> $UPSTREAM"
 
 say "2. run SWE-agent (this spends API credits)"
@@ -80,15 +72,36 @@ export LITELLM_LOCAL_MODEL_COST_MAP=True
     --env.repo.repo_name="$REPO_NAME" \
     --env.repo.base_commit="$BASE_COMMIT" \
     --problem_statement.type=text_file \
-    --problem_statement.path=/opt/problem_statement.md \
+    --problem_statement.path="$PROBLEM_STATEMENT" \
     --output_dir="$TRAJ" \
     2>&1 | tail -40
 
 say "3. results"
-n=$(ls "$CASS"/*.json 2>/dev/null | wc -l)
+n=$(find "$CASS" -name '*.json' | wc -l)
 echo "  cassettes recorded: $n"
-[ "$n" -gt 0 ] || { echo "  NO CASSETTES — recording failed"; exit 1; }
-grep -qil "authorization" "$CASS"/*.json && { echo "  !! API KEY LEAKED INTO CASSETTE"; exit 1; }
+[ "$n" -gt 0 ] || die "NO CASSETTES — recording failed"
+grep -qil "authorization" "$CASS"/*.json && die "API KEY LEAKED INTO CASSETTE"
 echo "  no Authorization header in any cassette"
-find "$TRAJ" -name '*.traj' | head -3 | sed 's/^/  traj: /'
-echo "  repo state after run: [$(cd /$REPO_NAME && git status --porcelain | head -3)]"
+
+traj=$(find "$TRAJ" -name '*.traj' | head -1)
+[ -n "$traj" ] || die "no trajectory written"
+# Read the FINAL trajectory, never a partially-written one: an earlier run was
+# reported at "28 of 36 steps, 0 Go steps" from a .traj still being appended to,
+# and the finished file had 147 steps and 30 Go steps.
+python3 - "$traj" <<'PY'
+import json, sys, collections
+t = json.load(open(sys.argv[1]))
+steps = t.get("trajectory", [])
+info = t.get("info", {})
+print(f"  steps:       {len(steps)}")
+print(f"  exit_status: {info.get('exit_status')}")
+patch = info.get("submission") or ""
+print(f"  patch:       {len(patch)} bytes")
+cmds = collections.Counter()
+for s in steps:
+    a = (s.get("action") or "").strip().split()
+    if a:
+        cmds[a[0]] += 1
+print("  commands:    " + ", ".join(f"{k}:{v}" for k, v in cmds.most_common(8)))
+PY
+echo "  repo state after run: [$(cd "$REPO_DIR" && git status --porcelain | head -3)]"

@@ -39,3 +39,7 @@ champsim/bin/
 .vscode/
 .claude/
 .idea/
+
+# Staged per-instance data (fetched by stage_instance.py, not source)
+__pycache__/
+*.pyc
