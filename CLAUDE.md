@@ -62,7 +62,7 @@ realistic cross-socket sharing.
 - **RAM:** 32 GB
 - **OS:** Ubuntu 24.04 LTS
 - **QEMU:** 9.2.4 (built from source with `--enable-kvm --enable-plugins`)
-- **QEMU source:** `~/softwares/qemu-9.2.4/`
+- **QEMU source:** `~/work/softwares/qemu-9.2.4/`
 - **QEMU install:** `~/qemu-custom/bin/qemu-system-x86_64`
 
 ## Guest VM Configuration
@@ -131,6 +131,77 @@ realistic cross-socket sharing.
   (cache/uarch params, running the extended simulator on these traces)
   — a separate, later phase.
 
+### Stage 6: Explicit branch type + flags register — **x86-64 only** ✅/⚠️
+
+Traces now **state** each instruction's branch type instead of leaving
+ChampSim to infer it from register shape. Three of the v2 record's
+reserved bytes carry it: `reserved[0]` = ChampSim's `branch_type` enum
+(0-based, `7`=NOT_BRANCH), `reserved[1]` = feature bits (`0x01` explicit
+type, `0x02` flags recorded), `reserved[2]` = tracer identity (`4` =
+this converter). Layout unchanged at 512 B and **deliberately no
+trace-version bump** — a version is asserted by whoever names the file,
+a feature bit is self-describing by the data.
+
+**Consumers must key off the feature bit, never off `reserved[0] != 0`**
+— `BRANCH_DIRECT_JUMP` is `0`, so a zeroed record is byte-identical to
+one describing a direct jump.
+
+Three defects were fixed in `converter/decode_x86.c`, all of which had
+been producing structurally perfect records of the wrong class: a
+**range check over the alphabetically-ordered `ZydisMnemonic`** (so
+`jmp` was CONDITIONAL and `je` was OTHER), `meta.branch_type ==
+SHORT|NEAR` **mistaken for "direct"** (so indirect jumps/calls were
+unreachable), and **register-slot eviction plus a fabricated FLAGS
+source** on `jcxz`/`loop`. Branch direction now comes from the type
+rather than from next-IP geometry (`jmp .+0` broke the geometry).
+
+> ### ⚠️ AArch64 has NOT received this work
+>
+> `raw2champsim.c` writes `reserved[0..2]` for **both** backends, so an
+> AArch64 trace already **claims** `TRACE_FEATURE_EXPLICIT_BRANCH_TYPE`
+> and ChampSim will believe it. Nothing in the A64 backend was audited,
+> tested, or captured for this work.
+>
+> **The gap is verification, not suspected breakage.** Reading
+> `decode_aarch64.c`, it is structurally immune to all three x86 defects
+> — it switches explicitly on instruction ID (no range check), gets
+> direct-vs-indirect from distinct mnemonics (`B`/`BL` vs `BR`/`BLR`),
+> de-duplicates registers in `add_src`/`add_dst`, and adds FLAGS only
+> for `B.cond`. That last one is the case (`CBZ`/`CBNZ`/`TBZ`/`TBNZ`
+> test a GPR, not NZCV) where the **x86** backend was fabricating a
+> dependency edge — A64 had it right all along.
+>
+> What is actually missing:
+> 1. The golden test covers 6 of 10 branch forms — **not** unconditional
+>    `B`, `CBNZ`, `TBZ`/`TBNZ`, or `ERET`. Unconditional `B` is the
+>    important one: it shares an instruction ID with `B.cond` and is
+>    separated only by a Capstone metadata field (`arm64.cc`), so a
+>    Capstone behaviour change would silently turn every unconditional
+>    branch into a conditional — the x86 `JMP` failure reached by a
+>    different road, and nothing tests for it.
+> 2. **No AArch64 capture has ever been run through
+>    `trace_sanity_check --check`.** The branch mix and taken rates,
+>    which are what catch a misclassification in aggregate, are
+>    unmeasured.
+> 3. `ERET`→`BRANCH_OTHER` (A64) vs `iretq`→`NOT_BRANCH` (x86): both
+>    deliberately avoid `BRANCH_RETURN` so neither is wrong, but they
+>    are two spellings of one decision. Worth reconciling.
+>
+> **Treat the feature bits on an AArch64 trace as a claim, not a
+> guarantee** — not because it looks wrong, but because nothing has
+> confirmed it right. Plan of attack: `docs/branch-type-contract.md` §10.
+
+Full reference — contract, per-instruction classification table,
+direction semantics, toolchain, verification methodology and results,
+and the AArch64 gap: **`docs/branch-type-contract.md`**.
+
+Verified (x86-64): 30/30 golden unit rows on real `as --64` encodings,
+14/14 AArch64 regression guard still passing, and a 30 M-instruction
+capture of real emulated execution passing all six acceptance checks
+with 0 decode failures — conditionals 43.04% taken, unconditionals
+100% taken, calls (24.00%) exactly balancing returns (24.00%).
+Re-runnable in ~2 minutes: `scripts/smoke-trace/smoke_trace.sh`.
+
 ## Current Blocker: kvmclock Snapshot Incompatibility
 
 > **Historical (x86/Memcached era).** This blocker was resolved (see
@@ -198,7 +269,7 @@ snapshot loads normally.
 
 ### What Needs to Be Done
 
-1. Find the exact `kvmclock_create()` function in `~/softwares/qemu-9.2.4/hw/i386/kvm/clock.c`
+1. Find the exact `kvmclock_create()` function in `~/work/softwares/qemu-9.2.4/hw/i386/kvm/clock.c`
    and identify where the `kvm_enabled()` guard prevents device creation under TCG.
 
 2. Find where `kvmclock_create()` is called from (likely `hw/i386/pc.c` or similar
@@ -208,20 +279,20 @@ snapshot loads normally.
 
 4. Patch the call site or `kvmclock_create()` to remove/relax the `kvm_enabled()` guard.
 
-5. Rebuild QEMU: `cd ~/softwares/qemu-9.2.4/build && make -j$(nproc) && make install`
+5. Rebuild QEMU: `cd ~/work/softwares/qemu-9.2.4/build && make -j$(nproc) && make install`
 
 6. Test: Load `roi_running` snapshot under TCG with the tracing plugin.
 
 ### Key Source Files
 
-- `~/softwares/qemu-9.2.4/hw/i386/kvm/clock.c` — kvmclock device implementation
-- `~/softwares/qemu-9.2.4/migration/savevm.c` — snapshot loading (error originates here)
-- `~/softwares/qemu-9.2.4/hw/i386/pc.c` or `~/softwares/qemu-9.2.4/hw/i386/x86.c` — likely calls `kvmclock_create()`
+- `~/work/softwares/qemu-9.2.4/hw/i386/kvm/clock.c` — kvmclock device implementation
+- `~/work/softwares/qemu-9.2.4/migration/savevm.c` — snapshot loading (error originates here)
+- `~/work/softwares/qemu-9.2.4/hw/i386/pc.c` or `~/work/softwares/qemu-9.2.4/hw/i386/x86.c` — likely calls `kvmclock_create()`
 
 ### Build Configuration
 
 ```bash
-cd ~/softwares/qemu-9.2.4/build
+cd ~/work/softwares/qemu-9.2.4/build
 ../configure \
     --target-list=x86_64-softmmu \
     --enable-kvm \
@@ -293,7 +364,7 @@ the same approach applies: find the device, make it instantiable under TCG.
     ├── boot_kvm_5vcpu.sh              # Stage 2+ KVM boot (5 vCPU)
     └── boot_tcg_trace.sh              # Stage 4 TCG+plugin boot
 
-~/softwares/qemu-9.2.4/                # QEMU source tree
+~/work/softwares/qemu-9.2.4/                # QEMU source tree
 ~/qemu-custom/                         # QEMU install prefix
 ```
 
@@ -372,17 +443,57 @@ naming/manifest details and the two bounded stateful-consumer caveats
 (idle-filter reset and last-instruction `branch_taken` at chunk
 boundaries): `plugin/README.md`.
 
-## ChampSim Trace Format (Target)
+## ChampSim Trace Format (Output)
 
-Vanilla ChampSim `input_instr` struct (~64 bytes per instruction):
-- `ip`: instruction pointer (uint64_t)
-- `is_branch`, `branch_taken`: branch info (uint8_t each)
-- `source_registers[4]`: source register IDs (uint8_t each)
-- `destination_registers[2]`: destination register IDs (uint8_t each)
-- `source_memory[4]`: source memory addresses (uint64_t each)
-- `destination_memory[2]`: destination memory addresses (uint64_t each)
+> Historical note: this section used to describe vanilla ChampSim's 64-byte
+> `input_instr` as a *target*, with the converter "not yet written". Both are
+> long since done — the converter is `converter/raw2champsim` and the output is
+> the **512-byte `input_instr_v2`** record.
 
-We plan to extend this with: privilege bit, memory values.
+`.champsim2.zst`, 512 bytes per instruction, three blocks:
 
-The offline converter (Stage 5, not yet written) will decode x86 instructions
-from the raw trace bytes to extract registers, branch info, etc.
+- **Block 1** (64 B) — vanilla ChampSim layout: IP, `is_branch`/`branch_taken`,
+  4 source + 2 destination register IDs, 4 source + 2 destination memory
+  virtual addresses.
+- **Block 2** (64 B) — v2 additions: source/destination **physical** addresses,
+  per-operand access sizes, privilege bit, instruction type (INT/FP/SIMD), and
+  8 reserved bytes — three of which now carry the branch-type contract below.
+- **Block 3** (384 B) — memory values: up to 64 B per source memory op × 4, and
+  per destination memory op × 2.
+
+### Reserved bytes: the explicit branch-type contract
+
+| byte | meaning |
+|---|---|
+| `reserved[0]` | ChampSim `branch_type` enum, **0-based** (`0`=DIRECT_JUMP … `7`=NOT_BRANCH) |
+| `reserved[1]` | feature bits: `0x01` explicit branch type, `0x02` flags register recorded |
+| `reserved[2]` | tracer identity: `2`/`3` = champsim-infra pintools, **`4` = this converter** |
+
+**Key off the feature bit, never off `reserved[0] != 0`** — `0` is a valid
+`BRANCH_DIRECT_JUMP`, so a zeroed record is byte-identical to one describing a
+direct jump. The bit is set per record (including decode failures), so a
+consumer testing it per record never silently falls back to inference for part
+of a stream.
+
+`is_branch` is a **boolean** (0/1). The 1..7 type code lives in `reserved[0]`.
+
+Direction is taken from the **type**, not from next-IP geometry: unconditional
+transfers are taken by definition; only conditionals use the lookahead. Full
+rationale, per-instruction classification table, and the x86/AArch64 status
+split: **`docs/branch-type-contract.md`**.
+
+ChampSim must be invoked with `--trace-version 2` for these traces.
+
+## Build gotchas on this host
+
+Both of these fail in ways that point at the wrong culprit:
+
+- **`CC` resolves to `aarch64-conda-linux-gnu-cc`.** A plain `make` builds the
+  plugin with a cross-compiler for the wrong architecture and dies on
+  `zstd.h: No such file or directory` — because the cross-compiler has its own
+  sysroot, not because zstd is missing. **Always `make CC=gcc`.**
+- **conda's glib is unusable here** — its `glibconfig.h` is aarch64-targeted and
+  mismatches `sizeof(size_t)`. The system `libglib2.0-dev` is required.
+
+The **plugin only loads in system-emulation mode**; it refuses to run under
+`qemu-x86_64` (linux-user).

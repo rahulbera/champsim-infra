@@ -7,9 +7,12 @@ Three scripts that cover the three ways you'll invoke QEMU in this
 project: boot fresh under KVM, restore a snapshot under KVM, and
 restore a snapshot under TCG *with the tracing plugin attached*.
 
-This directory also holds `capture-kit/`, a self-contained subdirectory
-for AArch64 collaborators — see its own entry under Files below and
-the note at the end of this section.
+This directory also holds two self-contained subdirectories:
+`capture-kit/` for AArch64 collaborators, and `smoke-trace/`, a
+two-minute end-to-end correctness check of the x86-64 pipeline
+(plugin → raw → converter → acceptance invariants) that boots a
+throwaway kernel + initramfs rather than a VM image. See their entries
+under Files below and the note at the end of this section.
 
 ## How this fits into the repo
 
@@ -131,6 +134,29 @@ own `README.md` — read that file, not this one, for the full flow.
 including the rest of the capture kit, runs on the host. See
 `plugin/README.md` for the v3 raw format and knob semantics the kit
 configures on the collaborator's behalf.
+
+### `smoke-trace/`
+
+Also a subdirectory rather than a launcher: a **two-minute end-to-end
+correctness check** of the x86-64 pipeline — plugin → raw v3 →
+converter → ChampSim v2 → acceptance invariants. It boots a throwaway
+kernel + busybox initramfs running one branchy static workload, so it
+needs no VM image, installs nothing into a guest, and leaves no state.
+
+Use it after touching `plugin/champsim_tracer.c`, `converter/decode_x86.c`
+or `converter/raw2champsim.c`, and before trusting a batch of traces:
+
+```bash
+make -C ../plugin plugin CC=gcc && make -C ../converter CC=gcc
+./smoke-trace/smoke_trace.sh
+```
+
+It is *not* a way to produce research traces — that is what the three
+launchers above and `capture-kit/` are for. Read
+`smoke-trace/README.md` for the env knobs and the two failure modes
+that are easy to misread (`WORK_ITERS` too small makes a working
+trigger look broken; a conda `CC` builds the plugin for the wrong
+architecture).
 
 ## How to use
 

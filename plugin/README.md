@@ -110,6 +110,42 @@ vcpu_id) keep the existing host-little-endian memcpy convention.
 | `values=` | `on` \| `off` \| `1` \| `0` | `on` | capture memory values via `qemu_plugin_mem_get_value`. `off` means no mem-op ever sets `has_value`, and the header's `flags.has_values=0`/`value_cap=0` |
 | `rotate=<N>` | integer | `0` = off | close the current per-vCPU chunk and open a fresh one every N traced instructions on that vCPU. See "Rotation" below |
 
+### `trigger=` — the one sharp edge
+
+**The plugin polls for the trigger file only while instructions are
+retiring** (every 10 M instructions, from the dormant path in
+`insn_exec_cb`). If the guest finishes its workload before you arm the
+trigger, the polls simply stop and the run ends with
+
+```
+[champsim_tracer] WARNING: Trigger was never activated! No trace data recorded.
+```
+
+which is **the same symptom as a wrong path or a permission error**. The
+difference matters because the fixes are opposite.
+
+This is not hypothetical: a guest that boots and runs a 40 M-iteration
+workload completes in **~12 s of wall time**, so a driver script that
+waits for the workload's banner and then sleeps 5 s can easily `touch`
+the file *after* QEMU has already exited. The fix is to size the guest
+workload so it is still running — not to change the trigger.
+
+Build with **`-DTRIGGER_DEBUG`** to log every poll with a timestamp,
+call number and `errno`:
+
+```bash
+make plugin CC=gcc CFLAGS="-O2 -Wall -Wno-unused-parameter -DTRIGGER_DEBUG"
+```
+
+Comparing the last poll's timestamp against when you touched the file
+settles it in one run. Compiled out by default; the shipped `.so` is
+unaffected.
+
+> Also note `CC=gcc`: on a host where conda is active, `CC` resolves to
+> `aarch64-conda-linux-gnu-cc` and a plain `make` builds the plugin for
+> the wrong architecture, failing with `zstd.h: No such file or
+> directory` — the cross-compiler's sysroot, not a missing zstd.
+
 **`value_cap` semantics — the honest provision.** Header byte 14
 records the *effective* value-capture cap of the build that wrote the
 file: the guarantee that no captured value exceeds it. Today that's

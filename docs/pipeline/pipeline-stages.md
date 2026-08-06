@@ -58,7 +58,7 @@
 **Goal:** Load snapshot under TCG with plugin, generate traces.
 
 **Blocker:** KVM snapshot contains `kvmclock` device state that TCG can't load.
-See `docs/kvmclock-patch-details.md` for full analysis and fix plan.
+See `docs/pipeline/kvmclock-patch-details.md` for full analysis and fix plan.
 
 **Current task:** Patch QEMU to allow kvmclock device instantiation under TCG.
 

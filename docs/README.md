@@ -13,6 +13,12 @@ pipeline lives here. Two flavors, split into subdirectories:
 - **`workloads/`** — per-workload playbooks and design specs. Each
   document walks you through setting up one target workload (Memcached,
   ScyllaDB, RocksDB, FAISS, DLRM) and producing traces from it.
+- **`validation/`** — how to check that a produced trace is actually
+  usable, rather than merely well-formed.
+- **`branch-type-contract.md`** — the explicit branch-type contract
+  (`reserved[0..2]`), the x86-64 classification reference, and the
+  x86/AArch64 status split. Read this before trusting the branch fields
+  of any trace this repo produces.
 
 ## How this fits into the repo
 
@@ -29,6 +35,8 @@ authoritative long-form references — start there when you want the full
 |---|---|
 | `pipeline/` | Pipeline-wide references (stages, boot commands, kvmclock patch, idle-loop filtering) |
 | `workloads/` | Per-workload playbooks (Memcached, ScyllaDB, RocksDB, FAISS, DLRM) |
+| `validation/` | Checking a produced trace is usable, not just well-formed |
+| `branch-type-contract.md` | Explicit branch type: contract, x86-64 reference, verification, **AArch64 gap** |
 
 See each subdirectory's README for the file-by-file breakdown.
 

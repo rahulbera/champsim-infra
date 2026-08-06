@@ -50,7 +50,21 @@ v2 record layout is defined near the top of the source; a summary:
   memory virtual addresses.
 - **Block 2** (64 B) — v2 additions: source/destination physical
   addresses, per-operand access sizes, privilege bit, instruction type
-  (INT/FP/SIMD), reserved bytes.
+  (INT/FP/SIMD), and 8 reserved bytes, three of which now carry the
+  explicit branch-type contract:
+
+  | byte | meaning |
+  |---|---|
+  | `reserved[0]` | ChampSim `branch_type` enum, **0-based** (`0`=DIRECT_JUMP … `7`=NOT_BRANCH) |
+  | `reserved[1]` | feature bits: `0x01` explicit branch type, `0x02` flags register recorded |
+  | `reserved[2]` | tracer identity (`4` = this converter) |
+
+  Written on **every** record by both backends, so ChampSim no longer
+  infers branch type from register shape. Consumers must key off the
+  feature bit, **never** off `reserved[0] != 0` — `0` is a valid
+  `BRANCH_DIRECT_JUMP`. Note `is_branch` is a boolean (0/1); the type
+  code lives in `reserved[0]`. Full contract:
+  `docs/branch-type-contract.md`.
 - **Block 3** (384 B) — memory values: up to 64 bytes per source
   memory op × 4 + up to 64 bytes per destination memory op × 2.
 
@@ -76,10 +90,13 @@ plugin's `rotate=N` (see `plugin/README.md`) produces
 converts on its own with no code change, and the `_c<K>` suffix is
 carried through to the output name (`…_c00000.raw.zst` →
 `…_c00000.champsim.zst`) by the same `.raw.zst`→`.champsim.zst`
-suffix replacement used for un-rotated files. Caveat: `branch_taken` is
-set by looking ahead to the next instruction's IP, so the last
-instruction of each chunk is written `branch_taken=0` (no cross-file
-look-ahead) — bounded to at most one instruction per chunk boundary;
+suffix replacement used for un-rotated files. Caveat at chunk
+boundaries: the last instruction of a chunk has no successor to look
+ahead to, so if it is an **unconditional** transfer it is written
+`branch_taken=1` (taken by definition) and if it is a **conditional**
+branch it is **dropped**, with a note on stderr — its direction is not
+derivable and a fabricated one is indistinguishable from a real one
+downstream. Bounded to at most one instruction per chunk boundary;
 convert the concatenated (un-rotated) stream instead for exact parity.
 
 An unknown `arch` byte (neither 0 nor 1) is still a clean error — that
@@ -131,9 +148,46 @@ the **complete, final** register read/write sets for one instruction —
 `raw2champsim.c` picks the backend by the raw header's `arch` byte and
 copies the arrays straight into the 512-byte record; there is no
 further register synthesis in the caller. `decode_x86.c` carries the
-existing x86 behavior (Zydis register mapping plus the FLAGS→SP→PC
-branch-register synthesis), unchanged from before this split — a v3/x86
-trace converts byte-identically to the pre-split converter.
+x86 behavior: Zydis register mapping plus FLAGS→SP→PC branch-register
+synthesis.
+
+> **Note:** `decode_x86.c` is no longer byte-identical to the pre-split
+> converter. Its branch classification was rewritten to fix three
+> defects that had been emitting well-formed records of the wrong
+> instruction class — see the next section.
+
+#### x86-64 backend — branch classification
+
+Three defects were fixed here; full detail and the evidence in
+`docs/branch-type-contract.md` §3. In brief:
+
+- **Conditional jumps are enumerated explicitly.** The previous range
+  check `mnem >= ZYDIS_MNEMONIC_JB && mnem <= ZYDIS_MNEMONIC_JS` was
+  unsound because `ZydisMnemonic` is ordered **alphabetically**: `JMP`
+  sorts inside that range (so every unconditional jump was CONDITIONAL,
+  with FLAGS injected) and `JZ` sorts after it (so `je`/`jz` was
+  BRANCH_OTHER). Zydis normalises the Jcc aliases, so the explicit list
+  is complete.
+- **Direct vs indirect comes from the target operand**, not from
+  `meta.branch_type`. `SHORT`/`NEAR`/`FAR` describe the displacement
+  encoding, not the addressing mode — `jmp *%rax` and `call *%rax` are
+  `NEAR`, so the indirect classes were previously unreachable for the
+  common register/memory forms. A direct branch has an `IMMEDIATE`
+  target.
+- **Appends de-duplicate** via `add_reg()`, matching the A64 backend's
+  `add_src`/`add_dst`. With only 4 source and 2 destination slots a
+  repeat *evicts* a real operand; conditional branches had been emitting
+  `destination_registers = {26, 26}`.
+
+Register-synthesis policy: FLAGS is a source on conditionals **that
+actually test it** (not `jcxz`/`jecxz`/`jrcxz`/`loop`); RSP is read and
+written by calls and returns; PC(26) is a destination on every branch
+and a **source** on conditionals and calls only — withheld from indirect
+jumps and returns because ChampSim's inference fallback keys those on
+IP being absent. PC is appended last so that under source-slot pressure
+it is dropped before FLAGS, which carries the real `cmp → jcc` edge.
+
+Pinned by `tests/decode_x86_test.c` (30 rows, real `as --64` encodings).
 
 #### AArch64 (A64) backend — scope
 
@@ -194,8 +248,10 @@ rather than range arithmetic.
 - **FLAGS (25) is a source only for `B.cond`.** `CBZ`/`CBNZ`/`TBZ`/`TBNZ`
   are conditional branches too, but they test a GPR operand (already
   captured as a real register), not NZCV — so they carry no FLAGS
-  source. This is more precise than the x86 backend, which flags every
-  conditional branch uniformly.
+  source. The x86 backend used to flag every conditional branch
+  uniformly and was corrected to match this precision: it no longer
+  injects FLAGS into `jcxz`/`jecxz`/`jrcxz`/`loop`, which branch on RCX.
+  See `docs/branch-type-contract.md` §3.3.
 - **`ERET` and other privileged control transfers classify as
   `BRANCH_OTHER` (7), never `BRANCH_RETURN` (6).** `ERET`'s target is
   an exception return address, not a normal call/return address, so
