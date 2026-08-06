@@ -98,9 +98,60 @@ class Cassettes:
     def count(self):
         return len([n for n in os.listdir(self.dir) if n.endswith(".json")])
 
+    ORDER_FILE = "_order.json"
 
-def make_handler(mode, cassettes, upstream, api_key):
-    """Build a BaseHTTPRequestHandler subclass bound to this configuration."""
+    def append_order(self, key):
+        """Record the order exchanges happened in, for sequence replay."""
+        p = os.path.join(self.dir, self.ORDER_FILE)
+        order = []
+        if os.path.exists(p):
+            try:
+                order = json.load(open(p))
+            except ValueError:
+                order = []
+        order.append(key)
+        tmp = p + ".tmp"
+        with open(tmp, "w") as f:
+            json.dump(order, f, indent=1)
+        os.replace(tmp, p)
+
+    def order(self):
+        """Recorded order, falling back to mtime for cassettes recorded before
+        _order.json existed. mtime works because the proxy writes one file per
+        exchange as it happens, but it is a reconstruction -- prefer the file."""
+        p = os.path.join(self.dir, self.ORDER_FILE)
+        if os.path.exists(p):
+            try:
+                return json.load(open(p))
+            except ValueError:
+                pass
+        names = [n for n in os.listdir(self.dir)
+                 if n.endswith(".json") and n != self.ORDER_FILE]
+        names.sort(key=lambda n: os.path.getmtime(os.path.join(self.dir, n)))
+        return [n[:-5] for n in names]
+
+
+def make_handler(mode, cassettes, upstream, api_key, match="key"):
+    """Build a BaseHTTPRequestHandler subclass bound to this configuration.
+
+    match="key"      -- serve the cassette whose request body hashes the same.
+    match="sequence" -- serve cassettes in recorded order, ignoring the body.
+
+    Sequence matching exists because content hashing cannot work for an agent.
+    Each request carries the whole conversation so far, INCLUDING tool output,
+    and tool output is not reproducible: `go test` prints elapsed times, `ls`
+    prints mtimes, builds print durations. One differing character changes the
+    hash of that request and of every request after it, so a single timing
+    difference cascades into total divergence. Measured here: 60 misses out of
+    147 calls, beginning around the first `go test -race` step.
+
+    Sequence matching is not a workaround but the correct model for this use:
+    the goal is to replay the same ACTIONS deterministically, and since the
+    agent receives byte-identical model responses in the same order, it issues
+    byte-identical actions. Observation text may differ; the executed work does
+    not.
+    """
+    seq = {"i": 0, "order": cassettes.order() if match == "sequence" else []}
 
     class Handler(http.server.BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
@@ -122,13 +173,23 @@ def make_handler(mode, cassettes, upstream, api_key):
             key = canonical_key(body)
 
             if mode == "replay":
-                hit = cassettes.load(key)
+                if match == "sequence":
+                    if seq["i"] < len(seq["order"]):
+                        hit = cassettes.load(seq["order"][seq["i"]])
+                        seq["i"] += 1
+                    else:
+                        hit = None      # ran off the end of the recording
+                else:
+                    hit = cassettes.load(key)
                 if hit is None:
                     # Loud on purpose. A miss means the agent diverged from the
                     # recorded trajectory; serving anything else would put a
                     # fabricated exchange into a trace we later treat as real.
-                    msg = ("REPLAY MISS for key %s on %s -- the agent diverged "
-                           "from the recording.\n" % (key, self.path)).encode()
+                    detail = ("exhausted after %d of %d recorded exchanges"
+                              % (seq["i"], len(seq["order"]))
+                              if match == "sequence" else "key %s" % key)
+                    msg = ("REPLAY MISS (%s) on %s -- the agent diverged "
+                           "from the recording.\n" % (detail, self.path)).encode()
                     sys.stderr.write("[proxy] " + msg.decode())
                     self._respond(500, {"Content-Type": "text/plain"}, msg)
                     return
@@ -147,6 +208,7 @@ def make_handler(mode, cassettes, upstream, api_key):
                 headers = {"Content-Type": r.headers.get("Content-Type",
                                                          "application/json")}
             cassettes.save(key, status, headers, rbody)
+            cassettes.append_order(key)
             self._respond(status, headers, rbody)
 
     return Handler
@@ -159,6 +221,9 @@ def main(argv):
     p.add_argument("--cassettes", required=True, help="cassette directory")
     p.add_argument("--port", type=int, default=8000)
     p.add_argument("--upstream", default="", help="upstream base URL (record mode)")
+    p.add_argument("--match", choices=["key", "sequence"], default="sequence",
+                   help="replay matching: 'sequence' (default, robust to "
+                        "non-reproducible tool output) or 'key' (exact body hash)")
     args = p.parse_args(argv)
 
     api_key = os.environ.get("LLM_API_KEY", "")
@@ -169,10 +234,11 @@ def main(argv):
             p.error("LLM_API_KEY must be set in record mode")
 
     cassettes = Cassettes(args.cassettes)
-    handler = make_handler(args.mode, cassettes, args.upstream, api_key)
+    handler = make_handler(args.mode, cassettes, args.upstream, api_key, args.match)
     srv = http.server.HTTPServer(("127.0.0.1", args.port), handler)
-    sys.stderr.write("[proxy] %s mode on 127.0.0.1:%d, %d cassettes in %s\n"
-                     % (args.mode, args.port, cassettes.count(), args.cassettes))
+    sys.stderr.write("[proxy] %s mode (match=%s) on 127.0.0.1:%d, %d cassettes in %s\n"
+                     % (args.mode, args.match, args.port, cassettes.count(),
+                        args.cassettes))
     srv.serve_forever()
 
 

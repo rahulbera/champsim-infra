@@ -52,6 +52,12 @@ kill -0 $PROXY_PID 2>/dev/null || { echo "proxy failed"; cat /root/proxy_replay.
 echo "  proxy pid $PROXY_PID pinned to cpu $PIN_CPU"
 
 rm -rf "$TRAJ"; mkdir -p "$TRAJ"
+
+# SWE-agent uploads its tool bundles with shutil.copytree() and no
+# dirs_exist_ok, so a second run dies with FileExistsError on /root/tools/...
+# Under Docker every run gets a fresh container and this never shows up; under
+# the local deployment the previous run's tools persist. Clear them.
+rm -rf /root/tools /root/state.json /root/.swe-agent-env
 export LITELLM_LOCAL_MODEL_COST_MAP=True
 
 # ---- ROI MARKER -----------------------------------------------------------
@@ -63,6 +69,11 @@ sleep 2
 echo "TRACE_ROI_BEGIN"
 sleep 2
 
+# --env.repo.reset=False is REQUIRED offline. PreExistingRepoConfig's reset
+# sequence starts with `git fetch`, which needs network and fails with exit 128
+# ("Failed to clean repository") when there is none. It succeeded during the
+# record pass only because the network was up. Step 0 above already put the tree
+# at base_commit and ran git clean, so SWE-agent's reset is redundant anyway.
 say "2. replay (pinned to cpu $PIN_CPU)"
 # taskset pins the agent, and fork/exec children INHERIT the affinity, which is
 # why the local (non-Docker) deployment was chosen: a Docker daemon would spawn
@@ -78,6 +89,7 @@ taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --env.repo.type=preexisting \
     --env.repo.repo_name="$REPO_NAME" \
     --env.repo.base_commit="$BASE_COMMIT" \
+    --env.repo.reset=False \
     --problem_statement.type=text_file \
     --problem_statement.path=/opt/problem_statement.md \
     --output_dir="$TRAJ" \

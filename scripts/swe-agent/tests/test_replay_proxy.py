@@ -126,5 +126,64 @@ class TestReplayServer(unittest.TestCase):
         self.assertIn(b"REPLAY MISS", body)
 
 
+class TestSequenceMatching(unittest.TestCase):
+    """Sequence replay must be immune to request-body drift.
+
+    An agent's request carries its whole conversation including tool output,
+    and tool output is not reproducible (elapsed times, mtimes). Content
+    hashing therefore diverges permanently after the first differing byte --
+    measured at 60 misses in 147 calls on a real trajectory.
+    """
+
+    def setUp(self):
+        import tempfile
+        self.tmp = tempfile.mkdtemp()
+        self.c = replay_proxy.Cassettes(self.tmp)
+        for i, txt in enumerate(["first", "second", "third"]):
+            k = replay_proxy.canonical_key(("req-%d" % i).encode())
+            self.c.save(k, 200, {"Content-Type": "application/json"},
+                        ('{"n":"%s"}' % txt).encode())
+            self.c.append_order(k)
+
+    def test_order_is_recorded(self):
+        self.assertEqual(len(self.c.order()), 3)
+
+    def test_sequence_ignores_body_drift(self):
+        """Bodies that never appeared in the recording still replay in order."""
+        import http.server, threading, urllib.request
+        h = replay_proxy.make_handler("replay", self.c, None, None, "sequence")
+        srv = http.server.HTTPServer(("127.0.0.1", 0), h)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        got = []
+        for i in range(3):
+            req = urllib.request.Request(
+                "http://127.0.0.1:%d/v1/chat/completions" % srv.server_address[1],
+                data=('{"totally":"different-%d"}' % i).encode(),
+                headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req) as r:
+                got.append(json.loads(r.read())["n"])
+        srv.shutdown()
+        self.assertEqual(got, ["first", "second", "third"])
+
+    def test_running_off_the_end_is_fatal(self):
+        """More requests than recorded exchanges must fail, never wrap."""
+        import http.server, threading, urllib.error, urllib.request
+        h = replay_proxy.make_handler("replay", self.c, None, None, "sequence")
+        srv = http.server.HTTPServer(("127.0.0.1", 0), h)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        codes = []
+        for i in range(4):
+            req = urllib.request.Request(
+                "http://127.0.0.1:%d/v1/chat/completions" % srv.server_address[1],
+                data=b'{"x":1}', headers={"Content-Type": "application/json"})
+            try:
+                with urllib.request.urlopen(req) as r:
+                    codes.append(r.status)
+            except urllib.error.HTTPError as e:
+                codes.append(e.code)
+        srv.shutdown()
+        self.assertEqual(codes, [200, 200, 200, 500])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
