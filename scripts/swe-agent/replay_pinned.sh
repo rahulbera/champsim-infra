@@ -20,6 +20,23 @@ API_BASE=http://127.0.0.1:8000/api/paas/v4
 TRAJ=/opt/trajectories-replay/$INSTANCE
 PIN_CPU=${PIN_CPU:-1}
 
+# SWE-agent kills a tool command after execution_timeout (default 30s) and ends
+# the episode after max_consecutive_execution_timeouts (default 3). Both are
+# interactive guards, and both are actively harmful here: the replay pins the
+# agent and every tool subprocess to ONE vCPU, so a command that took 12s on 32
+# cores during recording takes minutes -- and under TCG, hours.
+#
+# Measured: the redis run recorded 77 steps and replayed only 54, exiting
+# `submitted (exit_command_timeout)` with a 609-byte patch instead of the
+# correct 1307-byte one. It reported ZERO cassette misses throughout, because
+# sequence replay serves recorded responses in order and simply stops early --
+# a complete, valid trace of the wrong execution.
+#
+# The recorded trajectory is fixed, so there is nothing for a timeout to
+# protect against. Effectively disabled; override if you need a real bound.
+EXEC_TIMEOUT=${EXEC_TIMEOUT:-36000}      # 10 h per command
+TOTAL_TIMEOUT=${TOTAL_TIMEOUT:-604800}   # 7 d per episode
+
 [ "$(id -u)" -eq 0 ] || die "must run as root (SWE-agent writes /root/tools)"
 
 say "0. preflight"
@@ -91,6 +108,8 @@ taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --env.repo.repo_name="$REPO_NAME" \
     --env.repo.base_commit="$BASE_COMMIT" \
     --env.repo.reset=False \
+    --agent.tools.execution_timeout="$EXEC_TIMEOUT" \
+    --agent.tools.total_execution_timeout="$TOTAL_TIMEOUT" \
     --problem_statement.type=text_file \
     --problem_statement.path="$PROBLEM_STATEMENT" \
     --output_dir="$TRAJ" \
@@ -107,4 +126,16 @@ say "3. replay integrity"
 misses=$(grep -c "REPLAY MISS" /root/proxy_replay.log || true)
 echo "  replay misses: $misses"
 [ "$misses" -eq 0 ] || die "agent diverged from the recording -- trace is not trustworthy"
-echo "  trajectory: $(find "$TRAJ" -name '*.traj' | head -1)"
+
+# Zero misses is NOT proof the same execution happened. A replay that stops
+# early never misses; it just consumes fewer recorded responses. Compare the
+# trajectories themselves.
+rep_traj=$(find "$TRAJ" -name '*.traj' | head -1)
+rec_traj=$(find "/opt/trajectories/$INSTANCE" -name '*.traj' | head -1)
+[ -n "$rep_traj" ] || die "no replay trajectory written"
+if [ -n "$rec_traj" ]; then
+  python3 "$SWE_TOOLS_DIR/compare_trajectories.py" "$rec_traj" "$rep_traj" \
+    || die "replay is NOT the recorded execution -- do not trace this run"
+else
+  echo "  [warn] no recorded trajectory on this image to compare against"
+fi

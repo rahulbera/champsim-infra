@@ -89,6 +89,23 @@ restore_from_recorded() {
   echo "  restored $WORK from the recorded snapshot"
 }
 
+# The snapshot was taken before the record pass and freezes whatever guest-side
+# scripts existed then. Re-staging after each restore means a fix to a pass does
+# not require re-recording -- otherwise every script change costs an API run.
+# Staged ONCE per phase, before the workload starts, so the profile and trace
+# passes still execute identical code.
+stage_tools() {
+  local port=$1
+  rsync -a -e "ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY -p $port" \
+    --exclude '__pycache__' --exclude 'reference' --exclude 'problem_statements' \
+    "$ROOT/scripts/swe-agent/" "ubuntu@127.0.0.1:/opt/swe-agent-tools/" \
+    || die "could not stage guest tools"
+  rsync -a -e "ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY -p $port" \
+    "$ROOT/scripts/swe-agent/problem_statements/" "ubuntu@127.0.0.1:/opt/problem_statements/" \
+    || die "could not stage problem statements"
+  echo "  staged current guest-side tools"
+}
+
 boot_kvm() {  # boot_kvm <serial-log>
   stop_qemu
   ( cd "$IMAGES" && sg kvm -c "IMG=$(basename "$WORK") nohup bash boot_build.sh > $1 2>&1 &" )
@@ -144,6 +161,7 @@ verify)
   say "VERIFY — deterministic replay of $INSTANCE"
   restore_from_recorded
   boot_kvm "$IMAGES/verify-$INSTANCE.boot.log"
+  stage_tools $KVM_PORT
   ssh_guest $KVM_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -30
   shutdown_guest $KVM_PORT
   ;;
@@ -153,6 +171,7 @@ profile)
   restore_from_recorded
   LOG=$IMAGES/profile-$INSTANCE.boot.log
   boot_tcg "$IMAGES/profile_out" ",profile=on" "$LOG"
+  stage_tools $TCG_PORT
   arm_trigger_on_marker "$LOG"
   ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
   shutdown_guest $TCG_PORT
@@ -197,6 +216,7 @@ trace)
   boot_tcg "$OUT" \
     ",sample_len=$window_len,sample_gap=$sample_gap,sample_count=$windows,sample_clock=user" \
     "$LOG"
+  stage_tools $TCG_PORT
   arm_trigger_on_marker "$LOG"
   ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
   shutdown_guest $TCG_PORT
