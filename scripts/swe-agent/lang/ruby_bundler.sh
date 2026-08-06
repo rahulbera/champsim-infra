@@ -30,8 +30,19 @@ lang_deps() {
   # because the file is dot-prefixed.
   sudo mkdir -p /opt/bundle
   sudo chown -R ubuntu:ubuntu /opt/bundle
-  bundle config set --global path /opt/bundle
-  bundle config set --global jobs "$(nproc)"
+
+  # The gem path is exported to EVERY shell, not just set in bundler's config.
+  # `bundle config set --global` writes ~/.bundle/config for the invoking user,
+  # and provisioning runs as ubuntu while the agent runs as ROOT -- so root
+  # would consult /root/.bundle/config, not find the path, and fall back to the
+  # system gem dir with the project's gems missing. Environment variables are
+  # the only form that follows the process regardless of which user owns it.
+  sudo tee /etc/profile.d/00-ruby.sh >/dev/null <<'EOF'
+export BUNDLE_PATH=/opt/bundle
+export GEM_HOME=/opt/bundle
+export BUNDLE_JOBS=4
+EOF
+  export BUNDLE_PATH=/opt/bundle GEM_HOME=/opt/bundle BUNDLE_JOBS=$(nproc)
 
   cd "$REPO_DIR"
   bundle install >/tmp/provision_bundle.log 2>&1 \
@@ -71,6 +82,11 @@ lang_clean_check() {
   [ -z "$(cd "$REPO_DIR" && git status --porcelain)" ] \
     || die "tree dirty after gate: $(cd "$REPO_DIR" && git status --porcelain | head -5)"
   [ ! -e "$REPO_DIR/.bundle/config" ] \
-    || die ".bundle/config exists in the repo -- use the global bundler config"
-  ok "no stray files"
+    || die ".bundle/config exists in the repo -- use BUNDLE_PATH instead"
+  # The agent runs as root. Prove the gems resolve THERE, not just for the user
+  # that provisioned them -- otherwise the first `bundle exec` of the traced run
+  # fails on a missing gem, hours in.
+  sudo -i bash -c "cd $REPO_DIR && bundle check" >/dev/null 2>&1 \
+    || die "bundle check fails as root -- the agent would not find the gems"
+  ok "gems resolve as root; no stray files"
 }
