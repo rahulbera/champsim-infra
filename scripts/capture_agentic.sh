@@ -69,8 +69,17 @@ stop_qemu() {
 shutdown_guest() {  # graceful, so the plugin's atexit writes its manifest
   local port=$1
   ssh_guest "$port" 'sudo systemctl poweroff' 2>/dev/null || true
-  local t=0; while qemu_running && [ $t -lt 180 ]; do sleep 2; t=$((t+2)); done
-  qemu_running && { echo "  guest did not power off in ${t}s, forcing"; stop_qemu; }
+  local t=0; while qemu_running && [ $t -lt 300 ]; do sleep 2; t=$((t+2)); done
+  # `qemu_running && { ... }` as the last statement would return 1 on the
+  # SUCCESS path (guest already gone) and, under `set -e`, abort the caller
+  # immediately after the workload finished but before its result was saved.
+  # That is exactly how the first record pass lost its snapshot.
+  if qemu_running; then
+    echo "  guest did not power off in ${t}s, forcing"
+    stop_qemu
+  else
+    echo "  guest powered off cleanly after ${t}s"
+  fi
 }
 
 restore_from_recorded() {
