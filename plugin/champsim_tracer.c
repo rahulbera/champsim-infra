@@ -294,6 +294,10 @@ static uint32_t sample_count = 0;      /* windows to capture; 0 = unlimited */
 static bool sample_clock_user = true;  /* gap/window-start gated on user mode */
 static bool profile_mode = false;      /* count only, write nothing */
 
+/* profile=on counters (global: the profile pass measures the whole ROI) */
+static uint64_t profile_total_insns = 0;
+static uint64_t profile_user_insns  = 0;
+
 /* Chunked output is used by BOTH rotation and sampling: each sampling window
  * is emitted as its own chunk, reusing the rotate= naming and manifest. */
 static bool chunking_active(void)
@@ -714,6 +718,20 @@ static void insn_exec_cb(unsigned int vcpu_index, void *userdata)
         {
             trigger_check_counter = 0;
             check_trigger();
+        }
+        return;
+    }
+
+    /* Profile mode: count only. Returning here means no VcpuState is touched,
+     * no chunk is opened, and no file is created -- so a profile pass costs the
+     * same as the dormant phase and leaves no artifacts to clean up. */
+    if (profile_mode)
+    {
+        InsnMeta *m = (InsnMeta *)userdata;
+        profile_total_insns++;
+        if (m->vaddr < kernel_addr_thresh)
+        {
+            profile_user_insns++;
         }
         return;
     }
@@ -1154,6 +1172,23 @@ static void plugin_atexit(qemu_plugin_id_t id, void *userdata)
     uint64_t total_raw = 0;
     uint64_t total_comp = 0;
 
+    /* Profile mode never initialised per-vCPU state (no buffers, no files), so
+     * report and return before anything tries to finalise it. */
+    if (profile_mode)
+    {
+        fprintf(stderr,
+                "\n[%s] PROFILE: %" PRIu64 " instructions (%" PRIu64 " user, %"
+                PRIu64 " kernel)\n",
+                PLUGIN_NAME, profile_total_insns, profile_user_insns,
+                profile_total_insns - profile_user_insns);
+        fprintf(stderr,
+                "[%s] For K windows of N insns: sample_gap = (user - K*N)/(K-1)\n",
+                PLUGIN_NAME);
+        fprintf(stderr, "[%s] Done (profile mode: no records written).\n",
+                PLUGIN_NAME);
+        return;
+    }
+
     fprintf(stderr, "\n[%s] Finalizing traces...\n", PLUGIN_NAME);
 
     if (use_trigger && !tracing_enabled)
@@ -1401,8 +1436,13 @@ QEMU_PLUGIN_EXPORT int qemu_plugin_install(qemu_plugin_id_t id,
                 PLUGIN_NAME);
     }
 
-    /* Initialize per-vCPU state */
-    for (int i = 0; i < MAX_VCPUS; i++)
+    /* Initialize per-vCPU state.
+     *
+     * Skipped entirely in profile mode: open_chunk() runs HERE, before any
+     * instruction callback, so returning early from insn_exec_cb() is too late
+     * to stop an (empty) trace file from being created. A profile pass must
+     * leave no artifacts. */
+    for (int i = 0; i < MAX_VCPUS && !profile_mode; i++)
     {
         if (!trace_vcpu[i])
         {
