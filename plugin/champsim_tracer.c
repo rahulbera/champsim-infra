@@ -275,6 +275,21 @@ static VcpuState vcpu_state[MAX_VCPUS];
 static bool trace_vcpu[MAX_VCPUS];
 static uint64_t insn_limit = 0;
 static uint64_t rotate_interval = 0;
+
+/* Periodic sampling. Inert while sample_len == 0 (default), which keeps
+ * every existing capture byte-identical. */
+static uint64_t sample_len = 0;        /* instructions per capture window */
+static uint64_t sample_gap = 0;        /* instructions skipped between windows */
+static uint32_t sample_count = 0;      /* windows to capture; 0 = unlimited */
+static bool sample_clock_user = true;  /* gap/window-start gated on user mode */
+static bool profile_mode = false;      /* count only, write nothing */
+
+/* Chunked output is used by BOTH rotation and sampling: each sampling window
+ * is emitted as its own chunk, reusing the rotate= naming and manifest. */
+static bool chunking_active(void)
+{
+    return rotate_interval > 0 || sample_len > 0;
+}
 static char output_dir[4096] = ".";
 static qemu_plugin_id_t plugin_id;
 
@@ -934,6 +949,37 @@ static bool parse_args(int argc, char **argv)
         {
             rotate_interval = strtoull(arg + 7, NULL, 10);
         }
+        else if (g_str_has_prefix(arg, "sample_len="))
+        {
+            sample_len = strtoull(arg + 11, NULL, 10);
+        }
+        else if (g_str_has_prefix(arg, "sample_gap="))
+        {
+            sample_gap = strtoull(arg + 11, NULL, 10);
+        }
+        else if (g_str_has_prefix(arg, "sample_count="))
+        {
+            sample_count = (uint32_t)strtoul(arg + 13, NULL, 10);
+        }
+        else if (g_str_has_prefix(arg, "sample_clock="))
+        {
+            const char *v = arg + 13;
+            if (!strcmp(v, "user"))      sample_clock_user = true;
+            else if (!strcmp(v, "all"))  sample_clock_user = false;
+            else
+            {
+                fprintf(stderr, "[%s] sample_clock= must be user|all\n", PLUGIN_NAME);
+                return false;
+            }
+        }
+        else if (g_str_has_prefix(arg, "profile="))
+        {
+            if (!parse_onoff(arg + 8, &profile_mode))
+            {
+                fprintf(stderr, "[%s] profile= must be on|off|1|0\n", PLUGIN_NAME);
+                return false;
+            }
+        }
         else
         {
             fprintf(stderr, "[%s] Unknown argument: %s\n", PLUGIN_NAME, arg);
@@ -941,10 +987,23 @@ static bool parse_args(int argc, char **argv)
                             "[,outdir=<path>][,vcpus=<range>][,limit=<N>]"
                             "[,trigger=<host-file>][,arch=auto|x86_64|aarch64]"
                             "[,capture_pa=on|off][,values=on|off]"
-                            "[,rotate=<N>]\n",
+                            "[,rotate=<N>]"
+                            "[,sample_len=<N>][,sample_gap=<M>]"
+                            "[,sample_count=<K>][,sample_clock=user|all]"
+                            "[,profile=on|off]\n",
                     PLUGIN_NAME);
             return false;
         }
+    }
+
+    /* Both features emit chunk files and a manifest; running them together
+     * would interleave two different chunking schedules into one namespace. */
+    if (rotate_interval > 0 && sample_len > 0)
+    {
+        fprintf(stderr,
+                "[%s] rotate= and sample_len= are mutually exclusive\n",
+                PLUGIN_NAME);
+        return false;
     }
 
     return true;
@@ -1163,6 +1222,26 @@ QEMU_PLUGIN_EXPORT int qemu_plugin_install(qemu_plugin_id_t id,
     else
         fprintf(stderr, "[%s] Rotation: off (single file per vCPU)\n",
                 PLUGIN_NAME);
+    if (sample_len > 0)
+    {
+        if (sample_count > 0)
+            fprintf(stderr,
+                    "[%s] Sampling: %u windows x %" PRIu64 " insns, gap %"
+                    PRIu64 ", clock=%s\n",
+                    PLUGIN_NAME, sample_count, sample_len, sample_gap,
+                    sample_clock_user ? "user" : "all");
+        else
+            fprintf(stderr,
+                    "[%s] Sampling: unlimited windows x %" PRIu64
+                    " insns, gap %" PRIu64 ", clock=%s\n",
+                    PLUGIN_NAME, sample_len, sample_gap,
+                    sample_clock_user ? "user" : "all");
+    }
+    if (profile_mode)
+    {
+        fprintf(stderr, "[%s] PROFILE MODE: counting only, no records written\n",
+                PLUGIN_NAME);
+    }
     fprintf(stderr, "[%s] Compression: zstd level %d\n",
             PLUGIN_NAME, ZSTD_LEVEL);
     fprintf(stderr, "[%s] Arch: %s | capture_pa: %s | values: %s "

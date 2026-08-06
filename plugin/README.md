@@ -109,6 +109,33 @@ vcpu_id) keep the existing host-little-endian memcpy convention.
 | `capture_pa=` | `on` \| `off` \| `1` \| `0` | `on` | capture each mem-op's guest physical address via `qemu_plugin_get_hwaddr`. `off` genuinely skips the hwaddr call (it costs a TLB walk per access), not just the record bytes |
 | `values=` | `on` \| `off` \| `1` \| `0` | `on` | capture memory values via `qemu_plugin_mem_get_value`. `off` means no mem-op ever sets `has_value`, and the header's `flags.has_values=0`/`value_cap=0` |
 | `rotate=<N>` | integer | `0` = off | close the current per-vCPU chunk and open a fresh one every N traced instructions on that vCPU. See "Rotation" below |
+| `sample_len=<N>` | integer | `0` = off | capture N instructions, then skip `sample_gap`, and repeat. Each window is its own chunk file. Mutually exclusive with `rotate=` |
+| `sample_gap=<M>` | integer | `0` | instructions skipped between capture windows |
+| `sample_count=<K>` | integer | `0` = unlimited | stop after K windows |
+| `sample_clock=` | `user` \| `all` | `user` | which instructions advance the **gap** and gate the **window start**. Window *length* always counts every instruction — see below |
+| `profile=` | `on` \| `off` | `off` | count instructions and report totals without writing any records; used to measure a trajectory before choosing `sample_gap` |
+
+### `sample_clock` is deliberately asymmetric
+
+| phase | `sample_clock=user` | `sample_clock=all` |
+|---|---|---|
+| gap (`sample_gap`) | advances on user-mode instructions only | advances on every instruction |
+| window start | begins at the first user-mode instruction after the gap | begins immediately |
+| window length (`sample_len`) | **every** instruction counts | every instruction counts |
+
+A window is therefore always exactly `sample_len` records. If the user-mode
+clock also governed window length, a window would hold `sample_len` user
+instructions *plus* however many kernel instructions interleaved — no longer a
+fixed-size slice, and not comparable against a fixed-size slice from another
+workload.
+
+What the user clock buys is that a TCG idle stretch neither consumes the gap nor
+starts a window. Note "user" here is an **address** test (`vaddr >=
+0xFFFF800000000000` on x86-64), not the architectural CPL.
+
+Sampling with `sample_gap=0` and `sample_clock=all` is definitionally the same
+schedule as `rotate=`, and `tests/sampling_test.sh` asserts the two produce
+byte-identical chunks.
 
 ### `trigger=` — the one sharp edge
 
