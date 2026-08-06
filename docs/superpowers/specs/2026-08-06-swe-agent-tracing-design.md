@@ -28,8 +28,9 @@ large-I-footprint harness plus constant process spawn on top of it.
 ## 2. Scope
 
 **In scope.** A repeatable pipeline that produces validated ChampSim v2 traces
-of SWE-agent solving 2–3 SWE-bench Multilingual tasks, plus the plugin feature
-and proxy needed to make that possible.
+of SWE-agent solving **one** SWE-bench Multilingual task end to end (§3.1), plus
+the plugin feature and proxy needed to make that possible. Scaling to further
+tasks follows once the pipeline is proven.
 
 **Out of scope.** Running the full benchmark; ROI discovery via SimPoint;
 AArch64; simulator-side ChampSim configuration; publishing results.
@@ -44,7 +45,7 @@ more honest strategy here, not merely the cheaper one.
 
 | Decision | Choice | Rationale |
 |---|---|---|
-| Tasks | 2–3 from SWE-bench Multilingual | pick differing tool profiles (one test-heavy, one search/read-heavy) |
+| Tasks | **one Prometheus (Go) task first**, end to end, before scaling | prove the pipeline on a single task; see §3.1 |
 | Region selection | uniform sampling, no SimPoint | §2 |
 | Sample geometry | **4 windows × 300 M instructions** | matches `champsim-infra` SPEC SimPoint slice length ⇒ apples-to-apples |
 | Guest vCPUs | 4 | agent isolated on one; others absorb OS work; near-free under MTTCG on a 32-thread host |
@@ -54,6 +55,41 @@ more honest strategy here, not merely the cheaper one.
 | Agent | SWE-agent + SWE-ReX **Local** backend | full harness I-footprint; no Docker, so tools inherit CPU affinity |
 | LLM determinism | local record/replay HTTP proxy | see §4 |
 | Orchestration | KVM for build+record, TCG for trace, **no snapshots** | §5 |
+
+### 3.1 Task selection: one Prometheus (Go) task first
+
+**SWE-bench Multilingual contains no Python instances.** It is 300 tasks across
+9 languages — C, C++, Go, Java, JavaScript, TypeScript, PHP, Ruby, Rust —
+deliberately excluding Python because SWE-bench Verified already covers it. (A
+separate, similarly-named *Multi-SWE-bench* from ByteDance does include Python;
+they are different datasets.)
+
+The dataset holds **8 Prometheus instances**, all `prometheus/prometheus` (Go):
+
+```
+prometheus__prometheus-9248    prometheus__prometheus-10633
+prometheus__prometheus-10720   prometheus__prometheus-11859
+prometheus__prometheus-12874   prometheus__prometheus-13845
+prometheus__prometheus-14861   prometheus__prometheus-15142
+```
+
+Go strengthens rather than weakens the experiment. The agent harness remains
+Python — CPython's dispatch loop is the indirect-branch-heavy component the
+hypothesis targets — while the *tools* become `go build`/`go test`. The Go
+compiler is a large Go binary and the test binaries are statically linked, so a
+single trace captures a **mixed** frontend workload (interpreter + compiled
+toolchain) rather than a pure-interpreter one. That is closer to what a real
+agent does, and it makes an all-Python task a natural later contrast rather
+than the baseline.
+
+Two consequences for Pass 1, both load-bearing:
+
+* **The Go module cache and toolchain must be fully pre-populated**, because
+  replay runs with networking off. A cold `go mod download` mid-replay fails.
+* **Go's build cache state is a deliberate choice.** Pre-warming it makes the
+  traced run faster but unrepresentative of a first build; leaving it cold
+  makes the first `go test` dominate the trace. Whichever is chosen must be
+  recorded with the traces, since it materially changes the instruction mix.
 
 ## 4. Determinism comes from the recording, not from temperature
 
