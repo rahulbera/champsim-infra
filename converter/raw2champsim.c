@@ -47,6 +47,38 @@
 #define NUM_INSTR_DESTINATIONS 2
 #define MAX_MEM_VALUE_SIZE     64
 
+/* --- explicit branch-type contract -------------------------------------------
+ * Mirrors champsim::TRACE_RESERVED_* / TRACE_FEATURE_* in ChampSim's
+ * inc/trace_instruction.h. Three of the record's eight reserved bytes carry
+ * meaning; the 512-byte layout is unchanged, so a consumer that predates the
+ * contract simply sees them as the zeroes they used to be.
+ *
+ * Presence is announced by the FEATURE BIT, never by reserved[0] being
+ * non-zero: 0 is BRANCH_DIRECT_JUMP, a perfectly valid type, so a zeroed
+ * record is byte-identical to one describing a direct jump.
+ */
+#define TRACE_RESERVED_BRANCH_TYPE 0
+#define TRACE_RESERVED_FEATURES    1
+#define TRACE_RESERVED_TRACER_ID   2
+
+#define TRACE_FEATURE_EXPLICIT_BRANCH_TYPE 0x01
+#define TRACE_FEATURE_FLAGS_REGISTER       0x02
+
+/* Tracer identity. 2 and 3 are the champsim-infra pintools (v2 and v3); 4 is
+ * this QEMU-raw converter, so a trace on disk names the tool that made it. */
+#define TRACER_ID_QEMU_RAW2CHAMPSIM 4
+
+/* ChampSim branch_type enum values (0-based). The decoders return these +1,
+ * reserving 0 for "not a branch". */
+#define CS_BRANCH_DIRECT_JUMP   0
+#define CS_BRANCH_INDIRECT      1
+#define CS_BRANCH_CONDITIONAL   2
+#define CS_BRANCH_DIRECT_CALL   3
+#define CS_BRANCH_INDIRECT_CALL 4
+#define CS_BRANCH_RETURN        5
+#define CS_BRANCH_OTHER         6
+#define CS_BRANCH_NOT_BRANCH    7
+
 /* Compression */
 #define ZSTD_COMP_LEVEL 19 /* high compression, decompression speed unaffected */
 
@@ -639,7 +671,11 @@ int main(int argc, char **argv)
     decoded_regs_t d = (arch == 1) ? decode_aarch64(insn_bytes, isz)
                                    : decode_x86(insn_bytes, isz);
     if (d.ok) {
-      rec.is_branch  = d.is_branch;
+      /* is_branch is a BOOLEAN in the ChampSim record. The decoders return a
+         1-based type code (1..7) in the same field; the type now travels in
+         reserved[0] instead, 0-based, so this narrows to 0/1 as the format
+         intends. See the reserved[] block below. */
+      rec.is_branch  = d.is_branch ? 1 : 0;
       rec.instr_type = d.instr_type;
       for (uint8_t k = 0; k < d.n_src; k++) rec.source_registers[k]      = d.src_regs[k];
       for (uint8_t k = 0; k < d.n_dst; k++) rec.destination_registers[k] = d.dst_regs[k];
@@ -651,6 +687,27 @@ int main(int argc, char **argv)
       stats.decode_failures++;
       rec.instr_type = INSTR_TYPE_INT;
     }
+
+    /* --- explicit branch type (reserved[0..2]) ------------------------------
+     *
+     * ChampSim otherwise INFERS branch type from which registers appear in the
+     * record, and that inference is silently wrong whenever the register shape
+     * does not match what it expects: a conditional branch that does not read
+     * IP falls through to BRANCH_OTHER, and one that reads neither IP nor FLAGS
+     * is classified BRANCH_INDIRECT with its direction OVERWRITTEN to "taken".
+     * The decoder already knows the answer exactly, so state it.
+     *
+     * Set on EVERY record, including decode failures (NOT_BRANCH), because the
+     * consumer tests the feature bit per record -- a single record with the bit
+     * clear silently reverts to inference for that instruction.
+     *
+     * Note the -1: the decoders use a 1-based code where 0 means "not a
+     * branch", while ChampSim's branch_type enum is 0-based with 7 = NOT_BRANCH. */
+    rec.reserved[TRACE_RESERVED_BRANCH_TYPE] =
+        (d.ok && d.is_branch) ? (uint8_t)(d.is_branch - 1) : CS_BRANCH_NOT_BRANCH;
+    rec.reserved[TRACE_RESERVED_FEATURES] =
+        TRACE_FEATURE_EXPLICIT_BRANCH_TYPE | TRACE_FEATURE_FLAGS_REGISTER;
+    rec.reserved[TRACE_RESERVED_TRACER_ID] = TRACER_ID_QEMU_RAW2CHAMPSIM;
 
     /* Map memory operations to source/destination slots */
     int src_mem_idx = 0;
@@ -731,9 +788,44 @@ int main(int argc, char **argv)
     }
   }
 
-  /* Write the last instruction (assume branch not taken for final) */
+  /* The final record has no successor, so branch_taken cannot be derived by
+   * the usual lookahead (taken == next_ip != fallthrough).
+   *
+   * This used to be written with branch_taken left at 0. That was harmless
+   * while ChampSim re-inferred everything -- it overwrites the direction for
+   * every unconditional class anyway -- but the moment reserved[0] is trusted,
+   * a BRANCH_DIRECT_CALL carrying branch_taken = 0 is a not-taken call, which
+   * is not a thing. With rotate=N the boundary recurs once per chunk, so this
+   * is not a one-off.
+   *
+   * An unconditional transfer is taken by definition, so say so. A trailing
+   * CONDITIONAL branch is genuinely unknowable -- drop it rather than guess a
+   * direction, since a fabricated direction is indistinguishable from a real
+   * one downstream. One instruction per file is a rounding error; a silently
+   * wrong one is not. */
   if (has_prev) {
-    if (!writer_write(writer, &prev_record, sizeof(prev_record))) {
+    bool drop_final = false;
+    if (prev_record.is_branch) {
+      uint8_t bt = prev_record.reserved[TRACE_RESERVED_BRANCH_TYPE];
+      switch (bt) {
+      case CS_BRANCH_DIRECT_JUMP:
+      case CS_BRANCH_INDIRECT:
+      case CS_BRANCH_DIRECT_CALL:
+      case CS_BRANCH_INDIRECT_CALL:
+      case CS_BRANCH_RETURN:
+        prev_record.branch_taken = 1;
+        break;
+      default: /* CONDITIONAL, OTHER: direction not derivable */
+        drop_final = true;
+        break;
+      }
+    }
+    if (drop_final) {
+      fprintf(stderr,
+              "note: dropped final record (ip=0x%" PRIx64 ", conditional branch "
+              "with no successor -- direction not derivable)\n",
+              prev_record.ip);
+    } else if (!writer_write(writer, &prev_record, sizeof(prev_record))) {
       fprintf(stderr, "ERROR: write failed (final)\n");
     }
   }
