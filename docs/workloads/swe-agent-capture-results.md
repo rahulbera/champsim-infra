@@ -127,3 +127,74 @@ Calls (9.19%) balance returns (9.07%), and the conditional share sits in the
 serving work is in the trace. In production the LLM is remote, so this inflates
 the agent's apparent CPU work. Deliberate — the brief lists the proxy as CPU
 work to capture — but it must be stated wherever these traces are reported.
+
+---
+
+# First simulation results (TAGE-SC-L 64 KB, 50 M warmup / 200 M sim)
+
+Agentic windows against SPEC CPU 2026 at identical 300 M slice geometry.
+
+| trace | BP acc% | BP MPKI | L1I MPKI | IPC |
+|---|---|---|---|---|
+| agent w0 | 95.69 | 8.18 | 21.3 | 1.05 |
+| agent w1 | 98.08 | 3.65 | 21.1 | 1.85 |
+| agent w2 | 98.09 | 3.63 | 21.5 | 1.96 |
+| agent w3 | 99.06 | 1.81 | 13.6 | 1.32 |
+| 723.llvm | 94.68 | 10.74 | 28.4 | 1.30 |
+| 710.omnetpp | 97.09 | 7.04 | 0.04 | 1.05 |
+| 706.stockfish | 95.04 | 5.13 | 12.0 | 1.44 |
+| 721.gcc | 97.59 | 4.76 | 21.9 | 1.28 |
+| 714.cpython | 98.46 | 3.15 | 45.7 | 1.96 |
+| 708.sqlite | 98.60 | 2.79 | 13.3 | 1.14 |
+| 727.cppcheck | 99.67 | 0.84 | 7.3 | 0.54 |
+
+## Aggregate metrics do NOT distinguish the workload
+
+Agentic branch MPKI (1.8–8.2) sits inside SPEC's range (0.84–10.7), and L1I
+MPKI (13.6–21.5) inside SPEC's (0.04–45.7). `llvm` mispredicts more than any
+agentic window, and **SPEC's own `cpython` has more than double the L1I
+pressure** (45.7 vs 21.5) — which directly undercuts the originally proposed
+mechanism that CPython's dispatch loop makes agentic code frontend-hostile.
+The interpreter alone is more I-cache hostile than the agent running on it.
+
+## The misprediction COMPOSITION does distinguish it
+
+| trace | conditional | indirect | indirect % of misses |
+|---|---|---|---|
+| **agent w1** | 0.30 | 2.91 | **86.3%** |
+| **agent w2** | 0.25 | 2.95 | **87.7%** |
+| agent w0 | 4.88 | 1.61 | 24.4% |
+| agent w3 | 0.91 | 0.45 | 25.9% |
+| 727.cppcheck | 0.27 | 0.44 | 56.8% |
+| 714.cpython | 0.97 | 1.29 | 41.0% |
+| 708.sqlite | 2.01 | 0.56 | 23.9% |
+| 723.llvm | 7.38 | 0.87 | 9.4% |
+| 721.gcc | 4.04 | 0.16 | 5.5% |
+| 706.stockfish | 4.87 | 0.21 | 4.2% |
+| 710.omnetpp | 6.89 | 0.14 | 2.0% |
+
+In the compute-heavy windows conditional prediction is essentially solved
+(0.25–0.30 MPKI) while **indirect branches account for 86–88% of all
+mispredictions**. Every traditional SPEC workload is the mirror image.
+
+**Design implication:** for this workload a better conditional predictor buys
+almost nothing. The budget belongs in indirect target prediction — ITTAGE,
+larger indirect target buffers, return-address handling.
+
+## Caveats, in order of how much they could change the conclusion
+
+1. **The indirect dominance may be Go, not agency.** Windows 1 and 2 are the
+   `go build`/`go test` phases, Go leans on interface dispatch, and SPEC 2026
+   contains no Go benchmark. This may measure "the Go toolchain is
+   indirect-heavy" rather than "agentic workloads are". Distinguishing them
+   needs a Python-task agent trace, or a standalone Go compile with no agent.
+   **This is the next experiment.**
+2. **n = 1 task, 1 model, 4 windows.** No claim of generality.
+3. **Phase heterogeneity is large**: indirect share swings 24% → 87% → 26%
+   across the trajectory, so a single slice misrepresents the workload badly.
+   Supports uniform sampling over SimPoint; also means window count matters.
+4. **The replay proxy runs on the traced vCPU**, so its serving work inflates
+   apparent CPU cost relative to a deployment with a remote LLM.
+5. Only one SPEC slice per benchmark was simulated, so SPEC's own
+   intra-benchmark variance is unmeasured and the variance comparison is
+   one-sided.
