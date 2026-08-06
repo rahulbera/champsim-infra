@@ -275,8 +275,9 @@ Append to `plugin/tests/sampling_test.sh`, before the final summary block:
 ```bash
 echo "== Task 2: window geometry =="
 
-# 3 windows of 50k, gap 20k. limit= is left unset so sample_count ends the run.
-run_bios "$WORK/t2a" ",sample_len=50000,sample_gap=20000,sample_count=3,sample_clock=all"
+# 3 windows of 20k, gap 10k = 80k instructions total. SeaBIOS retires >200k,
+# so this fits with margin; 50k/20k windows would not.
+run_bios "$WORK/t2a" ",sample_len=20000,sample_gap=10000,sample_count=3,sample_clock=all"
 
 n_chunks=$(ls "$WORK/t2a"/trace_vcpu0_c*.raw.zst 2>/dev/null | wc -l)
 [ "$n_chunks" -eq 3 ]
@@ -287,12 +288,12 @@ MAN="$WORK/t2a/trace_vcpu0_manifest.txt"
 [ -f "$MAN" ]
 check "manifest written" $?
 
-bad=$(awk '$4 != 50000 {print}' "$MAN" | wc -l)
+bad=$(awk '$4 != 20000 {print}' "$MAN" | wc -l)
 [ "$bad" -eq 0 ]
-check "every window holds exactly 50000 instructions ($bad bad rows)" $?
+check "every window holds exactly 20000 instructions ($bad bad rows)" $?
 
-# Window k should start at k*(len+gap) = k*70000
-bad=$(awk '{ expect = NR>0 ? ($1)*70000 : 0 } $3 != expect {print}' "$MAN" | wc -l)
+# Window k starts at k*(len+gap) = k*30000, where k is the chunk index (col 1).
+bad=$(awk '$3 != $1*30000 {print}' "$MAN" | wc -l)
 [ "$bad" -eq 0 ]
 check "window start offsets are len+gap apart ($bad bad rows)" $?
 ```
@@ -354,6 +355,12 @@ In `insn_exec_cb`, insert this block immediately after the `vs->limit_reached` e
             InsnMeta *m = (InsnMeta *)userdata;
             bool is_user = (m->vaddr < kernel_addr_thresh);
 
+            /* Flush the last captured instruction once, on entry to the gap.
+             * This is the has_pending/mem_cb hazard: without it, the memory
+             * operands of SKIPPED instructions attach to the last CAPTURED
+             * instruction. Idempotent -- a no-op once has_pending is false. */
+            finalize_pending_insn(vs);
+
             if (!sample_clock_user || is_user)
             {
                 vs->sample_phase_insns++;
@@ -362,8 +369,8 @@ In `insn_exec_cb`, insert this block immediately after the `vs->limit_reached` e
             {
                 return;
             }
-            /* Gap complete. With the user clock, the next window must BEGIN on
-             * a user-mode instruction, so idle never starts a window. */
+            /* Gap complete. With the user clock the next window must BEGIN on a
+             * user-mode instruction, so a TCG idle stretch never starts one. */
             if (sample_clock_user && !is_user)
             {
                 return;
@@ -378,19 +385,27 @@ In `insn_exec_cb`, insert this block immediately after the `vs->limit_reached` e
                 vs->limit_reached    = true;
                 return;
             }
+            /* Fall through: record THIS instruction as the window's first. */
         }
     }
 ```
 
 Then, immediately after the existing `finalize_pending_insn(vs);` call, add the
-window-completion check:
+window-completion check.
+
+**This must not `return` on the boundary.** Each callback finalizes the
+*previous* instruction and stores the *current* one as pending at the end of the
+function. Returning here would mean the current instruction is neither recorded
+nor counted toward the gap — one instruction silently dropped per boundary, and
+`sample_gap=0` would then *not* reproduce `rotate=` (Task 5 would fail). Instead
+the boundary consumes the current instruction into the gap explicitly, which
+makes `sample_gap=0` degenerate to rotation with no special case:
 
 ```c
     /* Window length always counts EVERY instruction, so a window is exactly
      * sample_len records regardless of sample_clock. */
     if (sample_len > 0 && !vs->sample_skipping && vs->chunk_insn_count >= sample_len)
     {
-        finalize_pending_insn(vs);   /* no-op if already flushed; clears has_pending */
         close_chunk(vs);
         vs->sample_windows_done++;
         vs->sample_phase_insns = 0;
@@ -401,8 +416,37 @@ window-completion check:
             vs->limit_reached   = true;   /* reuse existing stop/flush machinery */
             return;
         }
+
         vs->sample_skipping = true;
-        return;
+
+        /* Account for the CURRENT instruction here rather than dropping it. */
+        InsnMeta *mb    = (InsnMeta *)userdata;
+        bool      is_u  = (mb->vaddr < kernel_addr_thresh);
+        if (!sample_clock_user || is_u)
+        {
+            vs->sample_phase_insns++;
+        }
+        if (vs->sample_phase_insns < sample_gap)
+        {
+            return;                       /* consumed by the gap */
+        }
+        if (sample_clock_user && !is_u)
+        {
+            return;                       /* wait for a user-mode instruction */
+        }
+
+        /* Gap already satisfied (the sample_gap==0 case): reopen immediately
+         * and fall through, so this instruction lands in the next window --
+         * exactly what rotate= does at a chunk boundary. */
+        vs->sample_skipping    = false;
+        vs->sample_phase_insns = 0;
+        vs->chunk_index++;
+        if (!open_chunk(vs))
+        {
+            vs->chunk_insn_count = 0;
+            vs->limit_reached    = true;
+            return;
+        }
     }
 ```
 
@@ -645,8 +689,8 @@ Append to `plugin/tests/sampling_test.sh` before the summary block:
 ```bash
 echo "== Task 5: sampling with gap=0 must equal rotation =="
 
-run_bios "$WORK/t5s" ",limit=200000,sample_len=100000,sample_gap=0,sample_count=2,sample_clock=all"
-run_bios "$WORK/t5r" ",limit=200000,rotate=100000"
+run_bios "$WORK/t5s" ",limit=100000,sample_len=50000,sample_gap=0,sample_count=2,sample_clock=all"
+run_bios "$WORK/t5r" ",limit=100000,rotate=50000"
 
 same=0
 for k in 00000 00001; do
