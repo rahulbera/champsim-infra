@@ -142,6 +142,43 @@ still at `hw/i386/kvm/clock.c:335`, so it cannot load a KVM snapshot under TCG.
 Snapshots remain available as a later optimisation if per-run boot cost becomes
 material.
 
+### KVM access on this host: use `sg kvm -c`, not `setfacl`
+
+`/dev/kvm` is `root:kvm 0660` and this user was in neither. Two fixes exist and
+only one of them holds:
+
+* `sudo setfacl -m u:$USER:rw /dev/kvm` works **immediately** but is **not
+  durable** — systemd-logind's `uaccess` mechanism re-applies device ACLs on
+  session changes and silently wipes the manual entry. Observed here: verified
+  present, then gone roughly thirty minutes later with no reboot, leaving only
+  the `root` and `gdm` entries and a confusing "Permission denied" from QEMU.
+* `sudo usermod -aG kvm $USER` *is* durable, but supplementary groups are fixed
+  when a login session is created, so an already-running session never sees it.
+
+The fix needing neither a restart nor re-application:
+
+```bash
+sg kvm -c '<command>'      # e.g. sg kvm -c /path/to/boot_script.sh
+```
+
+`sg` grants a group the user already belongs to per `/etc/group`, so it prompts
+for no password. **Every KVM invocation in passes 1 and 2 must be wrapped this
+way** unless the shell was created after the `usermod`. Quoting through `sg -c`
+is awkward, so put the QEMU command in a script and run the script.
+
+Verified: the guest boots to Ubuntu 24.04.4 / kernel 6.8.0-136 under KVM with
+848 lines of serial output — which also confirms the serial channel that the
+ROI trigger marker depends on (§8).
+
+### Host prerequisites still missing
+
+`cloud-localds`, `genisoimage`, `mkisofs`, `xorriso` and `mtools` are all
+absent, so the cloud-init NoCloud seed image cannot be built without one of:
+`sudo apt install cloud-image-utils` (preferred), or serving the seed over
+`nocloud-net` from a local HTTP server via QEMU's SMBIOS serial (no root, but
+more moving parts). `mkfs.vfat` exists but is useless alone — populating the
+filesystem needs `mtools` or a loopback mount.
+
 ## 6. Sampling: the new plugin feature
 
 The plugin today has `outdir/vcpus/limit/trigger/arch/capture_pa/values/rotate`.
