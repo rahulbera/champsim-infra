@@ -131,7 +131,16 @@ if [ ! -d /opt/swe-agent ]; then
   sudo git clone https://github.com/SWE-agent/SWE-agent.git /opt/swe-agent
   sudo chown -R ubuntu:ubuntu /opt/swe-agent
 fi
-python3 -m venv /opt/venv 2>/dev/null || true
+# /opt is root-owned, so `python3 -m venv /opt/venv` fails as ubuntu. It must be
+# created and handed over FIRST. (An earlier version wrote `|| true` here, which
+# turned that failure into a confusing "no such file: /opt/venv/bin/pip" three
+# lines later -- never suppress an error you have not understood.)
+if [ ! -x /opt/venv/bin/python ]; then
+  sudo mkdir -p /opt/venv
+  sudo chown ubuntu:ubuntu /opt/venv
+  python3 -m venv /opt/venv
+fi
+[ -x /opt/venv/bin/pip ] || die "venv creation failed: no /opt/venv/bin/pip"
 /opt/venv/bin/pip install --quiet --upgrade pip
 /opt/venv/bin/pip install --quiet -e /opt/swe-agent
 /opt/venv/bin/sweagent --help >/dev/null 2>&1 || die "sweagent CLI not working"
