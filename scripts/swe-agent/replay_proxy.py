@@ -10,6 +10,7 @@ dependencies are part of the measurement.
 """
 import hashlib
 import json
+import os
 
 # Fields that vary per run and must NOT contribute to the cassette key.
 # Include one of these and every single replay misses; exclude a field that
@@ -42,3 +43,54 @@ def canonical_key(body: bytes) -> str:
 
     canon = json.dumps(obj, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canon.encode("utf-8")).hexdigest()
+
+
+class ReplayMiss(Exception):
+    """A request had no cassette. Fatal by design -- see the module docstring."""
+
+
+# Response headers worth preserving. Everything else is dropped, which also
+# guarantees Authorization can never reach a cassette: these files are
+# committed next to the traces, and a leaked key is permanent.
+KEEP_RESPONSE_HEADERS = {"content-type"}
+
+
+class Cassettes:
+    """One JSON file per exchange, named by request key.
+
+    One file per exchange rather than a single store, so that `git diff` on a
+    re-recording shows exactly which exchanges changed.
+    """
+
+    def __init__(self, dirpath):
+        self.dir = dirpath
+        os.makedirs(self.dir, exist_ok=True)
+
+    def _path(self, key):
+        return os.path.join(self.dir, key + ".json")
+
+    def save(self, key, status, headers, body):
+        safe_headers = {
+            k: v for k, v in headers.items() if k.lower() in KEEP_RESPONSE_HEADERS
+        }
+        doc = {
+            "key": key,
+            "status": status,
+            "headers": safe_headers,
+            "body": body.decode("utf-8", errors="replace"),
+        }
+        tmp = self._path(key) + ".tmp"
+        with open(tmp, "w") as f:
+            json.dump(doc, f, indent=1, sort_keys=True)
+        os.replace(tmp, self._path(key))   # atomic: no torn cassette
+
+    def load(self, key):
+        try:
+            with open(self._path(key)) as f:
+                doc = json.load(f)
+        except FileNotFoundError:
+            return None
+        return doc["status"], doc.get("headers", {}), doc["body"].encode("utf-8")
+
+    def count(self):
+        return len([n for n in os.listdir(self.dir) if n.endswith(".json")])

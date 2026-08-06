@@ -46,5 +46,38 @@ class TestCanonicalKey(unittest.TestCase):
         self.assertEqual(len(k), 64)
 
 
+class TestCassettes(unittest.TestCase):
+    def setUp(self):
+        import tempfile
+        self.tmp = tempfile.mkdtemp()
+        self.c = replay_proxy.Cassettes(self.tmp)
+
+    def test_round_trip(self):
+        key = "a" * 64
+        self.c.save(key, 200, {"Content-Type": "application/json"}, b'{"ok":true}')
+        got = self.c.load(key)
+        self.assertIsNotNone(got)
+        status, headers, body = got
+        self.assertEqual(status, 200)
+        self.assertEqual(body, b'{"ok":true}')
+        self.assertEqual(headers["Content-Type"], "application/json")
+
+    def test_miss_returns_none(self):
+        self.assertIsNone(self.c.load("b" * 64))
+
+    def test_count(self):
+        self.assertEqual(self.c.count(), 0)
+        self.c.save("c" * 64, 200, {}, b"{}")
+        self.assertEqual(self.c.count(), 1)
+
+    def test_api_key_never_persisted(self):
+        """Cassettes are committed alongside traces; a leaked key is permanent."""
+        self.c.save("d" * 64, 200, {"Authorization": "Bearer SECRET-KEY-XYZ"}, b"{}")
+        import pathlib
+        blob = "".join(p.read_text() for p in pathlib.Path(self.tmp).glob("*.json"))
+        self.assertNotIn("SECRET-KEY-XYZ", blob)
+        self.assertNotIn("Authorization", blob)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
