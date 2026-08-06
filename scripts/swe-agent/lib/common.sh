@@ -89,9 +89,13 @@ assert_repo_pristine() {
 # so the gate keeps its meaning.
 declare -a OFFLINE_ENV=()
 run_offline() {
-  local inner
-  printf -v inner 'env -i PATH=%q HOME=%q %s bash -c %q' \
-    "$PATH" "${OFFLINE_HOME:-/home/ubuntu}" \
-    "$(printf '%q ' ${OFFLINE_ENV[@]+"${OFFLINE_ENV[@]}"})" "$*"
-  sudo unshare -n -- bash -c "ip link set lo up; $inner"
+  # The env assignments are passed as separate argv entries rather than spliced
+  # into a command string. Building that string with printf %q emits '' for an
+  # empty array, which env then treats as the command name and fails with
+  # "env: '': No such file or directory" -- and a gate that cannot run at all
+  # looks exactly like a gate that ran and found no network.
+  sudo unshare -n -- env -i \
+    PATH="$PATH" HOME="${OFFLINE_HOME:-/home/ubuntu}" \
+    ${OFFLINE_ENV[@]+"${OFFLINE_ENV[@]}"} \
+    bash -c "ip link set lo up 2>/dev/null || true; $*"
 }

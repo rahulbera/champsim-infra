@@ -103,9 +103,16 @@ set -euo pipefail
 . "$1/lib/common.sh"
 run_offline "$2"
 EOF
-  check "loopback is up inside the namespace"   0 bash "$TMP/off.sh" "$TMP" \
-        "ip -o link show lo | grep -q ',UP' || ip -o addr show lo | grep -q '127.0.0.1'"
-  check "external network is unreachable"       1 bash "$TMP/off.sh" "$TMP" \
+  # Order matters. "network is unreachable" is only evidence if the wrapper can
+  # run a command AT ALL -- a broken run_offline fails every command, which
+  # reads as a perfectly isolated namespace. Establish it works first.
+  check "runs a trivial command (wrapper works)" 0 bash "$TMP/off.sh" "$TMP" "true"
+  check "propagates the command's exit status"   1 bash "$TMP/off.sh" "$TMP" "false"
+  check "loopback is up inside the namespace"    0 bash "$TMP/off.sh" "$TMP" \
+        "ip -o link show lo | grep -q ',UP\\|UP,' || ip -o addr show lo | grep -q '127.0.0.1'"
+  check "a loopback listener is reachable"       0 bash "$TMP/off.sh" "$TMP" \
+        "python3 -c \"import socket;s=socket.socket();s.bind(('127.0.0.1',0));s.listen(1);p=s.getsockname()[1];c=socket.create_connection(('127.0.0.1',p),2);print('ok')\""
+  check "external network is unreachable"        1 bash "$TMP/off.sh" "$TMP" \
         "getent hosts github.com"
   check "OFFLINE_ENV reaches the command"       0 bash -c \
         ". $TMP/lib/common.sh; OFFLINE_ENV=(FOO=bar); run_offline '[ \"\$FOO\" = bar ]'"
