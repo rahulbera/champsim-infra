@@ -264,6 +264,33 @@ KNOB<UINT64> KnobInterSampleSkip(
   "Inter-sample skip: instructions to skip between sample windows. "
   "Applies in both modes. Default: 0.");
 
+// A SimPoint run yields several representative regions at arbitrary, increasing
+// offsets. Collecting them with -i alone costs one full process replay per
+// region, and the fast-forward -- not the recording -- dominates: seeking to a
+// simpoint 2.2 trillion instructions deep takes ~30 minutes, while the 300M
+// instructions actually recorded take seconds. This knob collects all of them
+// in ONE pass, turning N seeks from zero into a single monotone sweep.
+KNOB<std::string> KnobOffsets(
+  KNOB_MODE_WRITEONCE,
+  "pintool",
+  "offsets",
+  "",
+  "Comma-separated absolute instruction offsets at which to start each trace "
+  "region, e.g. -offsets 1200000000,4500000000. Must be strictly increasing "
+  "and spaced at least -t apart. Collects every region in a single pass. "
+  "Implies -n <count>; incompatible with -use_markers 1, -i and -s.");
+
+KNOB<INT32> KnobTraceTid(
+  KNOB_MODE_WRITEONCE,
+  "pintool",
+  "trace_tid",
+  "-1",
+  "Trace ONLY this PIN thread id (0 = main, 1 = second thread, ...). "
+  "Default -1 traces every thread. Use this when the work happens in a worker "
+  "thread rather than the main thread: instruction counters are PER-THREAD, so "
+  "a skip offset derived from one thread's profile is meaningless applied to "
+  "another. The numbering matches SDE's per-thread bbv files (.T.<n>.bb).");
+
 KNOB<UINT64> KnobTraceInstructions(
   KNOB_MODE_WRITEONCE,
   "pintool",
@@ -441,6 +468,81 @@ static std::atomic<uint64_t> g_dropped_dst_flags{0};
 static std::atomic<uint64_t> g_threads_started_tracing{0};
 static std::atomic<uint64_t> g_threads_reached_done{0};
 static std::atomic<bool>     g_exit_triggered{false};
+
+/* =========================================================================
+ * -offsets: SimPoint region list
+ * ========================================================================= */
+
+// Absolute instruction offsets for the start of each region, in increasing
+// order. Empty unless -offsets was given, in which case it replaces the
+// -i / -s / -n triple.
+static std::vector<UINT64> g_offsets;
+
+// Parse "a,b,c" into g_offsets. Returns false on any malformed token -- a
+// silently-dropped offset would produce a trace of the wrong region, which is
+// indistinguishable from a correct one after the fact.
+static bool parse_offsets(const std::string &s, std::vector<UINT64> &out)
+{
+  out.clear();
+  size_t pos = 0;
+  while (pos <= s.size()) {
+    size_t      comma = s.find(',', pos);
+    std::string tok   = (comma == std::string::npos) ? s.substr(pos)
+                                                     : s.substr(pos, comma - pos);
+    // trim surrounding whitespace
+    size_t b = tok.find_first_not_of(" \t");
+    size_t e = tok.find_last_not_of(" \t");
+    tok = (b == std::string::npos) ? std::string() : tok.substr(b, e - b + 1);
+
+    if (!tok.empty()) {
+      if (tok.find_first_not_of("0123456789") != std::string::npos)
+        return false;
+      errno = 0;
+      char              *end = nullptr;
+      unsigned long long v   = std::strtoull(tok.c_str(), &end, 10);
+      if (errno != 0 || end == tok.c_str() || *end != '\0')
+        return false;
+      out.push_back((UINT64)v);
+    }
+
+    if (comma == std::string::npos)
+      break;
+    pos = comma + 1;
+  }
+  return !out.empty();
+}
+
+// Validate the list against the other knobs. Every failure is fatal at startup:
+// producing a trace of the wrong region is far worse than refusing to start.
+static bool validate_offsets(std::string &err)
+{
+  const UINT64 tc = KnobTraceInstructions.Value();
+
+  if (KnobUseMarkers.Value()) {
+    err = "-offsets is skip-based and cannot be combined with -use_markers 1";
+    return false;
+  }
+  if (KnobInitialSkip.Value() != 0) {
+    err = "-offsets supersedes -i; do not set both";
+    return false;
+  }
+  if (KnobInterSampleSkip.Value() != 0) {
+    err = "-offsets supersedes -s; do not set both";
+    return false;
+  }
+  for (size_t i = 1; i < g_offsets.size(); i++) {
+    if (g_offsets[i] <= g_offsets[i - 1]) {
+      err = "-offsets must be strictly increasing";
+      return false;
+    }
+    if (g_offsets[i] - g_offsets[i - 1] < tc) {
+      err = "-offsets regions overlap: consecutive offsets must differ by at "
+            "least -t (" + std::to_string(tc) + ")";
+      return false;
+    }
+  }
+  return true;
+}
 
 /* =========================================================================
  * Per-thread state
@@ -769,6 +871,25 @@ bool ThreadState::finish_sample()
     }
     mark_reached_done(this);
     return false;
+  }
+
+  // -offsets: the distance to the next region is derived from the list rather
+  // than from a fixed inter-sample skip. samples_collected was just
+  // incremented, so it indexes the region we are about to seek to; the quota
+  // check above already returned for the final one, so it is in range.
+  if (!g_offsets.empty()) {
+    const size_t next     = (size_t)samples_collected;
+    const UINT64 prev_end = g_offsets[next - 1] + trace_per_sample;
+    const UINT64 gap      = g_offsets[next] - prev_end; // validated non-negative
+    if (gap > 0) {
+      phase   = Phase::INTER_SKIP;
+      counter = gap;
+      return false;
+    }
+    phase   = Phase::TRACING;
+    counter = trace_per_sample;
+    open_next_sample();
+    return true;
   }
 
   if (inter_sample_skip > 0) {
@@ -1726,20 +1847,36 @@ VOID InstrumentTrace(TRACE trace, VOID * /* unused */)
       }
     }
   } else {
-    TRACE_InsertCall(trace,
+    // Count the skip at BASIC-BLOCK granularity, not TRACE granularity.
+    //
+    // A PIN trace is single-entry but MULTI-exit: entering it does not mean all
+    // of its instructions execute. Charging TRACE_NumIns() on entry therefore
+    // over-counts every early exit, so the skip counter runs ahead of the
+    // program and tracing starts too soon. A BBL is single-entry AND
+    // single-exit, so BBL_NumIns() is exactly what executes -- this is the
+    // idiom PIN's own icount tools use.
+    //
+    // Measured on a tight loop before this fix: a nominal 10,000,000-instruction
+    // skip advanced the program by only 6,428,560 instructions, a 1.56x
+    // overshoot. That error is what made a -offsets region land 3,571,439
+    // instructions away from the same region requested via -i, and it silently
+    // displaced every SimPoint-directed trace by a workload-dependent amount.
+    for (BBL bbl = TRACE_BblHead(trace); BBL_Valid(bbl); bbl = BBL_Next(bbl)) {
+      BBL_InsertCall(bbl,
                      IPOINT_BEFORE,
                      (AFUNPTR)FastForwardInitial,
                      IARG_THREAD_ID,
                      IARG_UINT32,
-                     TRACE_NumIns(trace),
+                     BBL_NumIns(bbl),
                      IARG_END);
-    TRACE_InsertCall(trace,
+      BBL_InsertCall(bbl,
                      IPOINT_BEFORE,
                      (AFUNPTR)FastForwardInter,
                      IARG_THREAD_ID,
                      IARG_UINT32,
-                     TRACE_NumIns(trace),
+                     BBL_NumIns(bbl),
                      IARG_END);
+    }
 
     if (use_markers) {
       for (BBL bbl = TRACE_BblHead(trace); BBL_Valid(bbl);
@@ -1775,6 +1912,12 @@ VOID ThreadStart(THREADID tid,
   if (KnobMainThreadOnly.Value() && tid != main_thread_id)
     return;
 
+  // -trace_tid pins tracing to one PIN thread. Offsets are per-thread, so
+  // tracing a thread other than the one that was profiled silently produces a
+  // region from the wrong point in that thread's own execution.
+  if (KnobTraceTid.Value() >= 0 && (INT32)tid != KnobTraceTid.Value())
+    return;
+
   OS_THREAD_ID os_tid      = PIN_GetTid();
   bool         use_markers = KnobUseMarkers.Value();
   UINT64       inter_skip  = KnobInterSampleSkip.Value();
@@ -1794,6 +1937,17 @@ VOID ThreadStart(THREADID tid,
     } else {
       starting_phase   = Phase::WAITING_FOR_ROI;
       starting_counter = 0;
+    }
+  } else if (!g_offsets.empty()) {
+    // One pass over the whole SimPoint list: seek to the first region here,
+    // then finish_sample() walks the rest.
+    num_samples = (UINT64)g_offsets.size();
+    if (g_offsets.front() > 0) {
+      starting_phase   = Phase::INITIAL_SKIP;
+      starting_counter = g_offsets.front();
+    } else {
+      starting_phase   = Phase::TRACING;
+      starting_counter = trace_count;
     }
   } else {
     UINT64 initial_skip = KnobInitialSkip.Value();
@@ -1865,7 +2019,8 @@ VOID ThreadFini(THREADID tid,
   ts->force_close();
   {
     LogGuard _lg;
-    std::cerr << "[tracer_roi_v3] Thread fini: OS tid=" << ts->os_tid
+    std::cerr << "[tracer_roi_v3] Thread fini: pin_tid=" << tid
+              << " OS tid=" << ts->os_tid
               << (ts->is_master ? " (master)" : "")
               << " final_phase=" << phase_name(ts->phase)
               << " samples_completed=" << ts->samples_collected << std::endl;
@@ -1952,6 +2107,28 @@ int main(int argc, char *argv[])
 {
   if (PIN_Init(argc, argv))
     return Usage();
+
+  // -offsets is parsed and validated BEFORE any instrumentation is installed.
+  // A bad list must stop the run here: a trace of the wrong region is
+  // indistinguishable from a correct one once written.
+  if (!KnobOffsets.Value().empty()) {
+    if (!parse_offsets(KnobOffsets.Value(), g_offsets)) {
+      std::cerr << "[tracer_roi_v3] -offsets: malformed list '"
+                << KnobOffsets.Value()
+                << "' (expected comma-separated decimal instruction counts)"
+                << std::endl;
+      return 1;
+    }
+    std::string err;
+    if (!validate_offsets(err)) {
+      std::cerr << "[tracer_roi_v3] -offsets: " << err << std::endl;
+      return 1;
+    }
+    std::cerr << "[tracer_roi_v3] -offsets: " << g_offsets.size()
+              << " regions of " << KnobTraceInstructions.Value()
+              << " instructions, single pass, first at " << g_offsets.front()
+              << ", last at " << g_offsets.back() << std::endl;
+  }
 
   std::fill(std::begin(thread_states), std::end(thread_states), nullptr);
   PIN_RWMutexInit(&registry_lock);

@@ -110,12 +110,56 @@ Pass these after `-t <tool>.so` and before `--`. Defaults in parentheses.
 | `-s <N>` | `0` | Instructions to skip *between* sample windows. |
 | `-t <N>` | `1000000` | Instructions to trace per sample window. |
 | `-n <N>` | `1` | Max sample windows per thread (`0` = unlimited). |
+| `-offsets <a,b,c>` | *(unset)* | Collect a region of `-t` instructions at each **absolute** instruction offset, all in **one pass**. Supersedes `-i`/`-s`/`-n`. See below. |
+| `-trace_tid <N>` | `-1` | Trace only this **PIN** thread id (`0` = main). `-1` traces every thread. |
 | `-main_only <0\|1>` | `0` | Trace only the main/root thread. |
 | `-zstd_level <1-22>` | `1` | Compression level. **Keep at 1** (≤3) — higher levels bottleneck PIN. |
 | `-values <0\|1>` | `1` | Capture load/store values via `PIN_SafeCopy`. `0` zero-fills the value slots (faster). |
 | `-exit_on_done <0\|1>` | `0` | Call `PIN_ExitApplication` once every tracing thread hits its quota / ROI-end, so post-ROI work doesn't run under PIN. |
 | `-skip_master_tracing <0\|1>` | `0` | **(v3)** Treat the `roi_begin`-firing thread as an orchestrator that opens no trace and isn't counted as a worker. Use when the master only spawns/joins workers. |
 | `-trace_only_registered_workers <0\|1>` | `0` | **(v3)** Only threads that called `champsim_register_worker()` may enter TRACING. Keeps background pool threads out. |
+
+### `-offsets` — collecting SimPoint regions in one pass
+
+A SimPoint run yields several representative regions at arbitrary increasing
+offsets. Collecting them with `-i` alone costs **one full process replay per
+region**, and the fast-forward — not the recording — dominates: seeking to a
+simpoint 2.2 trillion instructions deep takes ~30 minutes, while the 300 M
+instructions actually recorded take seconds. `-offsets` turns N seeks-from-zero
+into a single monotone sweep.
+
+```bash
+pin -t obj-intel64/champsim_tracer_mt_roi_v2.so \
+    -use_markers 0 -offsets 1200000000,4500000000,9100000000 \
+    -t 300000000 -o spec_bench -- ./workload
+# -> spec_bench_t<tid>_s0.champsim2.zst  (region at 1.2 B)
+#    spec_bench_t<tid>_s1.champsim2.zst  (region at 4.5 B)
+#    spec_bench_t<tid>_s2.champsim2.zst  (region at 9.1 B)
+```
+
+Every misuse is rejected at startup, before instrumentation is installed, and
+writes no output — a trace of the *wrong* region is indistinguishable from a
+correct one once written:
+
+| Rejected | Message |
+|---|---|
+| Non-numeric / empty token | `malformed list '…'` |
+| Not strictly increasing | `-offsets must be strictly increasing` |
+| Consecutive offsets closer than `-t` | `regions overlap: …` |
+| Combined with `-use_markers 1` | `cannot be combined with -use_markers 1` |
+| Combined with `-i` or `-s` | `-offsets supersedes -i` / `-s` |
+
+Note the region count comes from the list, so `-n` is implied and the
+`max samples` line in the startup banner is the pre-override value — trust
+`max_samples=` on the `Thread start:` line instead.
+
+### `-trace_tid` — picking the thread that does the work
+
+Instruction counters are **per-thread**, so an offset derived from one thread's
+profile is meaningless applied to another. When the work happens in a worker
+rather than the main thread, pin tracing to it with `-trace_tid <n>`; the
+numbering matches SDE's per-thread bbv files (`.T.<n>.bb`). Unlike `-main_only`,
+which is hardcoded to the root thread, this selects any single thread.
 
 ## Output
 
