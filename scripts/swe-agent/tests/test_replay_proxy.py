@@ -79,5 +79,52 @@ class TestCassettes(unittest.TestCase):
         self.assertNotIn("Authorization", blob)
 
 
+class TestReplayServer(unittest.TestCase):
+    """Drives a real server over loopback. No upstream, so REPLAY only."""
+
+    def setUp(self):
+        import http.server
+        import tempfile
+        import threading
+        self.tmp = tempfile.mkdtemp()
+        self.c = replay_proxy.Cassettes(self.tmp)
+        body = b'{"model":"glm-5.2","messages":[{"role":"user","content":"hi"}]}'
+        self.key = replay_proxy.canonical_key(body)
+        self.body = body
+        self.c.save(self.key, 200, {"Content-Type": "application/json"},
+                    b'{"choices":[{"message":{"content":"hello"}}]}')
+
+        handler = replay_proxy.make_handler("replay", self.c, None, None)
+        self.srv = http.server.HTTPServer(("127.0.0.1", 0), handler)
+        self.port = self.srv.server_address[1]
+        threading.Thread(target=self.srv.serve_forever, daemon=True).start()
+
+    def tearDown(self):
+        self.srv.shutdown()
+
+    def _post(self, payload):
+        import urllib.error
+        import urllib.request
+        req = urllib.request.Request(
+            "http://127.0.0.1:%d/v1/chat/completions" % self.port,
+            data=payload, headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req) as r:
+                return r.status, r.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    def test_hit_serves_the_recorded_response(self):
+        status, body = self._post(self.body)
+        self.assertEqual(status, 200)
+        self.assertIn(b"hello", body)
+
+    def test_miss_is_a_hard_error_not_a_passthrough(self):
+        """The single most important behaviour: drift must be loud."""
+        status, body = self._post(b'{"model":"glm-5.2","messages":[{"role":"user","content":"UNSEEN"}]}')
+        self.assertEqual(status, 500)
+        self.assertIn(b"REPLAY MISS", body)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

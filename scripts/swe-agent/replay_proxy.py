@@ -9,8 +9,11 @@ deliberately minimal, and the proxy's own CPU work lands in the trace -- so its
 dependencies are part of the measurement.
 """
 import hashlib
+import http.server
 import json
 import os
+import sys
+import urllib.request
 
 # Fields that vary per run and must NOT contribute to the cassette key.
 # Include one of these and every single replay misses; exclude a field that
@@ -94,3 +97,84 @@ class Cassettes:
 
     def count(self):
         return len([n for n in os.listdir(self.dir) if n.endswith(".json")])
+
+
+def make_handler(mode, cassettes, upstream, api_key):
+    """Build a BaseHTTPRequestHandler subclass bound to this configuration."""
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        protocol_version = "HTTP/1.1"
+
+        def log_message(self, fmt, *args):
+            sys.stderr.write("[proxy] " + (fmt % args) + "\n")
+
+        def _respond(self, status, headers, body):
+            self.send_response(status)
+            for k, v in headers.items():
+                self.send_header(k, v)
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def do_POST(self):
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length)
+            key = canonical_key(body)
+
+            if mode == "replay":
+                hit = cassettes.load(key)
+                if hit is None:
+                    # Loud on purpose. A miss means the agent diverged from the
+                    # recorded trajectory; serving anything else would put a
+                    # fabricated exchange into a trace we later treat as real.
+                    msg = ("REPLAY MISS for key %s on %s -- the agent diverged "
+                           "from the recording.\n" % (key, self.path)).encode()
+                    sys.stderr.write("[proxy] " + msg.decode())
+                    self._respond(500, {"Content-Type": "text/plain"}, msg)
+                    return
+                status, headers, rbody = hit
+                self._respond(status, headers, rbody)
+                return
+
+            # RECORD: forward upstream, persist, return verbatim.
+            req = urllib.request.Request(
+                upstream.rstrip("/") + self.path, data=body,
+                headers={"Content-Type": "application/json",
+                         "Authorization": "Bearer " + api_key})
+            with urllib.request.urlopen(req) as r:
+                rbody = r.read()
+                status = r.status
+                headers = {"Content-Type": r.headers.get("Content-Type",
+                                                         "application/json")}
+            cassettes.save(key, status, headers, rbody)
+            self._respond(status, headers, rbody)
+
+    return Handler
+
+
+def main(argv):
+    import argparse
+    p = argparse.ArgumentParser(description="record/replay proxy for LLM API calls")
+    p.add_argument("--mode", choices=["record", "replay"], required=True)
+    p.add_argument("--cassettes", required=True, help="cassette directory")
+    p.add_argument("--port", type=int, default=8000)
+    p.add_argument("--upstream", default="", help="upstream base URL (record mode)")
+    args = p.parse_args(argv)
+
+    api_key = os.environ.get("LLM_API_KEY", "")
+    if args.mode == "record":
+        if not args.upstream:
+            p.error("--upstream is required in record mode")
+        if not api_key:
+            p.error("LLM_API_KEY must be set in record mode")
+
+    cassettes = Cassettes(args.cassettes)
+    handler = make_handler(args.mode, cassettes, args.upstream, api_key)
+    srv = http.server.HTTPServer(("127.0.0.1", args.port), handler)
+    sys.stderr.write("[proxy] %s mode on 127.0.0.1:%d, %d cassettes in %s\n"
+                     % (args.mode, args.port, cassettes.count(), args.cassettes))
+    srv.serve_forever()
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
