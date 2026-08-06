@@ -43,7 +43,14 @@ say "0. preflight"
 git config --global --add safe.directory "$REPO_DIR"
 cd "$REPO_DIR"
 git checkout --force --quiet "$BASE_COMMIT"
-git clean -xfd --quiet
+# `git clean -fd`, NOT `-xfd`. The -x also removes IGNORED files, which is the
+# entire build output. The recording began with a fully built tree, so wiping it
+# turns the agent's first `make` into a from-scratch build of the project and
+# all its vendored dependencies where the recording did a one-file incremental
+# rebuild. The actions are identical either way, so the trajectory comparison
+# cannot see the difference -- but the traced work is off by orders of
+# magnitude, and that work is the entire measurement.
+git clean -fd --quiet
 assert_repo_pristine
 n=$(find "$CASS" -name '*.json' 2>/dev/null | wc -l)
 [ "$n" -gt 0 ] || die "no cassettes in $CASS -- run the record pass first"

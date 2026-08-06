@@ -11,9 +11,12 @@
 #   convert  raw -> ChampSim v2 + validation.
 #
 # Each phase starts from a known image so a failed phase never contaminates the
-# next: record works on <inst>.qcow2 and snapshots to <inst>.recorded.qcow2;
-# verify/profile/trace each RESTORE from that snapshot first. Without the
-# restore, the profile pass would measure a tree the trace pass does not have.
+# next. `record` works on <inst>.qcow2 and snapshots to <inst>.recorded.qcow2.
+# Every REPLAY phase (verify/profile/trace) restores <inst>.provisioned.qcow2 --
+# the exact state the recording began in -- and injects the cassettes and the
+# recorded trajectory from the host. Restoring the post-record image instead
+# would leave the tree already modified and already rebuilt, so the replayed
+# build work would not match the recorded build work.
 #
 set -euo pipefail
 
@@ -24,6 +27,8 @@ ROOT=$(cd "$(dirname "$0")/.." && pwd)
 IMAGES=$ROOT/images
 WORK=$IMAGES/guest-$INSTANCE.qcow2
 RECORDED=$IMAGES/guest-$INSTANCE.recorded.qcow2
+PROVISIONED=$IMAGES/guest-$INSTANCE.provisioned.qcow2
+ARTIFACTS=$ROOT/artifacts/$INSTANCE
 META=$IMAGES/capture-$INSTANCE.meta
 TRIGGER=/tmp/swe_roi_trigger
 SSH_KEY=$IMAGES/id_ed25519
@@ -87,6 +92,43 @@ restore_from_recorded() {
   stop_qemu
   cp --reflink=auto "$RECORDED" "$WORK"
   echo "  restored $WORK from the recorded snapshot"
+}
+
+# Replay restores the PROVISIONED image, not the post-record one, and injects
+# the cassettes from the host.
+#
+# The recording began with a fully built tree (provisioning builds it, and the
+# offline gate rebuilds it from distclean). Restoring the post-record snapshot
+# and letting replay_pinned.sh run `git clean -xfd` deletes every gitignored
+# build artifact, so the agent's first `make` becomes a FULL build of redis,
+# jemalloc and lua where the recording did an incremental one-file rebuild.
+#
+# Identical actions, wildly different work -- and compare_trajectories.py cannot
+# see it, because actions come from replayed LLM responses rather than from
+# observations. The trace would be a faithful recording of the wrong amount of
+# computation. Starting from the same disk state the recording started from is
+# the only thing that makes the measurement mean anything.
+restore_from_provisioned() {
+  [ -f "$PROVISIONED" ] || die "no provisioned image at $PROVISIONED"
+  [ -d "$ARTIFACTS/cassettes" ] || die "no host-side cassettes at $ARTIFACTS/cassettes -- run the record phase first"
+  stop_qemu
+  cp --reflink=auto "$PROVISIONED" "$WORK"
+  echo "  restored $WORK from the PROVISIONED image (same state the recording began in)"
+}
+
+inject_artifacts() {  # inject_artifacts <port>
+  local port=$1
+  local rsh="ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY -p $port"
+  $rsh ubuntu@127.0.0.1 'sudo mkdir -p /opt/cassettes /opt/trajectories && sudo chown -R ubuntu:ubuntu /opt/cassettes /opt/trajectories' \
+    || die "could not prepare guest artifact dirs"
+  rsync -a -e "$rsh" "$ARTIFACTS/cassettes/" "ubuntu@127.0.0.1:/opt/cassettes/" \
+    || die "could not inject cassettes"
+  rsync -a -e "$rsh" "$ARTIFACTS/trajectories/" "ubuntu@127.0.0.1:/opt/trajectories/" \
+    || die "could not inject the recorded trajectory"
+  local n
+  n=$($rsh ubuntu@127.0.0.1 "find /opt/cassettes/$INSTANCE -name '*.json' | wc -l")
+  [ "${n:-0}" -gt 0 ] || die "no cassettes landed in the guest"
+  echo "  injected $n cassettes and the recorded trajectory"
 }
 
 # The snapshot was taken before the record pass and freezes whatever guest-side
@@ -159,19 +201,21 @@ record)
 
 verify)
   say "VERIFY — deterministic replay of $INSTANCE"
-  restore_from_recorded
+  restore_from_provisioned
   boot_kvm "$IMAGES/verify-$INSTANCE.boot.log"
   stage_tools $KVM_PORT
+  inject_artifacts $KVM_PORT
   ssh_guest $KVM_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -30
   shutdown_guest $KVM_PORT
   ;;
 
 profile)
   say "PROFILE — sizing the trajectory for $INSTANCE"
-  restore_from_recorded
+  restore_from_provisioned
   LOG=$IMAGES/profile-$INSTANCE.boot.log
   boot_tcg "$IMAGES/profile_out" ",profile=on" "$LOG"
   stage_tools $TCG_PORT
+  inject_artifacts $TCG_PORT
   arm_trigger_on_marker "$LOG"
   ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
   shutdown_guest $TCG_PORT
@@ -209,7 +253,7 @@ trace)
   [ -f "$META" ] || die "no $META -- run the profile phase first"
   # shellcheck disable=SC1090
   . "$META"
-  restore_from_recorded
+  restore_from_provisioned
   OUT=$IMAGES/trace_out-$INSTANCE
   rm -rf "$OUT"; mkdir -p "$OUT"
   LOG=$IMAGES/trace-$INSTANCE.boot.log
@@ -217,6 +261,7 @@ trace)
     ",sample_len=$window_len,sample_gap=$sample_gap,sample_count=$windows,sample_clock=user" \
     "$LOG"
   stage_tools $TCG_PORT
+  inject_artifacts $TCG_PORT
   arm_trigger_on_marker "$LOG"
   ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
   shutdown_guest $TCG_PORT
