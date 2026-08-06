@@ -72,6 +72,87 @@ else
   check "window start offsets are len+gap apart (no manifest)" 1
 fi
 
+echo "== Task 3: user-mode sampling clock =="
+
+# Needs a guest with a real user/kernel split. The BIOS boot cannot exercise
+# this: SeaBIOS runs entirely at low addresses, so the VA-based privilege
+# heuristic reads it as 100% "user" and both clocks behave identically.
+# Build the assets with scripts/smoke-trace/smoke_trace.sh, then export:
+#   GUEST_KERNEL=<bzImage>  GUEST_INITRD=<initramfs.gz>
+GUEST_KERNEL="${GUEST_KERNEL:-}"
+GUEST_INITRD="${GUEST_INITRD:-}"
+if [ -z "$GUEST_KERNEL" ] || [ ! -f "$GUEST_KERNEL" ]; then
+  echo "  SKIP: set GUEST_KERNEL and GUEST_INITRD (see scripts/smoke-trace/) to run this"
+else
+  run_guest() { # run_guest <outdir> <extra-plugin-args>
+    local out="$1"; local extra="$2"
+    mkdir -p "$out"; rm -f "$out"/trace_vcpu*.raw.zst "$out"/*manifest.txt
+    timeout 300 "$QEMU" -accel tcg -cpu qemu64 -smp 1 -m 1G \
+      -kernel "$GUEST_KERNEL" -initrd "$GUEST_INITRD" \
+      -append "console=ttyS0 quiet" -nographic -no-reboot \
+      -plugin "$PLUGIN,outdir=$out,vcpus=0$extra" > "$out/boot.log" 2>&1
+    return 0
+  }
+  win_start() { awk -v k="$2" '!/^#/ && $1==k {print $3}' "$1/trace_vcpu0_manifest.txt"; }
+
+  # Kernel-mode instructions must NOT advance the gap under sample_clock=user,
+  # so a user-clock run reaches window 1 LATER in the instruction stream than
+  # sample_len+sample_gap. Only the user run is needed: Task 2 already proved
+  # on BIOS that an all-clock run lands at EXACTLY sample_len+sample_gap, so
+  # that is the oracle and a second guest boot would just re-derive it.
+  #
+  # The gap must be large enough to reach kernel-heavy execution. Until paging
+  # is enabled the kernel's decompressor and early setup run at LOW virtual
+  # addresses, which the VA-based privilege heuristic reads as "user" -- a 100M
+  # gap sits entirely inside that region and the two clocks agree exactly.
+  # Measured on this guest with profile=on: 19.5B instructions, 91.3% user /
+  # 8.7% kernel (1.70B kernel), essentially all of it after decompression.
+  SLEN=200000
+  SGAP=2000000000
+  run_guest "$WORK/t3u" ",sample_len=$SLEN,sample_gap=$SGAP,sample_count=2,sample_clock=user"
+
+  start_u=$(win_start "$WORK/t3u" 1)
+  all_clock_would_be=$((SLEN + SGAP))
+  [ -n "$start_u" ] && [ "$start_u" -gt "$all_clock_would_be" ]
+  check "kernel insns do not advance the gap ($start_u > $all_clock_would_be)" $?
+
+  # Window length is clock-independent: exactly sample_len regardless of clock.
+  bad=$(awk -v n="$SLEN" '!/^#/ && $4 != n {print}' \
+        "$WORK/t3u/trace_vcpu0_manifest.txt" | wc -l)
+  [ "$bad" -eq 0 ]
+  check "window length is exactly sample_len under the user clock ($bad bad rows)" $?
+fi
+
+echo "== Task 4: profile mode =="
+
+run_bios "$WORK/t4" ",limit=0,profile=on"
+
+grep -qE "PROFILE: [0-9]+ instructions \\([0-9]+ user, [0-9]+ kernel\\)" "$WORK/t4/plugin_stderr.log"
+check "profile mode reports total/user/kernel counts" $?
+
+n_files=$(ls "$WORK/t4"/trace_vcpu0*.raw.zst 2>/dev/null | wc -l)
+[ "$n_files" -eq 0 ]
+check "profile mode writes no trace files (got $n_files)" $?
+
+echo "== Task 5: sampling with gap=0 must equal rotation =="
+
+# Sampling with sample_gap=0 and sample_clock=all is definitionally the same
+# schedule as rotate=, so the two must produce byte-identical chunks. This is
+# the check that catches an off-by-one at the window boundary -- the class of
+# bug that produced the 1.56x pintool skip-counter error and that no
+# self-consistency check can see.
+run_bios "$WORK/t5s" ",limit=100000,sample_len=50000,sample_gap=0,sample_count=2,sample_clock=all"
+run_bios "$WORK/t5r" ",limit=100000,rotate=50000"
+
+same=0
+for k in 00000 00001; do
+  a="$WORK/t5s/trace_vcpu0_c$k.raw.zst"
+  b="$WORK/t5r/trace_vcpu0_c$k.raw.zst"
+  if [ -f "$a" ] && [ -f "$b" ] && cmp -s "$a" "$b"; then :; else same=1; fi
+done
+[ "$same" -eq 0 ]
+check "gap=0 sampling is byte-identical to rotate= for every chunk" $?
+
 echo
 if [ "$FAILS" -eq 0 ]; then echo "ALL PASS"; exit 0; fi
 echo "$FAILS FAILURE(S)"; exit 1
