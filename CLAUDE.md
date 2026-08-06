@@ -81,6 +81,15 @@ cd pintool && env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS \
   — so the environment wins and `make` fails with `unknown value 'nocona' for '-march'`.
   Always build with `env -u CXX -u CXXFLAGS -u LDFLAGS make …`; that falls back to system
   `g++` and system zstd, which works.
+  **That incantation is only enough for these Makefiles.** Conda points ~30 variables at
+  the aarch64 cross-toolchain (`CONDA_TOOLCHAIN_HOST=aarch64-conda-linux-gnu`), including
+  `AR`, `RANLIB`, `LD`, `NM`, `STRIP`, `OBJCOPY`, `CPP`, `CC_FOR_BUILD`, `HOST` and
+  `host_alias`. Anything with a `./configure` reads those too, so an autotools build still
+  cross-compiles: unsetting the usual four and building redis produced aarch64 objects and
+  failed at link with `Relocations in generic ELF (EM: 183)` … `file in wrong format`. For
+  configure-based builds scrub the environment instead —
+  `env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=$HOME …`.
+  Note this also drops conda's `tclsh`/`make` from `PATH`, which is usually what you want.
 - `ZSTD_HOME` (lab default `/home/rahbera/local`) points at a custom zstd for the tracer
   and `trace_cutter`; unset ⇒ system zstd. `make_tracer.sh` defaults `PIN_ROOT`/`ZSTD_HOME`
   to the lab host's paths but **both are environment-overridable** — pass them rather than
