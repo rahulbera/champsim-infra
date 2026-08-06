@@ -43,6 +43,35 @@ run_bios "$WORK/t1c" ",limit=200000,sample_len=50000,sample_clock=bogus"
 grep -q "sample_clock= must be user|all" "$WORK/t1c/plugin_stderr.log"
 check "invalid sample_clock= value is rejected" $?
 
+echo "== Task 2: window geometry =="
+
+# 3 windows of 20k, gap 10k = 80k instructions total. SeaBIOS retires >200k,
+# so this fits with margin; 50k/20k windows would not.
+run_bios "$WORK/t2a" ",sample_len=20000,sample_gap=10000,sample_count=3,sample_clock=all"
+
+n_chunks=$(ls "$WORK/t2a"/trace_vcpu0_c*.raw.zst 2>/dev/null | wc -l)
+[ "$n_chunks" -eq 3 ]
+check "exactly 3 chunk files produced (got $n_chunks)" $?
+
+# Manifest columns: index file start_insn insn_count compressed_bytes
+MAN="$WORK/t2a/trace_vcpu0_manifest.txt"
+[ -f "$MAN" ]
+check "manifest written" $?
+
+if [ -f "$MAN" ]; then
+  bad=$(awk '!/^#/ && $4 != 20000 {print}' "$MAN" | wc -l)
+  [ "$bad" -eq 0 ]
+  check "every window holds exactly 20000 instructions ($bad bad rows)" $?
+
+  # Window k starts at k*(len+gap) = k*30000, where k is the chunk index (col 1).
+  bad=$(awk '!/^#/ && $3 != $1*30000 {print}' "$MAN" | wc -l)
+  [ "$bad" -eq 0 ]
+  check "window start offsets are len+gap apart ($bad bad rows)" $?
+else
+  check "every window holds exactly 20000 instructions (no manifest)" 1
+  check "window start offsets are len+gap apart (no manifest)" 1
+fi
+
 echo
 if [ "$FAILS" -eq 0 ]; then echo "ALL PASS"; exit 0; fi
 echo "$FAILS FAILURE(S)"; exit 1
