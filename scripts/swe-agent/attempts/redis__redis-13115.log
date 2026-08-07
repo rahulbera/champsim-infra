@@ -1,0 +1,2 @@
+2026-08-07 14:18:35	infra	replay proxy deadlocked under TCG (single-threaded HTTPServer + keep-alive)
+2026-08-07 14:18:35	infra	replay wiped the build tree (git clean -xfd); work did not match the recording
