@@ -67,7 +67,11 @@ for i in $(seq 1 "$CYCLES"); do
   echo "--- cycle $i/$CYCLES ---"
   [ -z "$TOUCH_FILE" ] || touch "$REPO_DIR/$TOUCH_FILE"
   # Pinned exactly as the agent was; children inherit the affinity.
-  taskset -c "$PIN_CPU" bash -c "cd $REPO_DIR && $WORKLOAD_CMD" 2>&1 | tail -5
+  # `bash -lc`, not `bash -c`: the language modules put GOENV/CARGO_HOME/
+  # BUNDLE_PATH in /etc/profile.d, which a non-login shell never reads. Without
+  # this the Go control runs with GOTOOLCHAIN=auto and no module cache, and
+  # would try to DOWNLOAD a toolchain with the network down.
+  taskset -c "$PIN_CPU" bash -lc "cd $REPO_DIR && $WORKLOAD_CMD" 2>&1 | tail -5
 done
 
 echo "TRACE_ROI_END" | tee /dev/console
