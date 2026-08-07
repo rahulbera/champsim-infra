@@ -35,8 +35,18 @@ phase_of() {
     grep -q 'cassettes recorded' "$rl" 2>/dev/null && p=recorded || p=recording
     grep -q '\[FAIL\]' "$rl" 2>/dev/null && p="record FAILED"
   fi
-  [ -f "$c/advance.log" ] && p=$(grep -oE 'START [a-z]+|OK [a-z]+|FAILED [a-z]+|waiting for a TCG slot' "$c/advance.log" 2>/dev/null | tail -1)
-  [ -f "$c/chain.log"   ] && p=$(grep -oE 'START +[a-z]+|OK +[a-z]+|FAILED +[a-z]+' "$c/chain.log" 2>/dev/null | tail -1)
+  # Only OVERRIDE when the later log actually yields a phase. Assigning the
+  # result unconditionally blanks a perfectly good earlier phase whenever the
+  # pattern misses -- which is how "recording" became an em-dash.
+  local q
+  if [ -f "$c/advance.log" ]; then
+    q=$(grep -oE 'START [a-z]+|OK [a-z]+|FAILED [a-z]+|waiting for a TCG|extracting' "$c/advance.log" 2>/dev/null | tail -1)
+    [ -n "$q" ] && p=$q
+  fi
+  if [ -f "$c/chain.log" ]; then
+    q=$(grep -oE 'START +[a-z]+|OK +[a-z]+|FAILED +[a-z]+' "$c/chain.log" 2>/dev/null | tail -1)
+    [ -n "$q" ] && p=$q
+  fi
   echo "${p:-—}" | tr -s ' ' | cut -c1-16
 }
 
