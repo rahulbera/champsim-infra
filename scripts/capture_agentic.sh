@@ -30,10 +30,28 @@ RECORDED=$IMAGES/guest-$INSTANCE.recorded.qcow2
 PROVISIONED=$IMAGES/guest-$INSTANCE.provisioned.qcow2
 ARTIFACTS=$ROOT/artifacts/$INSTANCE
 META=$IMAGES/capture-$INSTANCE.meta
-TRIGGER=/tmp/swe_roi_trigger
 SSH_KEY=$IMAGES/id_ed25519
-KVM_PORT=2222
-TCG_PORT=2223
+
+# ---- per-capture isolation, so several captures can run concurrently --------
+#
+# Everything that used to be global is now derived from a SLOT: the ssh
+# forwards, the plugin's trigger file, the profile output directory and the
+# QEMU pidfile. Without this, a second capture's stop_qemu (which matched by
+# process NAME) would kill the first capture's guest mid-run, and both would
+# fight over ports 2222/2223 and /tmp/swe_roi_trigger.
+#
+# SLOT is read from the instance descriptor's CAPTURE_SLOT if present, else
+# from the environment, else 0. Two captures sharing a slot is a configuration
+# error that shows up as a port bind failure, which is the right way round.
+SLOT=${CAPTURE_SLOT:-$(grep -h '^CAPTURE_SLOT=' \
+        "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" 2>/dev/null \
+        | tail -1 | cut -d= -f2)}
+SLOT=${SLOT:-0}
+KVM_PORT=$((2300 + SLOT * 10))
+TCG_PORT=$((2301 + SLOT * 10))
+TRIGGER=/tmp/swe_roi_trigger.$INSTANCE
+PIDFILE=$IMAGES/.qemu-$INSTANCE.pid
+PROFILE_OUT=$IMAGES/profile_out-$INSTANCE
 
 # Capture geometry. 300M matches the SPEC SimPoint slice length used in
 # champsim-infra, so agentic-vs-SPEC comparisons are at identical geometry.
@@ -49,9 +67,9 @@ die() { printf '  [FAIL] %s\n' "$*" >&2; exit 1; }
 # why ssh is answering on the wrong port.
 cleanup_on_exit() {
   local rc=$?
-  if [ $rc -ne 0 ] && pgrep -x qemu-system-x86 >/dev/null; then
+  if [ $rc -ne 0 ] && qemu_running; then
     echo "  [cleanup] phase failed; stopping the guest it left running" >&2
-    pkill -x qemu-system-x86 2>/dev/null || true
+    stop_qemu
   fi
   exit $rc
 }
@@ -73,15 +91,21 @@ wait_ssh() {  # wait_ssh <port> <timeout-s>
   return 1
 }
 
-# QEMU's process name is truncated to 15 chars ("qemu-system-x86"), so -x needs
-# the truncated form. Never match by pattern: `pkill -f qemu` also matches this
-# script's own shell.
-qemu_running() { pgrep -x qemu-system-x86 >/dev/null; }
+# QEMU is tracked by PID, never by name. `pkill -x qemu-system-x86` would take
+# down every concurrent capture's guest, and `pkill -f qemu` additionally
+# matches this script's own shell. The pidfile is the only handle used.
+qemu_pid() { [ -f "$PIDFILE" ] && cat "$PIDFILE" 2>/dev/null || true; }
+qemu_running() {
+  local p; p=$(qemu_pid)
+  [ -n "$p" ] && kill -0 "$p" 2>/dev/null
+}
 stop_qemu() {
-  qemu_running || return 0
-  pkill -x qemu-system-x86 || true
+  local p; p=$(qemu_pid)
+  qemu_running || { rm -f "$PIDFILE"; return 0; }
+  kill "$p" 2>/dev/null || true
   local t=0; while qemu_running && [ $t -lt 30 ]; do sleep 1; t=$((t+1)); done
-  qemu_running && pkill -9 -x qemu-system-x86 || true
+  qemu_running && kill -9 "$p" 2>/dev/null || true
+  rm -f "$PIDFILE"
   sleep 2
 }
 
@@ -164,17 +188,19 @@ stage_tools() {
 
 boot_kvm() {  # boot_kvm <serial-log>
   stop_qemu
-  ( cd "$IMAGES" && sg kvm -c "IMG=$(basename "$WORK") nohup bash boot_build.sh > $1 2>&1 &" )
+  ( cd "$IMAGES" && sg kvm -c "IMG=$(basename "$WORK") SSH_PORT=$KVM_PORT \
+      nohup bash boot_build.sh > $1 2>&1 & echo \$! > $PIDFILE" )
   sleep 5
   qemu_running || { tail -20 "$1"; die "qemu failed to start"; }
-  wait_ssh "$KVM_PORT" 600 || { tail -20 "$1"; die "guest never came up"; }
+  wait_ssh "$KVM_PORT" 900 || { tail -20 "$1"; die "guest never came up"; }
 }
 
 boot_tcg() {  # boot_tcg <outdir> <plugin-extra> <serial-log>
   local outdir=$1 extra=$2 log=$3
   stop_qemu
   rm -f "$TRIGGER"
-  ( cd "$IMAGES" && IMG=$(basename "$WORK") nohup bash boot_tcg_trace.sh "$outdir" "$extra" > "$log" 2>&1 & )
+  ( cd "$IMAGES" && IMG=$(basename "$WORK") SSH_PORT=$TCG_PORT TRIGGER=$TRIGGER \
+      nohup bash boot_tcg_trace.sh "$outdir" "$extra" > "$log" 2>&1 & echo $! > "$PIDFILE" )
   sleep 5
   qemu_running || { tail -20 "$log"; die "qemu failed to start under TCG"; }
   # TCG boots are slow; the guest kernel is emulated instruction by instruction.
@@ -227,7 +253,7 @@ profile)
   say "PROFILE — sizing the trajectory for $INSTANCE"
   restore_from_provisioned
   LOG=$IMAGES/profile-$INSTANCE.boot.log
-  boot_tcg "$IMAGES/profile_out" ",profile=on" "$LOG"
+  boot_tcg "$PROFILE_OUT" ",profile=on" "$LOG"
   stage_tools $TCG_PORT
   inject_artifacts $TCG_PORT
   arm_trigger_on_marker "$LOG"
