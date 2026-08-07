@@ -39,12 +39,21 @@ lang_deps() {
   say "composer packages"
   cd "$REPO_DIR"
   export COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache
-  # `composer install`, never `composer update`: install obeys composer.lock
-  # exactly, update rewrites it and the rewrite lands in the agent's patch.
-  [ -f composer.lock ] || die "no composer.lock -- composer install has nothing to pin to"
-  composer install --no-interaction --no-progress >/tmp/provision_composer.log 2>&1 \
-    || { tail -40 /tmp/provision_composer.log; die "composer install failed"; }
-  ok "vendor/ installed from composer.lock"
+  # Prefer `composer install`: it obeys composer.lock exactly, where `update`
+  # resolves afresh. But LIBRARIES deliberately do not commit a lock file (carbon
+  # gitignores it), so there is nothing to obey and update is the only option.
+  # The determinism that matters is still preserved: whatever it resolves is
+  # captured in the provisioned image, and every later pass restores that image.
+  if [ -f composer.lock ]; then
+    composer install --no-interaction --no-progress >/tmp/provision_composer.log 2>&1 \
+      || { tail -40 /tmp/provision_composer.log; die "composer install failed"; }
+    ok "vendor/ installed from the committed composer.lock"
+  else
+    echo "  no composer.lock (normal for a library); resolving once and freezing it in the image"
+    composer update --no-interaction --no-progress >/tmp/provision_composer.log 2>&1 \
+      || { tail -40 /tmp/provision_composer.log; die "composer update failed"; }
+    ok "vendor/ resolved; composer.lock written ($(grep -c '"name"' composer.lock 2>/dev/null || echo ?) packages)"
+  fi
 
   local dirty
   dirty=$(git status --porcelain)

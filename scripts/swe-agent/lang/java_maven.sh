@@ -43,7 +43,12 @@ lang_deps() {
   cd "$REPO_DIR"
   # go-offline resolves plugins as well as dependencies; without the plugin
   # half, `mvn -o test` still reaches out for surefire at test time.
-  mvn -B -q dependency:go-offline >/tmp/provision_mvn.log 2>&1 \
+  # go-offline walks the WHOLE reactor by default, so one unrelated sibling
+  # module with unresolvable dependencies fails the step even though the module
+  # under test is fine (gson-extras does exactly this). MVN_SCOPE narrows it to
+  # the same projects the build and test commands use.
+  # shellcheck disable=SC2086
+  mvn -B -q ${MVN_SCOPE:-} dependency:go-offline >/tmp/provision_mvn.log 2>&1 \
     || { tail -40 /tmp/provision_mvn.log; die "mvn dependency:go-offline failed"; }
   # A first online build warms anything go-offline missed (annotation
   # processors, test-scoped plugins) so the gate tests the cache, not the net.

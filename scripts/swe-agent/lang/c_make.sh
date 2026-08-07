@@ -60,8 +60,13 @@ lang_offline_gate() {
   # that matches nothing exits 0 having executed zero tests, which is how a
   # capture ends up being a pristine recording of no work at all. Count the
   # harness's own per-test success lines and require a real number.
+  # Which lines mean "a test ran and passed" is harness-specific: redis's tcl
+  # runner prints "[ok]: name", autotools prints "PASS: tests/name". Getting
+  # this wrong makes a healthy suite look like it ran nothing -- which is
+  # exactly what the gate is built to reject, so it must be told the format
+  # rather than guessed at.
   local n
-  n=$(grep -c '^\[ok\]' "$log" || true)
+  n=$(grep -cE "${GATE_TEST_PATTERN:-^\[ok\]}" "$log" || true)
   [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
     || { tail -30 "$log"; die "offline gate ran only $n tests, expected >= ${GATE_MIN_TESTS:-1} -- exited 0 but did nothing"; }
   ok "offline gate: rebuilt from clean and ran $n tests with NO network"
