@@ -57,6 +57,37 @@ comparison below is at identical geometry.
   measurement. **A trajectory can match perfectly and still describe a
   completely different amount of computation.**
 
+### The captures, and why these four
+
+One instance per execution model, because the SPEC baseline suggests the
+execution model is what the indirect share tracks.
+
+| capture | language | execution model | what it decides |
+|---|---|---|---|
+| prometheus | Go | compiled, interface dispatch | the original result |
+| redis | C | compiled, direct calls | if this is *also* indirect-heavy, the Go result was about agency |
+| rubocop | Ruby | bytecode interpreter (computed goto) | the decisive one — MRI dispatches like CPython, and `cpython_r.sp0` is 99.8% indirect |
+| ripgrep | Rust | compiled, monomorphised generics | separates "compiled" from "Go's interface dispatch" |
+| immutable-js | JavaScript | V8 JIT, inline caches | a fourth model again |
+
+The JS choice was constrained by mechanics rather than science: babel uses yarn
+and vuejs/core uses pnpm (the module needs npm with a lockfile, because
+`npm install` rewrites it into the agent's patch while `npm ci` refuses to), and
+preact runs its suite in headless Chrome, which is not viable under TCG on one
+pinned vCPU.
+
+### Running several captures at once
+
+Everything that was global is keyed on a per-instance `CAPTURE_SLOT`: ssh
+forwards, the plugin's trigger file, the profile output directory and the QEMU
+pidfile. Before that, `stop_qemu` matched by process NAME, so starting a second
+capture would have killed the first one's guest mid-pass. QEMU writes its own
+pidfile — deriving it from `$!` through `nohup` inside a subshell yielded the
+subshell's pid, so the driver watched a bash that had already exited.
+
+TCG phases run under a semaphore (three at a time); each pins four vCPU threads
+flat out. Verify and record are KVM and effectively free.
+
 ### Known modelling caveats
 
 - The replay proxy runs on the traced vCPU, so its serving work is in the trace.
