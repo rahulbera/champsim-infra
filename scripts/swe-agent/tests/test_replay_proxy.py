@@ -165,24 +165,48 @@ class TestSequenceMatching(unittest.TestCase):
         srv.shutdown()
         self.assertEqual(got, ["first", "second", "third"])
 
-    def test_running_off_the_end_is_fatal(self):
-        """More requests than recorded exchanges must fail, never wrap."""
+    def _post_bodies(self, bodies):
+        """Drive a sequence-mode server with the given request bodies."""
         import http.server, threading, urllib.error, urllib.request
         h = replay_proxy.make_handler("replay", self.c, None, None, "sequence")
-        srv = http.server.HTTPServer(("127.0.0.1", 0), h)
+        srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), h)
+        srv.daemon_threads = True
         threading.Thread(target=srv.serve_forever, daemon=True).start()
-        codes = []
-        for i in range(4):
+        out = []
+        for b in bodies:
             req = urllib.request.Request(
                 "http://127.0.0.1:%d/v1/chat/completions" % srv.server_address[1],
-                data=b'{"x":1}', headers={"Content-Type": "application/json"})
+                data=b, headers={"Content-Type": "application/json"})
             try:
                 with urllib.request.urlopen(req) as r:
-                    codes.append(r.status)
+                    out.append((r.status, r.read()))
             except urllib.error.HTTPError as e:
-                codes.append(e.code)
+                out.append((e.code, e.read()))
         srv.shutdown()
-        self.assertEqual(codes, [200, 200, 200, 500])
+        return out
+
+    def test_running_off_the_end_is_fatal(self):
+        """More requests than recorded exchanges must fail, never wrap.
+
+        Bodies must DIFFER: an agent's request carries the conversation so far,
+        so consecutive requests are never byte-identical. Identical ones mean a
+        retry and are handled by the test below.
+        """
+        res = self._post_bodies([b'{"x":0}', b'{"x":1}', b'{"x":2}', b'{"x":3}'])
+        self.assertEqual([c for c, _ in res], [200, 200, 200, 500])
+
+    def test_a_retry_does_not_consume_the_next_exchange(self):
+        """A byte-identical repeat is a retry, not progress.
+
+        litellm retries on a dropped connection. If the retry consumed the next
+        cassette, every later exchange would be served the wrong response and
+        nothing would report a miss -- silent, total divergence.
+        """
+        res = self._post_bodies([b'{"x":0}', b'{"x":0}', b'{"x":1}'])
+        self.assertEqual([c for c, _ in res], [200, 200, 200])
+        names = [json.loads(b)["n"] for _, b in res]
+        # The retry re-serves "first"; only the new body advances to "second".
+        self.assertEqual(names, ["first", "first", "second"])
 
 
 if __name__ == "__main__":

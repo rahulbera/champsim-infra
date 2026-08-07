@@ -43,6 +43,20 @@ WINDOW_LEN=${WINDOW_LEN:-300000000}
 say() { printf '\n=== %s ===\n' "$*"; }
 die() { printf '  [FAIL] %s\n' "$*" >&2; exit 1; }
 
+# A phase that fails mid-workload (a gate refusing the run, say) exits before
+# its shutdown_guest and leaves QEMU running, holding the ports and the image.
+# The next phase's stop_qemu would clear it, but only after a human works out
+# why ssh is answering on the wrong port.
+cleanup_on_exit() {
+  local rc=$?
+  if [ $rc -ne 0 ] && pgrep -x qemu-system-x86 >/dev/null; then
+    echo "  [cleanup] phase failed; stopping the guest it left running" >&2
+    pkill -x qemu-system-x86 2>/dev/null || true
+  fi
+  exit $rc
+}
+trap cleanup_on_exit EXIT
+
 ssh_guest() {  # ssh_guest <port> <cmd...>
   local port=$1; shift
   ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \

@@ -13,6 +13,7 @@ import http.server
 import json
 import os
 import sys
+import threading
 import urllib.request
 
 # Fields that vary per run and must NOT contribute to the cassette key.
@@ -151,13 +152,30 @@ def make_handler(mode, cassettes, upstream, api_key, match="key"):
     byte-identical actions. Observation text may differ; the executed work does
     not.
     """
-    seq = {"i": 0, "order": cassettes.order() if match == "sequence" else []}
+    # `last` remembers the previous request body and the response served for it,
+    # so a client RETRY does not consume the next cassette. Without this, one
+    # retried request desynchronises the whole sequence and every later exchange
+    # is served the wrong response -- with no miss to signal it.
+    seq = {"i": 0, "order": cassettes.order() if match == "sequence" else [],
+           "last_body": None, "last_hit": None}
+    lock = threading.Lock()
 
     class Handler(http.server.BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
 
         def log_message(self, fmt, *args):
             sys.stderr.write("[proxy] " + (fmt % args) + "\n")
+
+        def handle_one_request(self):
+            # A client that gives up mid-request is normal (connection-pool
+            # churn, timeouts); it must not spray a traceback or kill the
+            # thread. Nothing has been consumed at this point.
+            try:
+                super().handle_one_request()
+            except (ConnectionResetError, BrokenPipeError, TimeoutError) as e:
+                sys.stderr.write("[proxy] client dropped the connection (%s)\n"
+                                 % type(e).__name__)
+                self.close_connection = True
 
         def _respond(self, status, headers, body):
             self.send_response(status)
@@ -174,11 +192,19 @@ def make_handler(mode, cassettes, upstream, api_key, match="key"):
 
             if mode == "replay":
                 if match == "sequence":
-                    if seq["i"] < len(seq["order"]):
-                        hit = cassettes.load(seq["order"][seq["i"]])
-                        seq["i"] += 1
-                    else:
-                        hit = None      # ran off the end of the recording
+                    with lock:
+                        if body == seq["last_body"] and seq["last_hit"] is not None:
+                            # Byte-identical repeat of the previous request: a
+                            # retry, not progress. Re-serve, do not advance.
+                            hit = seq["last_hit"]
+                            sys.stderr.write("[proxy] retry detected, re-serving "
+                                             "exchange %d\n" % (seq["i"] - 1))
+                        elif seq["i"] < len(seq["order"]):
+                            hit = cassettes.load(seq["order"][seq["i"]])
+                            seq["i"] += 1
+                            seq["last_body"], seq["last_hit"] = body, hit
+                        else:
+                            hit = None  # ran off the end of the recording
                 else:
                     hit = cassettes.load(key)
                 if hit is None:
@@ -235,7 +261,16 @@ def main(argv):
 
     cassettes = Cassettes(args.cassettes)
     handler = make_handler(args.mode, cassettes, args.upstream, api_key, args.match)
-    srv = http.server.HTTPServer(("127.0.0.1", args.port), handler)
+    # ThreadingHTTPServer, not HTTPServer. With protocol_version = HTTP/1.1 the
+    # server keeps a connection alive after responding and blocks reading it; a
+    # single-threaded server therefore cannot accept the NEXT connection when
+    # the client's pool opens one, and the client times out and resets. Under
+    # KVM the timing happened to avoid this; under TCG (~20x slower) it
+    # deadlocked 48 calls into a 4-hour pass and ended the episode with
+    # exit_error. Threads make the server's availability independent of what any
+    # one connection is doing.
+    srv = http.server.ThreadingHTTPServer(("127.0.0.1", args.port), handler)
+    srv.daemon_threads = True
     sys.stderr.write("[proxy] %s mode (match=%s) on 127.0.0.1:%d, %d cassettes in %s\n"
                      % (args.mode, args.match, args.port, cassettes.count(),
                         args.cassettes))
