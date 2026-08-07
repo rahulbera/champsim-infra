@@ -55,6 +55,15 @@ sleep 3
 kill -0 $PROXY_PID 2>/dev/null || { cat /root/proxy_record.log; die "proxy failed to start"; }
 echo "  proxy pid $PROXY_PID on :8000 -> $UPSTREAM"
 
+# SWE-agent uploads its tool bundles with shutil.copytree() and no
+# dirs_exist_ok, so a SECOND record attempt dies with
+# FileExistsError: /root/tools/registry. Under Docker every run gets a fresh
+# container and this never appears; under the local deployment the previous
+# attempt's tools persist -- and any attempt that was interrupted leaves them
+# behind. replay_pinned.sh already clears them; recording must too, or a
+# retry after an interruption can never succeed.
+rm -rf /root/tools /root/state.json /root/.swe-agent-env
+
 say "2. run SWE-agent (this spends API credits)"
 # LITELLM_LOCAL_MODEL_COST_MAP keeps litellm from fetching its cost map over the
 # network; the cost limits are disabled because litellm has no pricing entry for
