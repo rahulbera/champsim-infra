@@ -40,6 +40,19 @@ git clean -xfd --quiet
 [ "$(git rev-parse HEAD)" = "$BASE_COMMIT" ] || die "HEAD is $(git rev-parse HEAD), expected $BASE_COMMIT"
 ok "HEAD = $(git rev-parse --short=12 HEAD)"
 
+# Some projects vendor a dependency as a git submodule (jq/oniguruma), which a
+# plain clone+checkout leaves empty. The build then fails in a way that reads
+# like a missing system library. Runs BEFORE the dependency step, and the tree
+# must still be clean afterwards -- submodule state lives in .git, not the tree.
+if [ -n "${POST_CHECKOUT_CMD:-}" ]; then
+  say "post-checkout: $POST_CHECKOUT_CMD"
+  eval "$POST_CHECKOUT_CMD" >/tmp/provision_postcheckout.log 2>&1 \
+    || { tail -20 /tmp/provision_postcheckout.log; die "post-checkout command failed"; }
+  [ -z "$(git status --porcelain)" ] \
+    || die "post-checkout dirtied the tree: $(git status --porcelain | head -3)"
+  ok "done, tree still clean"
+fi
+
 # The agent must start from a pristine tree, or its final `git diff` carries
 # unrelated noise and SWE-bench grading fails confusingly.
 [ -z "$(git status --porcelain)" ] || die "tree dirty before provisioning finished"
