@@ -1,7 +1,12 @@
 # VM images and snapshots (large binary files)
 # images/ and traces/ are typically symlinks to a large-disk location;
 # without the trailing slash the pattern ignores both directories and symlinks.
-images
+images/*
+# ...but the boot launchers in there ARE source, and they now carry the
+# SSH_PORT/TRIGGER/PIDFILE parameterisation that concurrent captures depend on.
+!images/boot_build.sh
+!images/boot_tcg_gate.sh
+!images/boot_tcg_trace.sh
 snapshots/*
 !snapshots/README.md
 
@@ -43,3 +48,7 @@ champsim/bin/
 # Staged per-instance data (fetched by stage_instance.py, not source)
 __pycache__/
 *.pyc
+
+# Recorded cassettes and trajectories ARE tracked: they cost API credits and
+# cannot be regenerated identically. The tarball is redundant with them.
+artifacts/*/artifacts.tgz

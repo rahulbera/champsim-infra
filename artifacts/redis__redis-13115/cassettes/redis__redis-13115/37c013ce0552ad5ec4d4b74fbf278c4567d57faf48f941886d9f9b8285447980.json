@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass. Let me clean up the temporary test files:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"rm -f /tmp/test_fpconv.c /tmp/test_fpconv /tmp/test_printf.c /tmp/test_printf /tmp/test_printf2.c /tmp/test_printf2 /tmp/test_printf3.c /tmp/test_printf3 /tmp/test_special.c /tmp/test_special /tmp/test_special2.c /tmp/test_special2 /tmp/test_repro.py /tmp/test_repro2.py /tmp/test_upstream.py /tmp/test_edge.py /tmp/test_float.py /tmp/script_lua_fixed.c\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373323567116581714\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053072,\"id\":\"202608070551087d080a6926c54471\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070551087d080a6926c54471\",\"usage\":{\"completion_tokens\":123,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":46704,\"prompt_tokens_details\":{\"cached_tokens\":46592},\"total_tokens\":46827}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "37c013ce0552ad5ec4d4b74fbf278c4567d57faf48f941886d9f9b8285447980",
+ "status": 200
+}

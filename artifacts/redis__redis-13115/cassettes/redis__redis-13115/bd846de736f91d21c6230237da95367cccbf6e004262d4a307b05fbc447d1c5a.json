@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me also run the functions tests since they use the same code path:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && ls tests/unit/ | grep -i \\\\\\\"script\\\\\\\\|function\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373314908462512610\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053059,\"id\":\"20260807055057ffa4729c0d8c400f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055057ffa4729c0d8c400f\",\"usage\":{\"completion_tokens\":43,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":46552,\"prompt_tokens_details\":{\"cached_tokens\":46400},\"total_tokens\":46595}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bd846de736f91d21c6230237da95367cccbf6e004262d4a307b05fbc447d1c5a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the scripting tests to understand the structure and find where I might add a test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/redis/tests/unit/scripting.tcl\\\",\\\"view_range\\\":[1, 60]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373301576884021688\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052807,\"id\":\"20260807054646da3c8691c7a1438e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054646da3c8691c7a1438e\",\"usage\":{\"completion_tokens\":58,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":32725,\"prompt_tokens_details\":{\"cached_tokens\":32384},\"total_tokens\":32783}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "89c8bd5c182024a3f9768e8129fa44d9623928197fead8235da3b64b7242543f",
+ "status": 200
+}

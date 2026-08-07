@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now only the source code change is staged. Let me verify the test file is back to its original state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git diff HEAD -- tests/unit/scripting.tcl; echo \\\\\\\"---\\\\\\\"; sed -n '141,160p' tests/unit/scripting.tcl\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373300236854224987\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053123,\"id\":\"202608070552028d3712d7b5774c72\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070552028d3712d7b5774c72\",\"usage\":{\"completion_tokens\":65,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":49050,\"prompt_tokens_details\":{\"cached_tokens\":48896},\"total_tokens\":49115}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d1f40ff83c4ab7b67d041f0a1692a3652b8966ebe0f7d4c85282fcf41aa94cc2",
+ "status": 200
+}

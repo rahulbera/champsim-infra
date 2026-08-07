@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git status\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373335867902915989\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053112,\"id\":\"20260807055151c82f243aee314135\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055151c82f243aee314135\",\"usage\":{\"completion_tokens\":16,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48266,\"prompt_tokens_details\":{\"cached_tokens\":48192},\"total_tokens\":48282}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f6495cd41985968dfef3f599b06ba6f23e60a7578a571955bdd79a8e8fa521fc",
+ "status": 200
+}

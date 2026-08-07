@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test file is back to its original state. Now let me verify the source code change is still in place and rebuild:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git diff --cached src/script_lua.c\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373332672447248524\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053127,\"id\":\"20260807055206c201cc907ff048bb\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055206c201cc907ff048bb\",\"usage\":{\"completion_tokens\":47,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":49286,\"prompt_tokens_details\":{\"cached_tokens\":49024},\"total_tokens\":49333}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "998b01d3a258128cbdc8c47ccec6c324ae39d18807639741e0990d6eda61a2d9",
+ "status": 200
+}

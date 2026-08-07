@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/redis/deps/fpconv/fpconv_dtoa.c\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373280892321524879\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052604,\"id\":\"202608070543234b004857535745ee\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070543234b004857535745ee\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":14149,\"prompt_tokens_details\":{\"cached_tokens\":13952},\"total_tokens\":14180}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4286f485ed16659d07d096bc27e2ce68e302deb34e2d482b24250d76fadcfea3",
+ "status": 200
+}

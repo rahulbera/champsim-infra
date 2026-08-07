@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the test file to understand what tests are expected:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/redis/tests/unit/scripting.tcl\\\",\\\"view_range\\\":[780, 830]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373306352887659670\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052664,\"id\":\"202608070544235eaa8661c9fa43b8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070544235eaa8661c9fa43b8\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":24459,\"prompt_tokens_details\":{\"cached_tokens\":23168},\"total_tokens\":24513}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8a9fc45079942a161d6b1823e229bad1a086a81c96818ea81c46f0486608d9c7",
+ "status": 200
+}

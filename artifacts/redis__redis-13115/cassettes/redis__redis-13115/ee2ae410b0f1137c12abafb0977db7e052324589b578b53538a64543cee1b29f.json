@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git log --oneline -20 -- src/script_lua.c | head -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373312606360038536\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052620,\"id\":\"202608070543396ff7ddb7f62f4b2e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070543396ff7ddb7f62f4b2e\",\"usage\":{\"completion_tokens\":30,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":19252,\"prompt_tokens_details\":{\"cached_tokens\":19072},\"total_tokens\":19282}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ee2ae410b0f1137c12abafb0977db7e052324589b578b53538a64543cee1b29f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me verify the test would fail without the fix by temporarily reverting just the source code change:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && cp src/script_lua.c /tmp/script_lua_fixed.c && git checkout src/script_lua.c && make -j$(nproc) 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373347928171079292\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052967,\"id\":\"2026080705492640ef530625e04c56\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080705492640ef530625e04c56\",\"usage\":{\"completion_tokens\":68,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44783,\"prompt_tokens_details\":{\"cached_tokens\":44608},\"total_tokens\":44851}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c3ca499adb97c70cc0b2cf97d91c21d107836edc47b949bd51c9c77e516b982d",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && cat > /tmp/test_printf3.c << 'EOF'\\\\n#include <stdio.h>\\\\n\\\\nint main() {\\\\n    char buf[64];\\\\n    double values[] = {\\\\n        1e-7, 1e-8, 0.0000001, 0.5, 1.5, -1.5,\\\\n    };\\\\n    int n = sizeof(values)/sizeof(values[0]);\\\\n    for (int i = 0; i < n; i++) {\\\\n        int len = snprintf(buf,sizeof(buf),\\\\\\\"%.17g\\\\\\\",values[i]);\\\\n        printf(\\\\\\\"%30.20f -> '%s' (len=%d)\\\\\\\\n\\\\\\\", values[i], buf, len);\\\\n    }\\\\n    return 0;\\\\n}\\\\nEOF\\\\ngcc -I. /tmp/test_printf3.c -lm -o /tmp/test_printf3 && /tmp/test_printf3\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373336211500298980\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052714,\"id\":\"202608070545105f4ba116258440e8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070545105f4ba116258440e8\",\"usage\":{\"completion_tokens\":188,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27484,\"prompt_tokens_details\":{\"cached_tokens\":26624},\"total_tokens\":27672}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a2f4c3d489baba084403563fd9a4ffc92df18c6882747ffdd7d617d570391a87",
+ "status": 200
+}

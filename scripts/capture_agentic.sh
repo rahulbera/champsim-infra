@@ -94,7 +94,19 @@ wait_ssh() {  # wait_ssh <port> <timeout-s>
 # QEMU is tracked by PID, never by name. `pkill -x qemu-system-x86` would take
 # down every concurrent capture's guest, and `pkill -f qemu` additionally
 # matches this script's own shell. The pidfile is the only handle used.
+# QEMU writes the pidfile itself (-pidfile). Deriving it from `$!` through
+# `nohup` inside a subshell gave the SUBSHELL's pid, not QEMU's, so
+# qemu_running() watched a bash that had already exited and stop_qemu() would
+# have signalled the wrong process entirely.
 qemu_pid() { [ -f "$PIDFILE" ] && cat "$PIDFILE" 2>/dev/null || true; }
+wait_pidfile() {  # wait_pidfile <timeout-s>
+  local t=0
+  while [ $t -lt "${1:-30}" ]; do
+    qemu_running && { echo "  qemu pid $(qemu_pid) (ports $KVM_PORT/$TCG_PORT)"; return 0; }
+    sleep 1; t=$((t+1))
+  done
+  return 1
+}
 qemu_running() {
   local p; p=$(qemu_pid)
   [ -n "$p" ] && kill -0 "$p" 2>/dev/null
@@ -188,9 +200,10 @@ stage_tools() {
 
 boot_kvm() {  # boot_kvm <serial-log>
   stop_qemu
+  rm -f "$PIDFILE"
   ( cd "$IMAGES" && sg kvm -c "IMG=$(basename "$WORK") SSH_PORT=$KVM_PORT \
-      nohup bash boot_build.sh > $1 2>&1 & echo \$! > $PIDFILE" )
-  sleep 5
+      PIDFILE=$PIDFILE nohup bash boot_build.sh > $1 2>&1 &" )
+  wait_pidfile 30 || { tail -20 "$1"; die "qemu never wrote its pidfile"; }
   qemu_running || { tail -20 "$1"; die "qemu failed to start"; }
   wait_ssh "$KVM_PORT" 900 || { tail -20 "$1"; die "guest never came up"; }
 }
@@ -199,9 +212,10 @@ boot_tcg() {  # boot_tcg <outdir> <plugin-extra> <serial-log>
   local outdir=$1 extra=$2 log=$3
   stop_qemu
   rm -f "$TRIGGER"
+  rm -f "$PIDFILE"
   ( cd "$IMAGES" && IMG=$(basename "$WORK") SSH_PORT=$TCG_PORT TRIGGER=$TRIGGER \
-      nohup bash boot_tcg_trace.sh "$outdir" "$extra" > "$log" 2>&1 & echo $! > "$PIDFILE" )
-  sleep 5
+      PIDFILE=$PIDFILE nohup bash boot_tcg_trace.sh "$outdir" "$extra" > "$log" 2>&1 & )
+  wait_pidfile 30 || { tail -20 "$log"; die "qemu never wrote its pidfile"; }
   qemu_running || { tail -20 "$log"; die "qemu failed to start under TCG"; }
   # TCG boots are slow; the guest kernel is emulated instruction by instruction.
   wait_ssh "$TCG_PORT" 2400 || { tail -30 "$log"; die "guest never came up under TCG"; }

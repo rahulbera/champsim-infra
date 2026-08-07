@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The source code change is in place. Let me rebuild to make sure the binary is up to date with the fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && make -j$(nproc) 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373318310076608497\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053131,\"id\":\"20260807055209e7a62ea289cf4264\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055209e7a62ea289cf4264\",\"usage\":{\"completion_tokens\":53,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":49692,\"prompt_tokens_details\":{\"cached_tokens\":49280},\"total_tokens\":49745}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bad593babf29b03b901c198110f79ba52dc844551be5208e0f96179a400cc7bc",
+ "status": 200
+}

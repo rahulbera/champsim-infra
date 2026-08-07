@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git log --all --oneline | grep -i \\\\\\\"fpconv\\\\\\\\|scientific\\\\\\\\|hincrby\\\\\\\\|lua.*number\\\\\\\\|number.*lua\\\\\\\\|grisu\\\\\\\\|d2string\\\\\\\\|dtoa\\\\\\\" | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373347447134747222\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052823,\"id\":\"2026080705470124c2059f815b4523\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080705470124c2059f815b4523\",\"usage\":{\"completion_tokens\":64,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":35301,\"prompt_tokens_details\":{\"cached_tokens\":34752},\"total_tokens\":35365}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "40da4d39a05066fde456c7f5cbef62fa247256502b4454b4316c2c12732d9b0c",
+ "status": 200
+}

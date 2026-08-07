@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me write a small C program to test the `fpconv_dtoa` function to understand the bug. Let me first check the git log to understand the history of this file.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git log --oneline -20 -- deps/fpconv/fpconv_dtoa.c\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373301920481408607\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052617,\"id\":\"20260807054336f11f151e1e10406b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054336f11f151e1e10406b\",\"usage\":{\"completion_tokens\":70,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":19134,\"prompt_tokens_details\":{\"cached_tokens\":18368},\"total_tokens\":19204}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "95d26b23cb1c2ad8a03ccfa17605eab54da9962971f36e817a026ac8df1b4f73",
+ "status": 200
+}

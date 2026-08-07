@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me build the Redis server to verify the fix compiles. Let me first check the build setup:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && ls src/redis-server && file src/redis-server\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373343564484311143\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052857,\"id\":\"20260807054735362899ddca3849cf\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054735362899ddca3849cf\",\"usage\":{\"completion_tokens\":47,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":39482,\"prompt_tokens_details\":{\"cached_tokens\":38784},\"total_tokens\":39529}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8d807e23f6b078aa6d78a2b386d83b5807126a8a905be6306f1219f833854a3d",
+ "status": 200
+}

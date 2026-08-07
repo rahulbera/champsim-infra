@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test file change is still staged. The `git checkout --` only reverted the working tree, but the staged version still has the change. Let me unstage and revert the test file properly:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git restore --staged tests/unit/scripting.tcl && git checkout -- tests/unit/scripting.tcl && git status\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373284603173270838\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053120,\"id\":\"2026080705515825d4a668c2ab4d92\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080705515825d4a668c2ab4d92\",\"usage\":{\"completion_tokens\":78,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48921,\"prompt_tokens_details\":{\"cached_tokens\":48320},\"total_tokens\":48999}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "30ae491087237402529b893beb2601859687595b75420a40e88fe239379f7423",
+ "status": 200
+}
