@@ -251,6 +251,14 @@ record)
   # record_trajectory.sh never reaches a retry -- which is why jq kept dying on
   # FileExistsError /root/tools/registry after that exact fix had been made.
   stage_tools $KVM_PORT
+  # Start the loop watchdog HERE, not as a separate command I have to remember.
+  # Recording has no natural bound -- cost limits are off (litellm cannot price
+  # this model) and execution timeouts are off (they destroy the replay on one
+  # pinned vCPU). Relaunching jq without it cost 892 API calls and 54.3M tokens
+  # before anyone noticed, on a task the model was visibly looping.
+  setsid nohup bash "$ROOT/scripts/record_watchdog.sh" "$INSTANCE" "$KVM_PORT" \
+      > "$IMAGES/watchdog-$INSTANCE.log" 2>&1 < /dev/null &
+  echo "  loop watchdog armed on :$KVM_PORT"
   ssh_guest $KVM_PORT "sudo LLM_API_KEY='$LLM_API_KEY' \
       bash /opt/swe-agent-tools/record_trajectory.sh $INSTANCE" 2>&1 | tail -50
   shutdown_guest $KVM_PORT
