@@ -38,7 +38,15 @@ GROUPS = {
 
 
 def run_one(trace, binary, warmup, sim, keep_json=None):
-    name = os.path.basename(trace).replace(".champsim2.zst", "").replace(".zst", "")
+    # Strip known suffixes from the END only. A blanket .replace(".zst", "")
+    # also eats the substring in the MIDDLE of a name, turning
+    # "777.zstd_r.sp0" into "777d_r.sp0" -- which then fails the SPEC name
+    # pattern and lands the benchmark in the wrong group entirely.
+    name = os.path.basename(trace)
+    for suffix in (".champsim2.zst", ".champsim.zst", ".zst"):
+        if name.endswith(suffix):
+            name = name[: -len(suffix)]
+            break
     fd, jpath = tempfile.mkstemp(suffix=".json", prefix="bp_")
     os.close(fd)
     cmd = [binary,
