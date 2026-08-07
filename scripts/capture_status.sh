@@ -62,7 +62,9 @@ for env in "$ROOT"/scripts/swe-agent/instances/*.env; do
   pid=$( [ -f "$IMAGES/.qemu-$inst.pid" ] && cat "$IMAGES/.qemu-$inst.pid" 2>/dev/null || true )
   up=""; [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null && up="guest up"
 
-  nw=$(ls "$OUT/$inst"/*.champsim2.zst 2>/dev/null | wc -l)
+  # Count windows that PASSED validation, not files present: a file still being
+  # written counts as one, and the script would report DONE mid-conversion.
+  nw=$(grep -l 'all acceptance checks passed' "$OUT/$inst"/*.check.log 2>/dev/null | wc -l)
   nc=$(find "$ROOT/artifacts/$inst/cassettes" -name '*.json' 2>/dev/null | wc -l)
   note=""
   [ "$nc" -gt 0 ] && note="${nc} cassettes"
@@ -76,7 +78,7 @@ echo
 echo "NON-AGENTIC CONTROLS (toolchain only, no agent)"
 for inst in prometheus__prometheus-15142 redis__redis-13115; do
   tag=$inst.toolchain
-  nw=$(ls "$OUT/$tag"/*.champsim2.zst 2>/dev/null | wc -l)
+  nw=$(grep -l 'all acceptance checks passed' "$OUT/$tag"/*.check.log 2>/dev/null | wc -l)
   meta=$IMAGES/capture-$tag.meta
   st="—"; [ -f "$meta" ] && st="profiled"
   [ "$nw" -gt 0 ] && st="converting"; [ "$nw" -ge 4 ] && st="DONE"
