@@ -246,6 +246,11 @@ record)
   say "RECORD — $INSTANCE (spends API credits)"
   [ -f "$WORK" ] || die "no provisioned image at $WORK"
   boot_kvm "$IMAGES/record-$INSTANCE.boot.log"
+  # Re-stage before recording too. Without this the guest keeps whatever
+  # guest-side scripts provisioning happened to install, so a fix to
+  # record_trajectory.sh never reaches a retry -- which is why jq kept dying on
+  # FileExistsError /root/tools/registry after that exact fix had been made.
+  stage_tools $KVM_PORT
   ssh_guest $KVM_PORT "sudo LLM_API_KEY='$LLM_API_KEY' \
       bash /opt/swe-agent-tools/record_trajectory.sh $INSTANCE" 2>&1 | tail -50
   shutdown_guest $KVM_PORT
