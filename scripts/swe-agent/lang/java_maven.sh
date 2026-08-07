@@ -89,7 +89,10 @@ lang_clean_check() {
   [ -z "$(cd "$REPO_DIR" && git status --porcelain)" ] \
     || die "tree dirty after gate: $(cd "$REPO_DIR" && git status --porcelain | head -5)"
   # Prove the repository resolves for ROOT, the user that will actually need it.
-  sudo -i bash -c "cd $REPO_DIR && mvn -o -B -q validate" >/dev/null 2>&1 \
-    || die "mvn -o fails as root -- the agent would not find the dependencies"
+  # Must carry MVN_SCOPE too: at the repo root the reactor includes siblings
+  # whose dependencies were never cached (gson-extras), so an unscoped validate
+  # fails offline for a reason that has nothing to do with root's settings.
+  sudo -i bash -c "cd $REPO_DIR && mvn -o -B -q ${MVN_SCOPE:-} validate" >/dev/null 2>&1 \
+    || die "mvn -o ${MVN_SCOPE:-} fails as root -- the agent would not find the dependencies"
   ok "dependencies resolve as root; no stray files"
 }
