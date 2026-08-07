@@ -1,3 +1,4 @@
 2026-08-07 14:18:35	infra	module required composer.lock; libraries do not commit one
 2026-08-07 14:24:07	infra	provisioning process killed mid offline-gate (collateral from a kill loop), not an instance fault
 2026-08-07 16:24:42	infra	provisioning SIGTERMed at the offline gate, same process-group cause
+2026-08-07 17:25:11	infra	offline gate died silently 3x; PHP date/time suite with TZ stripped by env -i [RECLASSIFIED: guest boot log ends 'qemu-system-x86_64: terminating' -- external SIGTERM, not an instance fault]

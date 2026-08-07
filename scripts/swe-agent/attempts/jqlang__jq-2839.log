@@ -1,3 +1,4 @@
 2026-08-07 14:18:35	infra	gate counted redis's [ok] format; jq's autotools prints PASS: (8 tests had run)
 2026-08-07 16:24:42	infra	record SIGTERMed at step 53 by a kill loop; nohup keeps the child in the launcher's process group
 2026-08-07 17:24:36	infra	FileExistsError /root/tools/registry: record pass never cleared stale tool bundles
+2026-08-07 18:24:28	infra	record phase did not re-stage tools, so the /root/tools fix never reached the guest
