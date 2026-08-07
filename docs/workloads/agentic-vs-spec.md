@@ -125,6 +125,51 @@ happened.
 
 ---
 
+## The SPEC baseline (all 32 slices)
+
+TAGE-SC-L 64 KB, 50 M warmup / 200 M sim. Full table in `spec_baseline.csv`.
+
+| | indirect share of mispredictions |
+|---|---|
+| SPEC, min | 0.0% |
+| SPEC, median | **4.0%** |
+| SPEC, mean | 14.9% |
+| SPEC, upper quartile | 31.2% |
+| SPEC, max (`714.cpython_r.sp0`) | **99.8%** |
+| agentic (prometheus), median | 56.1% |
+| agentic, range | 24.4 – 87.7% |
+
+### This corrects the first report
+
+The initial write-up claimed the agentic profile was the *mirror image* of
+"every traditional SPEC workload". That was measured against an 8-slice subset
+(stockfish, sqlite, omnetpp, cpython, gcc, llvm, cppcheck) and does not survive
+the full suite:
+
+- **9 of 32 SPEC slices are ≥24% indirect** — `727.cppcheck_r.sp1` 56.8%,
+  `734.vpr_r.sp1` 37.1%, the `753.ns3_r` cluster 31–32%, `735.gem5_r.sp1`
+  31.7%, `710.omnetpp_r.sp2` 28.9%, `708.sqlite_r.sp1` 23.9%.
+- **`714.cpython_r.sp0` is 99.8% indirect** — 469,084 indirect mispredictions
+  against 691 conditional ones in 200 M instructions. That is *more*
+  indirect-dominated than any agentic window captured so far.
+
+The defensible statement is therefore about position in a distribution, not
+about kind: agentic windows sit far above the typical SPEC slice (56% vs 4%
+median), but they are not categorically unlike SPEC.
+
+### And it points at the mechanism
+
+That 99.8% slice is CPython's computed-goto bytecode dispatch loop: an indirect
+jump the predictor cannot learn, with conditionals almost perfectly predicted.
+It is precisely the interpreter-dispatch mechanism proposed at the start of this
+study — appearing in SPEC's own CPython benchmark rather than in the agent
+trace.
+
+This raises the value of the Ruby capture considerably. MRI/YARV uses the same
+dispatch structure, so if rubocop lands near `cpython_r.sp0` then the driver is
+**the execution model of the language being used**, not agency — and the Go
+result was Go's interface dispatch after all.
+
 ## Head-to-head
 
 <!-- filled in once two or more agentic captures exist -->
