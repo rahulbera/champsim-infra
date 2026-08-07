@@ -83,6 +83,11 @@ boot_tcg() {  # boot_tcg <outdir> <plugin-extra> <serial-log>
   done
   ssh_g true 2>/dev/null || { tail -30 "$log"; die "guest never came up under TCG"; }
 
+  # /opt is root-owned, and an older provisioned snapshot may predate the tools
+  # directory entirely -- rsync then fails with a bare "mkdir ... Permission
+  # denied" that reads like a broken key.
+  ssh_g 'sudo mkdir -p /opt/swe-agent-tools /opt/problem_statements && sudo chown -R ubuntu:ubuntu /opt/swe-agent-tools /opt/problem_statements' \
+    || die "could not prepare the guest tools directory"
   rsync -a -e "ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY -p $TCG_PORT" \
     --exclude '__pycache__' --exclude reference --exclude problem_statements \
     "$ROOT/scripts/swe-agent/" "ubuntu@127.0.0.1:/opt/swe-agent-tools/" || die "could not stage tools"
