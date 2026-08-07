@@ -58,13 +58,18 @@ def main():
         problems.append(f"{n - same} of {n} actions differ")
     if rec_sha != rep_sha:
         problems.append("final patch differs")
-    # An exit_status carrying a parenthesised reason (exit_command_timeout,
-    # exit_cost, ...) means the episode was cut short by the harness even when
-    # the prefix matched.
-    for label, info in (("record", ri), ("replay", pi)):
-        st = str(info.get("exit_status") or "")
-        if "(" in st:
-            problems.append(f"{label} ended abnormally: {st}")
+
+    # The question is whether the replay IS the recorded execution -- not
+    # whether the recording was ideal. A recording that ended abnormally is a
+    # legitimate, if less tidy, workload; what invalidates a trace is the two
+    # sides ending DIFFERENTLY. So compare the exit statuses for equality and
+    # only note an abnormal-but-matching one.
+    rec_st, rep_st = str(ri.get("exit_status") or ""), str(pi.get("exit_status") or "")
+    if rec_st != rep_st:
+        problems.append(f"exit_status differs: record {rec_st!r} vs replay {rep_st!r}")
+    elif "(" in rec_st:
+        print(f"  NOTE: both sides ended abnormally with {rec_st!r} -- reproduced "
+              f"faithfully, but the trajectory is shorter than the agent intended")
 
     if problems:
         print("  VERDICT: DIVERGED")
