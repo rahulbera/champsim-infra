@@ -64,7 +64,12 @@ $(echo "$dirty" | head -10)"
 }
 
 lang_offline_gate() {
-  OFFLINE_ENV=(COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache HOME=/home/ubuntu)
+  # TZ is passed explicitly. run_offline uses `env -i`, which strips it, and
+  # PHP with no date.timezone and no TZ emits warnings or dies depending on
+  # configuration -- which is fatal for a DATE/TIME library's test suite. The
+  # gate died three times at exactly this point with no output.
+  OFFLINE_ENV=(COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache
+               HOME=/home/ubuntu TZ=UTC)
   local log=/tmp/offline_gate.log
   run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD" >"$log" 2>&1 \
     || { tail -40 "$log"; die "OFFLINE GATE FAILED -- the traced pass would die"; }

@@ -1,2 +1,3 @@
 2026-08-07 14:18:35	infra	module required composer.lock; libraries do not commit one
 2026-08-07 14:24:07	infra	provisioning process killed mid offline-gate (collateral from a kill loop), not an instance fault
+2026-08-07 16:24:42	infra	provisioning SIGTERMed at the offline gate, same process-group cause
