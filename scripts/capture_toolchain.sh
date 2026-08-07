@@ -29,10 +29,12 @@ META=$IMAGES/capture-$TAG.meta
 SSH_KEY=$IMAGES/id_ed25519
 
 # Its own slot, so it never collides with the agentic capture of the same
-# instance -- they may well run at the same time.
+# instance -- they may well run at the same time. Offset +10, not +5: agentic
+# slots now run 0..9, so +5 would have put the rubocop control (1+5=6) on jq's
+# slot and the gin control (4+5=9) on prometheus's. Controls occupy 10..19.
 SLOT=${CAPTURE_SLOT:-$(( $(grep -h '^CAPTURE_SLOT=' \
         "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" 2>/dev/null \
-        | tail -1 | cut -d= -f2) + 5 ))}
+        | tail -1 | cut -d= -f2) + 10 ))}
 TCG_PORT=$((2301 + SLOT * 10))
 TRIGGER=/tmp/swe_roi_trigger.$TAG
 PIDFILE=$IMAGES/.qemu-$TAG.pid

@@ -76,7 +76,11 @@ done
 
 echo
 echo "NON-AGENTIC CONTROLS (toolchain only, no agent)"
-for inst in prometheus__prometheus-15142 redis__redis-13115; do
+# Any instance that defines WORKLOAD_CMD has a control; do not hardcode a list
+# that silently omits one added later.
+for env in "$ROOT"/scripts/swe-agent/instances/*.env; do
+  grep -q '^WORKLOAD_CMD=' "$env" || continue
+  inst=$(basename "$env" .env)
   tag=$inst.toolchain
   nw=$(grep -l 'all acceptance checks passed' "$OUT/$tag"/*.check.log 2>/dev/null | wc -l)
   meta=$IMAGES/capture-$tag.meta
