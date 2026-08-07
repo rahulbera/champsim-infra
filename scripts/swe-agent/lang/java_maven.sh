@@ -50,10 +50,14 @@ lang_deps() {
   # shellcheck disable=SC2086
   mvn -B -q ${MVN_SCOPE:-} dependency:go-offline >/tmp/provision_mvn.log 2>&1 \
     || { tail -40 /tmp/provision_mvn.log; die "mvn dependency:go-offline failed"; }
-  # A first online build warms anything go-offline missed (annotation
-  # processors, test-scoped plugins) so the gate tests the cache, not the net.
+  # A first online build+TEST warms what go-offline misses. go-offline is
+  # documented as incomplete for plugins, and surefire in particular resolves
+  # its provider lazily at the moment the first test runs -- so warming only the
+  # build leaves the gate to discover it offline, as a PluginContainerException.
   eval "$GATE_BUILD_CMD" >>/tmp/provision_mvn.log 2>&1 \
     || { tail -40 /tmp/provision_mvn.log; die "initial maven build failed"; }
+  eval "$GATE_TEST_CMD" >>/tmp/provision_mvn.log 2>&1 \
+    || { tail -40 /tmp/provision_mvn.log; die "initial maven test run failed"; }
   ok "dependencies resolved into /opt/m2"
 
   local dirty

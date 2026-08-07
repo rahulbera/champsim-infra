@@ -1,42 +1,82 @@
 #!/usr/bin/env bash
-# capture_status.sh — one-screen view of every capture in flight.
+# capture_status.sh — one-screen view of every capture, for the hourly report.
 set -uo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 IMAGES=$ROOT/images
-KEY=$IMAGES/id_ed25519
+OUT=$IMAGES/champsim_out
 
-printf '%-34s %-6s %-8s %-26s %s\n' INSTANCE SLOT PORT PHASE DETAIL
-printf '%.0s-' {1..104}; echo
+lang_of() {  # instance -> language, from its descriptor's module
+  case "$(grep -h '^LANG_MODULE=' "$ROOT/scripts/swe-agent/instances/$1.env" 2>/dev/null | cut -d= -f2)" in
+    go)            echo Go ;;
+    c_make)        echo C ;;
+    rust_cargo)    echo Rust ;;
+    ruby_bundler)  echo Ruby ;;
+    node_npm)      echo JS ;;
+    java_maven)    echo Java ;;
+    php_composer)  echo PHP ;;
+    *)             echo "?" ;;
+  esac
+}
+
+# Latest phase, from whichever log is furthest along. Ordered earliest-to-latest
+# so a later stage overwrites an earlier one.
+phase_of() {
+  # Find the logs by CONTENT, not by filename: the log names were chosen ad hoc
+  # per launch and do not follow one convention.
+  local inst=$1 c=$IMAGES/chain-$1 p=""
+  local pl rl
+  pl=$(grep -l "PROVISION $inst" /tmp/claude-1000/provision_*.log 2>/dev/null | head -1)
+  rl=$(grep -l "RECORD.*$inst" /tmp/claude-1000/record_*.log 2>/dev/null | head -1)
+  if [ -n "$pl" ] && [ -f "$pl" ]; then
+    grep -q "PROVISIONED $inst" "$pl" 2>/dev/null && p=provisioned || p=provisioning
+    grep -q '\[FAIL\]' "$pl" 2>/dev/null && p="provision FAILED"
+  fi
+  if [ -n "$rl" ] && [ -f "$rl" ]; then
+    grep -q 'cassettes recorded' "$rl" 2>/dev/null && p=recorded || p=recording
+    grep -q '\[FAIL\]' "$rl" 2>/dev/null && p="record FAILED"
+  fi
+  [ -f "$c/advance.log" ] && p=$(grep -oE 'START [a-z]+|OK [a-z]+|FAILED [a-z]+|waiting for a TCG slot' "$c/advance.log" 2>/dev/null | tail -1)
+  [ -f "$c/chain.log"   ] && p=$(grep -oE 'START +[a-z]+|OK +[a-z]+|FAILED +[a-z]+' "$c/chain.log" 2>/dev/null | tail -1)
+  echo "${p:-—}" | tr -s ' ' | cut -c1-16
+}
+
+printf '%-32s %-5s %-16s %-9s %s\n' TASK LANG PHASE WINDOWS NOTE
+printf '%.0s-' {1..92}; echo
 
 for env in "$ROOT"/scripts/swe-agent/instances/*.env; do
   inst=$(basename "$env" .env)
-  slot=$(grep -h '^CAPTURE_SLOT=' "$env" 2>/dev/null | tail -1 | cut -d= -f2)
-  slot=${slot:-0}
-  pidf=$IMAGES/.qemu-$inst.pid
-  pid=$( [ -f "$pidf" ] && cat "$pidf" 2>/dev/null || true )
-  up=no; port=-
-  if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
-    up=yes
-    port=$(tr '\0' '\n' < "/proc/$pid/cmdline" 2>/dev/null \
-           | grep -o 'hostfwd=tcp::[0-9]*' | grep -o '[0-9]*$' | head -1)
-  fi
+  # 13680 was abandoned mid-recording (the model looped); keep the descriptor
+  # for the record but do not report it as work in flight.
+  [ "$inst" = rubocop__rubocop-13680 ] && continue
 
-  phase=idle; detail=""
-  chain=$IMAGES/chain-$inst
-  [ -f "$chain/advance.log" ] && phase=$(grep -oE 'START [a-z]+|OK +[a-z]+|FAILED [a-z]+|waiting for [a-z ]+' \
-                                          "$chain/advance.log" 2>/dev/null | tail -1)
-  [ -f "$chain/chain.log" ]   && phase=$(grep -oE 'START +[a-z]+|OK +[a-z]+|FAILED +[a-z]+' \
-                                          "$chain/chain.log" 2>/dev/null | tail -1)
-  [ -f "$ROOT/artifacts/$inst/cassettes" ] 2>/dev/null || true
+  pid=$( [ -f "$IMAGES/.qemu-$inst.pid" ] && cat "$IMAGES/.qemu-$inst.pid" 2>/dev/null || true )
+  up=""; [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null && up="guest up"
+
+  nw=$(ls "$OUT/$inst"/*.champsim2.zst 2>/dev/null | wc -l)
   nc=$(find "$ROOT/artifacts/$inst/cassettes" -name '*.json' 2>/dev/null | wc -l)
-  [ "$nc" -gt 0 ] && detail="${nc} cassettes"
-  nw=$(ls "$IMAGES/champsim_out/$inst"/*.champsim2.zst 2>/dev/null | wc -l)
-  [ "$nw" -gt 0 ] && detail="$detail, ${nw} windows converted"
-  [ "$up" = yes ] && detail="$detail [guest up]"
+  note=""
+  [ "$nc" -gt 0 ] && note="${nc} cassettes"
+  [ -n "$up" ] && note="${note:+$note, }$up"
+  [ "$nw" -ge 4 ] && note="${note:+$note, }DONE"
 
-  printf '%-34s %-6s %-8s %-26s %s\n' "$inst" "$slot" "${port:--}" "${phase:-idle}" "$detail"
+  printf '%-32s %-5s %-16s %-9s %s\n' "$inst" "$(lang_of "$inst")" "$(phase_of "$inst")" "$nw/4" "$note"
 done
 
 echo
-echo "TCG slots held: $(ls /tmp/claude-1000/tcg-locks 2>/dev/null | wc -l) lockfiles; load:$(uptime | sed 's/.*load average://')"
-echo "guests running: $(pgrep -cx qemu-system-x86 2>/dev/null || echo 0)"
+echo "NON-AGENTIC CONTROLS (toolchain only, no agent)"
+for inst in prometheus__prometheus-15142 redis__redis-13115; do
+  tag=$inst.toolchain
+  nw=$(ls "$OUT/$tag"/*.champsim2.zst 2>/dev/null | wc -l)
+  meta=$IMAGES/capture-$tag.meta
+  st="—"; [ -f "$meta" ] && st="profiled"
+  [ "$nw" -gt 0 ] && st="converting"; [ "$nw" -ge 4 ] && st="DONE"
+  printf '  %-40s %-9s %s\n' "$tag" "$nw/4" "$st"
+done
+
+echo
+nb=$(ls /home/rbera/work/bpeval/cbp6-runs/bin 2>/dev/null | wc -l)
+echo "CBP2025 CAMPAIGN: $nb/7 binaries built$([ "$nb" -eq 7 ] && echo ' (verified distinct)')"
+echo "RESOURCES: $(pgrep -cx qemu-system-x86 2>/dev/null || echo 0) guests, \
+$(free -g | awk 'NR==2{print $3"G/"$2"G"}') mem, \
+load$(uptime | sed 's/.*load average://'), \
+$(df -h /home | awk 'NR==2{print $4}') disk free"
