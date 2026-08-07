@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# lang/php_composer.sh — PHP projects using Composer (carbon, laravel, ...).
+#
+# Instance env must supply: APT_PACKAGES, GATE_BUILD_CMD, GATE_TEST_CMD,
+# GATE_MIN_TESTS.
+#
+# A second interpreted arm alongside Ruby. The Zend VM is a switch/computed-goto
+# bytecode dispatcher like MRI and CPython, so it is a direct replicate of the
+# interpreter hypothesis: if Ruby lands near SPEC's 99.8%-indirect cpython
+# slice, PHP should too, and "interpreters defeat indirect prediction" stops
+# being a single observation.
+
+lang_toolchain() {
+  say "toolchain: PHP + Composer"
+  sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+  # shellcheck disable=SC2086
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq $APT_PACKAGES
+  command -v php      >/dev/null || die "php not installed"
+  command -v composer >/dev/null || die "composer not installed"
+  ok "$(php -v | head -1), $(composer --version 2>/dev/null | head -1)"
+
+  # Composer's cache is per-user (~/.cache/composer) and provisioning runs as
+  # ubuntu while the agent runs as root. vendor/ lives in the repo so the
+  # INSTALL is shared, but any composer command root runs would still try to
+  # populate its own cache -- point both at one place, for every user.
+  sudo mkdir -p /opt/composer-cache
+  sudo chown -R ubuntu:ubuntu /opt/composer-cache
+  sudo tee /etc/profile.d/00-php.sh >/dev/null <<'EOF'
+export COMPOSER_HOME=/opt/composer-cache
+export COMPOSER_CACHE_DIR=/opt/composer-cache/cache
+export COMPOSER_NO_INTERACTION=1
+EOF
+  export COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache
+  ok "composer home pinned to /opt/composer-cache for all users"
+}
+
+lang_deps() {
+  say "composer packages"
+  cd "$REPO_DIR"
+  export COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache
+  # `composer install`, never `composer update`: install obeys composer.lock
+  # exactly, update rewrites it and the rewrite lands in the agent's patch.
+  [ -f composer.lock ] || die "no composer.lock -- composer install has nothing to pin to"
+  composer install --no-interaction --no-progress >/tmp/provision_composer.log 2>&1 \
+    || { tail -40 /tmp/provision_composer.log; die "composer install failed"; }
+  ok "vendor/ installed from composer.lock"
+
+  local dirty
+  dirty=$(git status --porcelain)
+  [ -z "$dirty" ] || die "composer dirtied the tree (vendor/ should be gitignored):
+$(echo "$dirty" | head -10)"
+  ok "tree clean"
+  du -sh vendor 2>/dev/null | sed 's/^/  vendor: /'
+}
+
+lang_offline_gate() {
+  OFFLINE_ENV=(COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache HOME=/home/ubuntu)
+  local log=/tmp/offline_gate.log
+  run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD" >"$log" 2>&1 \
+    || { tail -40 "$log"; die "OFFLINE GATE FAILED -- the traced pass would die"; }
+
+  # PHPUnit prints "OK (N tests, M assertions)" or "Tests: N". Zero tests is a
+  # passing exit code and is what a bad --filter produces.
+  local n
+  n=$(grep -oE 'OK \([0-9]+ test|Tests: [0-9]+' "$log" | grep -oE '[0-9]+' | tail -1)
+  [ -n "$n" ] || { tail -30 "$log"; die "no phpunit test count in the gate output"; }
+  [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
+    || { tail -30 "$log"; die "offline gate ran only $n tests, expected >= ${GATE_MIN_TESTS:-1}"; }
+  ok "offline gate: ran $n phpunit tests with NO network"
+}
+
+lang_clean_check() {
+  [ -z "$(cd "$REPO_DIR" && git status --porcelain)" ] \
+    || die "tree dirty after gate: $(cd "$REPO_DIR" && git status --porcelain | head -5)"
+  [ -d "$REPO_DIR/vendor" ] || die "vendor/ missing -- the agent would have no dependencies"
+  ok "vendor/ present; no stray files"
+}
