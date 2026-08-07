@@ -22,6 +22,26 @@ lang_toolchain() {
   command -v node >/dev/null || die "node not installed"
   command -v npm  >/dev/null || die "npm not installed"
   ok "node $(node --version), npm $(npm --version)"
+
+  # Blackhole build-time telemetry hosts.
+  #
+  # The record pass runs with the network UP and the replay runs with it DOWN,
+  # so anything the agent does that reaches the internet succeeds while
+  # recording and fails while replaying. immutable-js makes this concrete: its
+  # `npm run build` ends in a build:stats step that fetches bundle sizes from
+  # bundlephobia.com. Under replay that turns into a DNS timeout burning TCG
+  # time inside the capture window, or a build failure the recording never saw.
+  #
+  # Pointing these at 127.0.0.1 makes the call fail FAST and IDENTICALLY in both
+  # passes, which is the property that matters: the recorded environment should
+  # behave like the replayed one. Blocking outbound traffic wholesale would be
+  # more thorough but would also cut off the LLM endpoint the recording needs.
+  local h
+  for h in bundlephobia.com registry.npmjs.org.telemetry; do
+    grep -q "[[:space:]]$h\$" /etc/hosts 2>/dev/null \
+      || echo "127.0.0.1 $h" | sudo tee -a /etc/hosts >/dev/null
+  done
+  ok "build-time telemetry hosts blackholed"
 }
 
 lang_deps() {
