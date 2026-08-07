@@ -373,6 +373,12 @@ convert)
   ls -la "$DST"/*.champsim2.zst
   [ "$fail" -eq 0 ] || die "one or more windows failed validation"
   echo "  all $((${#raws[@]})) windows converted and validated"
+  # Reclaim the raw chunks -- ONLY after every window converted AND validated.
+  # Deleting them before validation would trade a disk saving for a multi-hour
+  # TCG re-trace, since the raw stream is the only thing a re-convert can read.
+  freed=$(du -sh "$OUT" 2>/dev/null | cut -f1)
+  rm -rf "$OUT"
+  echo "  reclaimed $freed of raw chunks ($OUT)"
   ;;
 
 *) die "unknown phase '$PHASE' (record|verify|profile|trace|convert)" ;;
