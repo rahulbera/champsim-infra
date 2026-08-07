@@ -36,3 +36,30 @@ makes that visible.
 **Replaced by:** a non-agentic Ruby control, which costs no credits and targets
 the mechanism the SPEC baseline actually pointed at (SPEC's own
 `714.cpython_r.sp0` is 99.8% indirect -- an interpreter dispatch loop).
+
+## jqlang__jq-2839 (C replicate) — dropped 2026-08-07
+
+The model looped: **892 API calls, 54.3M tokens sent**, with the last twelve
+actions identical in shape. Logged as its 1st instance strike.
+
+The loop is the instance's; that it ran that far is mine. The record watchdog
+detects this pattern in a single poll, and it was not running because I forgot
+to restart it on a relaunch. `capture_agentic.sh` now arms it from the record
+phase itself -- a safety mechanism that depends on being remembered is not one.
+
+Dropped rather than retried: C is the one language where the agentic capture and
+the non-agentic control already agreed (redis: 6.9/6.2/27.3% against the
+control's 3.7/0.6/2.2/24.8%), so a second C sample had the least marginal value
+of any remaining candidate.
+
+## briannesbitt__carbon-3103 (PHP / Zend VM) — dropped 2026-08-07
+
+Five provisioning attempts, every one ending in an external SIGTERM
+(`qemu-system-x86_64: terminating` in its boot log) rather than a gate failure.
+Its ledger reads **0/3 instance tries** -- nothing about the instance ever
+failed. The cause was never identified; no global `pkill` remains in any script,
+so the correlation was with interactive commands.
+
+Dropped on cost, not on merit. PHP was a REPLICATE of the Ruby interpreter arm,
+and Ruby had already answered decisively (agentic 59-66% indirect, its
+non-agentic control up to 67.7%).
