@@ -38,7 +38,13 @@ mkdir -p "$FLAT"
 n=0
 for t in "$TRACES"/*/*.champsim2.zst; do
   [ -e "$t" ] || continue
-  ln -sf "$t" "$FLAT/$(basename "$t")"; n=$((n+1))
+  # HARD link, not symbolic. trace_sanity_check pipes through external
+  # decompressors and does not resolve symlinks: it read ZERO records and
+  # reported every feature bit absent -- which is indistinguishable from the
+  # corrupt trace generation §5 warns about, where ChampSim saw no conditional
+  # branches and all four predictors returned an identical 21.93 MPKI.
+  ln -f "$t" "$FLAT/$(basename "$t")" 2>/dev/null || cp -l "$t" "$FLAT/$(basename "$t")"
+  n=$((n+1))
 done
 [ "$n" -gt 0 ] || die "no traces under $TRACES/*/"
 echo "  $n traces linked into $FLAT"
