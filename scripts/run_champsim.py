@@ -74,6 +74,7 @@ def main():
         sys.exit("run_champsim: no champsim command after '--'")
 
     indices = find_trace_path_indices(cmd)
+    marker_idx = cmd.index("-traces")
 
     # A single checksum can't apply to N different traces; rather than
     # silently ignore it, force the caller to be explicit.
@@ -93,6 +94,14 @@ def main():
                   file=sys.stderr)
             sys.exit(1)
         cmd[idx] = local
+
+    # '-traces' is OUR marker, not ChampSim's. Current ChampSim (CLI11) takes
+    # the trace paths POSITIONALLY and rejects the token outright:
+    #     The following arguments were not expected: -traces
+    # so it must be dropped before exec. Keeping it as the wrapper's marker
+    # means create_jobfile.py has one thing to emit whether or not the cache is
+    # in play, and this is the single place that knows the simulator's syntax.
+    cmd = [tok for i, tok in enumerate(cmd) if not (tok == "-traces" and i == marker_idx)]
 
     # exec replaces this Python process — the simulator's stdout/stderr
     # and exit code propagate normally to whoever invoked us (sbatch

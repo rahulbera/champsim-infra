@@ -146,6 +146,19 @@ def merge_with_dedup(named_groups, kind, source_flag):
     return [item for _, items in named_groups for item in items]
 
 
+def trace_arg(trace, args):
+    """The trace portion of a ChampSim command line.
+
+    Current ChampSim (CLI11) takes trace paths POSITIONALLY and rejects a
+    '-traces' token outright, and it spells the version flag with hyphens:
+    '--trace_version=2 -traces <p>' fails with "The following arguments were not
+    expected". '-traces' survives here only as the marker run_champsim.py uses to
+    find the paths it must stage into the node-local cache; that wrapper strips
+    it before exec. So it is emitted ONLY when the wrapper is in the command.
+    """
+    return (f" -traces {trace.path}" if args.wrapper else f" {trace.path}")
+
+
 def wrap_with_orchestrator(champsim_cmd, trace, args):
     """Prefix a raw ChampSim command with the run_champsim.py wrapper so
     the trace gets fetched into a node-local cache first. If the wrapper
@@ -218,7 +231,7 @@ def run_smoke(pair, idx, exe_to_use, args, capture):
         f"{exe_to_use} {exp.params}"
         f" --warmup_instructions={args.smoke_warmup}"
         f" --simulation_instructions={args.smoke_sim}"
-        f" --trace_version={trace.version} -traces {trace.path}"
+        f" --trace-version={trace.version}{trace_arg(trace, args)}"
     )
     inner = wrap_with_orchestrator(champsim_cmd, trace, args)
     print(f"[smoke-test] pair #{idx}: trace={trace.name}, exp={exp.name}", file=sys.stderr)
@@ -339,7 +352,7 @@ def _run(args):
         for trace in traces:
             for exp in experiments:
                 tag = f"{trace.name}_{exp.name}"
-                champsim_cmd = f"{exe_to_use} {exp.params} --trace_version={trace.version} -traces {trace.path}"
+                champsim_cmd = f"{exe_to_use} {exp.params} --trace-version={trace.version}{trace_arg(trace, args)}"
                 inner = wrap_with_orchestrator(champsim_cmd, trace, args)
 
                 if args.local:

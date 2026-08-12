@@ -125,9 +125,16 @@ Two traps in the exp file:
 
 - **Flag order is significant.** ChampSim applies CLI flags and `--config` files in
   sequence with last-wins semantics, so a CLI override must come AFTER any `--config` that
-  sets the same key. `create_jobfile.py` appends `--trace_version=<v> -traces <path>` to
-  the *end* of your string, so it must end with a complete flag (and you cannot override
-  `trace_version` from the exp file).
+  sets the same key. `create_jobfile.py` appends `--trace-version=<v> <path>` to the *end*
+  of your string, so it must end with a complete flag (and you cannot override
+  `trace-version` from the exp file).
+  **The trace path is POSITIONAL and the flag is hyphenated** — current ChampSim (CLI11)
+  rejects both older spellings outright: `--trace_version=2` and a `-traces` token each
+  produce *"The following arguments were not expected"*, i.e. every job fails, not just
+  some. `-traces` survives only as the marker `run_champsim.py` uses to find the paths it
+  must stage into the node-local cache, and that wrapper strips the token before `exec`.
+  `create_jobfile.py` therefore emits it **only when the wrapper is in the command**
+  (`trace_arg()`); with `--no-trace-cache` the path is bare.
 - **`definitions:` scoping differs between the two consumers.** `create_jobfile.py`
   resolves each exp file against *its own* definitions only; `rollup.py` merges
   definitions across all `--exp` files first. A shared definitions-only file therefore
