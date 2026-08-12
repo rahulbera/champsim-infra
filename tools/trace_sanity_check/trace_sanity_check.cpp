@@ -20,6 +20,7 @@
 // With --check, the v2 branch-type invariants are enforced and the tool
 // exits non-zero on failure, so it works as a CI gate on a fresh trace.
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <cinttypes>
@@ -29,6 +30,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -58,6 +60,7 @@ const char* const BRANCH_TYPE_NAMES[NUM_BRANCH_TYPES] = {
   "INDIRECT_CALL", "RETURN", "OTHER", "NOT_BRANCH"
 };
 constexpr uint8_t BT_DIRECT_JUMP   = 0;
+constexpr uint8_t BT_INDIRECT      = 1;
 constexpr uint8_t BT_CONDITIONAL   = 2;
 constexpr uint8_t BT_DIRECT_CALL   = 3;
 constexpr uint8_t BT_INDIRECT_CALL = 4;
@@ -72,7 +75,7 @@ constexpr uint8_t REG_FLAGS = 25;
 
 // A control transfer that is not a conditional branch is always taken.
 inline bool is_unconditional_transfer(uint8_t bt) {
-  return bt == BT_DIRECT_JUMP || bt == 1 /* INDIRECT */
+  return bt == BT_DIRECT_JUMP || bt == BT_INDIRECT
       || bt == BT_DIRECT_CALL || bt == BT_INDIRECT_CALL || bt == BT_RETURN;
 }
 
@@ -232,6 +235,8 @@ struct Args {
   uint64_t    heartbeat = 10'000'000;
   bool        no_unique = false;
   bool        check     = false;
+  bool        ind_targets = false;
+  std::string ind_csv;
 };
 
 void usage(const char* prog) {
@@ -246,18 +251,26 @@ void usage(const char* prog) {
     "      --no-unique    Skip the unique-load-page set (saves RAM on huge traces).\n"
     "      --check        Enforce the v2 branch-type invariants and exit\n"
     "                     non-zero if any fails (CI gate). Requires -f v2.\n"
+    "      --indirect-targets     Report the distribution of distinct targets\n"
+    "                     per indirect branch (INDIRECT + INDIRECT_CALL).\n"
+    "                     Requires -f v2. Costs memory proportional to the\n"
+    "                     number of (indirect PC, target) pairs.\n"
+    "      --indirect-csv F  With --indirect-targets, also write one row per\n"
+    "                     indirect PC to F: pc,exec_count,unique_targets.\n"
     "  -h, --help         Show this help.\n",
     prog);
 }
 
 bool parse_args(int argc, char** argv, Args& a) {
-  enum { OPT_HEARTBEAT = 1000, OPT_NO_UNIQUE, OPT_CHECK };
+  enum { OPT_HEARTBEAT = 1000, OPT_NO_UNIQUE, OPT_CHECK, OPT_IND_TARGETS, OPT_IND_CSV };
   static const option longopts[] = {
     {"input",     required_argument, nullptr, 'i'},
     {"format",    required_argument, nullptr, 'f'},
     {"heartbeat", required_argument, nullptr, OPT_HEARTBEAT},
     {"no-unique", no_argument,       nullptr, OPT_NO_UNIQUE},
     {"check",     no_argument,       nullptr, OPT_CHECK},
+    {"indirect-targets", no_argument,       nullptr, OPT_IND_TARGETS},
+    {"indirect-csv",     required_argument, nullptr, OPT_IND_CSV},
     {"help",      no_argument,       nullptr, 'h'},
     {nullptr, 0, nullptr, 0}
   };
@@ -276,9 +289,18 @@ bool parse_args(int argc, char** argv, Args& a) {
       case OPT_HEARTBEAT: a.heartbeat = std::strtoull(optarg, nullptr, 10); break;
       case OPT_NO_UNIQUE: a.no_unique = true; break;
       case OPT_CHECK:     a.check     = true; break;
+      case OPT_IND_TARGETS: a.ind_targets = true; break;
+      case OPT_IND_CSV:     a.ind_csv = optarg; a.ind_targets = true; break;
       case 'h': usage(argv[0]); std::exit(0);
       default:  usage(argv[0]); return false;
     }
+  }
+  // Silently collecting nothing would produce an empty report that reads as
+  // "this trace has no polymorphic indirect branches" -- a real finding shape.
+  if (a.ind_targets && a.format != Format::V2) {
+    std::fprintf(stderr, "error: --indirect-targets requires -f v2 "
+                         "(branch type lives in v2's reserved[0])\n");
+    return false;
   }
   if (a.input.empty()) {
     std::fprintf(stderr, "error: --input is required\n\n");
@@ -335,6 +357,22 @@ struct Stats {
   std::array<bool, 256>     tracer_ids_seen = {};
   uint64_t                  flags_in_src = 0;
   uint64_t                  flags_in_dst = 0;
+
+  // --- Indirect-target polymorphism (--indirect-targets) ---------------
+  // Per indirect-branch PC: the set of distinct targets it ever jumps to,
+  // and how many times it executed. A branch with one target is trivially
+  // BTB-predictable; the interesting quantity is what fraction of the
+  // DYNAMIC indirect stream comes from PCs with many targets.
+  //
+  // The target of an indirect branch is the IP of the NEXT retired record.
+  // Nothing else in the trace names it, so this must be reconstructed by
+  // carrying the pending branch PC across one iteration of the read loop.
+  bool                                              want_ind_targets = false;
+  std::unordered_map<uint64_t, std::unordered_set<uint64_t>> ind_targets;
+  std::unordered_map<uint64_t, uint64_t>            ind_exec;
+  uint64_t                                          ind_pending_pc = 0;
+  bool                                              ind_pending    = false;
+  uint64_t                                          ind_dangling   = 0;  // last record was an indirect branch
 };
 
 template <int NDST, int NSRC>
@@ -419,6 +457,7 @@ void run_v1(TraceReader& tr, const Args& a, Stats& s) {
 void run_v2(TraceReader& tr, const Args& a, Stats& s) {
   input_instr_v2 r;
   s.v2 = true;
+  s.want_ind_targets = a.ind_targets;
   auto     t0      = std::chrono::steady_clock::now();
   uint64_t next_hb = a.heartbeat;
   while (tr.read(&r, sizeof(r))) {
@@ -443,6 +482,23 @@ void run_v2(TraceReader& tr, const Args& a, Stats& s) {
     if (bt < NUM_BRANCH_TYPES) {
       s.btype_hist[bt]++;
       if (r.branch_taken) s.btype_taken[bt]++;
+    }
+
+    // Indirect-target polymorphism. Resolve the PREVIOUS record's pending
+    // indirect branch against this record's IP -- the target is only knowable
+    // one record later. Done before arming a new pending PC, so that two
+    // consecutive indirect branches resolve correctly rather than the first
+    // being silently overwritten and lost.
+    if (s.want_ind_targets) {
+      if (s.ind_pending) {
+        s.ind_targets[s.ind_pending_pc].insert(r.ip);
+        s.ind_pending = false;
+      }
+      if (bt == BT_INDIRECT || bt == BT_INDIRECT_CALL) {
+        s.ind_exec[r.ip]++;
+        s.ind_pending_pc = r.ip;
+        s.ind_pending    = true;
+      }
     }
     if (r.reserved[1] & TRACE_FEATURE_EXPLICIT_BRANCH_TYPE) s.explicit_bt_records++;
     if (r.reserved[1] & TRACE_FEATURE_FLAGS_REGISTER)       s.flags_feature_records++;
@@ -474,6 +530,9 @@ void run_v2(TraceReader& tr, const Args& a, Stats& s) {
     }
     maybe_heartbeat(s, next_hb, a.heartbeat, t0);
   }
+  // The final record can be an indirect branch whose target the trace never
+  // names. Record it rather than leaving a silently unresolved pending PC.
+  if (s.ind_pending) { s.ind_dangling++; s.ind_pending = false; }
 }
 
 void run_cs(TraceReader& tr, const Args& a, Stats& s) {
@@ -498,6 +557,117 @@ void print_count(const char* label, uint64_t n) {
 void print_pct(const char* label, uint64_t n, uint64_t total) {
   double p = total ? 100.0 * static_cast<double>(n) / static_cast<double>(total) : 0.0;
   std::printf("  %-28s %20" PRIu64 "  (%6.2f%%)\n", label, n, p);
+}
+
+// --- Indirect-target polymorphism report ------------------------------
+//
+// Two views of the same data, and they answer different questions:
+//
+//   STATIC  -- one vote per indirect branch PC. Describes the code.
+//   DYNAMIC -- weighted by execution count. Describes the branch stream a
+//              predictor actually sees, and is the one that matters: a single
+//              hot 40-target dispatch jump is a prediction problem, while ten
+//              thousand cold monomorphic call sites are not.
+//
+// A branch with exactly one distinct target is trivially BTB-predictable, so
+// the headline is the DYNAMIC share coming from PCs with >1 target.
+void report_indirect_targets(const Stats& s) {
+  std::printf("\n-- v2: indirect-branch target polymorphism --\n");
+
+  if (s.ind_exec.empty()) {
+    std::printf("  (no INDIRECT or INDIRECT_CALL records in this trace)\n");
+    return;
+  }
+
+  // Buckets are open-ended at the top: a dispatch loop with hundreds of
+  // targets must not be summarised into the same cell as one with nine.
+  struct Bucket { const char* name; uint64_t lo, hi; };
+  static const Bucket BUCKETS[] = {
+    {"1 (monomorphic)", 1, 1},       {"2",      2, 2},
+    {"3-4",             3, 4},       {"5-8",    5, 8},
+    {"9-16",            9, 16},      {"17-32", 17, 32},
+    {"33-64",          33, 64},      {"65-256",65, 256},
+    {"257+",          257, UINT64_MAX},
+  };
+  constexpr int NB = sizeof(BUCKETS) / sizeof(BUCKETS[0]);
+
+  uint64_t stat_n[NB] = {}, dyn_n[NB] = {};
+  uint64_t total_pcs = 0, total_exec = 0, mono_exec = 0, mono_pcs = 0;
+  uint64_t sum_targets = 0, max_targets = 0, max_targets_pc = 0;
+  double   dyn_weighted_targets = 0.0;
+  std::vector<uint64_t> per_pc_targets;
+  per_pc_targets.reserve(s.ind_exec.size());
+
+  for (const auto& kv : s.ind_exec) {
+    uint64_t pc = kv.first, exec = kv.second;
+    auto it = s.ind_targets.find(pc);
+    // A PC can execute yet have no recorded target only if it was the very
+    // last record in the trace; count it, do not silently drop it.
+    uint64_t nt = (it == s.ind_targets.end()) ? 0 : it->second.size();
+    if (nt == 0) continue;
+    total_pcs++; total_exec += exec; sum_targets += nt;
+    per_pc_targets.push_back(nt);
+    dyn_weighted_targets += static_cast<double>(nt) * static_cast<double>(exec);
+    if (nt > max_targets) { max_targets = nt; max_targets_pc = pc; }
+    if (nt == 1) { mono_pcs++; mono_exec += exec; }
+    for (int b = 0; b < NB; ++b) {
+      if (nt >= BUCKETS[b].lo && nt <= BUCKETS[b].hi) { stat_n[b]++; dyn_n[b] += exec; break; }
+    }
+  }
+  if (total_pcs == 0) {
+    std::printf("  (no indirect branch had a resolvable target)\n");
+    return;
+  }
+
+  std::sort(per_pc_targets.begin(), per_pc_targets.end());
+  uint64_t median = per_pc_targets[per_pc_targets.size() / 2];
+
+  std::printf("  indirect branch PCs (static)            %14" PRIu64 "\n", total_pcs);
+  std::printf("  indirect executions (dynamic)           %14" PRIu64 "\n", total_exec);
+  std::printf("  distinct targets, mean per PC (static)  %14.2f\n",
+              static_cast<double>(sum_targets) / static_cast<double>(total_pcs));
+  std::printf("  distinct targets, median per PC (static)%14" PRIu64 "\n", median);
+  std::printf("  distinct targets, exec-weighted mean    %14.2f   <-- what the predictor sees\n",
+              dyn_weighted_targets / static_cast<double>(total_exec));
+  std::printf("  most polymorphic PC                     %14" PRIu64 " targets at 0x%" PRIx64 "\n",
+              max_targets, max_targets_pc);
+  std::printf("  MONOMORPHIC (1 target): %6.2f%% of PCs, %6.2f%% of executions\n",
+              100.0 * static_cast<double>(mono_pcs)  / static_cast<double>(total_pcs),
+              100.0 * static_cast<double>(mono_exec) / static_cast<double>(total_exec));
+  std::printf("  POLYMORPHIC (>1):       %6.2f%% of PCs, %6.2f%% of executions\n",
+              100.0 * static_cast<double>(total_pcs - mono_pcs) / static_cast<double>(total_pcs),
+              100.0 * static_cast<double>(total_exec - mono_exec) / static_cast<double>(total_exec));
+
+  std::printf("\n  %-18s %12s %8s %14s %8s\n",
+              "distinct targets", "PCs", "% PCs", "executions", "% exec");
+  for (int b = 0; b < NB; ++b) {
+    if (stat_n[b] == 0 && dyn_n[b] == 0) continue;
+    std::printf("  %-18s %12" PRIu64 " %7.2f%% %14" PRIu64 " %7.2f%%\n",
+                BUCKETS[b].name, stat_n[b],
+                100.0 * static_cast<double>(stat_n[b]) / static_cast<double>(total_pcs),
+                dyn_n[b],
+                100.0 * static_cast<double>(dyn_n[b]) / static_cast<double>(total_exec));
+  }
+  if (s.ind_dangling) {
+    std::printf("  note: %" PRIu64 " indirect branch(es) ended the trace with no successor "
+                "record, so their target is unknown and they are excluded.\n", s.ind_dangling);
+  }
+}
+
+void write_indirect_csv(const Stats& s, const std::string& path) {
+  std::FILE* f = std::fopen(path.c_str(), "w");
+  if (!f) {
+    std::fprintf(stderr, "warning: cannot write --indirect-csv '%s'\n", path.c_str());
+    return;
+  }
+  std::fprintf(f, "pc,exec_count,unique_targets\n");
+  for (const auto& kv : s.ind_exec) {
+    auto it = s.ind_targets.find(kv.first);
+    std::fprintf(f, "0x%" PRIx64 ",%" PRIu64 ",%zu\n", kv.first, kv.second,
+                 it == s.ind_targets.end() ? size_t{0} : it->second.size());
+  }
+  std::fclose(f);
+  std::fprintf(stderr, "wrote per-PC indirect targets to %s\n", path.c_str());
 }
 
 void print_stats(const Args& a, const Stats& s, double sec, size_t record_size) {
@@ -601,6 +771,8 @@ void print_stats(const Args& a, const Stats& s, double sec, size_t record_size) 
                     i, s.store_size_hist[i]);
       }
     }
+
+    if (s.want_ind_targets) report_indirect_targets(s);
 
     std::printf("\n-- v2: branch type (reserved[0]) --\n");
     if (s.explicit_bt_records == 0) {
@@ -756,6 +928,7 @@ int main(int argc, char** argv) {
   double sec = secs_since(t0);
 
   print_stats(a, s, sec, record_size);
+  if (a.ind_targets && !a.ind_csv.empty()) write_indirect_csv(s, a.ind_csv);
 
   if (partial_bytes != 0) {
     std::fprintf(stderr,

@@ -72,6 +72,8 @@ make
 | `--heartbeat N` | `10M` | Progress report every N records (`0` = off). |
 | `--no-unique` | off | Skip the unique-load-page set (saves RAM on very large traces). |
 | `--check` | off | Enforce the v2 branch-type invariants; exit 2 if any fails. |
+| `--indirect-targets` | off | Report the distribution of distinct targets per indirect branch (`INDIRECT` + `INDIRECT_CALL`). Requires `-f v2`. |
+| `--indirect-csv F` | — | With `--indirect-targets`, also write one row per indirect PC to `F`: `pc,exec_count,unique_targets`. Implies `--indirect-targets`. |
 
 > There is no format autodetection: `-f v1` on a v2 trace silently misreads it,
 > because 512 is a multiple of 64. A trailing partial record now produces a
@@ -98,3 +100,43 @@ catches the same thing from the other direction.
 The conditional *share* of branches is reported as `[INFO]` rather than gated,
 because it is workload-dependent (60-85% is typical for integer workloads, but a
 short loop-heavy trace like `/bin/ls` runs much higher).
+
+### `--indirect-targets` — how polymorphic are the indirect branches?
+
+For every indirect-branch PC, the set of distinct targets it ever jumps to. The
+target is reconstructed as the IP of the **next** retired record, which is the
+only place the trace states it.
+
+Two views, and they answer different questions:
+
+- **static** — one vote per PC. A property of the *code*.
+- **execution-weighted** — each PC weighted by how often it ran. A property of
+  the *branch stream*, and the one that matters: a single hot 40-target dispatch
+  jump is a prediction problem, ten thousand cold monomorphic call sites are not.
+
+The headline is the DYNAMIC share of executions coming from PCs with more than
+one target, since a single-target branch is trivially BTB-predictable. The two
+views diverge sharply when the polymorphic sites are also the hot ones — on one
+Ruby trace, 59% of PCs are monomorphic but they are only 12% of executions, and
+the static mean of 3.45 becomes 15.60 execution-weighted.
+
+```bash
+./trace_sanity_check -i trace.champsim2.zst -f v2 --indirect-targets \
+    --indirect-csv per_pc.csv --heartbeat 0
+```
+
+Costs memory proportional to the number of distinct (indirect PC, target) pairs
+— ~14 MB and ~27 s on a 300 M-record trace.
+
+**This is a LIFETIME cardinality.** A branch visiting 20 targets one-per-phase is
+far more predictable than one alternating between 20, and this metric scores
+them identically: it measures variety, not difficulty. The per-PC CSV is there so
+a windowed count or per-PC entropy can be built on top.
+
+`test_indirect_targets.py` is the ground-truth gate: it builds a tiny v2 trace
+whose target structure is known exactly and asserts the reported numbers. The
+cases are chosen to break specific implementations — notably two back-to-back
+indirect branches, where a naive "remember one pending PC" loop overwrites the
+first before resolving it and loses its target entirely. Verified to fail on
+that injected bug (8 of 10 checks), so it is not a test that passes for the
+wrong reason.
