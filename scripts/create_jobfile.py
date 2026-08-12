@@ -146,6 +146,32 @@ def merge_with_dedup(named_groups, kind, source_flag):
     return [item for _, items in named_groups for item in items]
 
 
+WINDOW_FLAG_RE = re.compile(
+    r"(?:^|\s)(?:-w|-i|--warmup[-_]instructions|--simulation[-_]instructions)"
+    r"(?:=\S+|\s+\S+)")
+
+
+def strip_window_flags(params):
+    """Remove any warmup/simulation-length flags from an experiment string.
+
+    The smoke test runs a SHORT version of a real pair, so it must REPLACE the
+    window rather than append to it. ChampSim rejects a repeated option outright
+    --
+
+        --warmup-instructions: At most 1 required but received 2
+
+    -- and treats the hyphenated and underscored spellings as mutually
+    exclusive aliases:
+
+        --warmup-instructions excludes --warmup_instructions
+
+    so appending was guaranteed to fail against any exp file that sets a window,
+    which every realistic one does. Both spellings and both `--flag value` and
+    `--flag=value` forms are stripped, plus the `-w`/`-i` short forms.
+    """
+    return WINDOW_FLAG_RE.sub(" ", params).strip()
+
+
 def trace_arg(trace, args):
     """The trace portion of a ChampSim command line.
 
@@ -228,9 +254,9 @@ def run_smoke(pair, idx, exe_to_use, args, capture):
     """
     trace, exp = pair
     champsim_cmd = (
-        f"{exe_to_use} {exp.params}"
-        f" --warmup_instructions={args.smoke_warmup}"
-        f" --simulation_instructions={args.smoke_sim}"
+        f"{exe_to_use} {strip_window_flags(exp.params)}"
+        f" --warmup-instructions={args.smoke_warmup}"
+        f" --simulation-instructions={args.smoke_sim}"
         f" --trace-version={trace.version}{trace_arg(trace, args)}"
     )
     inner = wrap_with_orchestrator(champsim_cmd, trace, args)
