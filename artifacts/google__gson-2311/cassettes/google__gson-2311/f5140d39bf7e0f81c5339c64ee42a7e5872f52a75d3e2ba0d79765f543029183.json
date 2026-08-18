@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix works. Now let me think about edge cases and verify the existing tests still pass. Let me run the existing test suite for `JsonPrimitiveTest`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && find ~/.m2 -name \\\\\\\"junit-*.jar\\\\\\\" 2>/dev/null | head; find ~/.m2 -name \\\\\\\"truth-*.jar\\\\\\\" 2>/dev/null | head; find ~/.m2 -name \\\\\\\"guava-*.jar\\\\\\\" 2>/dev/null | head; find ~/.m2 -name \\\\\\\"hamcrest-*.jar\\\\\\\" 2>/dev/null | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373006426731443989\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097049,\"id\":\"20260807180407b653c0b2c11f42a0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807180407b653c0b2c11f42a0\",\"usage\":{\"completion_tokens\":129,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":22731,\"prompt_tokens_details\":{\"cached_tokens\":22528},\"total_tokens\":22860}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f5140d39bf7e0f81c5339c64ee42a7e5872f52a75d3e2ba0d79765f543029183",
+ "status": 200
+}

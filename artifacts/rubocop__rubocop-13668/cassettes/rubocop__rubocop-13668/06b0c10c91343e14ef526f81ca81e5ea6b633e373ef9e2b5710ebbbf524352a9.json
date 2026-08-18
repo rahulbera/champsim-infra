@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me also run the autocorrect-related tests and any tests that might involve SoleNestedConditional in combination:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && grep -rln \\\\\\\"SoleNestedConditional\\\\\\\" spec/ | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373192415995227617\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079292,\"id\":\"20260807130810a3ac9392092e4a50\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130810a3ac9392092e4a50\",\"usage\":{\"completion_tokens\":50,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":61300,\"prompt_tokens_details\":{\"cached_tokens\":61120},\"total_tokens\":61350}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06b0c10c91343e14ef526f81ca81e5ea6b633e373ef9e2b5710ebbbf524352a9",
+ "status": 200
+}

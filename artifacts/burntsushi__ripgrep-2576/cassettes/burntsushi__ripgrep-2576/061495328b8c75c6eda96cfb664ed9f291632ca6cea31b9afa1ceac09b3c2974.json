@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test files haven't been modified yet. The PR description says \\\"I've already taken care of all changes to any of the test files described in the <pr_description>.\\\" But it seems no test changes are present. Let me check the regression tests for word-related issues:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"r506\\\\\\\\|r1891\\\\\\\\|word\\\\\\\\|1891\\\\\\\\|2523\\\\\\\" tests/regression.rs | head -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373138161968343276\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078026,\"id\":\"20260807124703fb0d66f3f60947e6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124703fb0d66f3f60947e6\",\"usage\":{\"completion_tokens\":105,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":46003,\"prompt_tokens_details\":{\"cached_tokens\":45824},\"total_tokens\":46108}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "061495328b8c75c6eda96cfb664ed9f291632ca6cea31b9afa1ceac09b3c2974",
+ "status": 200
+}

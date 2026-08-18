@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me rerun the reproduction script:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && python3 reproduce.py\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373036422783033632\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097044,\"id\":\"20260807180403f5ae0b94c7984cc9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807180403f5ae0b94c7984cc9\",\"usage\":{\"completion_tokens\":28,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":22583,\"prompt_tokens_details\":{\"cached_tokens\":22464},\"total_tokens\":22611}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8b34290a5778b8cc9073f55747962bff0647a4cdba0207ba166d29521e01b86d",
+ "status": 200
+}

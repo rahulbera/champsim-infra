@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The combination with `Style/InverseMethods` works correctly: `unless t == value` \u2192 `!(t == value)` \u2192 `t != value`. This is exactly the kind of behavior we want - the `!(...)` wrapping allows `InverseMethods` to properly invert the comparison.\\n\\nLet me verify this was broken before my fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && git stash && bundle exec rspec /tmp/inverse_spec.rb -f documentation 2>&1 | tail -25; git stash pop\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195370932728163\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079342,\"id\":\"20260807130859422a672bbc0347b6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130859422a672bbc0347b6\",\"usage\":{\"completion_tokens\":111,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":64921,\"prompt_tokens_details\":{\"cached_tokens\":64448},\"total_tokens\":65032}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "94593e7d66c1990fc580a8532623ca7d8d1d10af156ddcf3fe305e4c9208c0e2",
+ "status": 200
+}

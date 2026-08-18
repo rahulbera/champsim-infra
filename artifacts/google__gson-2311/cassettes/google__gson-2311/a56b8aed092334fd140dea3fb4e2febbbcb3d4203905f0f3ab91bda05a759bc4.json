@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I need to find the MoreAsserts class:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && find . -name \\\\\\\"MoreAsserts.java\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373007526243067680\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097075,\"id\":\"2026080718043390cf553baeda486b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080718043390cf553baeda486b\",\"usage\":{\"completion_tokens\":35,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":24851,\"prompt_tokens_details\":{\"cached_tokens\":24256},\"total_tokens\":24886}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a56b8aed092334fd140dea3fb4e2febbbcb3d4203905f0f3ab91bda05a759bc4",
+ "status": 200
+}

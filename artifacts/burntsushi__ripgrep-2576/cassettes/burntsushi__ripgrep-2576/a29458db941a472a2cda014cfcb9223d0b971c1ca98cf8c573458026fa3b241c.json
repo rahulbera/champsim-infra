@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me also test without `-o` to make sure the highlighting is correct:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && ./target/debug/rg -w \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/test_word.txt; echo \\\\\\\"===\\\\\\\"; ./target/debug/rg -w --color=always \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/test_word.txt | cat -v\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373215746257580911\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078379,\"id\":\"2026080712525686764ee7e19f48c6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712525686764ee7e19f48c6\",\"usage\":{\"completion_tokens\":97,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":77121,\"prompt_tokens_details\":{\"cached_tokens\":76928},\"total_tokens\":77218}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a29458db941a472a2cda014cfcb9223d0b971c1ca98cf8c573458026fa3b241c",
+ "status": 200
+}

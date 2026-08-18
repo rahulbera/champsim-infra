@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me verify the final state of my changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && git status && echo \\\\\\\"=== DIFF ===\\\\\\\" && git diff HEAD\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373005911335364683\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097917,\"id\":\"20260807181835a8ee7029138e4b7b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181835a8ee7029138e4b7b\",\"usage\":{\"completion_tokens\":39,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":39169,\"prompt_tokens_details\":{\"cached_tokens\":38976},\"total_tokens\":39208}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16f44bbff3dcfb28e86a6944f093123938ab408da2a9b8e4e7db0e0de985d37d",
+ "status": 200
+}

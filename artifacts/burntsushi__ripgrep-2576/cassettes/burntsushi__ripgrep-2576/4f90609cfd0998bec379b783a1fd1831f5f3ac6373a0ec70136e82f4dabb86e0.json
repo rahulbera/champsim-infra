@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/crates/searcher/src/searcher/glue.rs\\\",\\\"view_range\\\":[300, 360]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373202895715428133\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077919,\"id\":\"2026080712451809f06529915b49aa\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712451809f06529915b49aa\",\"usage\":{\"completion_tokens\":44,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33980,\"prompt_tokens_details\":{\"cached_tokens\":32896},\"total_tokens\":34024}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4f90609cfd0998bec379b783a1fd1831f5f3ac6373a0ec70136e82f4dabb86e0",
+ "status": 200
+}

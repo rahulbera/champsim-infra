@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me look at the multipart form mapping file:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/gin/binding/multipart_form_mapping.go\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373105657655846354\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786088790,\"id\":\"20260807154622f816db84bb424892\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807154622f816db84bb424892\",\"usage\":{\"completion_tokens\":37,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":6816,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":6853}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "28b703e4a217f5ea99e616bf15b4aac3e47a6fac3140fd9b30c0644e1b9db2c0",
+ "status": 200
+}

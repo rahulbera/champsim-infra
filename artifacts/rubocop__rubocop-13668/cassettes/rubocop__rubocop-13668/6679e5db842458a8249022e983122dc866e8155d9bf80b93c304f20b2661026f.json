@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me add a changelog entry for this fix, following the project's convention:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && ls changelog/ | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373163897412384729\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079173,\"id\":\"20260807130611c36b525357714cd9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130611c36b525357714cd9\",\"usage\":{\"completion_tokens\":40,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":53480,\"prompt_tokens_details\":{\"cached_tokens\":52608},\"total_tokens\":53520}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6679e5db842458a8249022e983122dc866e8155d9bf80b93c304f20b2661026f",
+ "status": 200
+}

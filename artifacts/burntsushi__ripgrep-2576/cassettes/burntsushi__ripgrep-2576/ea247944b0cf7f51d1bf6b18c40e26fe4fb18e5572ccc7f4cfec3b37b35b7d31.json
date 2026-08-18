@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 284 integration tests pass (the count is back to 284 since I removed my added `r2574` test).\\n\\nLet me do a final review of the complete diff that will be submitted:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff HEAD\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373183516822992336\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078878,\"id\":\"20260807130115dabd276bbad34a62\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130115dabd276bbad34a62\",\"usage\":{\"completion_tokens\":63,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":102515,\"prompt_tokens_details\":{\"cached_tokens\":102336},\"total_tokens\":102578}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ea247944b0cf7f51d1bf6b18c40e26fe4fb18e5572ccc7f4cfec3b37b35b7d31",
+ "status": 200
+}

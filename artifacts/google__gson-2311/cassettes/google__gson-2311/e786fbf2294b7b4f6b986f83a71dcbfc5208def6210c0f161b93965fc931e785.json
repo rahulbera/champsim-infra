@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 215 tests pass with the canonical test version. Now let me revert the test file to its original state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && cp /tmp/original_test_backup.java gson/src/test/java/com/google/gson/JsonPrimitiveTest.java && git diff HEAD -- gson/src/test/java/com/google/gson/JsonPrimitiveTest.java && echo \\\\\\\"=== Test file reverted ===\\\\\\\" && git status\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373023194283766035\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097849,\"id\":\"20260807181726893c131540bb41a4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181726893c131540bb41a4\",\"usage\":{\"completion_tokens\":88,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":34215,\"prompt_tokens_details\":{\"cached_tokens\":33088},\"total_tokens\":34303}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e786fbf2294b7b4f6b986f83a71dcbfc5208def6210c0f161b93965fc931e785",
+ "status": 200
+}

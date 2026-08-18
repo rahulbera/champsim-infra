@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Default features include `unicode` which includes `unicode-perl`. So `is_word_character` won't panic. But to be safe, the upstream uses `is_word_character` directly. Let me check the grep-regex Cargo.toml to see if it uses default features for regex-syntax:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -A5 \\\\\\\"regex-syntax\\\\\\\" crates/regex/Cargo.toml\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373170803719797626\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078343,\"id\":\"202608071252204e587e95f2994df3\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071252204e587e95f2994df3\",\"usage\":{\"completion_tokens\":90,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74557,\"prompt_tokens_details\":{\"cached_tokens\":74368},\"total_tokens\":74647}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d1787048fb3357ebfef0be0adc25df1c82ce587b51788a8c5b90455a3418b6e8",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The offense position is slightly different. Let me fix the test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/repro_spec.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nrequire 'rubocop'\\\\n\\\\nRSpec.describe RuboCop::Cop::Style::SoleNestedConditional, :config do\\\\n  let(:cop_config) { { 'AllowModifier' => false } }\\\\n\\\\n  it 'reproduces the issue' do\\\\n    expect_offense(<<~RUBY)\\\\n      if result\\\\n        result = false unless t === value.public_send(a)\\\\n                             ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\\n      end\\\\n    RUBY\\\\n\\\\n    expect_correction(<<~RUBY)\\\\n      if result && !(t === value.public_send(a))\\\\n        result = false\\\\n      end\\\\n    RUBY\\\\n  end\\\\nend\\\\nEOF\\\\nbundle exec rspec /tmp/repro_spec.rb 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202311599874495\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078698,\"id\":\"2026080712581584765381f8bb4c0c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712581584765381f8bb4c0c\",\"usage\":{\"completion_tokens\":204,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":19311,\"prompt_tokens_details\":{\"cached_tokens\":18816},\"total_tokens\":19515}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9cb03fae86eb85b039bb40c33a7a6d0ca47fd8d2eefdc37991452cb1a23dca3b",
+ "status": 200
+}

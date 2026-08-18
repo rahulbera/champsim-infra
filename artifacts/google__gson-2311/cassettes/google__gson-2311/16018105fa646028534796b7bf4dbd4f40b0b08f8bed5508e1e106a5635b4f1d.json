@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && python3 reproduce.py\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373014741788126065\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786096044,\"id\":\"20260807174723f23f62f08c9d4743\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807174723f23f62f08c9d4743\",\"usage\":{\"completion_tokens\":19,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":14202,\"prompt_tokens_details\":{\"cached_tokens\":14080},\"total_tokens\":14221}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16018105fa646028534796b7bf4dbd4f40b0b08f8bed5508e1e106a5635b4f1d",
+ "status": 200
+}

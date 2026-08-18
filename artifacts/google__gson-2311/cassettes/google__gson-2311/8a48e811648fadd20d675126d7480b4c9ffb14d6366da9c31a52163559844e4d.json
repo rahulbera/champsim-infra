@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me recompile the Gson classes and rerun the reproduction script. First, let me recompile just the JsonPrimitive class:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && javac -cp gson/target/classes -d gson/target/classes gson/src/main/java/com/google/gson/JsonPrimitive.java 2>&1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373022438369523534\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097040,\"id\":\"20260807180358587826edd84d4dcc\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807180358587826edd84d4dcc\",\"usage\":{\"completion_tokens\":70,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":22498,\"prompt_tokens_details\":{\"cached_tokens\":22080},\"total_tokens\":22568}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8a48e811648fadd20d675126d7480b4c9ffb14d6366da9c31a52163559844e4d",
+ "status": 200
+}

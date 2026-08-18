@@ -1,0 +1,66 @@
+diff --git a/changelog/fix_sole_nested_conditional_comparison_precedence.md b/changelog/fix_sole_nested_conditional_comparison_precedence.md
+new file mode 100644
+index 000000000..9287ed277
+--- /dev/null
++++ b/changelog/fix_sole_nested_conditional_comparison_precedence.md
+@@ -0,0 +1 @@
++* Fix an incorrect autocorrect for `Style/SoleNestedConditional` when using a negated nested conditional whose condition is a comparison method without parentheses. ([@dvandersluis][])
+diff --git a/lib/rubocop/cop/style/sole_nested_conditional.rb b/lib/rubocop/cop/style/sole_nested_conditional.rb
+index fe5ae21c9..296b84173 100644
+--- a/lib/rubocop/cop/style/sole_nested_conditional.rb
++++ b/lib/rubocop/cop/style/sole_nested_conditional.rb
+@@ -135,7 +135,8 @@ module RuboCop
+ 
+         def correct_for_guard_condition_style(corrector, outer_condition, if_branch, and_operator)
+           condition = if_branch.condition
+-          corrector.insert_after(outer_condition, "#{and_operator}#{replace_condition(condition)}")
++          replacement = replace_condition(condition, negated: if_branch.unless?)
++          corrector.insert_after(outer_condition, "#{and_operator}#{replacement}")
+ 
+           range = range_between(if_branch.loc.keyword.begin_pos, condition.source_range.end_pos)
+           corrector.remove(range_with_surrounding_space(range, newlines: false))
+@@ -149,17 +150,17 @@ module RuboCop
+           corrector.replace(range, and_operator)
+           corrector.remove(range_by_whole_lines(node.loc.end, include_final_newline: true))
+ 
+-          wrap_condition(corrector, if_branch.condition)
++          wrap_condition(corrector, if_branch.condition, negated: if_branch.unless?)
+         end
+ 
+-        def wrap_condition(corrector, condition)
++        def wrap_condition(corrector, condition, negated: false)
+           # Handle `send` and `block` nodes that need to be wrapped in parens
+           # FIXME: autocorrection prevents syntax errors by wrapping the entire node in parens,
+           #        but wrapping the argument list would be a more ergonomic correction.
+           node_to_check = condition&.block_type? ? condition.send_node : condition
+           return unless wrap_condition?(node_to_check)
+ 
+-          if condition.call_type?
++          if condition.call_type? && !(negated && node_to_check.comparison_method?)
+             source = parenthesized_method_arguments(condition)
+ 
+             corrector.replace(condition, source)
+@@ -170,8 +171,8 @@ module RuboCop
+ 
+         def correct_for_outer_condition_modify_form_style(corrector, node, if_branch)
+           condition = if_branch.condition
+-          corrector.insert_before(condition,
+-                                  "#{'!' if node.unless?}#{replace_condition(node.condition)} && ")
++          replacement = replace_condition(node.condition, negated: node.unless?)
++          corrector.insert_before(condition, "#{'!' if node.unless?}#{replacement} && ")
+ 
+           corrector.remove(node.condition)
+           corrector.remove(range_with_surrounding_space(node.loc.keyword, newlines: false))
+@@ -240,10 +241,10 @@ module RuboCop
+           node.operator_keyword? || (node.call_type? && node.arguments.any? && !node.parenthesized?)
+         end
+ 
+-        def replace_condition(condition)
++        def replace_condition(condition, negated: false)
+           return condition.source unless wrap_condition?(condition)
+ 
+-          if condition.call_type?
++          if condition.call_type? && !(negated && condition.comparison_method?)
+             parenthesized_method_arguments(condition)
+           else
+             "(#{condition.source})"

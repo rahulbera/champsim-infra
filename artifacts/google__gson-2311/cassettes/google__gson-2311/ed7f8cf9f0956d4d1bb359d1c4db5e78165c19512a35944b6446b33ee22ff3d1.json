@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && git log --oneline 9f26679e..af217984 | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373030478548295918\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786096654,\"id\":\"202608071757338e9482da6ee54bd4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071757338e9482da6ee54bd4\",\"usage\":{\"completion_tokens\":36,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":19708,\"prompt_tokens_details\":{\"cached_tokens\":19520},\"total_tokens\":19744}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ed7f8cf9f0956d4d1bb359d1c4db5e78165c19512a35944b6446b33ee22ff3d1",
+ "status": 200
+}

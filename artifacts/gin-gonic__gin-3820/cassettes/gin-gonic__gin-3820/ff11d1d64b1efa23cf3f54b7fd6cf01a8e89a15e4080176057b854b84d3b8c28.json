@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Go is available at `/usr/local/go/bin/go`. Let me set up the PATH and run the existing tests to confirm the baseline:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"export PATH=$PATH:/usr/local/go/bin && cd /gin && go test ./binding/ -run \\\\\\\"TestFormMultipartBindingBindOneFile|TestFormMultipartBindingBindTwoFiles|TestFormMultipartBindingBindError\\\\\\\" -v 2>&1 | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373081674558469848\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786088932,\"id\":\"2026080715485026e64b3f6f4c4ce6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080715485026e64b3f6f4c4ce6\",\"usage\":{\"completion_tokens\":95,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":24614,\"prompt_tokens_details\":{\"cached_tokens\":24512},\"total_tokens\":24709}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ff11d1d64b1efa23cf3f54b7fd6cf01a8e89a15e4080176057b854b84d3b8c28",
+ "status": 200
+}

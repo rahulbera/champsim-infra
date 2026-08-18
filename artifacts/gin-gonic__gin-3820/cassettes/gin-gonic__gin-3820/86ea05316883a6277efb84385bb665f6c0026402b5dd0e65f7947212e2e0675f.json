@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The file uses tabs. Let me use the str_replace with the exact tab characters:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/gin/binding/form_mapping.go\\\",\\\"old_str\\\":\\\"\\\\t\\\\\\\"errors\\\\\\\"\\\\n\\\\t\\\\\\\"fmt\\\\\\\"\\\\n\\\\t\\\\\\\"reflect\\\\\\\"\\\\n\\\\t\\\\\\\"strconv\\\\\\\"\\\\n\\\\t\\\\\\\"strings\\\\\\\"\\\\n\\\\t\\\\\\\"time\\\\\\\"\\\",\\\"new_str\\\":\\\"\\\\t\\\\\\\"errors\\\\\\\"\\\\n\\\\t\\\\\\\"fmt\\\\\\\"\\\\n\\\\t\\\\\\\"mime/multipart\\\\\\\"\\\\n\\\\t\\\\\\\"reflect\\\\\\\"\\\\n\\\\t\\\\\\\"strconv\\\\\\\"\\\\n\\\\t\\\\\\\"strings\\\\\\\"\\\\n\\\\t\\\\\\\"time\\\\\\\"\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373100916011957468\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786089252,\"id\":\"20260807155410004b78bafdfb4772\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807155410004b78bafdfb4772\",\"usage\":{\"completion_tokens\":98,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33831,\"prompt_tokens_details\":{\"cached_tokens\":33664},\"total_tokens\":33929}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "86ea05316883a6277efb84385bb665f6c0026402b5dd0e65f7947212e2e0675f",
+ "status": 200
+}

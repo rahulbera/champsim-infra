@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass. Now let me clean up my reproduction test file since it's not part of the actual test suite:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && rm __tests__/repro.ts\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373206091171098383\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077973,\"id\":\"202608071246104dec01c800c04c84\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071246104dec01c800c04c84\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":30334,\"prompt_tokens_details\":{\"cached_tokens\":30144},\"total_tokens\":30380}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "33cce97d18d3f351a7969e2f9476317235567a012b5947e388502263fd7bb1fd",
+ "status": 200
+}

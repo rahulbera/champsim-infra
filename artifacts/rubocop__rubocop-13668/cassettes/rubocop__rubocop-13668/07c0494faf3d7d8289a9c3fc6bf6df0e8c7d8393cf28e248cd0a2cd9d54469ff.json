@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The diff is clean and minimal. Let me also verify the changelog file:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat changelog/fix_sole_nested_conditional_comparison_precedence.md\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373194340140573899\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079502,\"id\":\"20260807131140eb4ed420f5374199\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131140eb4ed420f5374199\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73607,\"prompt_tokens_details\":{\"cached_tokens\":72832},\"total_tokens\":73653}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "07c0494faf3d7d8289a9c3fc6bf6df0e8c7d8393cf28e248cd0a2cd9d54469ff",
+ "status": 200
+}

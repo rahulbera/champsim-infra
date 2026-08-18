@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"pcre2\\\\\\\" Cargo.toml crates/pcre2/Cargo.toml 2>/dev/null | head; echo \\\\\\\"---\\\\\\\"; ls crates/pcre2/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373193756025028130\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078629,\"id\":\"2026080712570715e14395457f428d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712570715e14395457f428d\",\"usage\":{\"completion_tokens\":52,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":88779,\"prompt_tokens_details\":{\"cached_tokens\":88640},\"total_tokens\":88831}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9ee0426422bd03c767d759bc810dc6cdca30e7d4afdcc7d962be97c68747c13a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Interesting! So there's a pre-existing bug with blocks in guard style with negation. The output is `if foo && !ok? bar do ... end` which is wrong (the `!` doesn't wrap the block). But this is a pre-existing issue, not related to my change. Let me verify this was the case before my change:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && git stash && bundle exec rspec /tmp/block_guard_spec.rb --format documentation 2>&1 | tail -20; git stash pop\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373181420878950610\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079238,\"id\":\"20260807130716ee5651095b0b448f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130716ee5651095b0b448f\",\"usage\":{\"completion_tokens\":115,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":58157,\"prompt_tokens_details\":{\"cached_tokens\":57024},\"total_tokens\":58272}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7924ea5eede1460eb29c66aa21137e732c0b564bab6c77c95635a87d297a0ba3",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run the full integration test suite to make sure nothing is broken:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373201383886945508\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078448,\"id\":\"20260807125405d3a6887af57f439c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125405d3a6887af57f439c\",\"usage\":{\"completion_tokens\":73,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":81016,\"prompt_tokens_details\":{\"cached_tokens\":80832},\"total_tokens\":81089}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "522f61ef8ea9c9fed7935160484859d6f88cdc299486fec044f1022b7df6f6ab",
+ "status": 200
+}

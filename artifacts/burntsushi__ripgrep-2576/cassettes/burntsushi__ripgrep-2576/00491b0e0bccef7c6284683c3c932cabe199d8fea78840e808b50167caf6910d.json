@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Hmm, the changes are staged. Let me check the staged vs unstaged state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff --cached --stat; echo \\\\\\\"=== unstaged ===\\\\\\\"; git diff --stat\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373148813487241691\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078829,\"id\":\"202608071300267596ca4f37c64459\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071300267596ca4f37c64459\",\"usage\":{\"completion_tokens\":51,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101200,\"prompt_tokens_details\":{\"cached_tokens\":101056},\"total_tokens\":101251}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "00491b0e0bccef7c6284683c3c932cabe199d8fea78840e808b50167caf6910d",
+ "status": 200
+}

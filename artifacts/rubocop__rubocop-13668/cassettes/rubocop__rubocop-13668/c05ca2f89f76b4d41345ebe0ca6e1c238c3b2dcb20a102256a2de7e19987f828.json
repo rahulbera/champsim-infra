@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"My test input has a syntax issue (the `do...end` block needs proper structure). Let me not pursue this edge case - it's getting too deep into unusual territory. The block case is pre-existing and not part of the PR.\\n\\nLet me focus on confirming my fix is correct and complete for the comparison method case. Let me run all my reproduction and edge tests once more, plus the full spec:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec /tmp/repro_spec.rb /tmp/repro2_spec.rb /tmp/repro3_spec.rb /tmp/repro4_spec.rb /tmp/edge_spec.rb /tmp/csend_spec.rb /tmp/pr_case_spec.rb --format documentation 2>&1 | tail -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373212172844791714\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079261,\"id\":\"2026080713073857eb361232834523\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713073857eb361232834523\",\"usage\":{\"completion_tokens\":158,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":59725,\"prompt_tokens_details\":{\"cached_tokens\":59008},\"total_tokens\":59883}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c05ca2f89f76b4d41345ebe0ca6e1c238c3b2dcb20a102256a2de7e19987f828",
+ "status": 200
+}

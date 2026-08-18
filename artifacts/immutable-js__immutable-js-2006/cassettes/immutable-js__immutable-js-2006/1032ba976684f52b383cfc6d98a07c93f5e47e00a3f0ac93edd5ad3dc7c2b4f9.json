@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The change is minimal and focused. Let me run the full test suite one final time to confirm everything is working:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && npx jest 2>&1 | tail -8\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195405292470099\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078025,\"id\":\"20260807124704ba716de652174eab\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124704ba716de652174eab\",\"usage\":{\"completion_tokens\":49,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":32869,\"prompt_tokens_details\":{\"cached_tokens\":31872},\"total_tokens\":32918}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1032ba976684f52b383cfc6d98a07c93f5e47e00a3f0ac93edd5ad3dc7c2b4f9",
+ "status": 200
+}

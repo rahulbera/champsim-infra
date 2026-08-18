@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && git status\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373180733684184753\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078617,\"id\":\"2026080712565677ecf3b3421040b2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712565677ecf3b3421040b2\",\"usage\":{\"completion_tokens\":17,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":17328,\"prompt_tokens_details\":{\"cached_tokens\":17024},\"total_tokens\":17345}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06671bd0607bf90966de46e9b297700b95f587d035dcd92267ba8601aa88b4ab",
+ "status": 200
+}

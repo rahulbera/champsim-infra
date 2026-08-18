@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && find /opt/m2 -name \\\\\\\"*.jar\\\\\\\" 2>/dev/null | grep -iE \\\\\\\"junit|truth|guava|hamcrest|checker|errorprone|jsr305|j2objc|autovalue|re2j|byte-buddy\\\\\\\" | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373021648095542257\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097060,\"id\":\"20260807180418d92ffc268a594ee7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807180418d92ffc268a594ee7\",\"usage\":{\"completion_tokens\":76,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":23139,\"prompt_tokens_details\":{\"cached_tokens\":22848},\"total_tokens\":23215}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "63501bd48033727fe6279460b3f231f0f251bbc3ca96a599e5956cb20216a6a2",
+ "status": 200
+}

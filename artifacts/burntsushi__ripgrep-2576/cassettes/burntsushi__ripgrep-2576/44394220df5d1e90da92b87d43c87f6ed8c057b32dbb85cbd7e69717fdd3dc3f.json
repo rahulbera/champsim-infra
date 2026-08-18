@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So `r2095` passes without my change and fails with it. This is concerning. But my change only touches `WordMatcher::fast_find`. Let me think about how this could affect `r2095`.\\n\\nWait, maybe it's the test file change I made (adding `r2574`) that shifts line numbers? No, I added at the end. Let me check if maybe the issue is the `r2574` test creation affects something. No, tests are independent.\\n\\nActually, wait. Let me reconsider. The `r2095` test creates a file with specific content. Let me check if my edit to `tests/regression.rs` accidentally modified the `r2095` test content. Let me look at the diff:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff tests/regression.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373165443600612175\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078510,\"id\":\"20260807125505b7e5bb95b4d14ca2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125505b7e5bb95b4d14ca2\",\"usage\":{\"completion_tokens\":177,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":84080,\"prompt_tokens_details\":{\"cached_tokens\":83456},\"total_tokens\":84257}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "44394220df5d1e90da92b87d43c87f6ed8c057b32dbb85cbd7e69717fdd3dc3f",
+ "status": 200
+}

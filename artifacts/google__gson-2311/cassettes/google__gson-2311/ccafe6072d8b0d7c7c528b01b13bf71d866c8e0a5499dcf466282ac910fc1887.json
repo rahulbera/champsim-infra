@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && find / -name \\\\\\\"junit-4*.jar\\\\\\\" 2>/dev/null | head; find / -name \\\\\\\"truth-*.jar\\\\\\\" 2>/dev/null | head; find / -name \\\\\\\"guava-*.jar\\\\\\\" 2>/dev/null | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373027317452369726\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097052,\"id\":\"202608071804112fe1ba6cffc34695\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071804112fe1ba6cffc34695\",\"usage\":{\"completion_tokens\":71,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":22875,\"prompt_tokens_details\":{\"cached_tokens\":22720},\"total_tokens\":22946}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ccafe6072d8b0d7c7c528b01b13bf71d866c8e0a5499dcf466282ac910fc1887",
+ "status": 200
+}

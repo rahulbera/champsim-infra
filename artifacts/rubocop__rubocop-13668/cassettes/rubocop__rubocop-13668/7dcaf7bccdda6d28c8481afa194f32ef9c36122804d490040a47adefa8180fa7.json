@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run rubocop again to confirm no offenses:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rubocop lib/rubocop/cop/style/sole_nested_conditional.rb 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373165100003229289\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079456,\"id\":\"2026080713105311eb1a8c0f4b468e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713105311eb1a8c0f4b468e\",\"usage\":{\"completion_tokens\":51,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":70244,\"prompt_tokens_details\":{\"cached_tokens\":69760},\"total_tokens\":70295}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7dcaf7bccdda6d28c8481afa194f32ef9c36122804d490040a47adefa8180fa7",
+ "status": 200
+}

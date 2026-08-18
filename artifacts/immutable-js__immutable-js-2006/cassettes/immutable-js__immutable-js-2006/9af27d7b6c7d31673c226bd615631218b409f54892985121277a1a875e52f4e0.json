@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && npx jest __tests__/repro.ts 2>&1 | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373177572588254986\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077927,\"id\":\"20260807124524e109e29b1d1d4288\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124524e109e29b1d1d4288\",\"usage\":{\"completion_tokens\":32,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":28465,\"prompt_tokens_details\":{\"cached_tokens\":28032},\"total_tokens\":28497}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9af27d7b6c7d31673c226bd615631218b409f54892985121277a1a875e52f4e0",
+ "status": 200
+}

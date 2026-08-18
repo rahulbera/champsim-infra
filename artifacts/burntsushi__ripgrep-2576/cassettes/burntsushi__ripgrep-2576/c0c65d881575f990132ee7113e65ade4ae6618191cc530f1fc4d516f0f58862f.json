@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Interesting - `r2095` passes WITHOUT my change but fails WITH my change. Wait, that's surprising. Let me look at the `r2095` test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/tests/regression.rs\\\",\\\"view_range\\\":[1048, 1095]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373191728800458914\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078462,\"id\":\"20260807125419b32c286d29fd49d7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125419b32c286d29fd49d7\",\"usage\":{\"completion_tokens\":75,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":81751,\"prompt_tokens_details\":{\"cached_tokens\":81280},\"total_tokens\":81826}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c0c65d881575f990132ee7113e65ade4ae6618191cc530f1fc4d516f0f58862f",
+ "status": 200
+}

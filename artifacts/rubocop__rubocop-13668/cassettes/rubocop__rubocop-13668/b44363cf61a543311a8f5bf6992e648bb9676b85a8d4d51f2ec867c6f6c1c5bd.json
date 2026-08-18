@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The `unless` is at index 17. So the carets need 17 spaces. Let me fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/repro_spec.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nrequire 'rubocop'\\\\n\\\\nRSpec.describe RuboCop::Cop::Style::SoleNestedConditional, :config do\\\\n  let(:cop_config) { { 'AllowModifier' => false } }\\\\n\\\\n  it 'reproduces the issue' do\\\\n    expect_offense(<<~RUBY)\\\\n      if result\\\\n        result = false unless t === value.public_send(a)\\\\n                         ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\\n      end\\\\n    RUBY\\\\n\\\\n    expect_correction(<<~RUBY)\\\\n      if result && !(t === value.public_send(a))\\\\n        result = false\\\\n      end\\\\n    RUBY\\\\n  end\\\\nend\\\\nEOF\\\\nbundle exec rspec /tmp/repro_spec.rb --format documentation 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373187021516304262\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078745,\"id\":\"20260807125903f064ea9e967446d5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125903f064ea9e967446d5\",\"usage\":{\"completion_tokens\":217,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":23306,\"prompt_tokens_details\":{\"cached_tokens\":23040},\"total_tokens\":23523}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b44363cf61a543311a8f5bf6992e648bb9676b85a8d4d51f2ec867c6f6c1c5bd",
+ "status": 200
+}

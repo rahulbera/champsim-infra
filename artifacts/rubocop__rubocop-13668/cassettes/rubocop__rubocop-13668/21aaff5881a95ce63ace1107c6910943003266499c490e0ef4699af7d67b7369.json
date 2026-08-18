@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So `csend` with comparison is `call_type?` and `comparison_method?`. Let me test the csend case:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/csend_spec.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nrequire 'rubocop'\\\\n\\\\nRSpec.describe RuboCop::Cop::Style::SoleNestedConditional, :config do\\\\n  let(:cop_config) { { 'AllowModifier' => false } }\\\\n\\\\n  it 'unless with csend comparison' do\\\\n    expect_offense(<<~RUBY)\\\\n      if result\\\\n        result = false unless t&.=== value\\\\n                       ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\\n      end\\\\n    RUBY\\\\n\\\\n    expect_correction(<<~RUBY)\\\\n      if result && !(t&.=== value)\\\\n        result = false\\\\n      end\\\\n    RUBY\\\\n  end\\\\nend\\\\nEOF\\\\nbundle exec rspec /tmp/csend_spec.rb --format documentation 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373187639991597599\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079120,\"id\":\"202608071305178d678c25aeca43b9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071305178d678c25aeca43b9\",\"usage\":{\"completion_tokens\":219,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":50036,\"prompt_tokens_details\":{\"cached_tokens\":49664},\"total_tokens\":50255}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "21aaff5881a95ce63ace1107c6910943003266499c490e0ef4699af7d67b7369",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me check if there's a test in the slice.ts file that specifically tests this scenario. Let me look at the issues.ts file to see if there's a related test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && grep -rn \\\\\\\"filter.*slice\\\\\\\\|slice.*filter\\\\\\\\|negative\\\\\\\" __tests__/slice.ts __tests__/issues.ts __tests__/Range.ts __tests__/Seq.ts 2>/dev/null | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373170357043198650\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077977,\"id\":\"20260807124615e7080a22dca9477d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124615e7080a22dca9477d\",\"usage\":{\"completion_tokens\":97,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":30395,\"prompt_tokens_details\":{\"cached_tokens\":30272},\"total_tokens\":30492}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1372397fb894ed2a1ac0d23b02ca3d2a8f57abf328e8576eb133104de534c18e",
+ "status": 200
+}

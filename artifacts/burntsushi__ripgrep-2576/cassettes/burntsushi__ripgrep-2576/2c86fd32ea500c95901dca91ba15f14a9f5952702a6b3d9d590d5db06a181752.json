@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"reasoning_content\":\"Let me explore the regex crate since the issue is about word-regexp flag and regex matching.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/crates/regex\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373204544982873038\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077420,\"id\":\"20260807123658f426204677454383\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807123658f426204677454383\",\"usage\":{\"completion_tokens\":44,\"completion_tokens_details\":{\"reasoning_tokens\":18},\"prompt_tokens\":2233,\"prompt_tokens_details\":{\"cached_tokens\":1600},\"total_tokens\":2277}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2c86fd32ea500c95901dca91ba15f14a9f5952702a6b3d9d590d5db06a181752",
+ "status": 200
+}

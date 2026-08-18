@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/spec/rubocop/cli/autocorrect_spec.rb\\\",\\\"view_range\\\":[445, 560]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373191660080981741\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079302,\"id\":\"20260807130820f085ad8d241d4f1c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130820f085ad8d241d4f1c\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":61608,\"prompt_tokens_details\":{\"cached_tokens\":61376},\"total_tokens\":61654}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8e7ff855a4a246083f4a581a95e174280615b98ce9f52686696571538c5f140a",
+ "status": 200
+}

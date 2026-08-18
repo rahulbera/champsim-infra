@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix works correctly. The reproduction script has been removed, no test files were modified, and the fix produces the exact expected output from the PR description:\\n\\n- **Input:** `if result` / `result = false unless t === value.public_send(a)`\\n- **Output:** `if result && !(t === value.public_send(a))` / `result = false`\\n\\nLet me run the submit command again to confirm:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7373151596626049948\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079643,\"id\":\"202608071314012452d9aa90c1426a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071314012452d9aa90c1426a\",\"usage\":{\"completion_tokens\":90,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":80880,\"prompt_tokens_details\":{\"cached_tokens\":80512},\"total_tokens\":80970}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d017668ebbb9353a95997b1e74259cb2e50fa7db6e2e556715b4054ba00ed5fe",
+ "status": 200
+}

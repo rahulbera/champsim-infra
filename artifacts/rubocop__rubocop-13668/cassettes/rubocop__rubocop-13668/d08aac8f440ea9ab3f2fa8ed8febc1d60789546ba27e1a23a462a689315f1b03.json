@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass. The fix is complete.\\n\\nLet me also verify the final state of all my changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && git status && echo \\\\\\\"---DIFF---\\\\\\\" && git diff && echo \\\\\\\"---NEW FILES---\\\\\\\" && cat changelog/fix_sole_nested_conditional_comparison_precedence.md\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195508371682226\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079609,\"id\":\"20260807131327f462d1b4a8dd4606\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131327f462d1b4a8dd4606\",\"usage\":{\"completion_tokens\":70,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":78512,\"prompt_tokens_details\":{\"cached_tokens\":77824},\"total_tokens\":78582}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d08aac8f440ea9ab3f2fa8ed8febc1d60789546ba27e1a23a462a689315f1b03",
+ "status": 200
+}

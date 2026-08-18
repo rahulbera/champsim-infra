@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the changelog entry format:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && grep -A5 \\\\\\\"changelog-entry-format\\\\\\\" CONTRIBUTING.md | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373188464625317442\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079182,\"id\":\"20260807130620a8e2412d5bfd4c37\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130620a8e2412d5bfd4c37\",\"usage\":{\"completion_tokens\":42,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":53916,\"prompt_tokens_details\":{\"cached_tokens\":53504},\"total_tokens\":53958}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2e593b5044a9698da7d460b253d3b08e6c80683b844d67d8158982b872361115",
+ "status": 200
+}

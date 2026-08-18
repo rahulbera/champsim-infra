@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me analyze the last edge case carefully. Pattern `-?foo` on `a\\\\n-foo\\\\nb`. The match should be `-foo` (greedy, includes the `-`). Let me verify what the correct answer is by comparing with `\\\\b` wrapping:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && echo \\\\\\\"=== -?foo with -w ===\\\\\\\"\\\\n./target/debug/rg -w -o -- \\\\\\\"-?foo\\\\\\\" /tmp/edge5.txt\\\\necho \\\\\\\"=== -?foo with \\\\\\\\\\\\\\\\b wrapping ===\\\\\\\"\\\\n./target/debug/rg -o -- \\\\\\\"\\\\\\\\b-?foo\\\\\\\\b\\\\\\\" /tmp/edge5.txt\\\\necho \\\\\\\"=== -?foo without word boundary (raw) ===\\\\\\\"\\\\n./target/debug/rg -o -- \\\\\\\"-?foo\\\\\\\" /tmp/edge5.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202483398566238\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078666,\"id\":\"202608071257436b9b2c57d45c47d1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071257436b9b2c57d45c47d1\",\"usage\":{\"completion_tokens\":168,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":90771,\"prompt_tokens_details\":{\"cached_tokens\":90304},\"total_tokens\":90939}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "214edaf8dac74c10075290e03707e164d6670ef5b02475fbc932d1ffced56166",
+ "status": 200
+}

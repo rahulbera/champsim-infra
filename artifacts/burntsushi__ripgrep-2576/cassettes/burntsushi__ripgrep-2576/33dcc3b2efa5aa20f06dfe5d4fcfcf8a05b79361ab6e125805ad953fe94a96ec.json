@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The project builds. Now let me reproduce the issue. Let me create a test file and run ripgrep:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && printf 'some.domain.com\\\\\\\\nsome.domain.com/x\\\\\\\\nsome.domain.com\\\\\\\\n' > /tmp/test_word.txt && cat /tmp/test_word.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373189323618776628\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077689,\"id\":\"202608071241271abc6bdafda54c2a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071241271abc6bdafda54c2a\",\"usage\":{\"completion_tokens\":67,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":28096,\"prompt_tokens_details\":{\"cached_tokens\":27584},\"total_tokens\":28163}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "33dcc3b2efa5aa20f06dfe5d4fcfcf8a05b79361ab6e125805ad953fe94a96ec",
+ "status": 200
+}

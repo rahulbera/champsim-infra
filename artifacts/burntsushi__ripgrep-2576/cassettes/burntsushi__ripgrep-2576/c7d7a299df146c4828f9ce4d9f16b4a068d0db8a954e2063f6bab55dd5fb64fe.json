@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-automata-0.3.0/src/util/look.rs\\\",\\\"view_range\\\":[560, 850]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373178946977786206\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078180,\"id\":\"20260807124939ca3c879ba71c4d89\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124939ca3c879ba71c4d89\",\"usage\":{\"completion_tokens\":68,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":59353,\"prompt_tokens_details\":{\"cached_tokens\":58560},\"total_tokens\":59421}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c7d7a299df146c4828f9ce4d9f16b4a068d0db8a954e2063f6bab55dd5fb64fe",
+ "status": 200
+}

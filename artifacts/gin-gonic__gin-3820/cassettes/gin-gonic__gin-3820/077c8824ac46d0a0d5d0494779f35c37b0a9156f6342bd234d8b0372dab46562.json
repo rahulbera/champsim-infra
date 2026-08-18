@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gin && git log --all --oneline --grep=\\\\\\\"unexpected end of JSON\\\\\\\\|file parameter\\\\\\\\|file binding\\\\\\\" | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373105520216897785\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786089229,\"id\":\"2026080715534607f6ef00684f4fd2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080715534607f6ef00684f4fd2\",\"usage\":{\"completion_tokens\":41,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":32252,\"prompt_tokens_details\":{\"cached_tokens\":32064},\"total_tokens\":32293}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "077c8824ac46d0a0d5d0494779f35c37b0a9156f6342bd234d8b0372dab46562",
+ "status": 200
+}

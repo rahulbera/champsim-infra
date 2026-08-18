@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me check whether `regex_syntax` is accessible from this crate (it's a dependency):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"regex_syntax\\\\\\\" crates/regex/src/ | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373212310283743418\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078296,\"id\":\"2026080712513286cb65fc574e4a00\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712513286cb65fc574e4a00\",\"usage\":{\"completion_tokens\":50,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":72004,\"prompt_tokens_details\":{\"cached_tokens\":70208},\"total_tokens\":72054}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ce550a4732ef09fb20de27f5e3f46ebdca2e8aef75e482172d2afee46abba095",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So the carets need 23 spaces in the heredoc. Let me rewrite the edge test file properly:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"rm /tmp/edge_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373176954112960067\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079097,\"id\":\"2026080713045487a0a21c1f5647b1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713045487a0a21c1f5647b1\",\"usage\":{\"completion_tokens\":40,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":49071,\"prompt_tokens_details\":{\"cached_tokens\":48768},\"total_tokens\":49111}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "119d684a654f21ea6e6f1f1a6bbffff7cf63cc26101ad58a1008f3cb0b871be1",
+ "status": 200
+}

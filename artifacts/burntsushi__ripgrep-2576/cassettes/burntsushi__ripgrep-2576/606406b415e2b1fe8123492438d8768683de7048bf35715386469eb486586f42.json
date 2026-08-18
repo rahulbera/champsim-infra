@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"`is_word_character` exists. Now let me check whether the `unicode-perl` feature is enabled for regex-syntax in this crate. Let me check the regex-syntax features:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -n \\\\\\\"regex-syntax\\\\\\\" Cargo.lock; echo \\\\\\\"---\\\\\\\"; sed -n '394,420p' Cargo.lock\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373198600748137115\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078323,\"id\":\"20260807125155b3d646c74f0c430f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125155b3d646c74f0c430f\",\"usage\":{\"completion_tokens\":77,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73772,\"prompt_tokens_details\":{\"cached_tokens\":72832},\"total_tokens\":73849}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "606406b415e2b1fe8123492438d8768683de7048bf35715386469eb486586f42",
+ "status": 200
+}

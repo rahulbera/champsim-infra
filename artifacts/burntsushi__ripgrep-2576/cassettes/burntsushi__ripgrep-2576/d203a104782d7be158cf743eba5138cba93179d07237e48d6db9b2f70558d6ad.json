@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I'll start by exploring the repository structure to understand the codebase.\",\"reasoning_content\":\"Let me start by exploring the repository structure to understand the codebase.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373188567704531736\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077417,\"id\":\"202608071236565d25b19eeb4f4119\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071236565d25b19eeb4f4119\",\"usage\":{\"completion_tokens\":50,\"completion_tokens_details\":{\"reasoning_tokens\":14},\"prompt_tokens\":1627,\"prompt_tokens_details\":{\"cached_tokens\":832},\"total_tokens\":1677}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d203a104782d7be158cf743eba5138cba93179d07237e48d6db9b2f70558d6ad",
+ "status": 200
+}

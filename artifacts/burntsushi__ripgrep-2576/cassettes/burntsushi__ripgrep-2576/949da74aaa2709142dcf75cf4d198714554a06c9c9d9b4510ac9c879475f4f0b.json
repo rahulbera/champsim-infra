@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The reproduction script confirms the fix works. The `-w` flag now produces the same matches as wrapping the pattern with `\\\\b`.\\n\\nLet me also verify the fix handles the case where the match is at the start of the haystack (line 1) and end of haystack (line 3) correctly, which were already working but let me make sure they still do:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && echo \\\\\\\"=== Line numbers shown, all 3 should match some.domain.com ===\\\\\\\"\\\\n./target/debug/rg -w -o -n \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/test_word.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373154104886948655\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078752,\"id\":\"202608071259102ed1be3eb95d4874\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071259102ed1be3eb95d4874\",\"usage\":{\"completion_tokens\":137,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":96200,\"prompt_tokens_details\":{\"cached_tokens\":96064},\"total_tokens\":96337}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "949da74aaa2709142dcf75cf4d198714554a06c9c9d9b4510ac9c879475f4f0b",
+ "status": 200
+}

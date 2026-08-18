@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the sliceFactory in Operations.js:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/immutable-js/src/Operations.js\\\",\\\"view_range\\\":[380, 500]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373194683737962050\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077742,\"id\":\"202608071242198663a58155014037\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071242198663a58155014037\",\"usage\":{\"completion_tokens\":48,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":13878,\"prompt_tokens_details\":{\"cached_tokens\":12736},\"total_tokens\":13926}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5007f1f604134bf17cc69b828b2afba19cb82466e0f36122a8e7e551ebe37c9f",
+ "status": 200
+}

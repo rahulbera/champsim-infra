@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"No tests for that residual case. Good. The upstream fix is the right choice.\\n\\nNow let me review my final changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373189598496681468\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078713,\"id\":\"20260807125829ac2bdf6f03f849bc\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125829ac2bdf6f03f849bc\",\"usage\":{\"completion_tokens\":43,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":92970,\"prompt_tokens_details\":{\"cached_tokens\":92480},\"total_tokens\":93013}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e14dc1183ac68f184c0f34454444007f927183e2d515e873d6d76168e1c65c12",
+ "status": 200
+}

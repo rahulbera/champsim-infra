@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/crates/regex/src/matcher.rs\\\",\\\"view_range\\\":[600, 850]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373167676983604382\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077532,\"id\":\"20260807123849831625e75e9d4873\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807123849831625e75e9d4873\",\"usage\":{\"completion_tokens\":42,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":20809,\"prompt_tokens_details\":{\"cached_tokens\":18176},\"total_tokens\":20851}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c357683aa5398c8aff2a1f31e77d5145041e7a1d8018d24e217f6c4adebfe70a",
+ "status": 200
+}

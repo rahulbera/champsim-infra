@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me do a final review of all my changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373187227674736354\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078795,\"id\":\"20260807125952a8376d7deaaa499f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125952a8376d7deaaa499f\",\"usage\":{\"completion_tokens\":30,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":98232,\"prompt_tokens_details\":{\"cached_tokens\":98048},\"total_tokens\":98262}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "12139348da9bc8238d91ff7124ac789f0c2fce695f68dfc64741ceaaecf61b7a",
+ "status": 200
+}

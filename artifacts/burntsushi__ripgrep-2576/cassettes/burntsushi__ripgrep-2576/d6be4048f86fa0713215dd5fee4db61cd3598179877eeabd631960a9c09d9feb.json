@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The regex-syntax package has no features listed, which means default features. Let me check what the default features are and whether `unicode-perl` is enabled:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -n \\\\\\\"default\\\\\\\\|unicode-perl\\\\\\\\|unicode-word\\\\\\\\|^\\\\\\\\[features\\\\\\\\]\\\\\\\\|^unicode\\\\\\\" /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-syntax-0.7.3/Cargo.toml | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373179805971243855\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078334,\"id\":\"202608071252125bcde753e3fd4923\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071252125bcde753e3fd4923\",\"usage\":{\"completion_tokens\":111,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74195,\"prompt_tokens_details\":{\"cached_tokens\":73984},\"total_tokens\":74306}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d6be4048f86fa0713215dd5fee4db61cd3598179877eeabd631960a9c09d9feb",
+ "status": 200
+}

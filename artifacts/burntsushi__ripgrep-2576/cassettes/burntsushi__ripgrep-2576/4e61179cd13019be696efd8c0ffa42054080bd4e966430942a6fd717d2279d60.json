@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git log --oneline --all | head -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373199287942898333\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078005,\"id\":\"20260807124644e269405f00c945e7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124644e269405f00c945e7\",\"usage\":{\"completion_tokens\":27,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44844,\"prompt_tokens_details\":{\"cached_tokens\":44416},\"total_tokens\":44871}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4e61179cd13019be696efd8c0ffa42054080bd4e966430942a6fd717d2279d60",
+ "status": 200
+}

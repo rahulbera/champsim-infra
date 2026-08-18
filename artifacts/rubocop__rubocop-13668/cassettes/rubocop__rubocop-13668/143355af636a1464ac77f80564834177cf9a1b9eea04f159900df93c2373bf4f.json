@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -n \\\\\\\"comparison_method\\\\\\\\|===\\\\\\\\|public_send\\\\\\\\|t ===\\\\\\\" /rubocop/spec/rubocop/cop/style/sole_nested_conditional_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373135928585350687\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078452,\"id\":\"20260807125411a5e20ed9e2b5455b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125411a5e20ed9e2b5455b\",\"usage\":{\"completion_tokens\":44,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":11008,\"prompt_tokens_details\":{\"cached_tokens\":10880},\"total_tokens\":11052}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "143355af636a1464ac77f80564834177cf9a1b9eea04f159900df93c2373bf4f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I've reproduced the issue. The second line matches `ome.domain.com` instead of `some.domain.com`. Let me also test with the `\\\\b` wrapping:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && ./target/debug/rg -o \\\\\\\"\\\\\\\\b([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\\b\\\\\\\" /tmp/test_word.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373185063011213405\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077698,\"id\":\"20260807124136e8988958db8b49f9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124136e8988958db8b49f9\",\"usage\":{\"completion_tokens\":79,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":28256,\"prompt_tokens_details\":{\"cached_tokens\":28160},\"total_tokens\":28335}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1d14bf146ec34ef7872f5423fd462c6f3a1ca98d4654f7b10d9e428459159d8c",
+ "status": 200
+}

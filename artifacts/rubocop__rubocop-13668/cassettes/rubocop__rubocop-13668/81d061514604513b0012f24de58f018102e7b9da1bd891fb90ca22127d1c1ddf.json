@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I'll start by exploring the repository structure and finding the relevant code for the `Style/SoleNestedConditional` cop.\",\"reasoning_content\":\" I'll start by looking at the repository structure to get a sense of how the codebase is organized.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"find /rubocop -type f -name \\\\\\\"*.rb\\\\\\\" | grep -i \\\\\\\"sole_nested_conditional\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373190251331714744\",\"index\":0,\"type\":\"function\"},{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"ls /rubocop\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373190251331714743\",\"index\":1,\"type\":\"function\"}]}}],\"created\":1786078437,\"id\":\"202608071253540d48d0e9d3f2475c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071253540d48d0e9d3f2475c\",\"usage\":{\"completion_tokens\":89,\"completion_tokens_details\":{\"reasoning_tokens\":21},\"prompt_tokens\":1224,\"prompt_tokens_details\":{\"cached_tokens\":832},\"total_tokens\":1313}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "81d061514604513b0012f24de58f018102e7b9da1bd891fb90ca22127d1c1ddf",
+ "status": 200
+}

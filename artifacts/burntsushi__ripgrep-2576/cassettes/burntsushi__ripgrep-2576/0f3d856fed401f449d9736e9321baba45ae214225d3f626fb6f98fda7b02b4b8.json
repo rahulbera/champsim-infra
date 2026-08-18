@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Good, tabs are back. Now let me verify that without my test addition, the `r2095` and `r1559` tests pass with my source change:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration r2095 2>&1 | tail -8; echo \\\\\\\"===\\\\\\\"; cargo test --test integration r1559 2>&1 | tail -8\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373183310664558151\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078531,\"id\":\"20260807125528101cdfc54c7c430f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125528101cdfc54c7c430f\",\"usage\":{\"completion_tokens\":116,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":85211,\"prompt_tokens_details\":{\"cached_tokens\":85056},\"total_tokens\":85327}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0f3d856fed401f449d9736e9321baba45ae214225d3f626fb6f98fda7b02b4b8",
+ "status": 200
+}

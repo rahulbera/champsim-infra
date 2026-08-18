@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me create a reproduction script. First, let me understand the issue better by writing a test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/repro.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nrequire 'rubocop'\\\\n\\\\nsource = <<~RUBY\\\\n  if result \\\\n    result = false unless t === value.public_send(a)\\\\n  end\\\\nRUBY\\\\n\\\\noptions = { stdin: true, force_exclusion: true }\\\\nconfig = RuboCop::Config.new('Style/SoleNestedConditional' => { 'Enabled' => true, 'AllowModifier' => false })\\\\n\\\\nrunner = RuboCop::Runner.new(options, config)\\\\nputs \\\\\\\"=== Input ===\\\\\\\"\\\\nputs source\\\\nputs \\\\\\\"=== Output ===\\\\\\\"\\\\nrunner.run(['--stdin', 'test.rb'], $stdout)\\\\nEOF\\\\nruby /tmp/repro.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373187983588982519\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078651,\"id\":\"20260807125728375d2d6afea041ad\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125728375d2d6afea041ad\",\"usage\":{\"completion_tokens\":178,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":17527,\"prompt_tokens_details\":{\"cached_tokens\":17344},\"total_tokens\":17705}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "71c5aec78d66942df9cd691c3c018c26e45e38c5957c24b725aae6a36e6fa3c1",
+ "status": 200
+}

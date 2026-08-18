@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && grep -A40 \\\\\\\"## Changelog entry format\\\\\\\" CONTRIBUTING.md\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373163622534479018\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079186,\"id\":\"20260807130624b51e070c6f1e4b25\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130624b51e070c6f1e4b25\",\"usage\":{\"completion_tokens\":29,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":54086,\"prompt_tokens_details\":{\"cached_tokens\":53888},\"total_tokens\":54115}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "682e92c5c6855bc6daecf3f5ff0ddcec90d607dc1b8efde7a581e6733455f9d7",
+ "status": 200
+}

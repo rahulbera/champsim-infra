@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me write a reproduction script. Let me create a test file:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"create\\\",\\\"path\\\":\\\"/immutable-js/__tests__/repro.ts\\\",\\\"file_text\\\":\\\"import { Range } from 'immutable';\\\\n\\\\ndescribe('repro', () => {\\\\n  it('filter followed by slice with negative begin', () => {\\\\n    const result = Range(0, 10).filter($ => true).slice(-2).toArray();\\\\n    console.log('Result:', JSON.stringify(result));\\\\n    expect(result).toEqual([8, 9]);\\\\n  });\\\\n});\\\\n\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373135000872416790\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077796,\"id\":\"20260807124311679ec5fd607d46e5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124311679ec5fd607d46e5\",\"usage\":{\"completion_tokens\":124,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":20095,\"prompt_tokens_details\":{\"cached_tokens\":19456},\"total_tokens\":20219}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c545aa39a4e932d68a21804bd3c734b3bd28807f6b0a0967df424248b8d7b790",
+ "status": 200
+}

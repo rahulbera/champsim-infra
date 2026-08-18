@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 683 tests pass (1 skipped, which is pre-existing). The fix is complete.\\n\\nThe change I made to `src/TrieUtils.js` resolves the issue described in the PR: `filter` followed by `slice` with a negative `begin` now works correctly because the `resolveIndex` function properly returns `NaN` when a negative index is supplied against an unknown (undefined) size, which triggers the caching path in `sliceFactory` that computes the actual size before resolving the negative index.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7373192587793916410\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078035,\"id\":\"20260807124712aa333d63a272492e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124712aa333d63a272492e\",\"usage\":{\"completion_tokens\":109,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":32997,\"prompt_tokens_details\":{\"cached_tokens\":32832},\"total_tokens\":33106}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e6b87f24034c3d16ce9527d52372fc3a30d2a5d061d7a4b7eb49ec5b052e394a",
+ "status": 200
+}

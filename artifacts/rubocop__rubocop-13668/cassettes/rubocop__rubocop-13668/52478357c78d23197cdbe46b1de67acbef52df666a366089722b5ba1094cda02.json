@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So `parenthesized_method_arguments` produces `t ===(value.public_send(a))`. This is the source of the bug. The `!` is inserted before `t`, giving `!t ===(value.public_send(a))`, which is `(!t) === (value.public_send(a))` - completely wrong precedence.\\n\\nThe issue is that when we have a `unless` (negated) condition that is a comparison method like `===`, `==`, etc., the `!` needs to wrap the entire comparison, not just be prepended.\\n\\nLet me look at how the `!` is inserted. In the basic form, the `!` comes from `and_operator = ' && !'`. In the modifier form, also from `and_operator`.\\n\\nNow let me understand the existing handling for comparison methods. There's `insert_bang` which handles the `unless` to `if` conversion for the outer condition:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[203, 231]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373197776114417538\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078861,\"id\":\"2026080713005668d1144c910a4b62\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713005668d1144c910a4b62\",\"usage\":{\"completion_tokens\":237,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":29415,\"prompt_tokens_details\":{\"cached_tokens\":29120},\"total_tokens\":29652}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "52478357c78d23197cdbe46b1de67acbef52df666a366089722b5ba1094cda02",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All edge cases pass. Now let me clean up the temporary test files:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"rm -f /tmp/repro_spec.rb /tmp/repro2_spec.rb /tmp/repro3_spec.rb /tmp/repro4_spec.rb /tmp/edge_spec.rb /tmp/csend_spec.rb /tmp/pr_case_spec.rb /tmp/block_guard_spec.rb /tmp/block_basic_spec.rb /tmp/paren_basic_spec.rb /tmp/paren_modify_spec.rb /tmp/inverse_spec.rb /tmp/gen_carets.rb /tmp/repro.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373164103570814368\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079421,\"id\":\"202608071310197adef60f35094178\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071310197adef60f35094178\",\"usage\":{\"completion_tokens\":117,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":68036,\"prompt_tokens_details\":{\"cached_tokens\":67712},\"total_tokens\":68153}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c09c75b1ffd180ef21b7f3b460b99c42b5431c2e775f808ac2ac351b801114e1",
+ "status": 200
+}

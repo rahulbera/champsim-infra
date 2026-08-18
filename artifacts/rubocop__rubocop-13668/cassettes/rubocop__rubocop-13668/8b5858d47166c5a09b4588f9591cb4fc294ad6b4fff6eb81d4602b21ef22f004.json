@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the test at line 532-550. This is interesting: `unless foo.to_s == 'foo'` (outer condition is a comparison method `==`). The expected output is `return foo if foo.to_s != 'foo' && condition`. \\n\\nThis goes through `autocorrect_outer_condition_basic` \u2192 `correct_from_unless_to_if` \u2192 `insert_bang`. In `insert_bang`, the condition `foo.to_s == 'foo'` is a comparison method, so it wraps in `!(foo.to_s == 'foo')`. Then `Style/InverseMethods` converts `!(foo.to_s == 'foo')` to `foo.to_s != 'foo'`. So this test relies on `insert_bang` wrapping the comparison, which is the existing behavior (not my change). Let me run this test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cli/autocorrect_spec.rb:532 -f documentation 2>&1 | tail -15\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202208520662073\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079307,\"id\":\"202608071308242c1c380d6e484349\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071308242c1c380d6e484349\",\"usage\":{\"completion_tokens\":221,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":63027,\"prompt_tokens_details\":{\"cached_tokens\":61568},\"total_tokens\":63248}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8b5858d47166c5a09b4588f9591cb4fc294ad6b4fff6eb81d4602b21ef22f004",
+ "status": 200
+}

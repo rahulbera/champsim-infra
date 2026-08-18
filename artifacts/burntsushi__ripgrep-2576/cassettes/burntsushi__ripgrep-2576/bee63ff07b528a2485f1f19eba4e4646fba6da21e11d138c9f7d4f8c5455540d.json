@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test file is back to its original state (tabs preserved, no `r2574` test). \\n\\nNow, the reproduction script was already removed earlier. Let me confirm it's gone and re-verify the build still works with just the source fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"ls /tmp/reproduce.py 2>&1; echo \\\\\\\"===\\\\\\\"; cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo build 2>&1 | tail -3\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373163897412384414\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078854,\"id\":\"202608071300499d05bfddee3b47a2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071300499d05bfddee3b47a2\",\"usage\":{\"completion_tokens\":122,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101798,\"prompt_tokens_details\":{\"cached_tokens\":101568},\"total_tokens\":101920}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bee63ff07b528a2485f1f19eba4e4646fba6da21e11d138c9f7d4f8c5455540d",
+ "status": 200
+}

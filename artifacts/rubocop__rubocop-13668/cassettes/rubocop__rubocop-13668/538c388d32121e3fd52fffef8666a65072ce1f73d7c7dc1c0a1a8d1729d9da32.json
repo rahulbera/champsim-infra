@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"No test files were modified. Let me run a final reproduction to confirm the fix works as expected:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/final_check_spec.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nrequire 'rubocop'\\\\n\\\\nRSpec.describe RuboCop::Cop::Style::SoleNestedConditional, :config do\\\\n  let(:cop_config) { { 'AllowModifier' => false } }\\\\n\\\\n  it 'maintains precedence on auto-correct (PR case)' do\\\\n    expect_offense(<<~RUBY)\\\\n      if result\\\\n        result = false unless t === value.public_send(a)\\\\n                       ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\\n      end\\\\n    RUBY\\\\n\\\\n    expect_correction(<<~RUBY)\\\\n      if result && !(t === value.public_send(a))\\\\n        result = false\\\\n      end\\\\n    RUBY\\\\n  end\\\\nend\\\\nEOF\\\\nbundle exec rspec /tmp/final_check_spec.rb -f documentation 2>&1 | tail -12\\\\nrm -f /tmp/final_check_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373157369062093853\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079637,\"id\":\"20260807131354878f4837b7d34915\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131354878f4837b7d34915\",\"usage\":{\"completion_tokens\":232,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":80568,\"prompt_tokens_details\":{\"cached_tokens\":80384},\"total_tokens\":80800}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "538c388d32121e3fd52fffef8666a65072ce1f73d7c7dc1c0a1a8d1729d9da32",
+ "status": 200
+}

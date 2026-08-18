@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -n \\\\\\\"filename\\\\\\\\|FileHeader\\\\\\\\|FormName\\\\\\\\|Filename\\\\\\\" /usr/local/go/src/mime/multipart/formdata.go | head -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373098648269219463\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786089081,\"id\":\"20260807155117408bb8925bf848af\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807155117408bb8925bf848af\",\"usage\":{\"completion_tokens\":43,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":26602,\"prompt_tokens_details\":{\"cached_tokens\":26496},\"total_tokens\":26645}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b81c90e82578fad83d00963ab73ba6e775a9b76d4e2db6e63c88a8cb1684e472",
+ "status": 200
+}

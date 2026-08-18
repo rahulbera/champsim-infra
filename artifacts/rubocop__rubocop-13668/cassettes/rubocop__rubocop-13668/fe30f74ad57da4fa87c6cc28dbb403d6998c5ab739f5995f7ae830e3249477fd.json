@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me just write the edge tests more carefully. The `unless` keyword is at column 17 in the stripped source (after removing 6 spaces of common indentation). So in the heredoc, the carets need 17 + 6 = 23 spaces. Wait, no. The `<<~RUBY` strips the common indentation. Let me just compute properly:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && ruby -e '\\\\nsource = <<~RUBY\\\\n      if result\\\\n        result = false unless (t === value.public_send(a))\\\\n      end\\\\nRUBY\\\\nline = source.lines[1]\\\\nidx = line.index(\\\\\\\"unless\\\\\\\")\\\\nputs \\\\\\\"unless at index: #{idx} (in stripped source)\\\\\\\"\\\\n# In the heredoc, the line is \\\\\\\"        result = false unless...\\\\\\\" with 8 spaces\\\\n# common indent is 6, so stripped has 2 spaces, unless at 2+15=17\\\\n# carets in heredoc need to be at 6 (common) + 17 = 23\\\\nputs \\\\\\\"carets need #{6 + idx} spaces in heredoc\\\\\\\"\\\\n'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373181455238692834\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079092,\"id\":\"20260807130448826145605a3c4747\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130448826145605a3c4747\",\"usage\":{\"completion_tokens\":239,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48801,\"prompt_tokens_details\":{\"cached_tokens\":48512},\"total_tokens\":49040}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fe30f74ad57da4fa87c6cc28dbb403d6998c5ab739f5995f7ae830e3249477fd",
+ "status": 200
+}

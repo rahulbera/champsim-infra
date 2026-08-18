@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"ls /usr/local/go/bin/ && /usr/local/go/bin/go version\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373094422021405976\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786088928,\"id\":\"202608071548476d871f98fa47417d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071548476d871f98fa47417d\",\"usage\":{\"completion_tokens\":25,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":24562,\"prompt_tokens_details\":{\"cached_tokens\":24448},\"total_tokens\":24587}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "54e65a234a367c267f7debf58c714f96779edf9d6fc81cdf25dfa38d6bde72dd",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"There's a commit `341a19e regex: fix fast path for -w/--word-regexp flag (#2576)`. Let me look at it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git show 341a19e -- crates/regex/src/word.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373158640372413863\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078258,\"id\":\"20260807125052267f96e601b349b0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125052267f96e601b349b0\",\"usage\":{\"completion_tokens\":66,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":68112,\"prompt_tokens_details\":{\"cached_tokens\":67840},\"total_tokens\":68178}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "58d7820a22f14a35b606f652c9b51729692107e96df3e863dd7726218b67274b",
+ "status": 200
+}

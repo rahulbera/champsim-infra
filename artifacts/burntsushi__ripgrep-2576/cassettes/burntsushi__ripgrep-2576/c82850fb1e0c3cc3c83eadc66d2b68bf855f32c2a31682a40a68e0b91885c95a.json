@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass with no failures. Let me also run with the pcre2 feature to be thorough:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --workspace --features pcre2 2>&1 | grep -E \\\\\\\"test result:|FAILED|error\\\\\\\\[\\\\\\\" | tail -25\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373197810474149108\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078772,\"id\":\"20260807125929214af28bdc79461e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125929214af28bdc79461e\",\"usage\":{\"completion_tokens\":96,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":97233,\"prompt_tokens_details\":{\"cached_tokens\":96320},\"total_tokens\":97329}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c82850fb1e0c3cc3c83eadc66d2b68bf855f32c2a31682a40a68e0b91885c95a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me build the project first to make sure it compiles, then create a reproduction script:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && cargo build 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202792636213551\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077651,\"id\":\"20260807124049bcc8d93ead42476a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124049bcc8d93ead42476a\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27047,\"prompt_tokens_details\":{\"cached_tokens\":26368},\"total_tokens\":27093}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d5faee787931cf0e529cf4a256429cbe6bf27db4e9dde2d83ec73765426c97da",
+ "status": 200
+}

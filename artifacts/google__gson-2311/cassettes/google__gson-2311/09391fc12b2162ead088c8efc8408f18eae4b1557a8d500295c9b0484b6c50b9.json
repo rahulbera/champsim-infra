@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me view the full updated file to verify the changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/gson/gson/src/main/java/com/google/gson/JsonPrimitive.java\\\",\\\"view_range\\\":[178, 195]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373034636076638352\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097033,\"id\":\"20260807180352b65b2922099e42aa\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807180352b65b2922099e42aa\",\"usage\":{\"completion_tokens\":58,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":21818,\"prompt_tokens_details\":{\"cached_tokens\":21376},\"total_tokens\":21876}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "09391fc12b2162ead088c8efc8408f18eae4b1557a8d500295c9b0484b6c50b9",
+ "status": 200
+}

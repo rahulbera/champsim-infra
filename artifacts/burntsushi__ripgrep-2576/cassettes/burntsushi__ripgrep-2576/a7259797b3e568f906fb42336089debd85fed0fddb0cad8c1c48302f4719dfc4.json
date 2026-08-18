@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && sed -n '39,62p' /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-syntax-0.7.3/Cargo.toml\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373192106757580960\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078338,\"id\":\"20260807125216851794ba70234a43\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125216851794ba70234a43\",\"usage\":{\"completion_tokens\":60,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74384,\"prompt_tokens_details\":{\"cached_tokens\":74176},\"total_tokens\":74444}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a7259797b3e568f906fb42336089debd85fed0fddb0cad8c1c48302f4719dfc4",
+ "status": 200
+}

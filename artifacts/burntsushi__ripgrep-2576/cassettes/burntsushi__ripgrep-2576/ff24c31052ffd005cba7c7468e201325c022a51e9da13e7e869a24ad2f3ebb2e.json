@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"No existing test for this. Let me check the git log for any recent commits that might hint at the fix approach:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git log --oneline --all -- crates/regex/src/word.rs | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373192106757579622\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078249,\"id\":\"202608071250461f90434f98bc4ab1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071250461f90434f98bc4ab1\",\"usage\":{\"completion_tokens\":59,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":67857,\"prompt_tokens_details\":{\"cached_tokens\":63296},\"total_tokens\":67916}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ff24c31052ffd005cba7c7468e201325c022a51e9da13e7e869a24ad2f3ebb2e",
+ "status": 200
+}

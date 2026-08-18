@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at line 367-383, which has a non-negated inner condition with a method call:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/spec/rubocop/cop/style/sole_nested_conditional_spec.rb\\\",\\\"view_range\\\":[367, 383]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373191453922557919\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078895,\"id\":\"202608071301330c7a89ccbcd547a6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071301330c7a89ccbcd547a6\",\"usage\":{\"completion_tokens\":74,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":32688,\"prompt_tokens_details\":{\"cached_tokens\":31360},\"total_tokens\":32762}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4087e60f28c30c53256eb96b4f1ee807242ac8bf28e1735e81ad8b1ac2133556",
+ "status": 200
+}

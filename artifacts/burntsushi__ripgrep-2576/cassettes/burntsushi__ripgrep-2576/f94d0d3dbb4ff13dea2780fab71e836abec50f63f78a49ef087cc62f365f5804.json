@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now `tests/regression.rs` is reverted to its original state. Only `CHANGELOG.md` and `crates/regex/src/word.rs` remain modified (staged). Let me verify the test file is truly back to original (with tabs intact):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && sed -n '1058,1065p' tests/regression.rs | cat -A; echo \\\\\\\"=== tail ===\\\\\\\"; tail -5 tests/regression.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373169704208169531\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078846,\"id\":\"20260807130043a815622b58524f41\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130043a815622b58524f41\",\"usage\":{\"completion_tokens\":102,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101589,\"prompt_tokens_details\":{\"cached_tokens\":101440},\"total_tokens\":101691}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f94d0d3dbb4ff13dea2780fab71e836abec50f63f78a49ef087cc62f365f5804",
+ "status": 200
+}

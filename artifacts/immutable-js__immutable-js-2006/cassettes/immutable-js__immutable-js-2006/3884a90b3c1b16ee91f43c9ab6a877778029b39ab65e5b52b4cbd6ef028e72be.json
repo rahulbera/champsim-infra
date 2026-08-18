@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the slice test file and the slice implementation.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/immutable-js/__tests__/slice.ts\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373213993910921428\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077728,\"id\":\"20260807124204c4a252a698e54196\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124204c4a252a698e54196\",\"usage\":{\"completion_tokens\":39,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":8748,\"prompt_tokens_details\":{\"cached_tokens\":1280},\"total_tokens\":8787}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3884a90b3c1b16ee91f43c9ab6a877778029b39ab65e5b52b4cbd6ef028e72be",
+ "status": 200
+}

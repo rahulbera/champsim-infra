@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I'll start by exploring the repository structure to understand the codebase.\",\"reasoning_content\":\" I'll start by exploring the repository structure to understand how the codebase is organized.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/immutable-js\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373184547615139737\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077723,\"id\":\"202608071241598a0cbc2a91194b5d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071241598a0cbc2a91194b5d\",\"usage\":{\"completion_tokens\":52,\"completion_tokens_details\":{\"reasoning_tokens\":17},\"prompt_tokens\":1289,\"prompt_tokens_details\":{\"cached_tokens\":832},\"total_tokens\":1341}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9ea636971ef2c52f807757ba9b52d4a596d410ffc3525126c9fbbd71382e3a9b",
+ "status": 200
+}

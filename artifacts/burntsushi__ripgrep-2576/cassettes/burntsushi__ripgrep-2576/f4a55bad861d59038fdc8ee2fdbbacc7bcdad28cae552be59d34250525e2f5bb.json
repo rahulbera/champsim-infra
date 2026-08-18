@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the regex-automata source to understand the `Look` types and how they match:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && find / -path \\\\\\\"*/regex-automata*/src/*.rs\\\\\\\" 2>/dev/null | head; echo \\\\\\\"---\\\\\\\"; find / -path \\\\\\\"*regex-syntax*\\\\\\\" -name \\\\\\\"*.rs\\\\\\\" 2>/dev/null | grep -i look | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202174160924193\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078164,\"id\":\"2026080712492297500b8225474831\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712492297500b8225474831\",\"usage\":{\"completion_tokens\":89,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":57901,\"prompt_tokens_details\":{\"cached_tokens\":57600},\"total_tokens\":57990}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f4a55bad861d59038fdc8ee2fdbbacc7bcdad28cae552be59d34250525e2f5bb",
+ "status": 200
+}

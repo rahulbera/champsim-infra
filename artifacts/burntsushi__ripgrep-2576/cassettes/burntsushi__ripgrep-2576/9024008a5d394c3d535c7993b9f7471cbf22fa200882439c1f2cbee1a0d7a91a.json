@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The reproduction script is gone, and the build succeeds. Let me do a final verification that the fix still works (since I reverted the test file, the source fix is what matters) by running the existing word-related tests and a quick manual check:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && printf 'some.domain.com\\\\\\\\nsome.domain.com/x\\\\\\\\nsome.domain.com\\\\\\\\n' > /tmp/final_check.txt && echo \\\\\\\"=== PR case ===\\\\\\\" && ./target/debug/rg -w -o \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/final_check.txt && echo \\\\\\\"=== existing word tests ===\\\\\\\" && cargo test --test integration word 2>&1 | tail -6 && cargo test -p grep-regex word 2>&1 | tail -8; rm -f /tmp/final_check.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373194374500313777\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078862,\"id\":\"20260807130058e44e8c3a960546b1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130058e44e8c3a960546b1\",\"usage\":{\"completion_tokens\":206,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101982,\"prompt_tokens_details\":{\"cached_tokens\":101760},\"total_tokens\":102188}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9024008a5d394c3d535c7993b9f7471cbf22fa200882439c1f2cbee1a0d7a91a",
+ "status": 200
+}

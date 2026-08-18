@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-syntax-0.7.3/src/lib.rs\\\",\\\"view_range\\\":[340, 400]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373185269169644195\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078313,\"id\":\"20260807125145d8e409ed022340ef\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125145d8e409ed022340ef\",\"usage\":{\"completion_tokens\":63,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":72876,\"prompt_tokens_details\":{\"cached_tokens\":72256},\"total_tokens\":72939}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "734346533a733d14a18621f104513f56a3534296d5d33e24d19badf927753197",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the binding directory, particularly the form mapping files.\",\"reasoning_content\":\"Let me look at the binding directory, particularly the form_mapping.go and multipart_form_mapping.go files, since the issue is about binding a non-mandatory file parameter.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/gin/binding/form_mapping.go\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373062295666026835\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786088780,\"id\":\"20260807154618e1fe4809b52c4d72\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807154618e1fe4809b52c4d72\",\"usage\":{\"completion_tokens\":71,\"completion_tokens_details\":{\"reasoning_tokens\":33},\"prompt_tokens\":2584,\"prompt_tokens_details\":{\"cached_tokens\":1856},\"total_tokens\":2655}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bfe7d6b2af6a33a41e082ef4bba451babd56397fa193a6c522b2cf73625fc036",
+ "status": 200
+}

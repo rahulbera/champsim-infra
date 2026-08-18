@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me check how the test framework handles pcre2 - does it run the test twice (once with regex, once with pcre2)?\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -n \\\\\\\"is_pcre2\\\\\\\\|pcre2\\\\\\\\|fn run\\\\\\\\|RG_TEST\\\\\\\" tests/util.rs | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373206366049003346\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078640,\"id\":\"20260807125717ced79d5506f94d43\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125717ced79d5506f94d43\",\"usage\":{\"completion_tokens\":74,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":89260,\"prompt_tokens_details\":{\"cached_tokens\":89024},\"total_tokens\":89334}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8acea04d0b4204019cdbc38c48f87471e2bc77b23007c20248729fb10a9aac7a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me verify the tabs in `r2095` and `r1559` are still preserved:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && sed -n '1058,1065p' tests/regression.rs | cat -A; echo \\\\\\\"=== r1559 ===\\\\\\\"; sed -n '879,884p' tests/regression.rs | cat -A\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373200318735049077\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078546,\"id\":\"20260807125543ba7035a296fa45cf\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125543ba7035a296fa45cf\",\"usage\":{\"completion_tokens\":85,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":85906,\"prompt_tokens_details\":{\"cached_tokens\":85504},\"total_tokens\":85991}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f4490fae90cbaebe121145fa87fbdd5250665a2e91e462f19d273028d47adf09",
+ "status": 200
+}

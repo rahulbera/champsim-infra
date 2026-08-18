@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && sed -n '109p' gson/src/main/java/com/google/gson/JsonPrimitive.java | cat -A\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373019620870977906\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097691,\"id\":\"202608071814505359bd1c09a848a4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071814505359bd1c09a848a4\",\"usage\":{\"completion_tokens\":38,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":26349,\"prompt_tokens_details\":{\"cached_tokens\":26176},\"total_tokens\":26387}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "aa4947a4985184647743a8e3cf24680d0cb436039a490fb2e718bae9082c3bd6",
+ "status": 200
+}

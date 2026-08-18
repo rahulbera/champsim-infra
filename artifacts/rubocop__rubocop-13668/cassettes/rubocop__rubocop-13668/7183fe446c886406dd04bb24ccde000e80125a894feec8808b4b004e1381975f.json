@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && ruby -e '\\\\nresult = true\\\\nt = 1\\\\nvalue = 2\\\\nputs (result && t === value).inspect\\\\n' 2>&1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373144930836804476\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079008,\"id\":\"202608071303267d36b77a21b44a74\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071303267d36b77a21b44a74\",\"usage\":{\"completion_tokens\":48,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":42106,\"prompt_tokens_details\":{\"cached_tokens\":41984},\"total_tokens\":42154}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7183fe446c886406dd04bb24ccde000e80125a894feec8808b4b004e1381975f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && git show 5e277e42:gson/src/main/java/com/google/gson/JsonPrimitive.java 2>/dev/null | sed -n '320,400p'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373016562854260161\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786096392,\"id\":\"20260807175311b9f76dd0d79d4762\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807175311b9f76dd0d79d4762\",\"usage\":{\"completion_tokens\":52,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":17787,\"prompt_tokens_details\":{\"cached_tokens\":16512},\"total_tokens\":17839}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5391430709281b2bb9d4e70cc1799d17ef2f95fa565fdc83d8a7bea595f4643c",
+ "status": 200
+}

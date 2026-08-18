@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && ./target/debug/rg -w -o \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/test_word.txt 2>&1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373149363243055372\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077878,\"id\":\"20260807124436455ac9e8c4934610\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124436455ac9e8c4934610\",\"usage\":{\"completion_tokens\":48,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":31647,\"prompt_tokens_details\":{\"cached_tokens\":31488},\"total_tokens\":31695}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f93af6a7a2eaabc2bd4049aa24b31e1305de61faef4898b648f10516ab464749",
+ "status": 200
+}

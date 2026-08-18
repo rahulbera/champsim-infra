@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So `is_a?` is NOT a comparison method, but `==`, `===`, `<` are. Let me check what `comparison_method?` includes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && grep -rn \\\\\\\"comparison_method\\\\\\\\|def comparison\\\\\\\" lib/rubocop/ | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373129675112971851\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078905,\"id\":\"202608071301435aae3f2d33204fd3\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071301435aae3f2d33204fd3\",\"usage\":{\"completion_tokens\":69,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33236,\"prompt_tokens_details\":{\"cached_tokens\":32960},\"total_tokens\":33305}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "44a4bb5ce5daa7ce67631c76f10fb277ae5cef22dfb71e2d8e0a4ca6a565ad9c",
+ "status": 200
+}

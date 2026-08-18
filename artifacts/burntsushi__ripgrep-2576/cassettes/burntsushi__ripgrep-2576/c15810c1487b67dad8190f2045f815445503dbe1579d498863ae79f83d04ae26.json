@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && sed -n '385,410p' Cargo.lock\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202071081710717\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078159,\"id\":\"20260807124917fd3ddfe8b07e480f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124917fd3ddfe8b07e480f\",\"usage\":{\"completion_tokens\":29,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":57647,\"prompt_tokens_details\":{\"cached_tokens\":56448},\"total_tokens\":57676}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c15810c1487b67dad8190f2045f815445503dbe1579d498863ae79f83d04ae26",
+ "status": 200
+}

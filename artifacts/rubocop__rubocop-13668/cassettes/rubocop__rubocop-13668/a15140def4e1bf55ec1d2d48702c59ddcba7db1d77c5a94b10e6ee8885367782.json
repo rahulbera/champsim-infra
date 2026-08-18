@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All pass. Now let me reconsider the edge case where the comparison method has multiple arguments. For example `unless foo == bar && baz`... no wait, that's an `and_type`. Let me think about `unless foo.bar == baz, qux` - a comparison with multiple args. Actually comparison methods typically have one argument. Let me test `unless t === value, other`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec ruby -e '\\\\nrequire \\\\\\\"rubocop\\\\\\\"\\\\nsource = \\\\\\\"t === value, other\\\\\\\"\\\\nbegin\\\\n  ast = RuboCop::AST::ProcessedSource.new(source, RUBY_VERSION.to_f).ast\\\\n  puts ast.inspect\\\\nrescue => e\\\\n  puts \\\\\\\"error: #{e.message}\\\\\\\"\\\\nend\\\\n'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373162145065721926\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079401,\"id\":\"202608071309586241055acdbb4b7f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071309586241055acdbb4b7f\",\"usage\":{\"completion_tokens\":160,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":67211,\"prompt_tokens_details\":{\"cached_tokens\":67072},\"total_tokens\":67371}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a15140def4e1bf55ec1d2d48702c59ddcba7db1d77c5a94b10e6ee8885367782",
+ "status": 200
+}

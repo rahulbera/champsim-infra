@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All pass. Now let me run the full spec file once more:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cop/style/sole_nested_conditional_spec.rb 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373173174541743220\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079267,\"id\":\"2026080713074530afae115f1543a3\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713074530afae115f1543a3\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":60093,\"prompt_tokens_details\":{\"cached_tokens\":59712},\"total_tokens\":60147}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a6f7758a932862ffba84f3afaaf37ad3b73f9955f6a559f402bbd715c98ee8f3",
+ "status": 200
+}

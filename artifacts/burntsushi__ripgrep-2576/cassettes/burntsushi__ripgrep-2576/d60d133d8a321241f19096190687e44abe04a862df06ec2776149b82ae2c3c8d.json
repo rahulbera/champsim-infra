@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now the diff is clean - only my addition at the end. Now let me run the full integration test suite again:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration 2>&1 | tail -15\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373190904166739921\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078556,\"id\":\"20260807125555f01a3dfa84b349e3\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125555f01a3dfa84b349e3\",\"usage\":{\"completion_tokens\":81,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86386,\"prompt_tokens_details\":{\"cached_tokens\":86080},\"total_tokens\":86467}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d60d133d8a321241f19096190687e44abe04a862df06ec2776149b82ae2c3c8d",
+ "status": 200
+}

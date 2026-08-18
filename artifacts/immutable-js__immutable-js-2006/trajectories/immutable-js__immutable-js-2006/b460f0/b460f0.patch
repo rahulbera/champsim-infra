@@ -1,0 +1,13 @@
+diff --git a/src/TrieUtils.js b/src/TrieUtils.js
+index ded799118..b78b606cf 100644
+--- a/src/TrieUtils.js
++++ b/src/TrieUtils.js
+@@ -79,6 +79,8 @@ function resolveIndex(index, size, defaultIndex) {
+     : isNeg(index)
+     ? size === Infinity
+       ? size
++      : size === undefined
++      ? NaN
+       : Math.max(0, size + index) | 0
+     : size === undefined || size === index
+     ? index

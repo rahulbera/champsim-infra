@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && find . -name \\\\\\\"LazilyParsedNumber.java\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373045596833178306\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786095666,\"id\":\"20260807174103a792d49f732c4b31\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807174103a792d49f732c4b31\",\"usage\":{\"completion_tokens\":27,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":11646,\"prompt_tokens_details\":{\"cached_tokens\":11456},\"total_tokens\":11673}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a8ea1d27b0584368856fc1c26704aa9323068e8de1c7a90302c367cba0f0e08e",
+ "status": 200
+}

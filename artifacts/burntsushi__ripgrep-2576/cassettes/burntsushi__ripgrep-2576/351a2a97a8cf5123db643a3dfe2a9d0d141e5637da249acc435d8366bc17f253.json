@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me test with the PR's reproduction:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && ./target/debug/rg -w -o \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/test_word.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373221072017029886\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078368,\"id\":\"202608071252455a0c576156c642e2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071252455a0c576156c642e2\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":76907,\"prompt_tokens_details\":{\"cached_tokens\":76736},\"total_tokens\":76961}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "351a2a97a8cf5123db643a3dfe2a9d0d141e5637da249acc435d8366bc17f253",
+ "status": 200
+}

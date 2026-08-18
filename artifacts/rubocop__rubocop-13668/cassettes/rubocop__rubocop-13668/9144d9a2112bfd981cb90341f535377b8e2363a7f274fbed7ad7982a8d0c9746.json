@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"str_replace\\\",\\\"new_str\\\":\\\"        def replace_condition(condition, negated = false)\\\\n          return condition.source unless wrap_condition?(condition)\\\\n\\\\n          if condition.call_type? && !(negated && comparison_method?(condition))\\\\n            parenthesized_method_arguments(condition)\\\\n          else\\\\n            \\\\\\\"(#{condition.source})\\\\\\\"\\\\n          end\\\\n        end\\\",\\\"old_str\\\":\\\"        def replace_condition(condition)\\\\n          return condition.source unless wrap_condition?(condition)\\\\n\\\\n          if condition.call_type?\\\\n            parenthesized_method_arguments(condition)\\\\n          else\\\\n            \\\\\\\"(#{condition.source})\\\\\\\"\\\\n          end\\\\n        end\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373188911301918132\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079035,\"id\":\"20260807130353cf0b4afa806f43d9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130353cf0b4afa806f43d9\",\"usage\":{\"completion_tokens\":147,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44964,\"prompt_tokens_details\":{\"cached_tokens\":44608},\"total_tokens\":45111}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9144d9a2112bfd981cb90341f535377b8e2363a7f274fbed7ad7982a8d0c9746",
+ "status": 200
+}

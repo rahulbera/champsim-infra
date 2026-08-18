@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me update the `correct_for_outer_condition_modify_form_style` to pass the negation:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[172, 180]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373190388770667377\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079051,\"id\":\"20260807130409f886fc9934ac48da\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130409f886fc9934ac48da\",\"usage\":{\"completion_tokens\":65,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":46218,\"prompt_tokens_details\":{\"cached_tokens\":45888},\"total_tokens\":46283}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5d3552400a373b0ce4116a7f089c8cfdcc473780979d6fede3c7c92ace52f42f",
+ "status": 200
+}

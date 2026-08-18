@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass across the entire workspace. Let me also check the PCRE2 tests since the `r1891` test had a PCRE2 caveat. Let me check if PCRE2 is available:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration --features pcre2 2>&1 | grep -E \\\\\\\"test result|error|FAILED\\\\\\\" | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373179428014125609\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078612,\"id\":\"2026080712564764c4b157c5af4ef1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712564764c4b157c5af4ef1\",\"usage\":{\"completion_tokens\":114,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":88480,\"prompt_tokens_details\":{\"cached_tokens\":87424},\"total_tokens\":88594}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d2195f2a8ecbdcb915c61b79aaf63453f038ea0ac3cdf96abfc3f4870a7516d1",
+ "status": 200
+}

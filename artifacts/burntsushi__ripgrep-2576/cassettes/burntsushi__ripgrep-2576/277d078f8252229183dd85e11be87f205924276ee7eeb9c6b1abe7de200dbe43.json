@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The final submission contains only the source fix (`crates/regex/src/word.rs`) and the CHANGELOG entry. The test file has been reverted to its original state as instructed.\\n\\nLet me submit:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7373181317799736302\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078887,\"id\":\"202608071301210898d432ec3349ef\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071301210898d432ec3349ef\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":103228,\"prompt_tokens_details\":{\"cached_tokens\":102464},\"total_tokens\":103274}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "277d078f8252229183dd85e11be87f205924276ee7eeb9c6b1abe7de200dbe43",
+ "status": 200
+}

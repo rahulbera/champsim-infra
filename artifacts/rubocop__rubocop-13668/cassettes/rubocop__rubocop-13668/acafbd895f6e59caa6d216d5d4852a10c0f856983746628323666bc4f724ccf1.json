@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && ruby -e '\\\\nresult = true\\\\nt = 1\\\\nvalue = 2\\\\nif result && t === value\\\\n  puts \\\\\\\"valid, t===value is #{t === value}\\\\\\\"\\\\nend\\\\n' 2>&1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373180527525754177\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079004,\"id\":\"202608071303226cb2f2fa801749ca\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071303226cb2f2fa801749ca\",\"usage\":{\"completion_tokens\":61,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":42030,\"prompt_tokens_details\":{\"cached_tokens\":40512},\"total_tokens\":42091}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "acafbd895f6e59caa6d216d5d4852a10c0f856983746628323666bc4f724ccf1",
+ "status": 200
+}

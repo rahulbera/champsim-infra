@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me verify the current state - my reproduction script was already removed, and I haven't modified any test files. Let me confirm:\",\"reasoning_content\":\"The reproduction script has already been removed. Let me verify there are no test files modified and confirm the state.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && git status && ls __tests__/repro* 2>/dev/null; echo \\\\\\\"---done---\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373159774243777897\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078039,\"id\":\"202608071247171e15c39877e544e9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071247171e15c39877e544e9\",\"usage\":{\"completion_tokens\":85,\"completion_tokens_details\":{\"reasoning_tokens\":22},\"prompt_tokens\":33417,\"prompt_tokens_details\":{\"cached_tokens\":32960},\"total_tokens\":33502}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "13137a959048f74cb3784e7e2ff2f65fe2a16bc18ea50b9df760c6b24ab22334",
+ "status": 200
+}

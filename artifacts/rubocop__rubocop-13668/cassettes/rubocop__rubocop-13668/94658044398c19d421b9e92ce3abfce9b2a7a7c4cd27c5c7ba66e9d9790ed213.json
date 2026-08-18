@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me update `replace_condition` to handle the negated comparison case:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[239, 262]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373182589110058410\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079031,\"id\":\"2026080713034964fcdef4fd034a9a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713034964fcdef4fd034a9a\",\"usage\":{\"completion_tokens\":63,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44627,\"prompt_tokens_details\":{\"cached_tokens\":43136},\"total_tokens\":44690}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "94658044398c19d421b9e92ce3abfce9b2a7a7c4cd27c5c7ba66e9d9790ed213",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff --cached --stat; echo \\\\\\\"=== unstaged ===\\\\\\\"; git diff --stat; echo \\\\\\\"=== check tests/regression.rs is clean ===\\\\\\\"; git diff tests/regression.rs | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373155444916744981\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078840,\"id\":\"202608071300373ae596cf41f546a5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071300373ae596cf41f546a5\",\"usage\":{\"completion_tokens\":55,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101469,\"prompt_tokens_details\":{\"cached_tokens\":101312},\"total_tokens\":101524}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e4e45197b8f158be5712b2ac53cca03601310be42fe4e073ef5d9a54b0c0fa08",
+ "status": 200
+}
