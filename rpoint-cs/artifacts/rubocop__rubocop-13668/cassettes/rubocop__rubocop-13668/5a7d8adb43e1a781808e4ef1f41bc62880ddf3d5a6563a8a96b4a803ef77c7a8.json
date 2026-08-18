@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The .md files aren't excluded, but the Lint/Syntax offense on .md files is a known behavior when running rubocop directly on a .md file. In the actual CI, rubocop is run on the whole project and .md files in changelog are typically not flagged because... let me check. Actually, let me run rubocop on the whole lib directory and the changelog to see if it's flagged in the normal run:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rubocop changelog/ 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373188052308458101\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079550,\"id\":\"20260807131225026d21186eab4d58\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131225026d21186eab4d58\",\"usage\":{\"completion_tokens\":121,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74837,\"prompt_tokens_details\":{\"cached_tokens\":74432},\"total_tokens\":74958}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5a7d8adb43e1a781808e4ef1f41bc62880ddf3d5a6563a8a96b4a803ef77c7a8",
+ "status": 200
+}

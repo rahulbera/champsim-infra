@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The actual position is at column 17 (0-indexed) which is the `u` of `unless`. The diff shows `+                 ^^^^^^` which is 17 spaces. Let me count the actual line: `        result = false unless t === value.public_send(a)`. The `unless` starts after `result = false ` which is 8 (indent) + 15 = 23. But the diff shows 17 spaces. Wait, the heredoc `<<~RUBY` strips the leading indentation. Let me check what the actual source looks like:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && ruby -e '\\\\nsource = <<~RUBY\\\\n      if result\\\\n        result = false unless t === value.public_send(a)\\\\n      end\\\\nRUBY\\\\nputs source\\\\nline = source.lines[1]\\\\nputs \\\\\\\"Line: #{line.inspect}\\\\\\\"\\\\nidx = line.index(\\\\\\\"unless\\\\\\\")\\\\nputs \\\\\\\"unless at index: #{idx}\\\\\\\"\\\\n'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195130414560669\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078741,\"id\":\"20260807125857babba41417e84f84\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125857babba41417e84f84\",\"usage\":{\"completion_tokens\":203,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":23053,\"prompt_tokens_details\":{\"cached_tokens\":22464},\"total_tokens\":23256}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16021377ee88b81ec33ec6152dceb40e804b55a817d3b43964a150205ce3d891",
+ "status": 200
+}

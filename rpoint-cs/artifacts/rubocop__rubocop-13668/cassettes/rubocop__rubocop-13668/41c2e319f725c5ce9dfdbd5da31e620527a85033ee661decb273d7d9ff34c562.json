@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass. Now let me think about whether the test file in the repo already has the test for this PR. The PR description says \\\"I've already taken care of all changes to any of the test files described in the <pr_description>.\\\" But I didn't find a test for the `public_send` case. Let me double-check by searching the test file again:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && grep -n \\\\\\\"public_send\\\\\\\\|t ===\\\\\\\\|===\\\\\\\\|comparison\\\\\\\\|precedence\\\\\\\" spec/rubocop/cop/style/sole_nested_conditional_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373211932326620304\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079134,\"id\":\"20260807130532ff37ae18bfef4722\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130532ff37ae18bfef4722\",\"usage\":{\"completion_tokens\":126,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":50877,\"prompt_tokens_details\":{\"cached_tokens\":50304},\"total_tokens\":51003}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "41c2e319f725c5ce9dfdbd5da31e620527a85033ee661decb273d7d9ff34c562",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I found the relevant commit: `3dc1cd6 fix(binding): binding error while not upload file (#3819) (#3820)`. Let me look at this commit:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gin && git show 3dc1cd6 2>&1 | head -200\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373108509514129695\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786089237,\"id\":\"202608071553555eb4433ca3ba4ef7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071553555eb4433ca3ba4ef7\",\"usage\":{\"completion_tokens\":69,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":32847,\"prompt_tokens_details\":{\"cached_tokens\":32320},\"total_tokens\":32916}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d1a38d13645d7b37ceb939815c8dded6f8616c2b44cb44d73ce1e0622f70c6bf",
+ "status": 200
+}

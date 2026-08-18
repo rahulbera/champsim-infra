@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The failures are just the caret position issues in my test (the `unless` keyword position). Let me fix the caret positions. The `unless` is at index 17 in the stripped source. Let me regenerate the test with correct carets using a script:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/gen_carets.rb << 'EOF'\\\\nlines = [\\\\n  \\\\\\\"      if result\\\\\\\",\\\\n  \\\\\\\"        result = false unless (t === value.public_send(a))\\\\\\\",\\\\n  \\\\\\\"      end\\\\\\\",\\\\n]\\\\nlines.each do |l|\\\\n  stripped = l.sub(/^      /, '')\\\\n  idx = stripped.index(\\\\\\\"unless\\\\\\\")\\\\n  puts l\\\\n  puts (\\\\\\\" \\\\\\\" * (6 + idx)) + \\\\\\\"^\\\\\\\" * 6\\\\nend\\\\nEOF\\\\nruby /tmp/gen_carets.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373168123660201515\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079085,\"id\":\"20260807130442a8584dcebd7949a5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130442a8584dcebd7949a5\",\"usage\":{\"completion_tokens\":169,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48526,\"prompt_tokens_details\":{\"cached_tokens\":47360},\"total_tokens\":48695}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fc32af5cb221a63bed3c22e098399ab60afed80c1dec51f1e1573ac9f451e7ed",
+ "status": 200
+}

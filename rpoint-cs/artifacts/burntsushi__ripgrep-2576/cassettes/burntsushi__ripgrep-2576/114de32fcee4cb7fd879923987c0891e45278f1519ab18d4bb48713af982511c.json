@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git show 341a19e -- tests/regression.rs CHANGELOG.md\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373180561885489540\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078268,\"id\":\"2026080712510583ac7892f8274cae\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712510583ac7892f8274cae\",\"usage\":{\"completion_tokens\":32,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":69449,\"prompt_tokens_details\":{\"cached_tokens\":68992},\"total_tokens\":69481}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "114de32fcee4cb7fd879923987c0891e45278f1519ab18d4bb48713af982511c",
+ "status": 200
+}

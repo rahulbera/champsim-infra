@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me update the spec file:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/tmp/repro_spec.rb\\\",\\\"old_str\\\":\\\"        result = false unless t === value.public_send(a)\\\\n                         ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\",\\\"new_str\\\":\\\"        result = false unless t === value.public_send(a)\\\\n                       ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373207225042463357\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078783,\"id\":\"2026080712594167588bf7efb54d90\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712594167588bf7efb54d90\",\"usage\":{\"completion_tokens\":98,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":25845,\"prompt_tokens_details\":{\"cached_tokens\":25664},\"total_tokens\":25943}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "67f27e0d99d483ca41c70911347a30eb05a3e62b3fcc6decc9f7ecf25e9b8960",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run the reproduction tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec /tmp/repro_spec.rb /tmp/repro2_spec.rb /tmp/repro4_spec.rb --format documentation 2>&1 | tail -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202723916736950\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079060,\"id\":\"20260807130418c4835da860a04d20\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130418c4835da860a04d20\",\"usage\":{\"completion_tokens\":58,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":46951,\"prompt_tokens_details\":{\"cached_tokens\":46400},\"total_tokens\":47009}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c9b4d11f2496e26c30105b816bbf2bbe45a935d2872ce8275fac938c0469959c",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me look at the `find_iter_at` default implementation in the matcher trait:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"find_iter_at\\\\\\\\|fn find_iter\\\\\\\" crates/matcher/src/ | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373155376197269484\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077936,\"id\":\"2026080712453440d763245645476e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712453440d763245645476e\",\"usage\":{\"completion_tokens\":56,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":37753,\"prompt_tokens_details\":{\"cached_tokens\":36416},\"total_tokens\":37809}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a9a9d81959aadf82324f272da52960663746365bca17bb0c9782dfa7ca9caaa3",
+ "status": 200
+}

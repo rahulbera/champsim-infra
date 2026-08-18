@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass. Let me also verify the exact scenario from the PR description one more time with a quick test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && cat > /tmp/repro_check.ts << 'EOF'\\\\nimport { Range } from 'immutable';\\\\n\\\\ndescribe('PR repro check', () => {\\\\n  it('Range(0, 10).filter($ => true).slice(-2).toArray() returns [8, 9]', () => {\\\\n    expect(Range(0, 10).filter($ => true).slice(-2).toArray()).toEqual([8, 9]);\\\\n  });\\\\n});\\\\nEOF\\\\ncp /tmp/repro_check.ts __tests__/repro_check.ts\\\\nnpx jest __tests__/repro_check.ts 2>&1 | tail -10\\\\nrm __tests__/repro_check.ts\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373202277240139767\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078011,\"id\":\"20260807124646446db811404441bf\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124646446db811404441bf\",\"usage\":{\"completion_tokens\":173,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":31644,\"prompt_tokens_details\":{\"cached_tokens\":31424},\"total_tokens\":31817}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0e06c49da3b51c6364b9e4040450cb0a97b2aaeeb88406309af1065cf23d6c9d",
+ "status": 200
+}

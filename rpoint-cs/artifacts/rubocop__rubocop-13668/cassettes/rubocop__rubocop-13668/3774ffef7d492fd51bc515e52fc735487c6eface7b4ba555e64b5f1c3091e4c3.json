@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me create a changelog entry:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"create\\\",\\\"file_text\\\":\\\"* [#13643](https://github.com/rubocop/rubocop/issues/13643): Fix an incorrect autocorrect for `Style/SoleNestedConditional` when using a negated nested conditional whose condition is a comparison method without parentheses. ([@dvandersluis][])\\\\n\\\",\\\"path\\\":\\\"/rubocop/changelog/fix_sole_nested_conditional_comparison_precedence.md\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373183722981420149\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079190,\"id\":\"20260807130628d41e3b2a54ba4d43\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130628d41e3b2a54ba4d43\",\"usage\":{\"completion_tokens\":106,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":54559,\"prompt_tokens_details\":{\"cached_tokens\":54080},\"total_tokens\":54665}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3774ffef7d492fd51bc515e52fc735487c6eface7b4ba555e64b5f1c3091e4c3",
+ "status": 200
+}

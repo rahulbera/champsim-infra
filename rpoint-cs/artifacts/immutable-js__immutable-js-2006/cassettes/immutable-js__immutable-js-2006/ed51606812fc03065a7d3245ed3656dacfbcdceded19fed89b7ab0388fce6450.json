@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me check the git diff to see what test files have been modified (the task mentioned test files were already taken care of):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && git status && git diff --stat\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373205369616594526\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077980,\"id\":\"202608071246197103f547eace45f6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071246197103f547eace45f6\",\"usage\":{\"completion_tokens\":48,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":30547,\"prompt_tokens_details\":{\"cached_tokens\":30336},\"total_tokens\":30595}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ed51606812fc03065a7d3245ed3656dacfbcdceded19fed89b7ab0388fce6450",
+ "status": 200
+}

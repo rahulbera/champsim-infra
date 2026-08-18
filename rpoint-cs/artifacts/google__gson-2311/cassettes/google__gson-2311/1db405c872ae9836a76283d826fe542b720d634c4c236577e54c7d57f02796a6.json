@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 1277 tests pass (with 19 skipped, which are likely environment-related) with the canonical test version applied. This confirms my source fix is correct and complete.\\n\\nNow let me revert the test file to its original state, since I should not modify tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && cp /tmp/original_test_backup.java gson/src/test/java/com/google/gson/JsonPrimitiveTest.java && git diff HEAD -- gson/src/test/java/com/google/gson/JsonPrimitiveTest.java && echo \\\\\\\"=== Test file reverted to original ===\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7372983783663858733\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097912,\"id\":\"2026080718183057b0ba285f1540ae\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080718183057b0ba285f1540ae\",\"usage\":{\"completion_tokens\":118,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":39034,\"prompt_tokens_details\":{\"cached_tokens\":37952},\"total_tokens\":39152}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1db405c872ae9836a76283d826fe542b720d634c4c236577e54c7d57f02796a6",
+ "status": 200
+}

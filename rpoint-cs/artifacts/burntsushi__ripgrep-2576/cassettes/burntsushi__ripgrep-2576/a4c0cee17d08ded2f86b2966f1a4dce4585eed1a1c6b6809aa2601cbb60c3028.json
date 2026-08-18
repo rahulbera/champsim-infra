@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Tabs are preserved. Now let me verify the diff is clean (only my addition):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff tests/regression.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373171525274303126\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078552,\"id\":\"20260807125548d4e58ee706864a7a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125548d4e58ee706864a7a\",\"usage\":{\"completion_tokens\":39,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86084,\"prompt_tokens_details\":{\"cached_tokens\":85888},\"total_tokens\":86123}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a4c0cee17d08ded2f86b2966f1a4dce4585eed1a1c6b6809aa2601cbb60c3028",
+ "status": 200
+}

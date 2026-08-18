@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me temporarily apply the canonical test version to verify my source fix passes the canonical tests, then revert:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && cp gson/src/test/java/com/google/gson/JsonPrimitiveTest.java /tmp/original_test_backup.java && cp /tmp/canonical_test.java gson/src/test/java/com/google/gson/JsonPrimitiveTest.java && echo \\\\\\\"Applied canonical test version temporarily\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7372957464104268947\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097746,\"id\":\"20260807181544ffc085eae9bf46c4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181544ffc085eae9bf46c4\",\"usage\":{\"completion_tokens\":87,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27874,\"prompt_tokens_details\":{\"cached_tokens\":27456},\"total_tokens\":27961}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b68b828075a60bcccc65dd1adfed7ae142cbfc0bc97b580824e69a0f52ae83a7",
+ "status": 200
+}

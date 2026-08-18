@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"which rustc; which cargo; ls ~/.cargo/bin 2>/dev/null; ls /usr/local/cargo/bin 2>/dev/null; echo \\\\\\\"---\\\\\\\"; find / -name \\\\\\\"cargo\\\\\\\" -type f 2>/dev/null | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373157609580265086\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077655,\"id\":\"20260807124053e4030a4202ab486c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124053e4030a4202ab486c\",\"usage\":{\"completion_tokens\":60,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27162,\"prompt_tokens_details\":{\"cached_tokens\":27008},\"total_tokens\":27222}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "08b91470493f12c51995ebca45b77881a131bdf494a089f9561e28e30cdb61a8",
+ "status": 200
+}

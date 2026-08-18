@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the test files to understand what tests have been added for this issue. Let me search for relevant tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"domain\\\\\\\\|word_regexp\\\\\\\\|word_regexp\\\\\\\\|fast_find\\\\\\\\|word_match\\\\\\\" tests/ | head -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373206262969787183\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078013,\"id\":\"202608071246481411bf77755f4fc0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071246481411bf77755f4fc0\",\"usage\":{\"completion_tokens\":71,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":45285,\"prompt_tokens_details\":{\"cached_tokens\":44800},\"total_tokens\":45356}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f049c93a88538d140244954b6b29ee153bcb80dc7e0083d76b98d726c95db78a",
+ "status": 200
+}

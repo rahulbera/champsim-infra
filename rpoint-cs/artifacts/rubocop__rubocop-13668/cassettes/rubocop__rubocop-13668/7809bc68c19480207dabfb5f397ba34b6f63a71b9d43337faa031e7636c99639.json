@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test case from the PR description doesn't seem to be in the test file yet. Let me check the git log to understand the current state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && git log --oneline -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373184581974882758\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078614,\"id\":\"20260807125652989e6323034349d1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125652989e6323034349d1\",\"usage\":{\"completion_tokens\":52,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":17062,\"prompt_tokens_details\":{\"cached_tokens\":15232},\"total_tokens\":17114}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7809bc68c19480207dabfb5f397ba34b6f63a71b9d43337faa031e7636c99639",
+ "status": 200
+}

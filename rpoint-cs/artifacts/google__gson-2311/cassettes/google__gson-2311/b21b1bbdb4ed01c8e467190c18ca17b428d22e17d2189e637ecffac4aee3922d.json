@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"There's a commit `af217984 Fix the equals method of JsonPrimitive to work with BigInteger (#2311)`. Let me look at it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && git show af217984\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373020308065746603\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786096057,\"id\":\"20260807174736075b52d8057e4c54\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807174736075b52d8057e4c54\",\"usage\":{\"completion_tokens\":53,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":15365,\"prompt_tokens_details\":{\"cached_tokens\":14912},\"total_tokens\":15418}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b21b1bbdb4ed01c8e467190c18ca17b428d22e17d2189e637ecffac4aee3922d",
+ "status": 200
+}

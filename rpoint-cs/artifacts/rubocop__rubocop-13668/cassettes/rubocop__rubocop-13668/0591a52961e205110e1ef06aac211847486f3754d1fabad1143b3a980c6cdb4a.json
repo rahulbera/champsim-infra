@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now I've reproduced the issue. The actual output is:\\n```\\nif result && !t ===(value.public_send(a))\\n```\\n\\nBut the expected output is:\\n```\\nif result && !(t === value.public_send(a))\\n```\\n\\nThe problem is that when the inner condition is `unless t === value.public_send(a)`, the `!` is being inserted before `t` instead of wrapping the whole comparison `t === value.public_send(a)` in `!(...)`.\\n\\nLet me analyze the code flow. The inner branch is a modifier form `unless`, so it goes through `correct_for_guard_condition_style`. Let me trace through the code:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[110, 170]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373149019645670856\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078792,\"id\":\"20260807125950247ba502bb294577\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125950247ba502bb294577\",\"usage\":{\"completion_tokens\":178,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":26496,\"prompt_tokens_details\":{\"cached_tokens\":26048},\"total_tokens\":26674}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0591a52961e205110e1ef06aac211847486f3754d1fabad1143b3a980c6cdb4a",
+ "status": 200
+}

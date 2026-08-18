@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me also update the CHANGELOG to match the upstream:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/CHANGELOG.md\\\",\\\"view_range\\\":[20, 45]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373176026400026602\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078406,\"id\":\"202608071253226d1f7bf62be64568\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071253226d1f7bf62be64568\",\"usage\":{\"completion_tokens\":51,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":78836,\"prompt_tokens_details\":{\"cached_tokens\":77632},\"total_tokens\":78887}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d30dc24299fdf6b15cbb18ca9730cf76347e133054fcd1a7bd6f64aa6e760fc4",
+ "status": 200
+}

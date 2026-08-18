@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me first reproduce the issue. Let me check the jest config:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/immutable-js/jest.config.js\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373212585161650153\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077783,\"id\":\"2026080712425990020a4f1b5d4eda\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712425990020a4f1b5d4eda\",\"usage\":{\"completion_tokens\":39,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":19090,\"prompt_tokens_details\":{\"cached_tokens\":17280},\"total_tokens\":19129}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1b07e661710427e77263f96cddd76547f751928aaccac059394ac85779be9959",
+ "status": 200
+}

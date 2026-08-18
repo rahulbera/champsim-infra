@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me also check the `dist` directory to see if I need to update the built files. Let me check if the tests use the `src` or `dist`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/immutable-js/resources/jestResolver.js\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373192828312090082\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077995,\"id\":\"20260807124631569539b06ec24e5f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124631569539b06ec24e5f\",\"usage\":{\"completion_tokens\":62,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":31184,\"prompt_tokens_details\":{\"cached_tokens\":30656},\"total_tokens\":31246}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0c02fe6cdfc103e9bc2f04e281e021fd2b07ddc87018604896a145c8d7e58dfd",
+ "status": 200
+}

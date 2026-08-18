@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Interesting - when running on the `changelog/` directory, it inspects 0 files (the .md files are not inspected by default in directory mode). So the changelog .md file won't be flagged in normal CI runs. The earlier offense was only because I ran rubocop directly on the .md file. So my changelog file is fine.\\n\\nLet me verify by running rubocop on the whole project's lib and the changelog dir together (as CI would):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rubocop lib/rubocop/cop/style/sole_nested_conditional.rb changelog/ 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373140670229249553\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079557,\"id\":\"20260807131234200a43a23c6a4208\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131234200a43a23c6a4208\",\"usage\":{\"completion_tokens\":140,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74981,\"prompt_tokens_details\":{\"cached_tokens\":74816},\"total_tokens\":75121}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "959e2db50a84ea17861c7da5823f80cb9dc87329b484f8e382737b1f90171bb4",
+ "status": 200
+}

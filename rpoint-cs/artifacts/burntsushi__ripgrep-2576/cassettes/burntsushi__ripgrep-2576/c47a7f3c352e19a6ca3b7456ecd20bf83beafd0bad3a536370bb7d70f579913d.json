@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix works. Now all three lines match `some.domain.com` correctly. Let me also test the exact test case from the upstream fix (with `--no-unicode`):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && printf 'some.domain.com\\\\\\\\nsome.domain.com/x\\\\\\\\n' > /tmp/test_2574.txt && ./target/debug/rg --no-filename --no-unicode -w -o '(\\\\\\\\w+\\\\\\\\.)*domain\\\\\\\\.(\\\\\\\\w+)' /tmp/test_2574.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373178019264849586\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078373,\"id\":\"20260807125250cb24d72fd5fe4481\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125250cb24d72fd5fe4481\",\"usage\":{\"completion_tokens\":112,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":76988,\"prompt_tokens_details\":{\"cached_tokens\":76864},\"total_tokens\":77100}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c47a7f3c352e19a6ca3b7456ecd20bf83beafd0bad3a536370bb7d70f579913d",
+ "status": 200
+}

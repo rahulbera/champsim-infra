@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now I see. The searcher uses `find` (which calls `find_at` with `at=0`), and then offsets the result by `self.core.pos()`. So the issue is that the searcher calls `find` on a slice `self.slice[self.core.pos()..]`. \\n\\nWait, but the debug output shows the slow path returns `group1=Some(0..15)` for the second line. But the output is `ome.domain.com` (1..15). Let me look more carefully. The debug shows `at=0` and `group1=Some(0..15)`. But the output is offset by 1. \\n\\nHmm, wait. Let me re-read. The slow path returns `Some(0..15)` for `some.domain.com/x`. But the actual output is `ome.domain.com`. So somewhere the offset is being shifted. Let me look at the printer code that handles `-o`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"find_iter\\\\\\\\|find_at\\\\\\\\|find(\\\\\\\" crates/printer/src/ | head -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373162213785206508\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077924,\"id\":\"20260807124520d9d2d73b26a54c64\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124520d9d2d73b26a54c64\",\"usage\":{\"completion_tokens\":233,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":34797,\"prompt_tokens_details\":{\"cached_tokens\":33920},\"total_tokens\":35030}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8c3cefeb4d8d0109ae2d562e740ccaf7ad847c5877aeb6ce1a8af86cc7cd9a07",
+ "status": 200
+}

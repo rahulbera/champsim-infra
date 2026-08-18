@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me search for the specific test case related to the PR description:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -n \\\\\\\"public_send\\\\\\\\|===\\\\\\\\|comparison\\\\\\\\|precedence\\\\\\\" /rubocop/spec/rubocop/cop/style/sole_nested_conditional_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373169223171827568\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078449,\"id\":\"202608071254087e5f677f3bb84713\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071254087e5f677f3bb84713\",\"usage\":{\"completion_tokens\":57,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":10936,\"prompt_tokens_details\":{\"cached_tokens\":4224},\"total_tokens\":10993}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8873e711445d0da2098558c3381dc97a3a905b448a501b7bd8e5a8021e456422",
+ "status": 200
+}

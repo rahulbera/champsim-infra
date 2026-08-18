@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo build 2>&1 | tail -3 && ./target/debug/rg -w -o \\\\\\\"([\\\\\\\\w]+[.])*domain[.](\\\\\\\\w)+\\\\\\\" /tmp/test_word.txt 2>&1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373174548931278670\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077969,\"id\":\"20260807124607dec0d9dadb9749c5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124607dec0d9dadb9749c5\",\"usage\":{\"completion_tokens\":87,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":41232,\"prompt_tokens_details\":{\"cached_tokens\":39872},\"total_tokens\":41319}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "39fc35ae579fc1e306add6a715c0ed3d2e638d0e4d21aeaa922abbfabc2ed4b9",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The changes are staged (in the index). The `git checkout -- tests/regression.rs` only reverted the working tree, but the staged version still has my test changes. Let me unstage and revert the test file properly:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git reset HEAD tests/regression.rs && git checkout -- tests/regression.rs && git status\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373138196328087071\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078834,\"id\":\"2026080713003126d866cb5fe14f26\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713003126d866cb5fe14f26\",\"usage\":{\"completion_tokens\":80,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101318,\"prompt_tokens_details\":{\"cached_tokens\":101184},\"total_tokens\":101398}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f441ddf72fe7b26d15a62d76e848d53098db08fbc9e339c1d130419e0f6a4b60",
+ "status": 200
+}

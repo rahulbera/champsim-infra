@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Two tests failed: `r2095` and `r1559`. Let me check if these failures are pre-existing (unrelated to my change). The `r2095` failure is about whitespace/indentation, which seems unrelated to word matching. Let me check by stashing my changes and running these tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git stash && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration r2095 2>&1 | tail -25; git stash pop\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373193137549733421\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078455,\"id\":\"2026080712541266b662ca32fe4dd1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712541266b662ca32fe4dd1\",\"usage\":{\"completion_tokens\":132,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":81306,\"prompt_tokens_details\":{\"cached_tokens\":80960},\"total_tokens\":81438}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "842b5872e40c15fb76eac17154958433a4f2f083cd1a7007092be9d5e5377dad",
+ "status": 200
+}

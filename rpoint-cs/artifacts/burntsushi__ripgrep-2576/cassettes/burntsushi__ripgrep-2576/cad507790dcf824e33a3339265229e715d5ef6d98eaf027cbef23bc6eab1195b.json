@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/crates/regex/src/word.rs\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373211588729237049\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077424,\"id\":\"20260807123701eb5b007e6d464dae\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807123701eb5b007e6d464dae\",\"usage\":{\"completion_tokens\":30,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":2489,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":2519}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cad507790dcf824e33a3339265229e715d5ef6d98eaf027cbef23bc6eab1195b",
+ "status": 200
+}

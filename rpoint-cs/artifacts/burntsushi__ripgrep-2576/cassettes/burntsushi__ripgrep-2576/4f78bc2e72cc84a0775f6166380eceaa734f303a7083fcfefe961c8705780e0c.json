@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"`regex_syntax` is available. Let me check that `is_word_character` exists in this version:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"is_word_character\\\\\\\" /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-syntax-0.7.3/src/ 2>/dev/null | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373159121408750768\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078302,\"id\":\"20260807125138a81b4c68726b4277\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125138a81b4c68726b4277\",\"usage\":{\"completion_tokens\":85,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":72279,\"prompt_tokens_details\":{\"cached_tokens\":72000},\"total_tokens\":72364}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4f78bc2e72cc84a0775f6166380eceaa734f303a7083fcfefe961c8705780e0c",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cop/style/ 2>&1 | tail -15\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373189254899296692\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079366,\"id\":\"20260807130924e3e653ee08814f96\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130924e3e653ee08814f96\",\"usage\":{\"completion_tokens\":34,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":66821,\"prompt_tokens_details\":{\"cached_tokens\":66496},\"total_tokens\":66855}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5e959303a95e640f26b909336c48ea0d506bb75c6fc65eefe6c890e2065ac533",
+ "status": 200
+}

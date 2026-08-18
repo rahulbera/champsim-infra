@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me search for any test that may have been added related to this issue:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && grep -rn \\\\\\\"100000000\\\\\\\\|1e+9\\\\\\\\|scientific\\\\\\\\|fpconv\\\\\\\\|lua_tonumber\\\\\\\\|tonumber\\\\\\\" tests/unit/scripting.tcl tests/unit/type/hash.tcl 2>/dev/null | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373346622501023141\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052668,\"id\":\"202608070544268843988398274a78\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070544268843988398274a78\",\"usage\":{\"completion_tokens\":82,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":25260,\"prompt_tokens_details\":{\"cached_tokens\":24448},\"total_tokens\":25342}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d6f164772c926f04dbc89657a2b0d28e686ab92614df251a3cba10f30ed716b4",
+ "status": 200
+}

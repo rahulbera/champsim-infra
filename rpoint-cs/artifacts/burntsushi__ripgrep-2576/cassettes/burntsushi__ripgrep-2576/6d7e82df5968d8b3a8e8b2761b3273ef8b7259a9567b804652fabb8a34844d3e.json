@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me check the git diff to see if there are any test changes already made:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git status && git diff --stat\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373193068830256628\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078021,\"id\":\"20260807124659c2414506cccc4e0e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124659c2414506cccc4e0e\",\"usage\":{\"completion_tokens\":40,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":45853,\"prompt_tokens_details\":{\"cached_tokens\":45312},\"total_tokens\":45893}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6d7e82df5968d8b3a8e8b2761b3273ef8b7259a9567b804652fabb8a34844d3e",
+ "status": 200
+}

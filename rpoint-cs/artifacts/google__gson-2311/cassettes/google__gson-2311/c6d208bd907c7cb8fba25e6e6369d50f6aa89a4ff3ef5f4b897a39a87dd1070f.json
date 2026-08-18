@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now the only change is to the source file `JsonPrimitive.java`. Let me do a final review of the complete modified file to ensure correctness:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/gson/gson/src/main/java/com/google/gson/JsonPrimitive.java\\\",\\\"view_range\\\":[178, 189]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373013539197288328\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097936,\"id\":\"2026080718185398f15c0640c04ab7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080718185398f15c0640c04ab7\",\"usage\":{\"completion_tokens\":74,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":40131,\"prompt_tokens_details\":{\"cached_tokens\":39936},\"total_tokens\":40205}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c6d208bd907c7cb8fba25e6e6369d50f6aa89a4ff3ef5f4b897a39a87dd1070f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && grep -rn \\\\\\\"fpconv\\\\\\\\|lua_tonumber\\\\\\\\|luaArgsToRedisArgv\\\\\\\\|lua_argv\\\\\\\" tests/ src/ | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373323979433442347\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052660,\"id\":\"202608070544197abeaa2e785246c0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070544197abeaa2e785246c0\",\"usage\":{\"completion_tokens\":47,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":23227,\"prompt_tokens_details\":{\"cached_tokens\":22976},\"total_tokens\":23274}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1b98fc362ee6baac0566c72b46bf1430841d60b5a0014d2bee5a56637bb9622e",
+ "status": 200
+}

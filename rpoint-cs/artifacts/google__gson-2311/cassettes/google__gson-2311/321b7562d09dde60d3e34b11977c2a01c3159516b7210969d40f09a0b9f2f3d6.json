@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && CP=$(cat /tmp/cp.txt)\\\\n# Compile the test file\\\\njavac -cp \\\\\\\"$CP\\\\\\\" -d gson/target/test-classes gson/src/test/java/com/google/gson/JsonPrimitiveTest.java 2>&1 | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373053327774312603\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097070,\"id\":\"202608071804288dbb7278afbd4179\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071804288dbb7278afbd4179\",\"usage\":{\"completion_tokens\":65,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":24276,\"prompt_tokens_details\":{\"cached_tokens\":23936},\"total_tokens\":24341}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "321b7562d09dde60d3e34b11977c2a01c3159516b7210969d40f09a0b9f2f3d6",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"rm /tmp/repro_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373199322302641912\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078761,\"id\":\"20260807125919e5c4a28f8a904c7d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125919e5c4a28f8a904c7d\",\"usage\":{\"completion_tokens\":17,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":24695,\"prompt_tokens_details\":{\"cached_tokens\":24384},\"total_tokens\":24712}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dd2d84a26b977c8df8b44484cbe5b655b49ec2a392942dafef3652304f7f18bc",
+ "status": 200
+}

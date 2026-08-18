@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me search for the slice implementation:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -rn \\\\\\\"slice\\\\\\\" /immutable-js/src/ | head -50\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373160976834617353\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077738,\"id\":\"20260807124215a602b39daf5a4ece\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124215a602b39daf5a4ece\",\"usage\":{\"completion_tokens\":33,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":12800,\"prompt_tokens_details\":{\"cached_tokens\":12544},\"total_tokens\":12833}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9861a4cae5e9eea3495af49752a672be4ed4b1db3a9091e1c8eb52d4a31b7702",
+ "status": 200
+}

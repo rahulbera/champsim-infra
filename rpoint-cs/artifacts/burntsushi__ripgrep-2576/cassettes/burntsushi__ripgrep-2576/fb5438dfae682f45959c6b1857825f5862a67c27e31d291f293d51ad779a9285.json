@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass with the pcre2 feature as well.\\n\\nLet me clean up the temporary debug/repro files I created (they're in /tmp, not in the repo, so they won't affect the submission, but let me clean up the test files I created in /tmp):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"rm -f /tmp/test_word.txt /tmp/test_2574.txt /tmp/test_word_match.rs /tmp/debug_test.rs /tmp/repro_sample.txt /tmp/r2095_test.txt /tmp/edge*.txt /tmp/reproduce.py 2>/dev/null; echo \\\\\\\"cleaned up\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373183654261942020\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078789,\"id\":\"202608071259447d220f74cac949aa\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071259447d220f74cac949aa\",\"usage\":{\"completion_tokens\":131,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":98088,\"prompt_tokens_details\":{\"cached_tokens\":97216},\"total_tokens\":98219}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fb5438dfae682f45959c6b1857825f5862a67c27e31d291f293d51ad779a9285",
+ "status": 200
+}

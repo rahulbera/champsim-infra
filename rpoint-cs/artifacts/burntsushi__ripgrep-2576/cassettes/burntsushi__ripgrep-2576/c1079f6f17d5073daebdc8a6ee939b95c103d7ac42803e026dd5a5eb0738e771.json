@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && python3 /tmp/reproduce.py\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373178225423282621\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078746,\"id\":\"202608071259040ead46e2a51042a8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071259040ead46e2a51042a8\",\"usage\":{\"completion_tokens\":23,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":96110,\"prompt_tokens_details\":{\"cached_tokens\":95680},\"total_tokens\":96133}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c1079f6f17d5073daebdc8a6ee939b95c103d7ac42803e026dd5a5eb0738e771",
+ "status": 200
+}

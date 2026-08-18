@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The changes are staged. Let me check the staged state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git diff --cached\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373312503280824733\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053115,\"id\":\"20260807055154626e1469d5424b57\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055154626e1469d5424b57\",\"usage\":{\"completion_tokens\":30,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48344,\"prompt_tokens_details\":{\"cached_tokens\":48256},\"total_tokens\":48374}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6771e79a9dbb676039354e6658a7317d025330a3757988ac73150a307f2a9d4d",
+ "status": 200
+}

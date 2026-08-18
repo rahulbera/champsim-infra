@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git show 29380ff77 --stat | tail -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373312984317160337\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052626,\"id\":\"20260807054345aa904a42df574a42\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054345aa904a42df574a42\",\"usage\":{\"completion_tokens\":28,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":20353,\"prompt_tokens_details\":{\"cached_tokens\":19712},\"total_tokens\":20381}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "af461a3aabe9b8239710f2d98723af28b2a7310350b333ed9abec5d412ce414b",
+ "status": 200
+}

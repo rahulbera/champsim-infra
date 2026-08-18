@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All edge cases pass. Now let me run the full test suite once more to make sure everything is still working:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /immutable-js && npx jest 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373198841266303136\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077962,\"id\":\"202608071245598482c06df2214cff\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071245598482c06df2214cff\",\"usage\":{\"completion_tokens\":49,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":30186,\"prompt_tokens_details\":{\"cached_tokens\":29952},\"total_tokens\":30235}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "edb7db119df207b9a40665cd26e4e7304a07121fc0ff2ee78adaec86069a0e3e",
+ "status": 200
+}

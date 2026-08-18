@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"find /gson/gson/src -name \\\\\\\"JsonPrimitive.java\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7372992098720540886\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786094645,\"id\":\"2026080717240136481fc9dc79412c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080717240136481fc9dc79412c\",\"usage\":{\"completion_tokens\":24,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":1798,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":1822}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6d6da684cef702b24c2d721b6af633ab523df6887d1493e4cb2c821c7380e1ae",
+ "status": 200
+}

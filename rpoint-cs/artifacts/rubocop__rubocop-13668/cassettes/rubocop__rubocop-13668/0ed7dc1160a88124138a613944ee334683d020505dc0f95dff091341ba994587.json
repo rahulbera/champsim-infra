@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 189 tests pass. Let me also run rubocop on the changelog file to make sure it's fine, and run a broader check:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rubocop lib/rubocop/cop/style/sole_nested_conditional.rb changelog/fix_sole_nested_conditional_comparison_precedence.md 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373196023767753933\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079520,\"id\":\"20260807131158d8477246c3e44bef\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131158d8477246c3e44bef\",\"usage\":{\"completion_tokens\":83,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73845,\"prompt_tokens_details\":{\"cached_tokens\":73664},\"total_tokens\":73928}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0ed7dc1160a88124138a613944ee334683d020505dc0f95dff091341ba994587",
+ "status": 200
+}

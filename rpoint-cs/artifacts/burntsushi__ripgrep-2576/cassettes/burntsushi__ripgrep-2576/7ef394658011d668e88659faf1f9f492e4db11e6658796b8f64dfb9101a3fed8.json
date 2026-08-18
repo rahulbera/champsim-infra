@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -rn \\\\\\\"fn is_look_match\\\\\\\\|StartLF\\\\\\\\|EndLF\\\\\\\\|StartCRLF\\\\\\\\|EndCRLF\\\\\\\" /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-automata-0.3.0/src/util/looker.rs 2>/dev/null | head -30; echo \\\\\\\"===\\\\\\\"; ls /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/regex-automata-0.3.0/src/util/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373152455619508607\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078169,\"id\":\"20260807124927c8b936878d5d4e80\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124927c8b936878d5d4e80\",\"usage\":{\"completion_tokens\":133,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":58407,\"prompt_tokens_details\":{\"cached_tokens\":57856},\"total_tokens\":58540}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7ef394658011d668e88659faf1f9f492e4db11e6658796b8f64dfb9101a3fed8",
+ "status": 200
+}

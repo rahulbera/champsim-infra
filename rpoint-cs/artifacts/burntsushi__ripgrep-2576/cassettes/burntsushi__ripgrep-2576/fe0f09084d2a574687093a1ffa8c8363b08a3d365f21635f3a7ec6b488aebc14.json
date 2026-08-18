@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/tests/regression.rs\\\",\\\"view_range\\\":[462, 500]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373190904166738862\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077647,\"id\":\"2026080712404519ff1f1c626440f8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712404519ff1f1c626440f8\",\"usage\":{\"completion_tokens\":39,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":26414,\"prompt_tokens_details\":{\"cached_tokens\":25536},\"total_tokens\":26453}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fe0f09084d2a574687093a1ffa8c8363b08a3d365f21635f3a7ec6b488aebc14",
+ "status": 200
+}

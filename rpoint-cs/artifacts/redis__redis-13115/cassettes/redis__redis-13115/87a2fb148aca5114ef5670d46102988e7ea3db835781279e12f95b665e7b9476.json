@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The change is complete and minimal. Let me submit:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7373269656687081741\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053179,\"id\":\"20260807055257f772ba1a43884220\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055257f772ba1a43884220\",\"usage\":{\"completion_tokens\":16,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":50982,\"prompt_tokens_details\":{\"cached_tokens\":50496},\"total_tokens\":50998}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "87a2fb148aca5114ef5670d46102988e7ea3db835781279e12f95b665e7b9476",
+ "status": 200
+}

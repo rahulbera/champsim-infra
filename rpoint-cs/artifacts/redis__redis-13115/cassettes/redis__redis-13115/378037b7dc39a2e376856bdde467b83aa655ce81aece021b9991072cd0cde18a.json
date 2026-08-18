@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All tests pass. Let me do a final review of the complete change:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git status && echo \\\\\\\"=== DIFF ===\\\\\\\" && git diff --cached\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373326762572248007\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053175,\"id\":\"20260807055253de4695ac7efb45a4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055253de4695ac7efb45a4\",\"usage\":{\"completion_tokens\":43,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":50534,\"prompt_tokens_details\":{\"cached_tokens\":50368},\"total_tokens\":50577}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "378037b7dc39a2e376856bdde467b83aa655ce81aece021b9991072cd0cde18a",
+ "status": 200
+}

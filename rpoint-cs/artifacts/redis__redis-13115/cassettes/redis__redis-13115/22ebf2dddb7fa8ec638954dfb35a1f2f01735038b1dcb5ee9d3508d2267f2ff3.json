@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"reasoning_content\":\"The user wants me to submit my changes. Let me run the submit command.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7373283160064254446\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053094,\"id\":\"2026080705513276638eddd4774de2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080705513276638eddd4774de2\",\"usage\":{\"completion_tokens\":21,\"completion_tokens_details\":{\"reasoning_tokens\":16},\"prompt_tokens\":48384,\"prompt_tokens_details\":{\"cached_tokens\":47424},\"total_tokens\":48405}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "22ebf2dddb7fa8ec638954dfb35a1f2f01735038b1dcb5ee9d3508d2267f2ff3",
+ "status": 200
+}

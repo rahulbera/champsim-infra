@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"ls /opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin; echo \\\\\\\"---\\\\\\\"; cat ~/.bashrc 2>/dev/null | grep -i rust; echo \\\\\\\"---\\\\\\\"; ls /root/.cargo 2>/dev/null\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373174102254678818\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077664,\"id\":\"20260807124103833b88f7db9941d9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124103833b88f7db9941d9\",\"usage\":{\"completion_tokens\":65,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27397,\"prompt_tokens_details\":{\"cached_tokens\":27264},\"total_tokens\":27462}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0b7dca165763ea251376f107c3d04b2e987a52bc0c05837ec277d839f9788df5",
+ "status": 200
+}

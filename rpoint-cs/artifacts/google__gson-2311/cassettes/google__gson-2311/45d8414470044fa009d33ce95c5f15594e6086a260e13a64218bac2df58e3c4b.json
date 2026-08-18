@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && git show 9d5d6a8f:gson/src/test/java/com/google/gson/JsonPrimitiveTest.java 2>/dev/null | sed -n '300,400p'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373052778018502377\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786096486,\"id\":\"20260807175444b68c089333624dca\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807175444b68c089333624dca\",\"usage\":{\"completion_tokens\":55,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":18587,\"prompt_tokens_details\":{\"cached_tokens\":18112},\"total_tokens\":18642}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "45d8414470044fa009d33ce95c5f15594e6086a260e13a64218bac2df58e3c4b",
+ "status": 200
+}

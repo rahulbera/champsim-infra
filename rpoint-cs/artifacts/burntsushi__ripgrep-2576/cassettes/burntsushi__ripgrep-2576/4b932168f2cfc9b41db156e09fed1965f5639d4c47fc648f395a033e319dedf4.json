@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Good, reverted. Now the test file is back to original (with tabs). Let me verify the tabs are preserved:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && sed -n '1058,1065p' tests/regression.rs | cat -A\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373161732748867272\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078525,\"id\":\"202608071255229a71d442fe664a78\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071255229a71d442fe664a78\",\"usage\":{\"completion_tokens\":59,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":85104,\"prompt_tokens_details\":{\"cached_tokens\":84864},\"total_tokens\":85163}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4b932168f2cfc9b41db156e09fed1965f5639d4c47fc648f395a033e319dedf4",
+ "status": 200
+}

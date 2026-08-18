@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All three reproduction tests pass now. Let me also check the non-negated case still works:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec /tmp/repro3_spec.rb --format documentation 2>&1 | tail -15\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373137028096982776\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079065,\"id\":\"202608071304236a750a320d984dcc\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071304236a750a320d984dcc\",\"usage\":{\"completion_tokens\":57,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":47126,\"prompt_tokens_details\":{\"cached_tokens\":46912},\"total_tokens\":47183}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e3002d3961150540a9d5c976d2c8f0a63108e77b9c91d7497acd345c12ad2ffc",
+ "status": 200
+}

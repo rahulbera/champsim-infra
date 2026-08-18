@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I'll start by exploring the repository structure to understand the codebase.\",\"reasoning_content\":\" I'll start by looking at the repository structure to get a sense of how the codebase is organized.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/gin\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373079716053381344\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786088776,\"id\":\"202608071546156d61956a95564161\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071546156d61956a95564161\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":21},\"prompt_tokens\":1873,\"prompt_tokens_details\":{\"cached_tokens\":704},\"total_tokens\":1927}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b5a495575b8fa1ab57b6e1cc808d6357e6c7e59118ecf64a2bf74f5d4cfbc93a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 7 verification tests pass. Let me clean up:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"rm -f /tmp/verify_spec.rb\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373186025083890095\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079483,\"id\":\"20260807131120992fea8c8cff4fee\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131120992fea8c8cff4fee\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":71385,\"prompt_tokens_details\":{\"cached_tokens\":71168},\"total_tokens\":71416}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d8e281d3cf38fad082212b65b399db1d8bb47f8a260d1216865d962ca2fe544f",
+ "status": 200
+}

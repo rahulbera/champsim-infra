@@ -14,6 +14,12 @@ two-minute end-to-end correctness check of the x86-64 pipeline
 throwaway kernel + initramfs rather than a VM image. See their entries
 under Files below and the note at the end of this section.
 
+> **Tracing an SWE agent?** The three launchers below are the ScyllaDB-era
+> snapshot flow. The agentic workload has its own driver,
+> **`capture_agentic.sh`**, plus the guest-side passes in `swe-agent/`. Start
+> at `swe-agent/README.md`; the launchers here are used only indirectly
+> (`boot_build.sh` / `boot_tcg_trace.sh` under `images/`).
+
 ## How this fits into the repo
 
 These scripts are what you actually run on the host to move a workload
@@ -116,6 +122,61 @@ touch /tmp/trace_start
 The plugin polls once every 10 M instructions across all vCPUs
 (≈once per wall-clock second under TCG). Traces land at
 `~/qemu-tracing/traces/trace_vcpu<N>.raw.zst`.
+
+### `capture_agentic.sh`
+
+**Host-side driver for one agentic capture**, in five phases:
+
+```bash
+LLM_API_KEY=… ./capture_agentic.sh <instance_id> record    # real LLM, spends credits
+                ./capture_agentic.sh <instance_id> verify  # offline replay, 0 misses
+                ./capture_agentic.sh <instance_id> profile # size the trajectory
+                ./capture_agentic.sh <instance_id> trace   # 4 x 300M windows
+                ./capture_agentic.sh <instance_id> convert # -> ChampSim v2 + validate
+```
+
+`record` snapshots the guest to `<inst>.recorded.qcow2`; **every later phase
+restores from that snapshot first**. Without the restore, the profile pass would
+measure a tree the trace pass does not have, and every window position is
+derived from that number.
+
+Geometry defaults to `WINDOWS=4`, `WINDOW_LEN=300000000` — 300 M matches the
+SPEC SimPoint slice length in `champsim-infra`, so agentic-vs-SPEC comparisons
+are at identical geometry. `sample_gap` is computed from the measured user-mode
+total as `(user − K·N)/(K−1)`, which is the formula the plugin itself prints.
+
+Three things it refuses to let pass silently:
+
+- **The trigger must have armed.** The plugin starts dormant, so an unarmed
+  trigger yields a confident profile of *nothing*.
+- **The chunk count must equal the window count.**
+- **Every window must pass `trace_sanity_check --check`.** Validation is a gate,
+  not a report; the load-bearing invariant is the conditional taken rate being
+  strictly inside (0, 100)%.
+
+`convert` needs `libcapstone.so.4` on `LD_LIBRARY_PATH` (the converter links it
+for the AArch64 decoder); it defaults to `/home/rbera/local/lib`.
+
+### `analyze_bp.py`
+
+Simulates traces and reports **misprediction composition**, not just totals:
+
+```bash
+./analyze_bp.py --spec --out results.csv <agentic-trace>…
+```
+
+Aggregate MPKI put the first agentic trace squarely inside SPEC's range while
+its conditional/indirect split was the mirror image of every SPEC benchmark — a
+tool reporting only totals would have shown nothing. Returns are reported apart
+from indirect because the RAS is a different predictor. Reads ChampSim's
+`--json` output; runs whose simulated length fell short of the request are
+flagged `[SHORT]` rather than quietly averaged in.
+
+### `swe-agent/`
+
+The guest-side capture passes (provision / record / replay), the record-replay
+LLM proxy, and the per-instance and per-language descriptors that parameterise
+them. See `swe-agent/README.md`.
 
 ### `capture-kit/`
 

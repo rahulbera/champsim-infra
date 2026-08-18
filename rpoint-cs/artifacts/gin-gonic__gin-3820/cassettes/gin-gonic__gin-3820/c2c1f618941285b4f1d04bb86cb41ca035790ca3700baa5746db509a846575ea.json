@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gin && git log --all --oneline | grep -i \\\\\\\"file\\\\\\\\|multipart\\\\\\\\|bind\\\\\\\" | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373100434975620383\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786089218,\"id\":\"20260807155336104b0fe44dd443be\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807155336104b0fe44dd443be\",\"usage\":{\"completion_tokens\":38,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":31627,\"prompt_tokens_details\":{\"cached_tokens\":30912},\"total_tokens\":31665}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c2c1f618941285b4f1d04bb86cb41ca035790ca3700baa5746db509a846575ea",
+ "status": 200
+}

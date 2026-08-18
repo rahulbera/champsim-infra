@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7372982477993801129\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097993,\"id\":\"20260807181951a56e4cc9b3d64c25\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181951a56e4cc9b3d64c25\",\"usage\":{\"completion_tokens\":5,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":41628,\"prompt_tokens_details\":{\"cached_tokens\":41408},\"total_tokens\":41633}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "38ec3f61c99d3af96272ea49160ae94718f917908b5485d610733c5e89a80d38",
+ "status": 200
+}

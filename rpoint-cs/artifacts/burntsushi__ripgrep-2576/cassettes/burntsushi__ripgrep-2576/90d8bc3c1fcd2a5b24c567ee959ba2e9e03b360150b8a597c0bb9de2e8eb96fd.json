@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Default features. Good. Now let me apply the upstream fix. Let me view the current `fast_find` again and apply the change:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/crates/regex/src/word.rs\\\",\\\"view_range\\\":[99, 156]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373185131730696796\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078348,\"id\":\"20260807125225ca1a924cfc5f4672\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125225ca1a924cfc5f4672\",\"usage\":{\"completion_tokens\":70,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74666,\"prompt_tokens_details\":{\"cached_tokens\":74496},\"total_tokens\":74736}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "90d8bc3c1fcd2a5b24c567ee959ba2e9e03b360150b8a597c0bb9de2e8eb96fd",
+ "status": 200
+}

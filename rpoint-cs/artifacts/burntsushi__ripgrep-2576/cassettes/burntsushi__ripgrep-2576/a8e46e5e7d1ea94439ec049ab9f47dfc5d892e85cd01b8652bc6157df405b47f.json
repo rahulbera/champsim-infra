@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git status && echo \\\\\\\"=== diff stat ===\\\\\\\" && git diff --stat\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373190182612231763\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078823,\"id\":\"20260807130022f5c2b5c8968d4a93\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130022f5c2b5c8968d4a93\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":101097,\"prompt_tokens_details\":{\"cached_tokens\":100992},\"total_tokens\":101128}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a8e46e5e7d1ea94439ec049ab9f47dfc5d892e85cd01b8652bc6157df405b47f",
+ "status": 200
+}

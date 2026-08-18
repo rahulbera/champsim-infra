@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The file uses tabs. Let me check the exact whitespace:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gin && sed -n '7,17p' binding/form_mapping.go | cat -A | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373115518900757518\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786089247,\"id\":\"2026080715540520c178f943284cae\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080715540520c178f943284cae\",\"usage\":{\"completion_tokens\":47,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33712,\"prompt_tokens_details\":{\"cached_tokens\":33408},\"total_tokens\":33759}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2b2a035deb3a648673dacd5598eb8b4a00af3caf83c28570720877a372484405",
+ "status": 200
+}

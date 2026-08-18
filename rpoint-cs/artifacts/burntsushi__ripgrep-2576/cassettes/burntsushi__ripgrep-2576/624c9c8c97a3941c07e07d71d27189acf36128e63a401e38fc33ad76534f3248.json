@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo build 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195886328803475\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077873,\"id\":\"20260807124431fc939f3a0d594629\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124431fc939f3a0d594629\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":31508,\"prompt_tokens_details\":{\"cached_tokens\":30208},\"total_tokens\":31562}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "624c9c8c97a3941c07e07d71d27189acf36128e63a401e38fc33ad76534f3248",
+ "status": 200
+}

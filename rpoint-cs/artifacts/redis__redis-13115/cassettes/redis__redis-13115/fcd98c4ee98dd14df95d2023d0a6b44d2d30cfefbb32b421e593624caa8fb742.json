@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix works correctly. Let me run the full scripting test suite one final time to confirm everything passes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && tclsh tests/test_helper.tcl --single unit/scripting 2>&1 | tail -8\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373330095466871669\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053157,\"id\":\"20260807055236c1b90c5af51b435a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807055236c1b90c5af51b435a\",\"usage\":{\"completion_tokens\":56,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":50432,\"prompt_tokens_details\":{\"cached_tokens\":49728},\"total_tokens\":50488}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fcd98c4ee98dd14df95d2023d0a6b44d2d30cfefbb32b421e593624caa8fb742",
+ "status": 200
+}

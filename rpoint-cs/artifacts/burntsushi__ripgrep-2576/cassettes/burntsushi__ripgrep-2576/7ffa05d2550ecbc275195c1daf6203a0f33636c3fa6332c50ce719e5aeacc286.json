@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"source /opt/rustup/env 2>/dev/null; ls /opt/rustup; cat /opt/rustup/env 2>/dev/null; echo $PATH\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373144106203085141\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077660,\"id\":\"20260807124059a018310d345d413d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124059a018310d345d413d\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27283,\"prompt_tokens_details\":{\"cached_tokens\":27136},\"total_tokens\":27329}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7ffa05d2550ecbc275195c1daf6203a0f33636c3fa6332c50ce719e5aeacc286",
+ "status": 200
+}

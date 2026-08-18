@@ -1,0 +1,46 @@
+diff --git a/binding/repro_test.go b/binding/repro_test.go
+new file mode 100644
+index 0000000..522c77a
+--- /dev/null
++++ b/binding/repro_test.go
+@@ -0,0 +1,40 @@
++package binding
++
++import (
++"bytes"
++"mime/multipart"
++"net/http"
++"testing"
++
++"github.com/stretchr/testify/assert"
++)
++
++func TestReproEmptyFile(t *testing.T) {
++var s struct {
++Name  string                `form:"name"`
++Email string                `form:"email"`
++File  *multipart.FileHeader `form:"file"`
++}
++
++// Create a multipart request with an empty filename for "file"
++var body bytes.Buffer
++mw := multipart.NewWriter(&body)
++mw.WriteField("name", "test")
++mw.WriteField("email", "test@test.com")
++// create a file part with empty filename
++fw, err := mw.CreateFormFile("file", "")
++assert.NoError(t, err)
++fw.Write([]byte(""))
++mw.Close()
++
++req, err := http.NewRequest("POST", "/", &body)
++assert.NoError(t, err)
++req.Header.Set("Content-Type", MIMEMultipartPOSTForm+"; boundary="+mw.Boundary())
++
++err = FormMultipart.Bind(req, &s)
++t.Logf("err: %v", err)
++assert.NoError(t, err)
++assert.Nil(t, s.File)
++assert.Equal(t, "test", s.Name)
++assert.Equal(t, "test@test.com", s.Email)
++}

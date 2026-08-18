@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me look at the issue #1891 which is about `-w` with empty string matching. Let me check the git log to understand the recent changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git log --oneline -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373173311980691754\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078002,\"id\":\"202608071246408aa828577e2c4b25\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071246408aa828577e2c4b25\",\"usage\":{\"completion_tokens\":55,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44451,\"prompt_tokens_details\":{\"cached_tokens\":41728},\"total_tokens\":44506}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f63bdbb0aeb72e8448bcc220743a2805f1f397987a576eb7da328f3a0769c470",
+ "status": 200
+}

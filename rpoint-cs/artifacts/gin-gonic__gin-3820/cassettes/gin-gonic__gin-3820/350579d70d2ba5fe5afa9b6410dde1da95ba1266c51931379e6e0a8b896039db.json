@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gin && grep -n \\\\\\\"Multipart\\\\\\\\|FileHeader\\\\\\\\|file\\\\\\\" binding/binding_test.go | head -60\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373110055702362295\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786088878,\"id\":\"202608071547556c55f9dd4aed46f0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071547556c55f9dd4aed46f0\",\"usage\":{\"completion_tokens\":37,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":22535,\"prompt_tokens_details\":{\"cached_tokens\":15040},\"total_tokens\":22572}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "350579d70d2ba5fe5afa9b6410dde1da95ba1266c51931379e6e0a8b896039db",
+ "status": 200
+}

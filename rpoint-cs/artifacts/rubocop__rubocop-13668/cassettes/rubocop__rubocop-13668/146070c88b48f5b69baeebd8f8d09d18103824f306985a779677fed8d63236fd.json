@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The code looks clean. Now let me run the full diff one more time:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && git diff\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195233493777975\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079497,\"id\":\"20260807131136047a03953ff34e31\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807131136047a03953ff34e31\",\"usage\":{\"completion_tokens\":33,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":72883,\"prompt_tokens_details\":{\"cached_tokens\":72512},\"total_tokens\":72916}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "146070c88b48f5b69baeebd8f8d09d18103824f306985a779677fed8d63236fd",
+ "status": 200
+}

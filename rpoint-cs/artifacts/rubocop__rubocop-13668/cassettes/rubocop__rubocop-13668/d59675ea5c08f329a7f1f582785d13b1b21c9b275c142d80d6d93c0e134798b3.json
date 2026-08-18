@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -rn \\\\\\\"public_send\\\\\\\\|t ===\\\\\\\" /rubocop/spec/rubocop/cop/style/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373170528841886702\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078610,\"id\":\"20260807125647d753c0b2f6f14c0d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125647d753c0b2f6f14c0d\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":15249,\"prompt_tokens_details\":{\"cached_tokens\":15168},\"total_tokens\":15280}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d59675ea5c08f329a7f1f582785d13b1b21c9b275c142d80d6d93c0e134798b3",
+ "status": 200
+}

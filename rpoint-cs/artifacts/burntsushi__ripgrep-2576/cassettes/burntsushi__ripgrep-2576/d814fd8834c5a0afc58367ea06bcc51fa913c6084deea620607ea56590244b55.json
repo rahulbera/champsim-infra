@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && grep -n \\\\\\\"find_iter\\\\\\\\|find_at\\\\\\\\|fast_find\\\\\\\" crates/regex/src/word.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373174205333892436\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077780,\"id\":\"20260807124258ace076c3ec6f435b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124258ace076c3ec6f435b\",\"usage\":{\"completion_tokens\":38,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":28831,\"prompt_tokens_details\":{\"cached_tokens\":28416},\"total_tokens\":28869}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d814fd8834c5a0afc58367ea06bcc51fa913c6084deea620607ea56590244b55",
+ "status": 200
+}

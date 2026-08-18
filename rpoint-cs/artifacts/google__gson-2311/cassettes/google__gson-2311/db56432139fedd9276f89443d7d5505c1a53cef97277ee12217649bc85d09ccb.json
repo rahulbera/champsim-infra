@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me check that test case to ensure my `getAsBigInteger` change doesn't break it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && sed -n '92,105p' gson/src/test/java/com/google/gson/JsonPrimitiveTest.java\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373011615051937499\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097773,\"id\":\"2026080718161141384603e58c4ee0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080718161141384603e58c4ee0\",\"usage\":{\"completion_tokens\":56,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":29135,\"prompt_tokens_details\":{\"cached_tokens\":28992},\"total_tokens\":29191}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "db56432139fedd9276f89443d7d5505c1a53cef97277ee12217649bc85d09ccb",
+ "status": 200
+}

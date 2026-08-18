@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && tclsh tests/test_helper.tcl --single unit/scripting 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373303226151467270\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786053027,\"id\":\"2026080705502675771cd2129f423f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080705502675771cd2129f423f\",\"usage\":{\"completion_tokens\":35,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":45754,\"prompt_tokens_details\":{\"cached_tokens\":45248},\"total_tokens\":45789}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "db772706a50a09001df11fe79516cd61771f2f21b1b3d6951cc62cfb90f94eee",
+ "status": 200
+}

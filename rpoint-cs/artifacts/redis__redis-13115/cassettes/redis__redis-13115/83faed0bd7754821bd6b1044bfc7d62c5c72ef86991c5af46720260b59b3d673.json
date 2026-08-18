@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test I added passes (it runs twice, once for eval and once for functions). Let me also verify the test would have failed before the fix by temporarily reverting the source change. Let me first check the test runs both eval and function modes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git stash list; git diff --stat\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373326418974865773\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052964,\"id\":\"202608070549214b8af824f46d4c99\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070549214b8af824f46d4c99\",\"usage\":{\"completion_tokens\":73,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44658,\"prompt_tokens_details\":{\"cached_tokens\":44544},\"total_tokens\":44731}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "83faed0bd7754821bd6b1044bfc7d62c5c72ef86991c5af46720260b59b3d673",
+ "status": 200
+}

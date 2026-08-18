@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me also run the tests for all the workspace crates to be thorough:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --workspace 2>&1 | grep -E \\\\\\\"test result|error|FAILED\\\\\\\" | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373180630604970011\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078591,\"id\":\"202608071256260576df18970b441f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071256260576df18970b441f\",\"usage\":{\"completion_tokens\":83,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":87455,\"prompt_tokens_details\":{\"cached_tokens\":87296},\"total_tokens\":87538}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c27b569745e26111285018215726d61f325de161067991314bc8b877830223f9",
+ "status": 200
+}

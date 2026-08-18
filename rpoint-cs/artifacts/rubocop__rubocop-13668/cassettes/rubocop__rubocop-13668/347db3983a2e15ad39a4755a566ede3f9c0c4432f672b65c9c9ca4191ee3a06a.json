@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me understand the flow. In the case of `if result` with `result = false unless t === value.public_send(a)`:\\n\\n1. `node` is the outer `if result`, `if_branch` is the modifier `unless`.\\n2. `node.unless?` is false (it's an `if`), so `correct_from_unless_to_if` is NOT called for the outer node.\\n3. `and_operator = ' && !'` because `if_branch.unless?` is true.\\n4. `if_branch.modifier_form?` is true, so `correct_for_guard_condition_style` is called.\\n5. In `correct_for_guard_condition_style`:\\n   - `condition = if_branch.condition` = `t === value.public_send(a)`\\n   - `corrector.insert_after(outer_condition, \\\"#{and_operator}#{replace_condition(condition)}\\\")` = inserts ` && !` + `replace_condition(t === value.public_send(a))`\\n\\nLet me check `replace_condition`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[239, 258]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373144552879680799\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078798,\"id\":\"20260807125955b4c55e30fca7431a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125955b4c55e30fca7431a\",\"usage\":{\"completion_tokens\":255,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27453,\"prompt_tokens_details\":{\"cached_tokens\":26432},\"total_tokens\":27708}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "347db3983a2e15ad39a4755a566ede3f9c0c4432f672b65c9c9ca4191ee3a06a",
+ "status": 200
+}

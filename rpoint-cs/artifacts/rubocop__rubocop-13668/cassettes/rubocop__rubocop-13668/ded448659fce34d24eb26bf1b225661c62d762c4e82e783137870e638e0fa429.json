@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run the existing tests to make sure they pass first:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cop/style/sole_nested_conditional_spec.rb 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373137852730696298\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078681,\"id\":\"20260807125800e472afdf45104eae\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125800e472afdf45104eae\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":18531,\"prompt_tokens_details\":{\"cached_tokens\":18240},\"total_tokens\":18585}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ded448659fce34d24eb26bf1b225661c62d762c4e82e783137870e638e0fa429",
+ "status": 200
+}

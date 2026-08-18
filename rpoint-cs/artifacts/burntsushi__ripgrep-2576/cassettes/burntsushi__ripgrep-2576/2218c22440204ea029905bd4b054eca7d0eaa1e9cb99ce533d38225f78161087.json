@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test file uses SPACES (8 spaces for `a=(`, 16 spaces for `a`, etc.). So the expected output `9:              a` has 14 spaces... wait, let me count. The file line 9 is `                a` (16 spaces). The expected output line `9:              a` - let me count the spaces: `9:` then spaces then `a`.\\n\\nHmm, the expected has 14 spaces after `9:`? Let me count precisely:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && sed -n '1082,1089p' tests/regression.rs | cat -A\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373206331689269593\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078492,\"id\":\"2026080712544988bdb54702654e24\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712544988bdb54702654e24\",\"usage\":{\"completion_tokens\":137,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":83282,\"prompt_tokens_details\":{\"cached_tokens\":82880},\"total_tokens\":83419}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2218c22440204ea029905bd4b054eca7d0eaa1e9cb99ce533d38225f78161087",
+ "status": 200
+}

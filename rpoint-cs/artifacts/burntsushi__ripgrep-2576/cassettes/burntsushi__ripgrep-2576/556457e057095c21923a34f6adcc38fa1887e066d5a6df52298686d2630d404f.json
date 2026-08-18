@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me add a debug test directly in the word.rs to understand the behavior. First, let me add a temporary test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/ripgrep/crates/regex/src/word.rs\\\",\\\"view_range\\\":[99, 156]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373194065262666296\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077832,\"id\":\"2026080712434659530a51a7ec4d0b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712434659530a51a7ec4d0b\",\"usage\":{\"completion_tokens\":67,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":29294,\"prompt_tokens_details\":{\"cached_tokens\":28992},\"total_tokens\":29361}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "556457e057095c21923a34f6adcc38fa1887e066d5a6df52298686d2630d404f",
+ "status": 200
+}

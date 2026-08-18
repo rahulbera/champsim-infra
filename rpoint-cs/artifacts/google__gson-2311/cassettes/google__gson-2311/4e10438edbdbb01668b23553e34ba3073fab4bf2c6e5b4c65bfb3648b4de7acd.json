@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && CP=$(cat /tmp/cp.txt)\\\\njavac -cp \\\\\\\"$CP\\\\\\\" -d gson/target/test-classes gson/src/test/java/com/google/gson/JsonPrimitiveTest.java gson/src/test/java/com/google/gson/common/MoreAsserts.java 2>&1 | head -20\\\\nCP=\\\\\\\"$CP:gson/target/test-classes\\\\\\\"\\\\njava -cp \\\\\\\"$CP\\\\\\\" org.junit.runner.JUnitCore com.google.gson.JsonPrimitiveTest 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373016253616612938\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097749,\"id\":\"20260807181548ee128fc28748465b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181548ee128fc28748465b\",\"usage\":{\"completion_tokens\":110,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":27976,\"prompt_tokens_details\":{\"cached_tokens\":27840},\"total_tokens\":28086}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4e10438edbdbb01668b23553e34ba3073fab4bf2c6e5b4c65bfb3648b4de7acd",
+ "status": 200
+}

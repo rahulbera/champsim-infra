@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"No offenses. Now let me re-run the tests to make sure everything still passes after switching to keyword arguments:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cop/style/sole_nested_conditional_spec.rb 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373131049502500071\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079462,\"id\":\"202608071310598a163115e49248c9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071310598a163115e49248c9\",\"usage\":{\"completion_tokens\":62,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":70319,\"prompt_tokens_details\":{\"cached_tokens\":70208},\"total_tokens\":70381}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "89cba576fddb5d019fc38f83a16fa45cf7c1afbf964630a33b9ad1c33bc5f991",
+ "status": 200
+}

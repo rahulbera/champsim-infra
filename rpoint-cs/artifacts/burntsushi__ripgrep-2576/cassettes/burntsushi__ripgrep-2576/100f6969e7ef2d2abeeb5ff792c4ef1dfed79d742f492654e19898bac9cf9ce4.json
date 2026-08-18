@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All three lines correctly match `some.domain.com`.\\n\\nNow let me run the complete test suite one final time to make sure everything is green:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --workspace 2>&1 | grep -E \\\\\\\"test result:|FAILED|error\\\\\\\\[\\\\\\\" \\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373185922004674673\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078758,\"id\":\"202608071259160cfa5d78def149b1\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071259160cfa5d78def149b1\",\"usage\":{\"completion_tokens\":95,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":96379,\"prompt_tokens_details\":{\"cached_tokens\":96192},\"total_tokens\":96474}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "100f6969e7ef2d2abeeb5ff792c4ef1dfed79d742f492654e19898bac9cf9ce4",
+ "status": 200
+}

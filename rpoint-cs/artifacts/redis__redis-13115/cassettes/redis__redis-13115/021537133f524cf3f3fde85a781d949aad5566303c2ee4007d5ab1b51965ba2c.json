@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I found the fix commit. Let me look at it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && git show 1caaf581f\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373353253930531038\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052826,\"id\":\"202608070547050c6d9fe70adf4eb7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070547050c6d9fe70adf4eb7\",\"usage\":{\"completion_tokens\":35,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":35870,\"prompt_tokens_details\":{\"cached_tokens\":35264},\"total_tokens\":35905}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "021537133f524cf3f3fde85a781d949aad5566303c2ee4007d5ab1b51965ba2c",
+ "status": 200
+}

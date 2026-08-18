@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run the regression test and the word-related tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test regression r2574 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373132149014133109\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078420,\"id\":\"20260807125335bcec0aa67a48464c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125335bcec0aa67a48464c\",\"usage\":{\"completion_tokens\":74,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":79886,\"prompt_tokens_details\":{\"cached_tokens\":79360},\"total_tokens\":79960}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fafd6434025ab7d1084da864ffae11ba4ac501a2baff2a8bb21f4b33da44b003",
+ "status": 200
+}

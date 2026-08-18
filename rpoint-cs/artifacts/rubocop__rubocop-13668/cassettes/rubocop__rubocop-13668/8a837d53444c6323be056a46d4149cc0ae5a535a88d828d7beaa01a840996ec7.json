@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"No direct test. Let me run the broader test suite to make sure nothing else breaks. Let me run the style cop tests that might be affected:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cop/style/sole_nested_conditional_spec.rb spec/rubocop/cop/style/negated_if_spec.rb spec/rubocop/cop/style/negated_unless_spec.rb spec/rubocop/cop/style/inverse_methods_spec.rb 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373195267853509152\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079287,\"id\":\"20260807130805e474172ae87848fb\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130805e474172ae87848fb\",\"usage\":{\"completion_tokens\":106,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":61133,\"prompt_tokens_details\":{\"cached_tokens\":60160},\"total_tokens\":61239}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8a837d53444c6323be056a46d4149cc0ae5a535a88d828d7beaa01a840996ec7",
+ "status": 200
+}

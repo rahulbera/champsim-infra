@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So the caret is at index 19 but `unless` is at index 17. I need to remove 2 spaces. Let me fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && ruby -e '\\\\nsource = <<~RUBY\\\\n      if result\\\\n        result = false unless t === value.public_send(a)\\\\n                       ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\\n      end\\\\nRUBY\\\\nline = source.lines[1]\\\\ncaret_line = source.lines[2]\\\\nidx = line.index(\\\\\\\"unless\\\\\\\")\\\\ncaret_idx = caret_line.index(\\\\\\\"^\\\\\\\")\\\\nputs \\\\\\\"unless at index: #{idx}\\\\\\\"\\\\nputs \\\\\\\"caret at index: #{caret_idx}\\\\\\\"\\\\n'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373189667216161383\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078780,\"id\":\"202608071259372ec0a03f28354d54\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071259372ec0a03f28354d54\",\"usage\":{\"completion_tokens\":143,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":25679,\"prompt_tokens_details\":{\"cached_tokens\":25216},\"total_tokens\":25822}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f6a1a499c51e36913bad5be0d5804b9c9f6b54d186421a1ab59fd4f90501f8ea",
+ "status": 200
+}

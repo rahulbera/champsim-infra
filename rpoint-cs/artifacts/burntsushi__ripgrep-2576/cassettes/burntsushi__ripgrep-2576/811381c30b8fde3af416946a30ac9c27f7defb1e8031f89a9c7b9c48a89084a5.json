@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Hmm, this is failing with my change. But this test doesn't use `-w`. Let me investigate. The difference is the indentation. The file uses tabs (the `a=(` block is indented with a tab). Let me look at the actual bytes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && printf '#!/usr/bin/env bash\\\\\\\\n\\\\\\\\nzero=one\\\\\\\\n\\\\\\\\na=one\\\\\\\\n\\\\\\\\nif true; then\\\\\\\\n\\\\\\\\ta=(\\\\\\\\n\\\\\\\\t\\\\\\\\ta\\\\\\\\n\\\\\\\\t\\\\\\\\tb\\\\\\\\n\\\\\\\\t\\\\\\\\tc\\\\\\\\n\\\\\\\\t)\\\\\\\\n\\\\\\\\ttrue\\\\\\\\nfi\\\\\\\\n\\\\\\\\na=two\\\\\\\\n\\\\\\\\nb=one\\\\\\\\n' > /tmp/r2095_test.txt && cat -A /tmp/r2095_test.txt\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373200524893481166\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078478,\"id\":\"2026080712543426b42355404b4fbf\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712543426b42355404b4fbf\",\"usage\":{\"completion_tokens\":149,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":82709,\"prompt_tokens_details\":{\"cached_tokens\":82304},\"total_tokens\":82858}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "811381c30b8fde3af416946a30ac9c27f7defb1e8031f89a9c7b9c48a89084a5",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec ruby -e '\\\\nrequire \\\\\\\"rubocop\\\\\\\"\\\\nsource = \\\\\\\"do_something if ok? bar do; end\\\\\\\"\\\\nbegin\\\\n  ast = RuboCop::AST::ProcessedSource.new(source, RUBY_VERSION.to_f).ast\\\\n  puts ast.inspect\\\\n  puts \\\\\\\"if_branch condition: #{ast.children[1].inspect}\\\\\\\" if ast.respond_to?(:children)\\\\nrescue => e\\\\n  puts \\\\\\\"parse error: #{e.message}\\\\\\\"\\\\nend\\\\n'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373211623088972164\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079220,\"id\":\"20260807130658c58c003bc2da4a22\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130658c58c003bc2da4a22\",\"usage\":{\"completion_tokens\":109,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":56901,\"prompt_tokens_details\":{\"cached_tokens\":56320},\"total_tokens\":57010}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b61cc101163b81ee918294662517681fa5c55b82573d0f9d08998ccf84509aa1",
+ "status": 200
+}

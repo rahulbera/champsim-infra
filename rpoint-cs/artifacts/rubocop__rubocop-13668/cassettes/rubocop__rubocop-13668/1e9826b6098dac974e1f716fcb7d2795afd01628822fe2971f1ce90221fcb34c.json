@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373185544047557748\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078442,\"id\":\"20260807125401900a665bf12f4c74\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125401900a665bf12f4c74\",\"usage\":{\"completion_tokens\":33,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":1322,\"prompt_tokens_details\":{\"cached_tokens\":832},\"total_tokens\":1355}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1e9826b6098dac974e1f716fcb7d2795afd01628822fe2971f1ce90221fcb34c",
+ "status": 200
+}

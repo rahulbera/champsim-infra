@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/gson/gson/src/main/java/com/google/gson/JsonPrimitive.java\\\",\\\"view_range\\\":[267, 310]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373044566041027847\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097944,\"id\":\"20260807181859325fd37209754a04\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181859325fd37209754a04\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":40345,\"prompt_tokens_details\":{\"cached_tokens\":40128},\"total_tokens\":40391}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "925e2fdd6e5e6a041434bf544b5fd2f16c4e595247b00841e223483cc42b4a65",
+ "status": 200
+}

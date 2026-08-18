@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All edge cases pass. Now let me run the full test suite (with the canonical test version temporarily applied) to make sure nothing else breaks. Let me run the entire gson test module:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && cp /tmp/canonical_test.java gson/src/test/java/com/google/gson/JsonPrimitiveTest.java && timeout 1200 mvn -o -pl gson test 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373018280841180109\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097894,\"id\":\"202608071818125f8d538e1ad34556\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071818125f8d538e1ad34556\",\"usage\":{\"completion_tokens\":95,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":38010,\"prompt_tokens_details\":{\"cached_tokens\":37760},\"total_tokens\":38105}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6854cc22dbed56907b1202849f271de919ba0aa6df71e310ca103c5ab49203e2",
+ "status": 200
+}

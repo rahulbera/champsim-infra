@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix works correctly and all existing tests pass. Let me run the full integration suite one final time to confirm nothing is broken with the test file reverted:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration 2>&1 | grep -E \\\\\\\"test result:|FAILED\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373182211152928869\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078870,\"id\":\"2026080713010897bf9f467f8146a3\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080713010897bf9f467f8146a3\",\"usage\":{\"completion_tokens\":95,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":102376,\"prompt_tokens_details\":{\"cached_tokens\":101952},\"total_tokens\":102471}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "19f9cf3ab5651313c41021c46aea7f2cfedf6f0b0af56afa00a5d08f9d99af8d",
+ "status": 200
+}

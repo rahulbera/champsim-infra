@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && git diff HEAD -- gson/src/main/java/com/google/gson/JsonPrimitive.java\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373036972538847403\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097701,\"id\":\"2026080718150027f6b76b4d56414d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080718150027f6b76b4d56414d\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":26610,\"prompt_tokens_details\":{\"cached_tokens\":26368},\"total_tokens\":26641}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "48e4c8537e97046608bfa19acf6033876c92a61d2f6c09b5e26fd50784a4f601",
+ "status": 200
+}

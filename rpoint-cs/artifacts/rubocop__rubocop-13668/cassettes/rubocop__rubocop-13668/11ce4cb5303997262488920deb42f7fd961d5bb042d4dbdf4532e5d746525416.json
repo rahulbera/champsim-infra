@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me view the final state of the modified file to make sure everything is consistent:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[136, 180]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373171628353511479\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079195,\"id\":\"20260807130633b542e90b1faf463f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130633b542e90b1faf463f\",\"usage\":{\"completion_tokens\":63,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":54697,\"prompt_tokens_details\":{\"cached_tokens\":54528},\"total_tokens\":54760}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "11ce4cb5303997262488920deb42f7fd961d5bb042d4dbdf4532e5d746525416",
+ "status": 200
+}

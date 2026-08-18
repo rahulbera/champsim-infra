@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me check if `double2ll` and `ll2string` are available in the scope of `script_lua.c`. Let me check the includes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && grep -n \\\\\\\"util.h\\\\\\\\|server.h\\\\\\\" src/script_lua.c | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373313362274279980\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052834,\"id\":\"202608070547123a7fd4e42a4c4dd5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070547123a7fd4e42a4c4dd5\",\"usage\":{\"completion_tokens\":64,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":37298,\"prompt_tokens_details\":{\"cached_tokens\":36928},\"total_tokens\":37362}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "799efeca9e1a9d475a97b2fa4c51df4e15b876ef82697d1764959d818d42f9b5",
+ "status": 200
+}

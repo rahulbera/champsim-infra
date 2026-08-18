@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me look at the helper functions `wholeSlice`, `resolveBegin`, `resolveEnd`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -rn \\\\\\\"wholeSlice\\\\\\\\|resolveBegin\\\\\\\\|resolveEnd\\\\\\\\|wrapIndex\\\\\\\" /immutable-js/src/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373192519074443914\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077748,\"id\":\"20260807124224ca0181568b2b4f74\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124224ca0181568b2b4f74\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":15423,\"prompt_tokens_details\":{\"cached_tokens\":13824},\"total_tokens\":15477}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6a742df8ac6898b4139cc8ff0a94596da49d2be7ed9feae901d5af3941b3dbe2",
+ "status": 200
+}

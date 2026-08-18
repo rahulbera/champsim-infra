@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"So `foo.is_a? Foo` (non-negated, comparison method `is_a?`) becomes `foo.is_a?(Foo)` - parenthesizing the arguments. So for the non-negated case, parenthesizing the arguments is the expected behavior.\\n\\nWait, is `is_a?` a comparison method? Let me check:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec ruby -e '\\\\nrequire \\\\\\\"rubocop\\\\\\\"\\\\n[\\\\\\\"foo.is_a? Foo\\\\\\\", \\\\\\\"foo == bar\\\\\\\", \\\\\\\"t === value\\\\\\\", \\\\\\\"foo < bar\\\\\\\", \\\\\\\"foo =~ bar\\\\\\\"].each do |source|\\\\n  ast = RuboCop::AST::ProcessedSource.new(source, RUBY_VERSION.to_f).ast\\\\n  puts \\\\\\\"#{source.inspect}: comparison_method?=#{ast.comparison_method?}\\\\\\\"\\\\nend\\\\n'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373142800533021361\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078900,\"id\":\"20260807130138a74ec24f09194b9e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807130138a74ec24f09194b9e\",\"usage\":{\"completion_tokens\":170,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33005,\"prompt_tokens_details\":{\"cached_tokens\":32640},\"total_tokens\":33175}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9e2d64dc387fd2e016c88ac2f149b218f92af40a9b7110a93543f118df1ef370",
+ "status": 200
+}

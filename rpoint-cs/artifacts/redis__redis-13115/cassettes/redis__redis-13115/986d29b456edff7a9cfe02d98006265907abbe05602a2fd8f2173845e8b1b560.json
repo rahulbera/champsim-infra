@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && tclsh tests/test_helper.tcl --single unit/scripting 2>&1 | grep -i \\\\\\\"Lua number -> Redis integer\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373283503661639096\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052983,\"id\":\"202608070549415caa6d9e40744aa9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070549415caa6d9e40744aa9\",\"usage\":{\"completion_tokens\":42,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":44899,\"prompt_tokens_details\":{\"cached_tokens\":44736},\"total_tokens\":44941}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "986d29b456edff7a9cfe02d98006265907abbe05602a2fd8f2173845e8b1b560",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All grep-regex unit tests pass. Now let me run the broader integration tests related to word matching and regression:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration word 2>&1 | tail -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373165306161653111\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078437,\"id\":\"20260807125355eaa9fef7117b4f07\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125355eaa9fef7117b4f07\",\"usage\":{\"completion_tokens\":81,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":80657,\"prompt_tokens_details\":{\"cached_tokens\":80128},\"total_tokens\":80738}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "049f4fa57afe29c57861dd4973d77e1f3413a420ec7446d0022348da71f9007b",
+ "status": 200
+}

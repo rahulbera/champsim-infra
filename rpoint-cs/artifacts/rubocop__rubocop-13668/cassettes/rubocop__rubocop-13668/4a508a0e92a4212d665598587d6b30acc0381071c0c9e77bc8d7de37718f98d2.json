@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me think about the cleanest implementation. I'll modify the approach so that when the inner condition is negated (`unless`) and is a comparison method, we wrap the whole thing in `!(...)`.\\n\\nLet me look at the `autocorrect_outer_condition_modify_form` path too, since the PR case might also apply there:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/rubocop/lib/rubocop/cop/style/sole_nested_conditional.rb\\\",\\\"view_range\\\":[171, 202]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373188808222696324\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078965,\"id\":\"202608071302433af32494e53241c9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071302433af32494e53241c9\",\"usage\":{\"completion_tokens\":114,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":38514,\"prompt_tokens_details\":{\"cached_tokens\":36672},\"total_tokens\":38628}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4a508a0e92a4212d665598587d6b30acc0381071c0c9e77bc8d7de37718f98d2",
+ "status": 200
+}

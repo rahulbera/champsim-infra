@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me look at the slice implementation in the methods directory:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/immutable-js/src/methods\\\"}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373190251331709488\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077733,\"id\":\"2026080712420997949dbe29aa489c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712420997949dbe29aa489c\",\"usage\":{\"completion_tokens\":37,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":12555,\"prompt_tokens_details\":{\"cached_tokens\":8704},\"total_tokens\":12592}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3a752776cc54f8fc5ec1777051b341cddfdef977d1810f2e8b94a4b343557105",
+ "status": 200
+}

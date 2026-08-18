@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Floating point numbers still work correctly with `fpconv_dtoa`. The fix only affects integer values that can be safely represented as `long long`, which are now converted using `ll2string` (producing plain decimal notation) instead of `fpconv_dtoa` (which could produce scientific notation).\\n\\nLet me run the actual test suite for the scripting tests to make sure my changes pass:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && ls tests/unit/scripting.tcl && which tclsh8.5 tclsh 2>/dev/null; tclsh tests/test_helper.tcl --single unit/scripting 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373330748301895763\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052929,\"id\":\"20260807054845040fa1e0e4ee4e6a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054845040fa1e0e4ee4e6a\",\"usage\":{\"completion_tokens\":138,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":43938,\"prompt_tokens_details\":{\"cached_tokens\":43072},\"total_tokens\":44076}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "08d32528fac3bed8b7ff9832ad97c7b0880b420359353da078454e9776ca0cb4",
+ "status": 200
+}

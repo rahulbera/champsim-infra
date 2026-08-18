@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me run all the SoleNestedConditional-related CLI tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle exec rspec spec/rubocop/cli/autocorrect_spec.rb:450 spec/rubocop/cli/autocorrect_spec.rb:508 spec/rubocop/cli/autocorrect_spec.rb:532 spec/rubocop/cli/autocorrect_spec.rb:2842 -f documentation 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373162660461800837\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786079315,\"id\":\"202608071308317f9acc9fd2ae46c5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071308317f9acc9fd2ae46c5\",\"usage\":{\"completion_tokens\":98,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":63362,\"prompt_tokens_details\":{\"cached_tokens\":62976},\"total_tokens\":63460}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7bc40ef82175f9c3e11cd9d986b5813063112ff13b9e8ca76f8fc76fea891012",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test fails without the fix (as expected - it throws `ERR value is not an integer or out of range`). Now let me restore the fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && cp /tmp/script_lua_fixed.c src/script_lua.c && make -j$(nproc) 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373330954460325111\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052995,\"id\":\"20260807054954201708d8e2e849b8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054954201708d8e2e849b8\",\"usage\":{\"completion_tokens\":72,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":45197,\"prompt_tokens_details\":{\"cached_tokens\":44992},\"total_tokens\":45269}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b637acec953bed06f1925f5d09419a00220062ee1d00f8732b54c57c0dab44f8",
+ "status": 200
+}

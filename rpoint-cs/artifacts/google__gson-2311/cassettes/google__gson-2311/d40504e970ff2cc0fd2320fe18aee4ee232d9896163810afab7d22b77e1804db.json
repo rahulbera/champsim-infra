@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me build the classpath and run the tests directly with JUnit:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && CP=\\\\\\\"gson/target/classes\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/junit/junit/4.13.2/junit-4.13.2.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/com/google/truth/truth/1.1.3/truth-1.1.3.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/com/google/guava/guava/31.0.1-jre/guava-31.0.1-jre.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar\\\\\\\"\\\\nCP=\\\\\\\"$CP:/opt/m2/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar\\\\\\\"\\\\necho \\\\\\\"$CP\\\\\\\" > /tmp/cp.txt\\\\necho \\\\\\\"Classpath set\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7372971792115164816\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097066,\"id\":\"2026080718042241a8aeb77662478f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080718042241a8aeb77662478f\",\"usage\":{\"completion_tokens\":304,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":23959,\"prompt_tokens_details\":{\"cached_tokens\":23104},\"total_tokens\":24263}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d40504e970ff2cc0fd2320fe18aee4ee232d9896163810afab7d22b77e1804db",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"This test `r2095` doesn't use `-w` at all. It uses `--multiline --only-matching --replace`. The difference is in indentation (tabs vs spaces). This is strange that my change affects it. Let me look more carefully.\\n\\nWait, the difference is:\\n- Expected: `9:              a` (14 spaces)\\n- Got: `9:                a` (16 spaces)\\n\\nThis is about the `indent` capture group. The pattern is `^(?P<indent>\\\\s*)a=(?P<value>...)`. The `indent` is `\\\\s*`. Hmm.\\n\\nWait, this test doesn't use word matching. Why would my change affect it? Let me re-run to confirm it's reproducible:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test --test integration r2095 2>&1 | tail -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373165649759039004\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078469,\"id\":\"2026080712542521464f2d1778423a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080712542521464f2d1778423a\",\"usage\":{\"completion_tokens\":215,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":82330,\"prompt_tokens_details\":{\"cached_tokens\":81728},\"total_tokens\":82545}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4904a3df67f31c2e767cce4f4ab2b70926902b25e0a7134960a5304505f455fc",
+ "status": 200
+}

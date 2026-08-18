@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me check if there's a target directory with compiled classes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && ls gson/target/ 2>/dev/null\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7372969558732172760\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786096022,\"id\":\"20260807174701bd1b912d7c544449\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807174701bd1b912d7c544449\",\"usage\":{\"completion_tokens\":37,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":12990,\"prompt_tokens_details\":{\"cached_tokens\":12736},\"total_tokens\":13027}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "379b78b790d4662ff6480419cfeae7cc700d97955cfbb2a8e185697941045154",
+ "status": 200
+}

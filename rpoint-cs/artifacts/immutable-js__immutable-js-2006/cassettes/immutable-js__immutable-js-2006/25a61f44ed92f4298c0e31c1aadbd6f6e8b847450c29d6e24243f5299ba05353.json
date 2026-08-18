@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me write a test to reproduce the issue. First, let me understand the issue better by tracing through the code. Let me look at the filter implementation:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"grep -rn \\\\\\\"filterFactory\\\\\\\\|filter\\\\\\\" /immutable-js/src/Operations.js | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373189873374585583\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786077786,\"id\":\"202608071243044dbcc964aaba45f4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071243044dbcc964aaba45f4\",\"usage\":{\"completion_tokens\":63,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":19329,\"prompt_tokens_details\":{\"cached_tokens\":19072},\"total_tokens\":19392}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "25a61f44ed92f4298c0e31c1aadbd6f6e8b847450c29d6e24243f5299ba05353",
+ "status": 200
+}

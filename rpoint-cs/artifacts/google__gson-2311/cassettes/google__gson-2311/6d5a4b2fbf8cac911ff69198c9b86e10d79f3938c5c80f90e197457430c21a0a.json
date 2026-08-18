@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && grep -rn \\\\\\\"BigInteger\\\\\\\" gson/src/test/java/com/google/gson/JsonPrimitiveTest.java\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373038175129692715\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786095527,\"id\":\"20260807173846ac0592e5b5b14640\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807173846ac0592e5b5b14640\",\"usage\":{\"completion_tokens\":34,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":11253,\"prompt_tokens_details\":{\"cached_tokens\":11136},\"total_tokens\":11287}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6d5a4b2fbf8cac911ff69198c9b86e10d79f3938c5c80f90e197457430c21a0a",
+ "status": 200
+}

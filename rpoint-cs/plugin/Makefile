@@ -46,7 +46,7 @@ QEMU_PLUGIN_INC := $(shell \
 GIT_COMMIT := $(shell git rev-parse --short=12 HEAD 2>/dev/null || echo unknown)
 GIT_DIRTY  := $(shell git diff --quiet 2>/dev/null || echo -dirty)
 
-.PHONY: all plugin inspector filter clean check-deps
+.PHONY: all plugin inspector filter clean check-deps test
 
 all: check-deps plugin inspector filter
 
@@ -91,3 +91,14 @@ check-deps:
 
 clean:
 	rm -f $(PLUGIN) $(INSPECTOR) $(FILTER)
+
+# ── Tests ────────────────────────────────────
+#
+# smoke_capture.sh is a BIOS-only boot (~20s, no OS). sampling_test.sh adds the
+# periodic-sampling checks; its user-mode-clock test needs a guest with a real
+# user/kernel split and SKIPS unless GUEST_KERNEL/GUEST_INITRD are exported —
+# build them with ../scripts/smoke-trace/smoke_trace.sh.
+
+test: plugin
+	tests/smoke_capture.sh $${TMPDIR:-/tmp}/cstf-smoke
+	tests/sampling_test.sh $${TMPDIR:-/tmp}/cstf-sampling

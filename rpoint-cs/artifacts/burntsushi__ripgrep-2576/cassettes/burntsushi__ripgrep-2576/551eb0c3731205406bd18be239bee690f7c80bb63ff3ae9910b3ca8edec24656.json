@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The `str_replace_editor` tool converted tabs to spaces in the test file! This is a problem with the editor tool. The `r2095` and `r1559` tests use tabs in their test data, and my edit (which was at the END of the file) somehow caused the whole file to be re-saved with tabs converted to spaces.\\n\\nWait, that doesn't make sense. The `str_replace` should only touch the matched region. But the diff shows tabs converted to spaces in `r1559` and `r2095` which I didn't touch. \\n\\nOh, I see - this is a known issue where the editor tool may normalize whitespace. Let me revert the test file and re-apply my test addition more carefully, preserving tabs.\\n\\nLet me first revert the test file:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git checkout tests/regression.rs && git diff tests/regression.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373127441729970946\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078520,\"id\":\"202608071255136221c3476fab45d8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071255136221c3476fab45d8\",\"usage\":{\"completion_tokens\":195,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":84892,\"prompt_tokens_details\":{\"cached_tokens\":84032},\"total_tokens\":85087}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "551eb0c3731205406bd18be239bee690f7c80bb63ff3ae9910b3ca8edec24656",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /redis && tclsh tests/test_helper.tcl --single unit/scripting 2>&1 | grep -iE \\\\\\\"Lua number -> Redis integer|ERR|failed|FAILED\\\\\\\" | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373349714877479449\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786052991,\"id\":\"20260807054949f2f75b5fdc834820\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807054949f2f75b5fdc834820\",\"usage\":{\"completion_tokens\":53,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":45056,\"prompt_tokens_details\":{\"cached_tokens\":44928},\"total_tokens\":45109}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7872fe58170e1c0f90998a2ad2edd3a589ed0b6541bdff012cded2d5af8c1f37",
+ "status": 200
+}

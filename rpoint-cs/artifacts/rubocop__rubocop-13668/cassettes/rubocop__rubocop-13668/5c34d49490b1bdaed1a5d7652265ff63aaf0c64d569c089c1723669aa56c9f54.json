@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && grep -rn \\\\\\\"comparison_method\\\\\\\\|COMPARISON\\\\\\\" lib/rubocop-ast/ 2>/dev/null; find / -path /proc -prune -o -name \\\\\\\"*.rb\\\\\\\" -print 2>/dev/null | xargs grep -ln \\\\\\\"def comparison_method\\\\\\\" 2>/dev/null | head\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373186677918924209\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078909,\"id\":\"202608071301474425d43dcf864bcc\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071301474425d43dcf864bcc\",\"usage\":{\"completion_tokens\":81,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33742,\"prompt_tokens_details\":{\"cached_tokens\":33216},\"total_tokens\":33823}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5c34d49490b1bdaed1a5d7652265ff63aaf0c64d569c089c1723669aa56c9f54",
+ "status": 200
+}

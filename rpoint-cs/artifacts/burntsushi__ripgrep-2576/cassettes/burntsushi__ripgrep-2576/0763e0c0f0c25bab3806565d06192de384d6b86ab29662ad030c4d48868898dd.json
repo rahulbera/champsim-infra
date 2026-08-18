@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All 285 integration tests pass now (including my new `r2574` test). \\n\\nNow let me run the entire test suite to make sure everything passes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && export PATH=\\\\\\\"/opt/rustup/toolchains/1.75.0-x86_64-unknown-linux-gnu/bin:$PATH\\\\\\\" && cargo test 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373188052308451333\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078568,\"id\":\"20260807125602b9ff6bf6d7714b70\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125602b9ff6bf6d7714b70\",\"usage\":{\"completion_tokens\":89,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86628,\"prompt_tokens_details\":{\"cached_tokens\":86336},\"total_tokens\":86717}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0763e0c0f0c25bab3806565d06192de384d6b86ab29662ad030c4d48868898dd",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me verify the file is back to its original state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /ripgrep && git diff crates/regex/src/word.rs\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373198428949439169\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078050,\"id\":\"202608071247278911b21c0a164b7d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071247278911b21c0a164b7d\",\"usage\":{\"completion_tokens\":38,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48192,\"prompt_tokens_details\":{\"cached_tokens\":47744},\"total_tokens\":48230}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "73ca616aab425df702db772586d383708e5137b7b8de60875736a4bf7f07f98e",
+ "status": 200
+}

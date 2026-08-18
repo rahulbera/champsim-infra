@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && bundle install 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373169463689996968\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078658,\"id\":\"20260807125736d5048085e6b34132\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125736d5048085e6b34132\",\"usage\":{\"completion_tokens\":25,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":18265,\"prompt_tokens_details\":{\"cached_tokens\":17728},\"total_tokens\":18290}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "49574b0ceb0922e56a7ff57a2d9fc91fb2784c64f7cc6b097b7a355fa65962ff",
+ "status": 200
+}

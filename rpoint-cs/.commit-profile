@@ -1,0 +1,32 @@
+# Commit conventions for qemu-tracing, inferred from git log 2026-08-18.
+# Used by the git-commit skill; edit to correct.
+
+message:
+  # `scope: summary` -- scope is the component touched (scripts, swe-agent,
+  # plugin, converter, cbp6, docs), summary is imperative and lowercase.
+  format: conventional
+  subject_max: 72
+  # Bodies explain mechanism and why, often recording the rejected alternative.
+
+formatter:
+  cmd: null          # no formatter; C plugin + shell + docs
+
+review:
+  cmd: null
+
+verify:
+  # No test suite wired for commit; the converter has a golden unit test
+  # (converter/test) built ad hoc when converter code changes.
+  cmd: null
+
+staging:
+  exclude:
+    - images/*       # VM disks (gitignored, belt and braces)
+    - snapshots/*
+    - dump/*
+    - traces
+    - plugin/champsim_tracer.so
+    - plugin/trace_inspector
+
+trailers:
+  require: []

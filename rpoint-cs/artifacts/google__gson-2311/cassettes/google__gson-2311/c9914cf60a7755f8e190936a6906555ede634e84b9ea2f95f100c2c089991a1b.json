@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me run the broader test suite to make sure my changes don't break anything. Let me try running the full test suite via Maven, but first let me check if Maven can run offline:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && timeout 300 mvn -o -pl gson test -Dtest=JsonPrimitiveTest -DfailIfNoTests=false 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373018040323007915\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097782,\"id\":\"20260807181620a7e6d0dfa84d47bc\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807181620a7e6d0dfa84d47bc\",\"usage\":{\"completion_tokens\":87,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":30848,\"prompt_tokens_details\":{\"cached_tokens\":29312},\"total_tokens\":30935}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c9914cf60a7755f8e190936a6906555ede634e84b9ea2f95f100c2c089991a1b",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix works correctly. The reproduction script has been removed, and no test files were modified. Let me submit:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"submit\"},\"id\":\"call_-7373183207585348884\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078050,\"id\":\"20260807124729359d8a5d971d4c4c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807124729359d8a5d971d4c4c\",\"usage\":{\"completion_tokens\":28,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":33811,\"prompt_tokens_details\":{\"cached_tokens\":33472},\"total_tokens\":33839}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "48d6f8b194a9e2058eeb8fd8df82924ae403694fd94178aca0c3f6bd163755ec",
+ "status": 200
+}

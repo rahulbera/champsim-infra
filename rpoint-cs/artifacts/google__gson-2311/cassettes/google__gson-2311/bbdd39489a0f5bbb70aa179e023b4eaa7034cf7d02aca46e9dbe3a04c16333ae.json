@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me check the `getAsBigInteger` usage in tests to make sure my change to `getAsBigInteger` doesn't break anything:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /gson && grep -rn \\\\\\\"getAsBigInteger\\\\\\\" gson/src/test/java/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373033674003965986\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786097769,\"id\":\"202608071816078593c13c3ce448f8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608071816078593c13c3ce448f8\",\"usage\":{\"completion_tokens\":53,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":29044,\"prompt_tokens_details\":{\"cached_tokens\":28224},\"total_tokens\":29097}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bbdd39489a0f5bbb70aa179e023b4eaa7034cf7d02aca46e9dbe3a04c16333ae",
+ "status": 200
+}

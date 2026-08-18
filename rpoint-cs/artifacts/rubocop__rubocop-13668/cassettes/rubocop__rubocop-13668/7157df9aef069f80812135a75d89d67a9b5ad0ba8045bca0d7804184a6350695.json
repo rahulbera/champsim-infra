@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me use the proper expect_offense with the correct caret position. Let me figure out the exact column:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /rubocop && cat > /tmp/repro_spec.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nrequire 'rubocop'\\\\n\\\\nRSpec.describe RuboCop::Cop::Style::SoleNestedConditional, :config do\\\\n  let(:cop_config) { { 'AllowModifier' => false } }\\\\n\\\\n  it 'reproduces the issue' do\\\\n    expect_offense(<<~RUBY)\\\\n      if result\\\\n        result = false unless t === value.public_send(a)\\\\n                             ^^^^^^ Consider merging nested conditions into outer `if` conditions.\\\\n      end\\\\n    RUBY\\\\n\\\\n    expect_correction(<<~RUBY)\\\\n      if result && !(t === value.public_send(a))\\\\n        result = false\\\\n      end\\\\n    RUBY\\\\n  end\\\\nend\\\\nEOF\\\\nbundle exec rspec /tmp/repro_spec.rb --format documentation 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373187021516305675\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786078721,\"id\":\"20260807125839fdaf3d37baf34e9b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807125839fdaf3d37baf34e9b\",\"usage\":{\"completion_tokens\":216,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":21373,\"prompt_tokens_details\":{\"cached_tokens\":20800},\"total_tokens\":21589}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7157df9aef069f80812135a75d89d67a9b5ad0ba8045bca0d7804184a6350695",
+ "status": 200
+}
