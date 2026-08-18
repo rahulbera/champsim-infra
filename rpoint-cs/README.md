@@ -30,14 +30,31 @@ traces (x86-64).
 | `images/`, `snapshots/`, `dump/` | Gitignored bulk: VM disks, guest snapshots, raw traces. |
 | `CLAUDE.md` | Full operational detail (guest config, capture runbooks). Predates the subsume — see below. |
 
-## The SWE-agent capture campaign lives on a branch
+## The SWE-agent capture campaign (this branch)
 
-Mainline carries only the universal tool. The **`swe-agent-tracing`** branch
-continues the original history on top of it with the project-specific campaign:
-record-once/replay-many capture of LLM coding agents (SWE-bench instances),
-its drivers, docs, and the recorded LLM **cassettes** that make those replays
-reproducible — the one artifact class nothing can regenerate. Check that
-branch out if you are working on the agentic-workload study.
+You are on **`swe-agent-tracing`**: mainline's universal tool plus the
+project-specific campaign — record-once/replay-many capture of LLM coding
+agents, `scripts/capture_agentic.sh` / `capture_toolchain.sh` and the
+`swe-agent/` kit, the campaign docs, and under `artifacts/` the recorded LLM
+**cassettes** + trajectories that make the replays reproducible — the one
+artifact class nothing can regenerate. Record is the only pass that touches
+an API key, and the key never reaches disk.
+
+Six SWE-bench instances, one per execution model, four trace windows each,
+plus three non-agentic toolchain controls (same repos, agent removed):
+
+| Instance | Language | Execution model |
+|---|---|---|
+| prometheus-15142 | Go | compiled, interface dispatch |
+| gin-3820 | Go | compiled, interface dispatch |
+| redis-13115 | C | compiled, direct calls |
+| rubocop-13668 | Ruby | MRI bytecode interpreter |
+| ripgrep-2576 | Rust | compiled, monomorphised generics |
+| immutable-js-2006 | JavaScript | V8 JIT, inline caches |
+
+(`google__gson-2311`, Java, is captured — cassettes in `artifacts/` — but has
+not been converted or simulated. prometheus's cassettes are NOT in git
+anywhere; locating them is an open item.)
 
 ## Provenance
 
