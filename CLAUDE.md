@@ -5,8 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repo is
 
 Infrastructure (not the simulator) for running [ChampSim](https://github.com/ChampSim/ChampSim)
-trace-driven simulations at scale on a Slurm cluster. It generates traces (pintool),
-generates jobfiles that sweep (trace × experiment) pairs, fetches compressed traces into
+trace-driven simulations at scale on a Slurm cluster. It generates traces (pintool for
+PIN-instrumentable workloads; **rpoint-cs** for QEMU-replayed workloads — the SWE-agent
+capture campaign lives on the `swe-agent-tracing` branch), generates jobfiles that
+sweep (trace × experiment) pairs, fetches compressed traces into
 a node-local cache, rolls per-run stats up into a CSV, runs deterministic regressions, and
 (via `cluster_run.py`) orchestrates those runs on a remote SSH-only Slurm cluster.
 ChampSim itself, its forks (Hermes/Pythia/…), and the traces all live OUTSIDE this repo,
@@ -29,6 +31,7 @@ and drift silently otherwise.
 | `regression/README.md` | The exact build + run incantation for a regression. |
 | `docs/cluster-run.md` | Remote Slurm runbook, caveats, per-cluster specifics. |
 | `pintool/README.md`, `tools/README.md`, `tests/README.md` | Tracer knobs, C++ tool flags, test layout. |
+| `rpoint-cs/README.md` | The QEMU snapshot/replay tracer (subsumed repo; own CLAUDE.md inside). Excluded from the cluster rsync. Mainline = universal tool; SWE-agent campaign + cassettes on branch `swe-agent-tracing`. |
 
 ## Commands
 

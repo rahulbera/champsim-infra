@@ -17,6 +17,7 @@ ChampSim itself, the Hermes/Pythia/arishem forks, and the traces all live
 | Directory | What it is | More |
 |-----------|------------|------|
 | [`pintool/`](pintool/README.md) | The Intel PIN tracer that **produces** ChampSim traces. Instrument a workload with ROI markers, run it under PIN, get a compressed trace. | [README](pintool/README.md) |
+| [`rpoint-cs/`](rpoint-cs/README.md) | The QEMU-plugin tracer — the other way to **produce** traces. Snapshot a real guest under KVM, replay under TCG with the tracing plugin, convert to ChampSim v2 with explicit branch types. ChampSim counterpart of gem5's `rpoint`. The SWE-agent capture campaign (and its LLM cassettes) lives on the `swe-agent-tracing` branch. | [README](rpoint-cs/README.md) |
 | [`scripts/`](scripts/README.md) | The core run pipeline. The `tlist`/`exp`/`mfile` YAML data model, jobfile generation, the concurrency-safe trace cache, and stats rollup. | [README](scripts/README.md) |
 | [`regression/`](regression/README.md) | A thin harness that chains the pipeline into a deterministic, timestamped regression run and diffs it against the previous one (CI-gate friendly). | [README](regression/README.md) |
 | [`tools/`](tools/README.md) | Standalone C++ trace utilities: split a big trace into chunks (`trace_cutter`), or walk a trace and print stats (`trace_sanity_check`). | [README](tools/README.md) |

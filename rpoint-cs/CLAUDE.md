@@ -1,5 +1,12 @@
 # CLAUDE.md — QEMU-Based Multi-Threaded Trace Generator for ChampSim
 
+> **This tool is now `rpoint-cs/` inside champsim-infra** (subsumed from the
+> standalone `qemu-tracing` repo, 2026-08-18). Paths below that say
+> `~/qemu-tracing/…` mean this directory. Start with [README.md](README.md)
+> for the current shape of the tool; the sections below keep the full
+> operational detail, some of it from the original Memcached/NUMA phase.
+> The SWE-agent capture campaign lives on the `swe-agent-tracing` branch.
+
 ## Project Overview
 
 We are building a trace generation pipeline that extracts multi-threaded
