@@ -39,7 +39,7 @@ Build artifacts land in `obj-intel64/` (gitignored).
 system zstd work fine.
 
 ```bash
-cd pintool
+cd tracer/pintool
 PIN_ROOT=/path/to/pin-4.0-kit ZSTD_HOME=/path/to/zstd bash make_tracer.sh
 # -> obj-intel64/champsim_tracer_mt_roi_v2.so
 # -> obj-intel64/champsim_tracer_mt_roi_v3.so

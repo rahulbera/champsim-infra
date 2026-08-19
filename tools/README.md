@@ -10,7 +10,7 @@ Two small C++ command-line tools for working with ChampSim trace files
 | `trace_sanity_check/` | Walks a `.gz`/`.xz`/`.zst` trace and prints aggregate stats (instruction/branch/load/store counts, footprint, …). |
 
 `trace_cutter` honours **`ZSTD_HOME`** (default: system zstd) the same way
-`pintool/` does, in case you link against a custom zstd build.
+`tracer/pintool/` does, in case you link against a custom zstd build.
 `trace_sanity_check` needs no compression libraries at all — it shells out to the
 reference decompressors.
 

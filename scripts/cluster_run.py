@@ -419,12 +419,13 @@ def cmd_submit(args):
               excludes=cfg["rsync_excludes"], delete=True)
     if r.returncode != 0:
         raise ClusterRunError(f"rsync of simulator failed: {r.stderr.strip()}")
-    # rpoint-cs is the trace-GENERATION tool; the cluster only ever runs the
-    # scripts/ pipeline. On the swe-agent-tracing branch it also carries ~130MB
-    # of committed LLM cassettes, so shipping it would slow every submit from
-    # that branch for nothing.
+    # tracer/rpoint-cs is the trace-GENERATION tool; the cluster only ever runs
+    # the scripts/ pipeline. On the swe-agent-tracing branch it also carries
+    # ~130MB of committed LLM cassettes, so shipping it would slow every submit
+    # from that branch for nothing. (tracer/pintool stays in the sync: small,
+    # and building it on a cluster host is a supported use.)
     r = rsync(INFRA_ROOT.rstrip("/") + "/", f"{host}:{cfg['remote_infra_path']}/",
-              excludes=[".git", "__pycache__", STATE_DIRNAME, "rpoint-cs"], delete=True)
+              excludes=[".git", "__pycache__", STATE_DIRNAME, "tracer/rpoint-cs"], delete=True)
     if r.returncode != 0:
         raise ClusterRunError(f"rsync of champsim-infra failed: {r.stderr.strip()}")
 
