@@ -5,12 +5,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repo is
 
 Infrastructure (not the simulator) for running [ChampSim](https://github.com/ChampSim/ChampSim)
-trace-driven simulations at scale on a Slurm cluster. It generates traces (`tracer/` holds both producers: pintool for
-PIN-instrumentable workloads; **rpoint-cs** for QEMU-replayed workloads — the SWE-agent
-capture campaign lives on the `swe-agent-tracing` branch), generates jobfiles that
-sweep (trace × experiment) pairs, fetches compressed traces into
+trace-driven simulations at scale on a Slurm cluster. It produces traces, generates
+jobfiles that sweep (trace × experiment) pairs, fetches compressed traces into
 a node-local cache, rolls per-run stats up into a CSV, runs deterministic regressions, and
 (via `cluster_run.py`) orchestrates those runs on a remote SSH-only Slurm cluster.
+
+```
+tracer/       the two trace PRODUCERS — pintool/ (Intel PIN, for workloads you can
+              instrument) and rpoint-cs/ (QEMU snapshot/replay, subsumed repo, for
+              workloads you cannot). Mainline carries the universal tools only; the
+              SWE-agent capture campaign and its LLM cassettes live on branch
+              swe-agent-tracing. Excluded from the cluster rsync.
+scripts/      the sweep pipeline: create_jobfile.py → run_champsim.py/fetch_trace.py
+              → rollup.py, plus cluster_run.py (remote Slurm orchestrator)
+regression/   deterministic regression harness chaining that pipeline
+tools/        standalone C++ trace utilities: trace_cutter, trace_sanity_check
+tests/        the two assert-based gates (no pytest, no network; cluster is faked)
+docs/         cluster-run runbook, handoffs, design specs
+```
 ChampSim itself, its forks (Hermes/Pythia/…), and the traces all live OUTSIDE this repo,
 as sibling checkouts. **Absolute paths in the docs (`/home/rahbera/thesis/…`,
 `/home/rahbera/tracezoo/…`) are the lab host's**; in this checkout the siblings are
@@ -30,6 +42,7 @@ and drift silently otherwise.
 | `scripts/README.md` | The tlist/exp/mfile data model and every pipeline script's flags. |
 | `regression/README.md` | The exact build + run incantation for a regression. |
 | `docs/cluster-run.md` | Remote Slurm runbook, caveats, per-cluster specifics. |
+| `tracer/README.md` | Which tracer to use for which workload class. |
 | `tracer/pintool/README.md`, `tools/README.md`, `tests/README.md` | Tracer knobs, C++ tool flags, test layout. |
 | `tracer/rpoint-cs/README.md` | The QEMU snapshot/replay tracer (subsumed repo; own CLAUDE.md inside). Excluded from the cluster rsync. Mainline = universal tool; SWE-agent campaign + cassettes on branch `swe-agent-tracing`. |
 
