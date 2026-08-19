@@ -1,7 +1,7 @@
 # Handoff: make v3 traces usable for branch-predictor research
 
 **Repo to change:** `champsim-infra` (this repo), file
-`pintool/champsim_tracer_mt_roi_v3.cpp`.
+`tracer/pintool/champsim_tracer_mt_roi_v3.cpp`.
 **Consumer:** ChampSim at `/home/rbera/work/bpeval/ChampSim`, branch `rbdev`.
 **Status:** analysis complete and empirically confirmed; implementation not started.
 **Written:** 2026-08-05
@@ -57,7 +57,7 @@ hashed_perceptron 2.535), confirming the harness is fine and the trace is the pr
 
 ## 3. Root cause
 
-`pintool/champsim_tracer_mt_roi_v3.cpp`, in `insert_full_analysis()`:
+`tracer/pintool/champsim_tracer_mt_roi_v3.cpp`, in `insert_full_analysis()`:
 
 ```cpp
 // line 1325-1337  (source registers)
@@ -280,7 +280,7 @@ but re-check if v1 traces are regenerated.
 
 ```bash
 cd /home/rbera/work/bpeval/champsim-infra/pintool
-bash make_tracer.sh          # needs PIN_ROOT and ZSTD_HOME; see pintool/README.md
+bash make_tracer.sh          # needs PIN_ROOT and ZSTD_HOME; see tracer/pintool/README.md
 # -> obj-intel64/champsim_tracer_mt_roi_v3.so
 ```
 
@@ -289,7 +289,7 @@ adjusting on this machine.
 
 ### Generate a short trace
 
-Follow `pintool/README.md` (instrument workload with ROI markers, run under PIN). A few
+Follow `tracer/pintool/README.md` (instrument workload with ROI markers, run under PIN). A few
 million instructions is plenty to validate — do **not** regenerate the full trace set
 until the acceptance checks below pass.
 
@@ -356,12 +356,12 @@ For coordination only — the ChampSim repo is being changed in parallel on bran
 
 | File | Change |
 |---|---|
-| `pintool/champsim_tracer_mt_roi_v3.cpp` ~1180 | add `classify_branch(INS)` helper (§5.3) |
+| `tracer/pintool/champsim_tracer_mt_roi_v3.cpp` ~1180 | add `classify_branch(INS)` helper (§5.3) |
 | same, ~1277 | `RecordInstrCommit()` takes `branch_type`; writes `reserved[0]`, `reserved[1] = 1` |
 | same, ~1477 | `is_branch` includes calls and returns (§5.5) |
 | same, ~1479 & ~1492 | both `InsertCall` sites pass the new argument |
 | `tools/trace_sanity_check/` | add acceptance checks 1–5 from §8 |
-| `pintool/README.md` | document `reserved[0..1]`, and that branch type is now explicit |
+| `tracer/pintool/README.md` | document `reserved[0..1]`, and that branch type is now explicit |
 
 Do **not** change: the 512-byte record size, the `NUM_INSTR_*` constants, or the
 existing `instr_type` / `privilege` fields.

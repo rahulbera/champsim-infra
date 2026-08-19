@@ -14,7 +14,7 @@ tracing plugin and convert the instrumented stream offline:
    30-encoding x86 golden unit test.
 
 The name: this is the ChampSim counterpart of
-[`rpoint`](../../garfield/gem5-infra/infra/rpoint) in gem5-infra. Both share the
+[`rpoint`](../../../garfield/gem5-infra/infra/rpoint) in gem5-infra. Both share the
 capture-once / replay-many philosophy; rpoint snapshots a KVM guest into gem5
 full-system checkpoints (AArch64), rpoint-cs replays a TCG guest into ChampSim
 traces (x86-64).
@@ -64,4 +64,4 @@ its original hashes, is the second parent of the subsume merge commit
 (mainline imports the tool at its branch-type era; `swe-agent-tracing`
 subtree-merges the remainder). The old repo is archived read-only. Some
 in-tree docs (notably `CLAUDE.md`) still carry pre-subsume paths like
-`~/qemu-tracing/…`; read them as `rpoint-cs/…`.
+`~/qemu-tracing/…`; read them as `tracer/rpoint-cs/…`.

@@ -1,6 +1,6 @@
 # CLAUDE.md — QEMU-Based Multi-Threaded Trace Generator for ChampSim
 
-> **This tool is now `rpoint-cs/` inside champsim-infra** (subsumed from the
+> **This tool is now `tracer/rpoint-cs/` inside champsim-infra** (subsumed from the
 > standalone `qemu-tracing` repo, 2026-08-18). Paths below that say
 > `~/qemu-tracing/…` mean this directory. Start with [README.md](README.md)
 > for the current shape of the tool; the sections below keep the full

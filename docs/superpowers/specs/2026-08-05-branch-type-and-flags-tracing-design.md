@@ -53,7 +53,7 @@ tracer at a fixed line offset**, and every region this change touches is byte-id
 `!REG_is_flags` sits at **v2:1203 / v2:1216** and **v3:1327 / v3:1340**, textually identical. Both tracers
 emit the same `.champsim2.zst` filename, so fixing only v3 would split that population into two
 silently-incompatible classification classes and falsify the "strict superset / bit-identical" claim in
-`v3:9-10,46-47`, `pintool/README.md:17,126` and `CLAUDE.md`.
+`v3:9-10,46-47`, `tracer/pintool/README.md:17,126` and `CLAUDE.md`.
 
 **Both files receive the identical patch.**
 
@@ -194,7 +194,7 @@ are added are the rare three-writer forms (`mul`, `div`, `cmpxchg`, `xadd`).
 
 Three defects block this work and are fixed as part of it.
 
-1. **`pintool/makefile.rules` is missing `-I$(ZSTD_HOME)/include`.** Pin's musl CRT hides `/usr/include`, so
+1. **`tracer/pintool/makefile.rules` is missing `-I$(ZSTD_HOME)/include`.** Pin's musl CRT hides `/usr/include`, so
    the build fails with `fatal error: zstd.h: No such file or directory` even with a correct `ZSTD_HOME`.
    Fix: `TOOL_CXXFLAGS += -I$(ZSTD_HOME)/include`.
 2. **`make_tracer.sh` hardcodes `/home/rahbera/...`**, which does not exist on this host. PIN 4.0 — the same
@@ -296,10 +296,10 @@ cluster, so changing it risks breaking cluster runs. Owner has taken this.
 
 | file | change |
 |---|---|
-| `pintool/champsim_tracer_mt_roi_v2.cpp` | §5.1-5.5 |
-| `pintool/champsim_tracer_mt_roi_v3.cpp` | §5.1-5.5, plus stale `v2` self-references at `:96-97,103,1756` |
-| `pintool/makefile.rules` | §6.1 zstd include path |
-| `pintool/make_tracer.sh` | §6.2 environment-overridable paths |
+| `tracer/pintool/champsim_tracer_mt_roi_v2.cpp` | §5.1-5.5 |
+| `tracer/pintool/champsim_tracer_mt_roi_v3.cpp` | §5.1-5.5, plus stale `v2` self-references at `:96-97,103,1756` |
+| `tracer/pintool/makefile.rules` | §6.1 zstd include path |
+| `tracer/pintool/make_tracer.sh` | §6.2 environment-overridable paths |
 | `tools/trace_sanity_check/trace_sanity_check.cpp` | §6.3 self-contained reader; §7.1 checks |
 | `tools/trace_sanity_check/Makefile` | §6.3 drop `CHAMPSIM_HOME` |
-| `pintool/README.md`, `tools/README.md`, `CLAUDE.md` | document the contract; correct the v3-only attribution |
+| `tracer/pintool/README.md`, `tools/README.md`, `CLAUDE.md` | document the contract; correct the v3-only attribution |

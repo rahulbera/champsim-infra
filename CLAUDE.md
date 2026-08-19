@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repo is
 
 Infrastructure (not the simulator) for running [ChampSim](https://github.com/ChampSim/ChampSim)
-trace-driven simulations at scale on a Slurm cluster. It generates traces (pintool for
+trace-driven simulations at scale on a Slurm cluster. It generates traces (`tracer/` holds both producers: pintool for
 PIN-instrumentable workloads; **rpoint-cs** for QEMU-replayed workloads — the SWE-agent
 capture campaign lives on the `swe-agent-tracing` branch), generates jobfiles that
 sweep (trace × experiment) pairs, fetches compressed traces into
@@ -30,8 +30,8 @@ and drift silently otherwise.
 | `scripts/README.md` | The tlist/exp/mfile data model and every pipeline script's flags. |
 | `regression/README.md` | The exact build + run incantation for a regression. |
 | `docs/cluster-run.md` | Remote Slurm runbook, caveats, per-cluster specifics. |
-| `pintool/README.md`, `tools/README.md`, `tests/README.md` | Tracer knobs, C++ tool flags, test layout. |
-| `rpoint-cs/README.md` | The QEMU snapshot/replay tracer (subsumed repo; own CLAUDE.md inside). Excluded from the cluster rsync. Mainline = universal tool; SWE-agent campaign + cassettes on branch `swe-agent-tracing`. |
+| `tracer/pintool/README.md`, `tools/README.md`, `tests/README.md` | Tracer knobs, C++ tool flags, test layout. |
+| `tracer/rpoint-cs/README.md` | The QEMU snapshot/replay tracer (subsumed repo; own CLAUDE.md inside). Excluded from the cluster rsync. Mainline = universal tool; SWE-agent campaign + cassettes on branch `swe-agent-tracing`. |
 
 ## Commands
 
@@ -61,12 +61,12 @@ tools/trace_sanity_check/trace_sanity_check -i <trace>.champsim2.zst -f v2 --che
 
 # Pintool (x86-64 host with an Intel PIN 4.0 kit; PIN is at
 # /home/rbera/work/softwares/pin-external-4.0-99633-g5ca9893f2-gcc-linux here)
-cd pintool && env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS \
+cd tracer/pintool && env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS \
   PIN_ROOT=<pin-kit> ZSTD_HOME=<dir with include/zstd.h + lib/libzstd.a> \
   bash make_tracer.sh
 
 # Full tracer loop, ~1 minute end to end (no instrumented workload needed)
-<pin-kit>/pin -t pintool/obj-intel64/champsim_tracer_mt_roi_v3.so \
+<pin-kit>/pin -t tracer/pintool/obj-intel64/champsim_tracer_mt_roi_v3.so \
   -use_markers 0 -o out -t 200000 -n 1 -- /bin/ls /usr/lib
 ```
 
@@ -221,7 +221,7 @@ the global `cluster-run` skill. **Full runbook + caveats: `docs/cluster-run.md`.
 
 ## Trace generation & tooling
 
-- **pintool/** — Intel PIN 4.0 tracer emitting v2/v3 ChampSim traces (both write the same
+- **tracer/pintool/** — Intel PIN 4.0 tracer emitting v2/v3 ChampSim traces (both write the same
   512-byte `input_instr_v2` record; v3 adds multi-threaded gating). ROI is bracketed by
   "magic NOP" markers (`xchg %rcx, %rcx` with an opcode in RCX) defined in
   `champsim_markers.h`; the opcode constants are duplicated between that header and the
