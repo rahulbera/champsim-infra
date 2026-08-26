@@ -217,9 +217,60 @@ def test_rollup_nan_metric():
               "non-finite metrics print NaN; missing stat stays 0; run kept")
 
 
+def test_create_jobfile_dangling_option():
+    """An experiment string may not end in an option still awaiting a value.
+
+    create_jobfile appends "--trace-version=<v> <trace-path>", so a trailing
+    value-taking option eats the appended text. For --toml/--json that is
+    DESTRUCTIVE: ChampSim's writability probe truncates whatever path it is
+    handed, before it checks the trace count -- that is how a 2.3 GB trace was
+    zeroed on 2026-08-26.
+    """
+    print("test_create_jobfile_dangling_option")
+    with tempfile.TemporaryDirectory() as d:
+        make_fixtures(d)
+        env = dict(os.environ, TMPDIR=d)
+
+        def with_exp(params):
+            write(os.path.join(d, "e.yml"),
+                  "---\nexperiments:\n  - exp1: \"%s\"\n" % params)
+            return run_cj(d, env, ["--exe", "/bin/echo", "--local",
+                                   "--report-json", "-"])
+
+        # DESTRUCTIVE: the two that truncate the file they are handed.
+        for opt in ("--toml", "--json"):
+            r = with_exp("--warmup-instructions 10 " + opt)
+            check(r.returncode != 0, f"trailing {opt} is rejected")
+            check("CJ_EXP_DANGLING_OPTION" in r.stdout + r.stderr,
+                  f"trailing {opt} reports CJ_EXP_DANGLING_OPTION")
+            check("TRUNCATE" in r.stdout + r.stderr,
+                  f"trailing {opt} warns that the trace would be truncated")
+
+        # Merely wrong: consumes the trace path, run fails, no data lost.
+        r = with_exp("--config a.toml --set")
+        check(r.returncode != 0, "trailing --set is rejected")
+        check("CJ_EXP_DANGLING_OPTION" in r.stdout + r.stderr,
+              "trailing --set reports CJ_EXP_DANGLING_OPTION")
+
+        # Created by strip_window_flags: raw string ends in a value, the
+        # smoke-test form does not.
+        r = with_exp("--heartbeat-frequency -w 100")
+        check(r.returncode != 0, "option left dangling by window-stripping is rejected")
+
+        # Legal forms must all still pass.
+        for params in ("--config a.toml",
+                       "--warmup-instructions 10 --toml out.toml",
+                       "--set ooo_cpu.cpu0.btb=basic_btb",
+                       "--heartbeat-frequency=1000",
+                       "-w100"):
+            r = with_exp(params)
+            check(r.returncode == 0, f"legal experiment string accepted: {params!r}")
+
+
 def main():
     test_create_jobfile_autolaunch()
     test_create_jobfile_backward_compat()
+    test_create_jobfile_dangling_option()
     test_rollup_reports()
     test_rollup_missing_metric_zero()
     test_rollup_nan_metric()
