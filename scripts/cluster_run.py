@@ -464,6 +464,12 @@ def cmd_submit(args):
              "--report-json", "-", "-o", run_dir + "/jobfile.sh",
              "--slurm-part", slurm["partition"], "--ncores", slurm["ncores"],
              "--nodename", slurm["nodename"]]
+    # Each job also writes ChampSim's TOML statistics document beside its .out.
+    # cbp6-runs/rollup.py prefers it: exact integer operands instead of the
+    # plain text's 4-significant-figure rates, plus the per-cache counters the
+    # text has no key for.
+    if getattr(args, "stats_toml", False):
+        parts += ["--stats-toml"]
     if slurm.get("extra"):
         parts += ["--extra", slurm["extra"]]
     if slurm.get("include"):
@@ -802,6 +808,9 @@ def build_parser():
     sp.add_argument("--mfile", nargs="+", required=True, help="metric file(s) (stored for rollup)")
     sp.add_argument("--cluster", default=None, help="override the default cluster")
     sp.add_argument("--label", default="", help="tag appended to the batch id")
+    sp.add_argument("--stats-toml", action="store_true",
+                    help="Have each job also write <tag>.toml (ChampSim's machine-readable "
+                         "statistics document) beside <tag>.out; rollup prefers it.")
     sp.add_argument("--smoke-idx", default="0", help="(trace x exp) index for the smoke test")
     sp.add_argument("--smoke-warmup", default="1000000")
     sp.add_argument("--smoke-sim", default="1000000")

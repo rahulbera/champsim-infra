@@ -380,6 +380,7 @@ def parse_args():
     parser.add_argument('--smoke-test-idx', type=int, default=0, help='Index into the (trace x experiment) pair list to use for --smoke-test (default: 0)')
     parser.add_argument('--smoke-warmup', type=int, default=1_000_000, help='Warmup instructions used during --smoke-test (default: 1M)')
     parser.add_argument('--smoke-sim', type=int, default=1_000_000, help='Simulation instructions used during --smoke-test (default: 1M)')
+    parser.add_argument('--stats-toml', action='store_true', help="Have each job also write ChampSim's machine-readable statistics document to <tag>.toml beside <tag>.out. The TOML carries per-cache hit/miss counters and per-branch-type censuses that the plain-text report does not, and is parsed in preference to it. Off by default: it changes the ChampSim command line.")
     parser.add_argument('--report-json', default=None, metavar='PATH', help="Emit a machine-readable JSON report (stable error_id + per-job status) to PATH, or to stdout (delimited) when PATH is '-'. Default behavior is unchanged when omitted.")
     parser.add_argument('--local', action='store_true', help='Emit raw ChampSim commands instead of sbatch lines, so the jobfile runs locally on this host')
     parser.add_argument('--local-parallel', type=int, default=1, help='Max number of local commands to run in parallel when --local is set (default: 1)')
@@ -435,7 +436,13 @@ def _run(args):
         for trace in traces:
             for exp in experiments:
                 tag = f"{trace.name}_{exp.name}"
-                champsim_cmd = f"{exe_to_use} {exp.params} --trace-version={trace.version}{trace_arg(trace, args)}"
+                # --toml goes BEFORE the appended --trace-version/<path>, and
+                # always with an explicit filename: a bare --toml would bind the
+                # next token as its output file and truncate it. See
+                # check_trailing_option.
+                stats_toml = f" --toml {tag}.toml" if args.stats_toml else ""
+                champsim_cmd = (f"{exe_to_use} {exp.params}{stats_toml}"
+                                f" --trace-version={trace.version}{trace_arg(trace, args)}")
                 inner = wrap_with_orchestrator(champsim_cmd, trace, args)
 
                 if args.local:
