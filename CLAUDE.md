@@ -225,6 +225,15 @@ the global `cluster-run` skill. **Full runbook + caveats: `docs/cluster-run.md`.
   machine-readable output behind flags (defaults unchanged): `--report-json <path|->` and
   `create_jobfile.py --smoke-test-auto-launch` (smoke-gate, then submit each sbatch
   capturing exact `tag→job_id`).
+- `--stats-toml` (on `submit`, forwarded to `create_jobfile.py`) makes each job also write
+  ChampSim's TOML statistics document to `<tag>.toml` beside `<tag>.out`.
+  `cbp6-runs/rollup.py` **prefers** it: exact integer operands instead of the plain text's
+  4-significant-figure rates, per-branch-type mispredict COUNTS rather than pre-divided
+  MPKI, and the per-cache `<type>_hit`/`<type>_miss` counters the text exposes only as a
+  formatted table (this is where L1I MPKI comes from). It is an overlay, not a
+  replacement: `conditional branches`, `direction mispredicts` and the register-value
+  channel are printed to stdout by the CBP6 adapter and have no TOML key, so the `.out` is
+  still parsed for those, and a run without a `.toml` rolls up exactly as before.
 - `$(SIM_HOME_IN_CLUSTER)` in a tlist/exp resolves to the cluster sim path at submit time
   (for `--config` paths that live inside the rsynced sim tree).
 - `combine --batches A,B[,…]` merges several **finished** batches into one table for
