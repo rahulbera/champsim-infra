@@ -29,6 +29,14 @@ Two ordering/syntax rules bite if ignored:
 - **Flag order in an exp string is significant.** ChampSim applies CLI flags and
   `--config` files left-to-right with last-wins semantics, so a CLI override must
   come *after* any `--config` that sets the same key.
+- **An exp string must end in a COMPLETE flag, and this is enforced.**
+  `create_jobfile.py` appends `--trace-version=<v> <trace-path>`, so a trailing
+  value-taking option swallows it; generation fails with `CJ_EXP_DANGLING_OPTION`
+  naming the offending experiment. For `--toml`/`--json` the consequence is data
+  loss rather than a failed run: ChampSim declares them `expected(0,1)`, binds the
+  next token as an output filename, and **truncates that file at startup** before
+  checking the trace count — a trailing `--toml` would zero every trace in the
+  tlist. `--flag=value` and attached short forms (`-w100`) are complete and pass.
 - `$(VAR)` is the substitution syntax everywhere — `definitions:` macros in exp
   files and `$(STAT_NAME)` stat references in mfiles.
 

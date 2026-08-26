@@ -104,6 +104,12 @@ def create_experiments(data):
     for exp in data.get("experiments", []):
         for name, params in exp.items():
             params = replace_variables(params, definitions)
+            check_trailing_option(name, params)
+            # The smoke path runs strip_window_flags(params), which can leave a
+            # trailing option the raw string did not have -- e.g.
+            # "--heartbeat-frequency -w 100" ends in "100" but strips to a bare
+            # "--heartbeat-frequency". Check the form the smoke test will use too.
+            check_trailing_option(name, strip_window_flags(params))
 
             experiments.append(Experiment(name, params))
 
@@ -144,6 +150,57 @@ def merge_with_dedup(named_groups, kind, source_flag):
             lines.append(f"  {name}: appears in {', '.join(files)}")
         raise CJError("CJ_DUPLICATE_NAME", "\n".join(lines))
     return [item for _, items in named_groups for item in items]
+
+
+# ChampSim options that consume a FOLLOWING token as their value. An experiment
+# string ending in one of these is malformed, because create_jobfile appends
+# "--trace-version=<v> <trace-path>" to it: the appended text becomes the
+# option's value instead of doing its job.
+#
+# Two of them do not merely produce a failed run -- they DESTROY DATA. `--toml`
+# and `--json` are declared `->expected(0, 1)` in ChampSim's src/main.cc, so a
+# bare one binds the next token as an output filename, and the writability probe
+# at main.cc:159-165 TRUNCATES that file at startup, before the trace-count check
+# ever runs. A trace path that lands there is zeroed and the run then fails with
+# "expected 1 trace(s), got 0". That is not hypothetical: it cost a 2.3 GB
+# trace here on 2026-08-26.
+#
+# Today the appended "--trace-version=<v>" sits between a trailing option and the
+# trace path, so CLI11 stops the grab at that recognised option and the path
+# survives. That is an accident of append ORDER, not a designed protection -- it
+# evaporates if the appended text ever changes, and it never protected a command
+# assembled by hand. So this enforces the invariant the READMEs already state:
+# an experiment string must end in a COMPLETE flag.
+DESTRUCTIVE_OPTS = {"--toml", "--json"}
+VALUE_TAKING_OPTS = DESTRUCTIVE_OPTS | {
+    "--config", "--set", "--listeners", "--trace-version", "--heartbeat-frequency",
+    "-w", "--warmup-instructions", "--warmup_instructions",
+    "-i", "--simulation-instructions", "--simulation_instructions",
+}
+
+
+def check_trailing_option(name, params):
+    """Reject an experiment whose last token is an option still awaiting a value.
+
+    Only the TRAILING token matters: it is the one the appended trace path would
+    be swallowed by. `--flag=value` is complete, and so is an attached short form
+    like `-w100`, so neither is rejected.
+    """
+    tokens = params.split()
+    if not tokens:
+        return
+    last = tokens[-1]
+    if last not in VALUE_TAKING_OPTS:
+        return
+    why = (" ChampSim would TRUNCATE the trace file it is given as an output"
+           " path, destroying it." if last in DESTRUCTIVE_OPTS else
+           " The appended trace path would be consumed as its value.")
+    raise CJError(
+        "CJ_EXP_DANGLING_OPTION",
+        f"experiment '{name}' ends in '{last}', which takes a value.{why}\n"
+        f"  params: {params}\n"
+        f"  An experiment string must end in a complete flag; create_jobfile appends"
+        f" '--trace-version=<v> <trace-path>' to it.")
 
 
 WINDOW_FLAG_RE = re.compile(

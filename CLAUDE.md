@@ -143,7 +143,14 @@ Two traps in the exp file:
   sequence with last-wins semantics, so a CLI override must come AFTER any `--config` that
   sets the same key. `create_jobfile.py` appends `--trace-version=<v> <path>` to the *end*
   of your string, so it must end with a complete flag (and you cannot override
-  `trace-version` from the exp file).
+  `trace-version` from the exp file). **That rule is now enforced**: an experiment whose
+  last token is a value-taking option is rejected at jobfile generation with
+  `CJ_EXP_DANGLING_OPTION`, including one left dangling by the smoke test's
+  window-stripping. It is a data-safety guard, not a tidiness one — ChampSim declares
+  `--toml`/`--json` as `expected(0,1)`, so a bare one binds the next token as an output
+  filename and **truncates that file at startup**, before it checks the trace count. A
+  trailing `--toml` in an exp file would zero every trace in the tlist, one job at a
+  time; that is how a 2.3 GB trace was destroyed here on 2026-08-26.
   **The trace path is POSITIONAL and the flag is hyphenated** — current ChampSim (CLI11)
   rejects both older spellings outright: `--trace_version=2` and a `-traces` token each
   produce *"The following arguments were not expected"*, i.e. every job fails, not just
