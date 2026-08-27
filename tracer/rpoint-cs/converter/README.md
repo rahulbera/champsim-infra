@@ -30,7 +30,7 @@ plugin/champsim_tracer.so   ─►  traces/trace_vcpu*.raw.zst
 This is Stage 5 of the pipeline described in
 `docs/pipeline/pipeline-stages.md`. The 512-byte ChampSim v2 layout
 implemented here matches the format the PIN-based tracer
-(`arishem/champsim/tracer/champsim_tracer_mt_roi_v3.cpp`) also emits,
+(`tracer/pintool/champsim_tracer_mt_roi_v3.cpp`) also emits,
 so traces from either tracer can be fed to the same simulator
 unchanged.
 
