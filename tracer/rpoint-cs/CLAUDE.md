@@ -6,26 +6,46 @@
 > for the current shape of the tool; the sections below keep the full
 > operational detail, some of it from the original Memcached/NUMA phase.
 > The SWE-agent capture campaign lives on the `swe-agent-tracing` branch.
+> **Read "Scope" below before adding anything**: this directory prepares
+> workloads and generates traces, and deliberately does not hold experiments
+> run on those traces.
 
 ## Project Overview
 
-We are building a trace generation pipeline that extracts multi-threaded
-instruction traces from real-world workloads (starting with Memcached) to
-feed into an extended ChampSim simulator for NUMA memory system research.
+A trace generation pipeline: it extracts multi-threaded instruction traces
+from real-world workloads and converts them into ChampSim format. QEMU's TCG
+mode with a custom plugin captures per-vCPU streams including memory access
+values; the converter turns those into ChampSim v2 records offline.
 
-The pipeline uses QEMU's TCG (Tiny Code Generator) mode with a custom
-plugin to capture per-vCPU instruction traces, including memory access
-values. These traces will be converted offline into ChampSim-compatible
-format for simulating a multi-socket, multi-node memory architecture.
+## Scope — what belongs here, and what does not
 
-## Research Goal
+This directory does three things and only three:
 
-Simulate a 2-socket system (2 cores per socket, each socket with its own
-DRAM node) to study data sharing patterns across sockets and evaluate
-data placement/migration policies. The workload (Memcached under
-memtier_benchmark load) has a large data footprint (~6 GB) and 4 worker
-threads that share data structures (hash table, slab allocator), creating
-realistic cross-socket sharing.
+1. **prepare workloads** — get one running in a guest, ready to trace
+2. **generate traces** — capture, replay, convert
+3. **document the experience** of doing (1) and (2), for posterity
+
+It does **not** hold experiments run *on* the traces in ChampSim. Simulation
+campaigns, predictor comparisons, SPEC-vs-agentic head-to-heads, sweep drivers,
+result rollups and their plots answer to a different repository. Such tooling
+lives in `/home/rbera/work/bpeval/run-assets/`; `run-assets/PROVENANCE.md`
+records what went there and when. A capture pipeline here therefore ends at
+`convert` — producing a trace, not consuming one.
+
+The line that decides an ambiguous case: measuring **the tracer** is in scope
+(the branch-type verification in `docs/branch-type-contract.md` quotes MPKI as
+evidence the decoder is right, and stays); measuring **computer architecture
+using the traces** is not.
+
+### Downstream consumers, for context only
+
+The traces were first produced for a 2-socket NUMA study (2 cores per socket,
+each with its own DRAM node; data sharing and placement/migration policies) —
+which is why the Memcached guest below is configured as it is: 5 vCPUs, 4
+pinned worker threads, ~6 GB footprint, threads sharing a hash table and slab
+allocator to create real cross-socket sharing. That study, and the later
+branch-prediction campaigns, live elsewhere. The configuration rationale is
+kept here because it explains the setup; the findings are not.
 
 ## Architecture
 
