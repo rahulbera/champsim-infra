@@ -13,6 +13,23 @@ tracing plugin and convert the instrumented stream offline:
    [docs/branch-type-contract.md](docs/branch-type-contract.md)), asserted by a
    30-encoding x86 golden unit test.
 
+## Scope
+
+Three jobs, and only three: **prepare workloads**, **generate traces**, and
+**document the experience** of doing both.
+
+Experiments run *on* the traces in ChampSim are a different repository's
+responsibility — simulation campaigns, predictor comparisons, sweep drivers,
+result rollups and their plots. That tooling lives in
+`/home/rbera/work/bpeval/run-assets/`, and `run-assets/PROVENANCE.md` records
+what went there and when. A capture pipeline here ends at `convert`: it
+produces traces, it does not consume them.
+
+Measuring **the tracer** stays — `docs/branch-type-contract.md` quotes MPKI as
+evidence the decoder classifies branches correctly, and `docs/validation/`
+checks a raw trace before you trust it. Measuring **architecture with the
+traces** goes.
+
 The name: this is the ChampSim counterpart of
 [`rpoint`](../../../garfield/gem5-infra/infra/rpoint) in gem5-infra. Both share the
 capture-once / replay-many philosophy; rpoint snapshots a KVM guest into gem5
@@ -26,7 +43,7 @@ traces (x86-64).
 | `plugin/` | The QEMU TCG plugin that emits the raw instrumented stream. |
 | `converter/` | Raw stream → ChampSim v2, x86 decode, explicit branch classification, golden tests. |
 | `scripts/` | Boot/snapshot/restore drivers, the `capture-kit`, and a `smoke-trace` end-to-end test. |
-| `docs/` | Pipeline and validation docs; the branch-type contract; workload notes. |
+| `docs/` | Pipeline and validation docs, the branch-type contract, and `workloads/` — one subdirectory per workload. |
 | `images/`, `snapshots/`, `dump/` | Gitignored bulk: VM disks, guest snapshots, raw traces. |
 | `CLAUDE.md` | Full operational detail (guest config, capture runbooks). Predates the subsume — see below. |
 
