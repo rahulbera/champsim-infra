@@ -45,6 +45,6 @@ See each subdirectory's README for the file-by-file breakdown.
 Not every document in `workloads/` uses the QEMU pipeline that this
 repo implements. Some target workloads are better served by Intel PIN
 (standalone C++ programs with no significant kernel-mode work — FAISS,
-DLRM, RocksDB) and use the PIN tracer in `arishem/champsim/tracer/`.
+DLRM, RocksDB) and use the PIN tracer in `tracer/pintool/`.
 The relevant workload doc says which tracer to use up front. The
 `workloads/README.md` also lists this mapping explicitly.

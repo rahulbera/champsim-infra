@@ -24,7 +24,7 @@ overhead across the mode transition.
 
 Referenced from:
 
-- `docs/workloads/scyllaDB-stage1.md` — ScyllaDB setup and Stage-1
+- `docs/workloads/scylladb/scyllaDB-stage1.md` — ScyllaDB setup and Stage-1
   procedure that calls this client.
 - The RocksDB driver at
   `/mnt/sherlock/rahbera/workloadzoo/rocksdb-driver/zipfian.h` reuses
