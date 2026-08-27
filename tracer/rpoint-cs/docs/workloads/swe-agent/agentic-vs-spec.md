@@ -119,8 +119,9 @@ windows, 0 decode failures, all acceptance checks pass.
 w1/w2 are the `go build` / `go test` phases; w0 and w3 are syscall-heavy
 exploration and submission.
 
-(These figures were recomputed from scratch by `analyze_bp.py` and reproduce the
-original ad-hoc analysis to the digit — a cross-check of the rebuilt tooling.)
+(These figures were recomputed from scratch by `analyze_bp.py` — now in
+`run-assets/scripts/` — and reproduce the original ad-hoc analysis to the
+digit, a cross-check of the rebuilt tooling.)
 
 ## Capture 2 — redis__redis-13115 (C)
 
@@ -158,7 +159,10 @@ happened.
 
 ## The SPEC baseline (all 32 slices)
 
-TAGE-SC-L 64 KB, 50 M warmup / 200 M sim. Full table in `spec_baseline.csv`.
+TAGE-SC-L 64 KB, 50 M warmup / 200 M sim. Full table in `spec_baseline.csv`,
+which now lives in `run-assets/docs/workloads/swe-agent/` — it is ChampSim
+output rather than capture material, so it left this repo with the rest of
+the experiment tooling (see `run-assets/PROVENANCE.md`).
 
 | | indirect share of mispredictions |
 |---|---|

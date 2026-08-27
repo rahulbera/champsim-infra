@@ -82,8 +82,11 @@ replay (deterministic, offline, from recorded cassettes), and the cassettes in
 - **`agentic-vs-spec.md`** — the rolling record of the multi-language study:
   one section per captured instance, then the head-to-head against SPEC. This
   is where the six-instance / one-per-execution-model set is justified.
-- **`spec_baseline.csv`** — the SPEC side of that comparison (TAGE-SC-L 64 KB,
-  50 M warmup / 200 M sim), referenced from `agentic-vs-spec.md`.
+
+The SPEC-side results table these documents compare against
+(`spec_baseline.csv`) is **not** here: it is ChampSim output for traces this
+repo does not produce, so it moved to `run-assets/docs/workloads/swe-agent/`
+along with the rest of the experiment tooling. See `run-assets/PROVENANCE.md`.
 
 ### PIN-traced workloads (design specs)
 

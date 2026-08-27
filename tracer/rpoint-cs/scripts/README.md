@@ -2,12 +2,23 @@
 
 ## Goal
 
-Top-of-pipeline **bash launchers** for the QEMU-based tracing flow.
-Three scripts that cover the three ways you'll invoke QEMU in this
-project: boot fresh under KVM, restore a snapshot under KVM, and
-restore a snapshot under TCG *with the tracing plugin attached*.
+Everything you run **on the host** to move a workload through the tracing
+pipeline. Two layers:
 
-This directory also holds two self-contained subdirectories:
+- **The QEMU launchers** — the three ways you invoke QEMU here: boot fresh
+  under KVM, restore a snapshot under KVM, and restore a snapshot under TCG
+  *with the tracing plugin attached*. These are the whole story for a
+  hand-driven workload such as Memcached or ScyllaDB.
+- **The agentic capture orchestration** — provisioning, the unattended
+  phase chain, the record watchdog, the non-agentic control, a status
+  dashboard and disk reclamation. An agentic capture is many phases across
+  many instances, so it is driven rather than typed.
+
+What is NOT here: anything that runs the finished traces through ChampSim.
+That is an experiment on the traces rather than part of producing them, and
+it lives in `run-assets/` (see `run-assets/PROVENANCE.md`).
+
+This directory also holds these self-contained subdirectories:
 `capture-kit/` for AArch64 collaborators, and `smoke-trace/`, a
 two-minute end-to-end correctness check of the x86-64 pipeline
 (plugin → raw → converter → acceptance invariants) that boots a
@@ -157,20 +168,59 @@ Three things it refuses to let pass silently:
 `convert` needs `libcapstone.so.4` on `LD_LIBRARY_PATH` (the converter links it
 for the AArch64 decoder); it defaults to `/home/rbera/local/lib`.
 
-### `analyze_bp.py`
+### The agentic capture orchestration
 
-Simulates traces and reports **misprediction composition**, not just totals:
+`capture_agentic.sh` above is one phase of one instance. These sequence it
+across phases and across instances, unattended.
 
-```bash
-./analyze_bp.py --spec --out results.csv <agentic-trace>…
-```
+#### `provision_instance.sh`
 
-Aggregate MPKI put the first agentic trace squarely inside SPEC's range while
-its conditional/indirect split was the mirror image of every SPEC benchmark — a
-tool reporting only totals would have shown nothing. Returns are reported apart
-from indirect because the RAS is a different predictor. Reads ChampSim's
-`--json` output; runs whose simulated length fell short of the request are
-flagged `[SHORT]` rather than quietly averaged in.
+HOST side: bring a fresh guest to the state the record pass expects, and
+snapshot it. Boots the cloud image under KVM with the cloud-init seed, waits
+for cloud-init, then **reboots** — `isolcpus` only takes effect on the next
+boot — before snapshotting.
+
+#### `run_capture_chain.sh`
+
+Unattended `verify -> profile -> trace -> convert`, stopping at the FIRST
+failure rather than carrying a bad artifact forward. One log per phase. Each
+phase already has its own gate; this only sequences them.
+
+The `record` phase is deliberately outside the chain: it spends API credits and
+should be an explicit act. Simulation is outside it too — running traces
+through ChampSim is an experiment *on* them, not part of producing them, and
+that tooling lives in `run-assets/`.
+
+#### `advance_instance.sh`
+
+Carries one instance from a finished record pass all the way through: waits for
+the record pass to report success, pulls the cassettes and trajectory out of
+the guest, then hands off to the chain.
+
+#### `record_watchdog.sh`
+
+Stops a record pass that has stopped making progress. Recording has no natural
+bound here — the cost limits are disabled (litellm has no pricing for this
+model) and the execution timeouts are disabled — so without this a wedged pass
+runs indefinitely on real credits.
+
+#### `capture_toolchain.sh`
+
+HOST driver for the **non-agentic control**: same guest, same commit, same
+pinned vCPU, same tracer, same 4x300M geometry as the agentic capture — only
+the payload differs. `swe-agent/toolchain_only.sh` runs the build and test
+suite without the agent, which is what makes the control a control.
+
+#### `capture_status.sh`
+
+One-screen view of every capture in flight: per-instance phase, validated
+window count, cassettes recorded, guest liveness, and the non-agentic controls.
+
+#### `reclaim_space.sh`
+
+Frees disk from finished captures. **Dry-run by default** — nothing is deleted
+without `--apply`, because a wrong deletion here costs a multi-hour TCG
+re-trace or an API-credit re-record, not a re-download.
 
 ### `swe-agent/`
 

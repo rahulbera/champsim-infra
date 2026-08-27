@@ -2,7 +2,7 @@
 #
 # run_capture_chain.sh <instance_id> [first_phase] — unattended capture.
 #
-# Chains profile -> trace -> convert -> simulate, stopping at the FIRST failure
+# Chains profile -> trace -> convert, stopping at the FIRST failure
 # rather than carrying a bad artifact forward. Every phase already has its own
 # gates; this only sequences them and keeps one log per phase.
 #
@@ -46,25 +46,10 @@ for phase in verify profile trace convert; do
   run_phase "$phase" || { note "chain aborted at $phase"; exit 1; }
 done
 
-# ---- simulate ------------------------------------------------------------
-DST=$ROOT/images/champsim_out/$INSTANCE
-note "START  simulate"
-shopt -s nullglob
-traces=("$DST"/*.champsim2.zst)
-if [ ${#traces[@]} -eq 0 ]; then
-  note "FAILED simulate: no converted traces in $DST"
-  exit 1
-fi
-if python3 "$ROOT/scripts/analyze_bp.py" --jobs 4 \
-     --out "$LOGDIR/bp_$INSTANCE.csv" \
-     --keep-json "$LOGDIR/json" \
-     "${traces[@]}" >"$LOGDIR/simulate.log" 2>&1; then
-  note "OK     simulate -> $LOGDIR/bp_$INSTANCE.csv"
-  sed -n '/^trace /,$p' "$LOGDIR/simulate.log" | tee -a "$LOGDIR/chain.log"
-else
-  note "FAILED simulate -> $LOGDIR/simulate.log"
-  tail -20 "$LOGDIR/simulate.log" | sed 's/^/    /' | tee -a "$LOGDIR/chain.log"
-  exit 1
-fi
+# Simulation is deliberately NOT in this chain. Running the traces through
+# ChampSim is an experiment ON them, not part of producing them, and that
+# tooling now lives in run-assets/ (see run-assets/PROVENANCE.md). The chain
+# ends at `convert`, whose own gate -- trace_sanity_check --check on every
+# window -- is what establishes a trace is usable.
 
 note "=== chain complete for $INSTANCE ==="
