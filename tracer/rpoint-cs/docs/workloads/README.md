@@ -20,7 +20,7 @@ side under `tracer/` in champsim-infra:
 
 | Tracer | Where | Why | Workloads here |
 |---|---|---|---|
-| **QEMU TCG** | `tracer/rpoint-cs/` (this directory's repo) | Guest kernel work is on the hot path (network stack, syscalls). PIN would miss it. | Memcached, ScyllaDB |
+| **QEMU TCG** | `tracer/rpoint-cs/` (this directory's repo) | Guest kernel work is on the hot path (network stack, syscalls). PIN would miss it. | Memcached, ScyllaDB, SWE-agent |
 | **Intel PIN** | `tracer/pintool/` | Standalone C++ program, mostly user-mode. QEMU's 50–150× slowdown is not worth paying. | FAISS, DLRM, RocksDB |
 
 Paths above are relative to the champsim-infra repo root. `tracer/README.md`
@@ -63,6 +63,27 @@ stage 3 is the plugin implementation itself, covered by
   (`Skylake-Client`) so one snapshot loads under both KVM and TCG.
   Covers ScyllaDB install and tuning inside the guest. The workload
   driver it references, `scylla_bench.c`, is in `tools/scylla_bench/`.
+
+#### `swe-agent/`
+
+**Only on the `swe-agent-tracing` branch** — mainline carries the universal
+tool, this campaign is project-specific. Capturing an LLM coding agent is a
+different problem from the workloads above: the agent cannot simply be re-run,
+because each run samples the model afresh and is therefore a different
+workload. So capture splits into record (once, online, against a live API) and
+replay (deterministic, offline, from recorded cassettes), and the cassettes in
+`../../artifacts/` are the one artifact class nothing regenerates.
+
+- **`swe-agent-tracing-plan.md`** — the original brief. `docs/superpowers/
+  specs/2026-08-06-swe-agent-tracing-design.md` is the design derived from it.
+- **`swe-agent-capture-results.md`** — results of the first capture,
+  `prometheus__prometheus-15142` (SWE-bench Multilingual, Go), including the
+  base commit and the per-window breakdown.
+- **`agentic-vs-spec.md`** — the rolling record of the multi-language study:
+  one section per captured instance, then the head-to-head against SPEC. This
+  is where the six-instance / one-per-execution-model set is justified.
+- **`spec_baseline.csv`** — the SPEC side of that comparison (TAGE-SC-L 64 KB,
+  50 M warmup / 200 M sim), referenced from `agentic-vs-spec.md`.
 
 ### PIN-traced workloads (design specs)
 

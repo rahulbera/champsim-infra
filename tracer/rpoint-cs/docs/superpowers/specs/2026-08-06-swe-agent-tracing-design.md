@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-06
 **Status:** approved design, ready for implementation planning
-**Source brief:** `docs/workloads/swe-agent-tracing-plan.md`
+**Source brief:** `docs/workloads/swe-agent/swe-agent-tracing-plan.md`
 
 ---
 
