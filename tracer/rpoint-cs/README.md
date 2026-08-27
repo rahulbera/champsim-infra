@@ -22,7 +22,8 @@ Experiments run *on* the traces in ChampSim are a different repository's
 responsibility — simulation campaigns, predictor comparisons, sweep drivers,
 result rollups and their plots. That tooling lives in
 `/home/rbera/work/bpeval/run-assets/`, and `run-assets/PROVENANCE.md` records
-what went there and when. A capture pipeline here ends at `convert`: it
+what went there and when — eight files left this branch for it on 2026-08-27,
+nothing deleted. That is why `run_capture_chain.sh` ends at `convert`: it
 produces traces, it does not consume them.
 
 Measuring **the tracer** stays — `docs/branch-type-contract.md` quotes MPKI as
@@ -42,7 +43,7 @@ traces (x86-64).
 |---|---|
 | `plugin/` | The QEMU TCG plugin that emits the raw instrumented stream. |
 | `converter/` | Raw stream → ChampSim v2, x86 decode, explicit branch classification, golden tests. |
-| `scripts/` | Boot/snapshot/restore drivers, the `capture-kit`, and a `smoke-trace` end-to-end test. |
+| `scripts/` | Two layers: the universal launchers (boot/snapshot/restore, `capture-kit`, `smoke-trace`) and this branch's SWE-agent capture orchestration (`run_capture_chain.sh`, `provision_instance.sh`, `capture_agentic.sh`, `capture_status.sh`, …). |
 | `docs/` | Pipeline and validation docs, the branch-type contract, and `workloads/` — one subdirectory per workload. |
 | `images/`, `snapshots/`, `dump/` | Gitignored bulk: VM disks, guest snapshots, raw traces. |
 | `CLAUDE.md` | Full operational detail (guest config, capture runbooks). Predates the subsume — see below. |
@@ -70,7 +71,7 @@ plus three non-agentic toolchain controls (same repos, agent removed):
 | immutable-js-2006 | JavaScript | V8 JIT, inline caches |
 
 (`google__gson-2311`, Java, is captured — cassettes in `artifacts/` — but has
-not been converted or simulated. prometheus's cassettes are NOT in git
+not been converted to traces. prometheus's cassettes are NOT in git
 anywhere; locating them is an open item.)
 
 ## Provenance
