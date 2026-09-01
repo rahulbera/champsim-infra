@@ -80,7 +80,20 @@ fi
 # created and handed over FIRST. (An earlier version wrote `|| true` here, which
 # turned that failure into a confusing "no such file: /opt/venv/bin/pip" three
 # lines later -- never suppress an error you have not understood.)
-if [ ! -x /opt/venv/bin/python ]; then
+# Existence is not health. A run that died after `pip install -e` left a venv
+# whose /opt/venv/bin/sweagent was a ZERO-BYTE file and whose sweagent module
+# would not import at all -- and because /opt/venv/bin/python existed, the old
+# guard skipped rebuilding, so the next run failed later at the CLI check with
+# no hint why. Test what must be true, not that a path exists.
+venv_healthy() {
+  [ -x /opt/venv/bin/python ] && [ -s /opt/venv/bin/pip ] \
+    && /opt/venv/bin/python -c 'import sys' >/dev/null 2>&1
+}
+if ! venv_healthy; then
+  if [ -e /opt/venv ]; then
+    say "venv present but unhealthy -- rebuilding from scratch"
+    sudo rm -rf /opt/venv
+  fi
   sudo mkdir -p /opt/venv
   sudo chown ubuntu:ubuntu /opt/venv
   python3 -m venv /opt/venv
@@ -88,6 +101,12 @@ fi
 [ -x /opt/venv/bin/pip ] || die "venv creation failed: no /opt/venv/bin/pip"
 /opt/venv/bin/pip install --quiet --upgrade pip
 /opt/venv/bin/pip install --quiet -e /opt/swe-agent
+# pip can exit 0 having produced an unusable install: a truncated entry point,
+# or an editable .pth pointing nowhere. Check the two things that must hold.
+/opt/venv/bin/python -c 'import sweagent' >/dev/null 2>&1 \
+  || die "sweagent is not importable -- venv is broken; remove /opt/venv and re-run"
+[ -s /opt/venv/bin/sweagent ] \
+  || die "/opt/venv/bin/sweagent is empty -- pip produced a truncated entry point"
 /opt/venv/bin/sweagent --help >/dev/null 2>&1 || die "sweagent CLI not working"
 ok "sweagent installed: $(/opt/venv/bin/python -c 'import sweagent; print(sweagent.__version__)' 2>/dev/null || echo unknown)"
 
@@ -111,7 +130,11 @@ say "record installed versions"
   echo "kernel=$(uname -r)"
   echo "# --- pip freeze ---"
   /opt/venv/bin/pip freeze 2>/dev/null
-} > /opt/versions.txt
+} | sudo tee /opt/versions.txt >/dev/null
+# /opt is root-owned and this script runs as ubuntu, so a plain redirect fails
+# with EACCES -- after the toolchain, the clone and the venv have all been
+# built, which is a costly place to die for a bookkeeping step.
+sudo chown ubuntu:ubuntu /opt/versions.txt
 ok "$(grep -c . /opt/versions.txt) lines -> /opt/versions.txt"
 
 # ---------------------------------------------------------------------------

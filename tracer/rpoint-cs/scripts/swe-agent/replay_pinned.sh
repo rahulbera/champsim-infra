@@ -141,8 +141,28 @@ rep_traj=$(find "$TRAJ" -name '*.traj' | head -1)
 rec_traj=$(find "/opt/trajectories/$INSTANCE" -name '*.traj' | head -1)
 [ -n "$rep_traj" ] || die "no replay trajectory written"
 if [ -n "$rec_traj" ]; then
-  python3 "$SWE_TOOLS_DIR/compare_trajectories.py" "$rec_traj" "$rep_traj" \
-    || die "replay is NOT the recorded execution -- do not trace this run"
+  # Two comparators, because there are two kinds of recorded trajectory.
+  #
+  # A trajectory WE recorded has a `trajectory` array whose entries carry
+  # SWE-agent's own rendered action strings, and compare_trajectories.py
+  # compares those. A FOREIGN trajectory (campaign 2026-09 replays trajectories
+  # banked elsewhere) is minified to `history` only -- no `trajectory` array --
+  # so compare_trajectories.py would see 0 recorded steps against N replayed
+  # ones and kill a perfectly good replay. Reconstructing the rendered strings
+  # to satisfy it would be guesswork, and a spurious divergence is worse than no
+  # gate: it teaches you to ignore the gate.
+  #
+  # So dispatch on the shape. verify_foreign_replay.py compares raw tool_calls
+  # position by position -- exact, no rendering involved -- and additionally
+  # requires the replay to stop exactly at the fed trajectory's first submit.
+  if python3 -c "import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get('trajectory') else 1)" "$rec_traj" 2>/dev/null; then
+    python3 "$SWE_TOOLS_DIR/compare_trajectories.py" "$rec_traj" "$rep_traj" \
+      || die "replay is NOT the recorded execution -- do not trace this run"
+  else
+    echo "  recorded trajectory is minified (no 'trajectory' array) -- using the foreign-replay gate"
+    python3 "$SWE_TOOLS_DIR/verify_foreign_replay.py" "$rec_traj" "$rep_traj" \
+      || die "replay did not execute the fed actions faithfully -- do not trace this run"
+  fi
 else
   echo "  [warn] no recorded trajectory on this image to compare against"
 fi

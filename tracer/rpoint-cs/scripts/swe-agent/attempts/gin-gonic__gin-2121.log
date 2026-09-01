@@ -1,1 +1,3 @@
 2026-09-01 18:45:31	infra	offline gate rejected a COMMITTED vendor/vendor.json; go.sh tested for the vendor/ dir instead of vendor/modules.txt
+2026-09-01 18:48:19	infra	provision_guest.sh wrote /opt/versions.txt with a plain redirect; /opt is root-owned and the script runs as ubuntu
+2026-09-01 18:51:03	infra	re-run over a partial venv left a 0-byte sweagent entry point; provision_guest.sh's idempotency guard tested for /opt/venv/bin/python existing rather than the venv being usable
