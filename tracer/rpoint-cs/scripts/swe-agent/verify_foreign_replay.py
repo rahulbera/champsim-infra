@@ -106,6 +106,24 @@ def main():
                 break
         problems.append(f"{n - same} of {n} actions differ")
 
+    # RECOVERED vs CLEAN. A wedged command that the EXEC_TIMEOUT cancels leaves
+    # SWE-agent's interrupt path to carry on, and the replay then finishes with
+    # every action matching -- redis-12272 did exactly that: 45/45 FAITHFUL, a
+    # clean patch, and ~30 minutes of dead time nobody would see. The actions
+    # cannot show it, because actions come from cassettes. The OBSERVATIONS can.
+    cancelled = []
+    for i, s in enumerate(rep_doc.get("trajectory") or []):
+        o = (s.get("observation") or "")
+        if ("cancelled" in o.lower() and "timeout" in o.lower()) or "command_cancelled" in o:
+            cancelled.append(i)
+    if cancelled:
+        print(f"  RECOVERED: {len(cancelled)} step(s) were cancelled by EXEC_TIMEOUT "
+              f"and resumed -- at index {cancelled[:6]}")
+        print("    The action sequence still matches, so this is NOT a divergence, but the "
+              "command did not run. Treat the resulting trace as recovered, not clean.")
+    else:
+        print("  no cancelled steps -- clean replay")
+
     # The patch is the independent check: same actions, different patch means the
     # tree the actions ran against was not the tree they were recorded against.
     info = rep_doc.get("info") or {}

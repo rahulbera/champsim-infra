@@ -1,0 +1,2 @@
+2026-09-01 22:43:21	instance	chain: convert failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-burntsushi__ripgrep-2209/convert.log)
+2026-09-01 22:48:13	infra	convert invoked $ROOT/converter/raw2champsim, which does not exist in the repo; RPOINT_CONVERTER was defined in step 0 but never wired in

@@ -165,7 +165,7 @@ convert)
     idx=$(sed -n 's/.*_c\([0-9]*\)\.raw\.zst/\1/p' <<<"$raw")
     dst=$DST/${TAG}_w${idx}.champsim2.zst
     echo "  $(basename "$raw") -> $(basename "$dst")"
-    "$ROOT/converter/raw2champsim" "$raw" "$dst" 2>&1 \
+    "$RPOINT_CONVERTER" "$raw" "$dst" 2>&1 \
       | grep -iE 'instruction|user|kernel|branch|decode fail' | sed 's/^/    /'
     if [ -x "$SANITY" ]; then
       "$SANITY" -i "$dst" -f v2 --check > "$dst.check.log" 2>&1 \

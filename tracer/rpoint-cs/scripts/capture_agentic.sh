@@ -368,7 +368,7 @@ convert)
     dst=$DST/${INSTANCE}_w${idx}.champsim2.zst
     echo "  $(basename "$raw") -> $(basename "$dst")"
     # CLI is positional: raw2champsim [-v] [-n COUNT] <in.raw.zst> [out.zst]
-    "$ROOT/converter/raw2champsim" "$raw" "$dst" 2>&1 \
+    "$RPOINT_CONVERTER" "$raw" "$dst" 2>&1 \
       | grep -iE 'instruction|user|kernel|branch|decode fail|Type ' | sed 's/^/    /'
 
     # Validation is a gate, not a report. --check enforces the branch-type

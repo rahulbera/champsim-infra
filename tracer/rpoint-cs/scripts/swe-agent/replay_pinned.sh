@@ -143,7 +143,12 @@ taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --problem_statement.type=text_file \
     --problem_statement.path="$PROBLEM_STATEMENT" \
     --output_dir="$TRAJ" \
-    2>&1 | tail -25
+    2>&1 | tee /root/replay_full.log | tail -25
+# The FULL log is kept at /root/replay_full.log inside the guest. `tail -25`
+# alone discarded the single line recording that a command had been cancelled by
+# EXEC_TIMEOUT, which is the difference between a clean replay and a recovered
+# one -- redis-12272's cancel had to be inferred from a 31-minute wall clock
+# rather than read.
 
 echo "TRACE_ROI_END" | tee /dev/console
 
