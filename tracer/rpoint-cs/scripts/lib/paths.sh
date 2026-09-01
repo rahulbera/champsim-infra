@@ -20,4 +20,12 @@
 : "${RPOINT_CONVERTER:=/home/rbera/work/bpeval/qemu-tracing/converter/raw2champsim}"
 : "${RPOINT_QEMU:=/home/rbera/qemu-custom/bin/qemu-system-x86_64}"
 
-export RPOINT_IMAGES RPOINT_PLUGIN RPOINT_CONVERTER RPOINT_QEMU
+# Cassettes and recorded trajectories. Unlike the above these ARE in the repo
+# (they cost API credits and cannot be regenerated identically), so the default
+# is repo-relative and the caller supplies $ROOT. Overridable so a replay can be
+# driven from a synthesized or alternative cassette set -- e.g. testing whether
+# a trajectory recorded elsewhere replays here -- without disturbing the real
+# recording.
+: "${RPOINT_ARTIFACTS:=}"
+
+export RPOINT_IMAGES RPOINT_PLUGIN RPOINT_CONVERTER RPOINT_QEMU RPOINT_ARTIFACTS

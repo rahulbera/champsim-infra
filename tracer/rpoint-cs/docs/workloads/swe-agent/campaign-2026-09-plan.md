@@ -22,7 +22,7 @@ Banked trajectories for all 36:
 |---|---|---|---|
 | **0** | Hygiene and the load-bearing fixes | ~30 min, no VM | `DONE` (8/8) |
 | **1** | Recover prometheus, reclaim | ~15 min | `DONE` — recovery succeeded; reclaim deferred |
-| **2** | Trajectory compatibility test | ~5 min | `TODO` |
+| **2** | Trajectory compatibility test | ~5 min | `IN PROGRESS` |
 | **3** | Phase 1 — five tasks, one per proven language | ~45 instance-h | `TODO` |
 | ‖ | Determinism check (concurrent with step 3) | ~1.7 h | `TODO` |
 
@@ -160,13 +160,43 @@ the new 36, has a healthy 45-cassette set of our own (45 entries / 45 unique /
 
 | # | Target | Status |
 |---|---|---|
-| 2.1 | Read the intern's `immutable-js__immutable-js-2006.min.traj` (139 assistant turns, all carrying `tool_calls`) and confirm its `replay_config` matches our instance's repo and base commit | `TODO` |
-| 2.2 | Synthesize cassettes in our proxy's format (`{key, status, headers, body}`) from the assistant turns — the bodies must be well-formed chat-completion responses carrying the recorded `tool_calls` | `TODO` |
-| 2.3 | Build `_order.json` and **assert `entries == unique == file count`** before running anything — this is the one-line check that would have caught gson | `TODO` |
-| 2.4 | Run the verify pass against the provisioned image with the synthesized cassettes | `TODO` |
+| 2.1 | Read the intern's `immutable-js__immutable-js-2006.min.traj` (139 assistant turns, all carrying `tool_calls`) and confirm its `replay_config` matches our instance's repo and base commit | `DONE` |
+| 2.2 | Synthesize cassettes in our proxy's format (`{key, status, headers, body}`) from the assistant turns — the bodies must be well-formed chat-completion responses carrying the recorded `tool_calls` | `DONE` |
+| 2.3 | Build `_order.json` and **assert `entries == unique == file count`** before running anything — this is the one-line check that would have caught gson | `DONE` |
+| 2.4 | Run the verify pass against the provisioned image with the synthesized cassettes | `IN PROGRESS` |
 | 2.5 | Assert **zero** `REPLAY MISS` | `TODO` |
 | 2.6 | Run `compare_trajectories.py` against the intern's own recorded action sequence — **this is the real gate**; zero misses alone proves nothing, because sequence replay serves responses in order and a desynced replay finishes cleanly | `TODO` |
 | 2.7 | Record the verdict below and its consequence for step 3 | `TODO` |
+
+### Findings so far (2026-09-01)
+
+**The base commit matches exactly.** The intern's `replay_config` names
+`493afba6ec17d9c999dc5a15ac80c71c6bdba1c3`, identical to our descriptor's
+`BASE_COMMIT`. Same repo, same revision.
+
+**But the trajectory is bound to `/testbed`, and our guest builds at
+`/immutable-js`.** Their episodes ran inside the SWE-bench Docker image, whose
+convention is `repo_name: testbed` with the checkout at `/testbed`; we provision
+natively and the descriptor sets `REPO_DIR=/immutable-js`. Across the 139 turns
+there are **136 references to `/testbed` and none to `/immutable-js`**, so an
+as-is replay would fail on essentially every command.
+
+*This is a descriptor fix, not a blocker.* `REPO_DIR` is a per-instance field,
+so the 36 new instances should simply be provisioned with `REPO_DIR=/testbed` to
+match the banked trajectories. Rewriting the recorded model output instead would
+be the wrong repair: it edits what the agent said.
+
+**A new tool:** `scripts/swe-agent/traj_to_cassettes.py` converts a `.traj` or
+`.min.traj` into a replayable cassette set. It works because `--match sequence`
+serves responses in order and ignores the request entirely, so a trajectory *is*
+a cassette set modulo formatting. It asserts
+`len(_order.json) == len(set(order)) == file count` before finishing — the
+invariant whose violation cost the gson capture — and refuses a non-empty output
+directory, since the proxy appends to `_order.json` and never clears it.
+
+**Caveat it cannot fix:** it reconstructs responses, not requests, so the result
+replays only under `--match sequence`. That is the default and the only mode the
+campaign uses.
 
 ### Verdict (fill in)
 
