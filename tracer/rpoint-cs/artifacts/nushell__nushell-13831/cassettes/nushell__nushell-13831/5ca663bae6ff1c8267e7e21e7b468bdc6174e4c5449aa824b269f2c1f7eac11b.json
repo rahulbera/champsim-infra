@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Named columns work properly. Let me test the case where there are more column names than splits:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/nu -c \\\\\\\"'a--b' | split column -n 2 '--' col1 col2 col3 | to nuon\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355678089117950626\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5ca663bae6ff1c8267e7e21e7b468bdc6174e4c5449aa824b269f2c1f7eac11b",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test the `--number` with `--collapse-empty`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/nu -c \\\\\\\"'a--b--c' | split column -n 2 -c '--' | to nuon\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355679085550365293\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8761cb89f300f1b4209ce070d63e5f3e4e18823be043982a212128ef6e862e44",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The help output looks great. The `-n, --number <int>` flag is now documented and the example is shown.\\n\\nNow let me think about whether there are any other tests in the broader test suite that might be affected. Let me check the tests that use `split column` in the format conversions:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"split column\\\\\\\" crates/nu-command/tests/format_conversions/csv.rs crates/nu-command/tests/format_conversions/tsv.rs crates/nu-command/tests/format_conversions/json.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355679738385398732\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a3391cfd078bc797834d4949586f058b3dacb6c42105eb384952cda6d399dce9",
+ "status": 200
+}

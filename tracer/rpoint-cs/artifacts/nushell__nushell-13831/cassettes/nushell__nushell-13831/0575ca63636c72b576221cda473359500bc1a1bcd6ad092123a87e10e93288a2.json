@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's an issue with `update names`. Let me check the output without the update:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf '127.0.0.1       localhost\\\\\\\\n1.2.3.4         server server.domain.tld alias alias.domain.tld\\\\\\\\n' | ./target/debug/nu -c \\\\\\\"lines | split column -n 2 -r '\\\\\\\\s+' | rename address names\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355683621035827552\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0575ca63636c72b576221cda473359500bc1a1bcd6ad092123a87e10e93288a2",
+ "status": 200
+}

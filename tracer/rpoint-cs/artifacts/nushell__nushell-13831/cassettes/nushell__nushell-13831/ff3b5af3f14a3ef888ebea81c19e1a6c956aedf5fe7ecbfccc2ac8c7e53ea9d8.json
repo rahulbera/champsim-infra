@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean, so the test files are in their current state. Let me look at the actual nushell PR to understand the expected behavior. Let me check the test for split row's number flag to understand the pattern:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find . -name \\\\\\\"split_row*.rs\\\\\\\" -path \\\\\\\"*tests*\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355680563019119115\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ff3b5af3f14a3ef888ebea81c19e1a6c956aedf5fe7ecbfccc2ac8c7e53ea9d8",
+ "status": 200
+}

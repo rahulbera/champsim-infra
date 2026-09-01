@@ -1,1 +1,2 @@
 2026-09-01 19:01:57	infra	my GATE_MIN_TESTS was 100 but unit/type/string runs 82; gate correctly refused
+2026-09-02 00:44:12	instance	chain: trace failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-redis__redis-12272/trace.log)

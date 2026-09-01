@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass, including the new example test. Now let me think about edge cases.\\n\\nLet me consider the interaction between `--number` and `--collapse-empty`. The original code used a `.filter()` that removed empty strings when `collapse_empty` is true. With my change, I collect first and then use `retain`. Let me verify the behavior is consistent.\\n\\nLet me think about a tricky edge case: what happens with `--number` and `--collapse-empty` together? With `splitn`, the last column contains the remainder. If we then remove empty strings, that could change the semantics. Let me check what the original `split row` does - it doesn't have a `collapse-empty` option, so this is a new combination.\\n\\nLet me test the existing `--collapse-empty` behavior to make sure I didn't change it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/nu -c \\\\\\\"'abc' | split column --collapse-empty '' | to nuon\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355685923138302051\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "288d53d93fe75aeff4e718a4f9cd99591506489de6818badf9c341083df70483",
+ "status": 200
+}

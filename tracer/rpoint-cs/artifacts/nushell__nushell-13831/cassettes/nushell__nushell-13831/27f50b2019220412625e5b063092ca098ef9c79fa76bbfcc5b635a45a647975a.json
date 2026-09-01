@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search for any test that might reference the new `--number` flag for split column:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"split column\\\\\\\" --include=\\\\\\\"*.rs\\\\\\\" crates/ | grep -i \\\\\\\"n 2\\\\\\\\|number\\\\\\\\|-n\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355677058325799699\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000010, \"id\": \"synthesized-00010\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00010\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "27f50b2019220412625e5b063092ca098ef9c79fa76bbfcc5b635a45a647975a",
+ "status": 200
+}

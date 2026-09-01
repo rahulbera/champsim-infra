@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"number\\\\\\\\|max_split\\\\\\\\|splitn\\\\\\\" --include=\\\\\\\"*.rs\\\\\\\" crates/nu-command/src/strings/split/ \\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355699941911558526\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3f796ebff5e46da925f471e52b154beed2cee4055bc3c28c58e6e3e7457ce9b8",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is the Nushell repository. Let me find the `split column` and `split row` commands.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find /testbed/crates -type d -name \\\\\\\"split*\\\\\\\" 2>/dev/null; echo \\\\\\\"---\\\\\\\"; find /testbed/crates -type f -name \\\\\\\"*.rs\\\\\\\" | xargs grep -l \\\\\\\"split column\\\\\\\" 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355684445669552042\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "99d73a94fc312955f57e316da1e5356525e5d51dff32686ee7d887b3d697b97c",
+ "status": 200
+}

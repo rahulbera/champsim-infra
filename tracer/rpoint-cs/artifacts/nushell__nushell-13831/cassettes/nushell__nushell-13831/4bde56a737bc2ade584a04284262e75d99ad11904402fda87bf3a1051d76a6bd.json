@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf '127.0.0.1       localhost\\\\\\\\n1.2.3.4         server server.domain.tld alias alias.domain.tld\\\\\\\\n' | ./target/debug/nu -c \\\\\\\"lines | split column -n 2 -r '\\\\\\\\s+' | rename address names | to nuon\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355689256032926585\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4bde56a737bc2ade584a04284262e75d99ad11904402fda87bf3a1051d76a6bd",
+ "status": 200
+}

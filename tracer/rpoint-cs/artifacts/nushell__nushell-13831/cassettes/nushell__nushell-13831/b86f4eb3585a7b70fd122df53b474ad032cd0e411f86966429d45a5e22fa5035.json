@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"When the number is larger than the actual splits, it just produces all columns. Let me test with `--number 1`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/nu -c \\\\\\\"'a--b--c' | split column -n 1 '--' | to nuon\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355668434031476110\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000043, \"id\": \"synthesized-00043\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00043\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b86f4eb3585a7b70fd122df53b474ad032cd0e411f86966429d45a5e22fa5035",
+ "status": 200
+}

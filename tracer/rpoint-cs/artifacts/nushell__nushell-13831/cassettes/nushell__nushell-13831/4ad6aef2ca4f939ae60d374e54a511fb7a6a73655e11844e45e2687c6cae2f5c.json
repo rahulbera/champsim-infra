@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me add an example to demonstrate the new `--number` flag. Let me view the examples section:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/crates/nu-command/src/strings/split/column.rs\\\",\\\"view_range\\\":[46, 105]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355681559451525353\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ad6aef2ca4f939ae60d374e54a511fb7a6a73655e11844e45e2687c6cae2f5c",
+ "status": 200
+}

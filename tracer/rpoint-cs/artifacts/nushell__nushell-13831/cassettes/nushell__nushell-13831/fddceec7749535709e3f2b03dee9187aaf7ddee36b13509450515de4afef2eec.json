@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Those are just examples in `headers.rs`, no changes needed there. Now let me run the clippy check to make sure the code is clean:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo clippy -p nu-command 2>&1 | grep -A5 \\\\\\\"column.rs\\\\\\\" | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355699185997314461\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000055, \"id\": \"synthesized-00055\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00055\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fddceec7749535709e3f2b03dee9187aaf7ddee36b13509450515de4afef2eec",
+ "status": 200
+}

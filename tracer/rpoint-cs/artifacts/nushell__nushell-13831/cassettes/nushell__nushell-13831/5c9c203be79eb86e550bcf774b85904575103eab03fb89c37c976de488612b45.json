@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test files haven't been modified yet. Let me search for any test references to the `--number` flag for split column:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"split column\\\\\\\" --include=\\\\\\\"*.rs\\\\\\\" tests/ | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355675099820714887\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000008, \"id\": \"synthesized-00008\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00008\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5c9c203be79eb86e550bcf774b85904575103eab03fb89c37c976de488612b45",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both produce empty results with `--number 0` (which is the `splitn` behavior - 0 means no splits). This is consistent. Let me also test with negative numbers:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/nu -c \\\\\\\"'a--b--c' | split column -n -1 '--' | to nuon\\\\\\\" 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355680666098328272\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "68ededc1e791f524b5bfa3a9a4e27fdf23161bc8d11ac6be66dadfe4c24040b3",
+ "status": 200
+}

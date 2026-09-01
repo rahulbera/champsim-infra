@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The implementation looks complete and correct. Let me run a final comprehensive test to make sure everything works, including the example test and edge cases:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test -p nu-command --test main split 2>&1 | tail -15 && echo \\\\\\\"=== LIB TESTS ===\\\\\\\" && cargo test -p nu-command --lib strings::split 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355672797718248639\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cc9c8e3085acd1b4e646c4e7b1b14e3306b091f020728af7bb468c2ffb99909d",
+ "status": 200
+}

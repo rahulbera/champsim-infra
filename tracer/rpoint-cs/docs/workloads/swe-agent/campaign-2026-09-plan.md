@@ -169,6 +169,30 @@ a quarter of the cost.
 
 ---
 
+## House rule: three strikes, and only if we understand them
+
+Set by the PI, 2026-09-02.
+
+1. **Retry a failing task at most three times** — and only while we can say
+   *why* it failed. A retry justified by "let's see if it works this time" is
+   not a retry, it is a coin flip with a nine-hour stake.
+2. **After the second failure, the reason must be understood** before a third
+   attempt. If the first two failures have different causes and both are
+   diagnosed, a third try is legitimate.
+3. **If it fails a third time and we understand it less than when we started,
+   ditch the task.** Document what was tried in a
+   `known-issue-<instance>-*.md`, following the format used for
+   `known-issue-gin-2121-replay-wedge.md`: goal, key problem, what was tried and
+   failed, what might fix it and at what cost.
+4. **Then move to a new candidate** from the same stratification cell, or the
+   same language if the cell has no alternate. The campaign has slack: only one
+   representative per language is needed per phase.
+5. **Infrastructure failures do not count against a task.** A bug in our
+   scripts is our strike, not the instance's — this is the existing
+   instance-vs-infra split in `attempts.sh`, which warns in its own header that
+   "an infra classification is exactly what a motivated reasoner would reach
+   for". Classify honestly or the count is worthless.
+
 ## Decisions of record (2026-09-01)
 
 | # | Decision | Consequence |
@@ -183,6 +207,7 @@ a quarter of the cost.
 | 8 | **Local, 6-way; storage is the binding constraint** | ~223 GB for 36 tasks against 456 GB free. Release the TCG slot before convert (convert launches no QEMU; gin held a slot 5.0 h with TCG done after 1.8 h). |
 | 9 | **Recover prometheus cassettes, then free 32 GB** | Keep the 19 GB of provisioned images until Phase 1 proves out. |
 | 11 | **Guest images stay one-per-task; no backing-chain restructuring** | PI call 2026-09-01: the layering change is unproven here and a botched base costs more than it saves. It would also add a second guest-image generation variable alongside the one decision 6 already tracks. Measured saving was ~45 GiB against archiving's ~110 GiB, so it was never the dominant lever. Two findings kept for later: `reclaim_space.sh` would classify a shared base as scratch and delete it (its glob is `guest-*.qcow2` with a fall-through to `rm -rf`), and a guest-side cache purge would cut ~23% off every overlay for four lines of shell. |
+| 13 | **Phase 2 begins per language as Phase 1 completes** | Rust first: `nushell__nushell-13831` (cell B, 75 turns) after `ripgrep-2209` finished. A different behaviour cell from the Phase-1 pick, so it adds coverage. |
 | 12 | **Local gem5 checkpoints deleted; kratos2 is the archive** | 98 GB reclaimed 2026-09-01. Verified file-level (1900/1900 by path+size) before deleting. Restore instructions: `tracezoo/gem5/README.md`. |
 | 10 | **Archive each task's traces to kratos2 as it validates** | Verified 2026-09-01: the path holds the 36 previous traces, byte-identical to ours, with 126 TB free. Per task, with a remote digest check before the local copy is considered reclaimable. |
 

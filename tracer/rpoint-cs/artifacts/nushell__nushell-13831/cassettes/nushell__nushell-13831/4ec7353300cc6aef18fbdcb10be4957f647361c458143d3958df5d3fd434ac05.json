@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me test the behavior with the examples from the PR description:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf '127.0.0.1       localhost\\\\\\\\n1.2.3.4         server server.domain.tld alias alias.domain.tld\\\\\\\\n' | ./target/debug/nu -c \\\\\\\"lines | split column -n 2 -r '\\\\\\\\s+' | rename address names | update names { split row ' ' }\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355680081982782078\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000025, \"id\": \"synthesized-00025\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00025\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ec7353300cc6aef18fbdcb10be4957f647361c458143d3958df5d3fd434ac05",
+ "status": 200
+}

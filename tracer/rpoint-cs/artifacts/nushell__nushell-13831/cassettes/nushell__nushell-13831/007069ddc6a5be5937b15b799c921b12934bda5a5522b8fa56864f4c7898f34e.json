@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I only modified the source file `crates/nu-command/src/strings/split/column.rs` and no test files. Let me run the reproduction one final time to confirm everything works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"=== Original error reproduction ===\\\\\\\" && echo \\\\\\\"127.0.0.1       localhost\\\\\\\" | ./target/debug/nu -c \\\\\\\"lines | split column -n 2 -r '\\\\\\\\s+' | rename address names\\\\\\\" 2>&1 | head -5\\\\necho \\\\\\\"=== Fixed behavior ===\\\\\\\" && ./target/debug/nu -c \\\\\\\"'1.2.3.4         server server.domain.tld alias alias.domain.tld' | split column -n 2 -r '\\\\\\\\s+' | rename address names | update names { split row ' ' } | to nuon\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355684445669552776\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000073, \"id\": \"synthesized-00073\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00073\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "007069ddc6a5be5937b15b799c921b12934bda5a5522b8fa56864f4c7898f34e",
+ "status": 200
+}
