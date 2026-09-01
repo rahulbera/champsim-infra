@@ -23,11 +23,21 @@ tools/        standalone C++ trace utilities: trace_cutter, trace_sanity_check
 tests/        the two assert-based gates (no pytest, no network; cluster is faked)
 docs/         cluster-run runbook, handoffs, design specs
 ```
-ChampSim itself, its forks (Hermes/Pythia/…), and the traces all live OUTSIDE this repo,
-as sibling checkouts. **Absolute paths in the docs (`/home/rahbera/thesis/…`,
-`/home/rahbera/tracezoo/…`) are the lab host's**; in this checkout the siblings are
-`../ChampSim` (branch `rbdev`) and `../traces/{v1,v2}`. Verify before copying a path out
-of a README.
+ChampSim itself, its forks (Hermes/Pythia/…), and the traces all live OUTSIDE this repo.
+ChampSim is the sibling checkout `../ChampSim` (branch `rbdev`).
+
+**Traces live in one catalog**, `/home/rbera/work/tracezoo/champsim/`, shared by every
+ChampSim project on this host rather than copied per project — 31 SPEC CPU 2026 slices in
+`version2.1/spec26/` and 36 SWE-agent traces in
+`version2.1/agentic/swe-agent-w-swe-bench-multilingual/` (24 with-agent + 12 `.toolchain`
+controls, which are a separate population). `version2.1` is the catalog's name for what a
+tlist declares as `version: 2`. Layout, the hardlink relationship with the tracer's output
+tree, and `CHECKSUMS.sha256`: `tracezoo/champsim/README.md`.
+
+**The layout deliberately mirrors the cluster's**, so a path ports by swapping the home
+prefix — local `/home/rbera/work/tracezoo/…` ↔ cluster `/home/rahbera/tracezoo/…`. Other
+absolute paths in the docs (`/home/rahbera/thesis/…`) are the lab host's and have no local
+twin; verify before copying one out of a README.
 
 ## Where the details live
 
