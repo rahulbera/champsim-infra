@@ -1,7 +1,9 @@
 # Campaign 2026-09 — scaling to 36 tasks: plan and live status
 
-**Living document.** Statuses below are kept current as work progresses. If a
-status here disagrees with reality, reality wins and this file is stale — say so.
+**Living document — steps and status only.** Statuses are kept current as work
+progresses; if one disagrees with reality, reality wins and this file is stale.
+Findings, verification evidence and rationale live in the commit messages of the
+commits that did the work, not here.
 
 **Goal.** Capture ChampSim traces for the 36 SWE-bench Multilingual tasks in the
 `ML_iso36` stratification (4 per language × 9 languages), up from the 6
@@ -47,106 +49,20 @@ corrupt a Phase-1 run.
 | 0.7 | Parameterise the hardcoded window count for K=5: `capture_status.sh:72,74,89` (`nw/4`) and `reclaim_space.sh:60` (`n >= 4`) | `DONE` |
 | 0.8 | Archive the old `attempts/` ledger, start a clean one, and actually call `attempts.sh` from the chain — nothing calls it today | `DONE` |
 
-### Found while doing step 0 (beyond the planned targets)
-
-- **A seventh hardcoded image path.** `run_capture_chain.sh:18` set
-  `LOGDIR=$ROOT/images/chain-$INSTANCE`. The audit had found four call sites;
-  there were seven — six drivers computing `IMAGES=$ROOT/images` plus this one.
-  All now read `RPOINT_IMAGES` from `scripts/lib/paths.sh`.
-- **The boot scripts that actually execute are the LIVE tree's copies.** The
-  drivers `cd "$IMAGES"` and then run `bash boot_build.sh`, which resolves
-  relative to that cwd — so editing only the repo copy changes nothing. The two
-  trees must be kept in sync by hand after any edit to `images/boot_*.sh`.
-- **The chain skipped its own safety gate.** `FIRST=${2:-profile}` meant a bare
-  `run_capture_chain.sh <id>` went straight to profile, skipping verify — so a
-  replay that had already diverged from its recording would be faithfully traced
-  for hours. Default is now `verify` (2–5.5 min under KVM).
-  `advance_instance.sh:113` passes an explicit `profile`, so it does not
-  double-run.
-- **Window count is now per-capture, not global.** Reading K from each
-  capture's own `.meta` rather than a single constant: the August captures are
-  legitimately K=4 and a hardcoded 5 would report every one of them as an
-  incomplete `4/5` forever.
-- **A bug in my own first fix:** `SLOT=... || die` was placed above `die()`'s
-  definition, so a slot failure would have printed "die: command not found"
-  instead of the reason. Now a plain `exit 1` after `resolve_slot` has explained
-  itself on stderr.
-
-**Done when:** both test gates still pass (`tests/test_reports.py`,
-`tests/test_cluster_run.py`), and a dry `capture_status.sh` run reports sanely
-with no hardcoded `/4`.
-
----
-
 ## Step 1 — recover prometheus, then reclaim
 
-`prometheus__prometheus-15142`'s cassettes and trajectory exist nowhere on this
-host or on any git branch. Its provisioned image is a **33-byte qcow2 header
-stub**, not an image. The one remaining hope is the legacy post-record snapshot
-`qemu-tracing/images/swe-agent-guest.recorded.qcow2` (13.5 GB, 2026-08-06),
-which survives only because `reclaim_space.sh`'s `guest-*.qcow2` glob cannot
-match its name.
+Recovered. `prometheus__prometheus-15142` now has cassettes, a reconstructed and
+validated `_order.json`, a full trajectory and a real provisioned image — it is
+no longer un-reverifiable.
 
 | # | Target | Status |
 |---|---|---|
 | 1.1 | Read-only inspect the legacy image for `/opt/cassettes/prometheus__prometheus-15142` (`virt-ls --ro`, or a read-only loopback mount — never a writable attach) | `DONE` |
 | 1.2 | If present: extract cassettes **and** the trajectory to `artifacts/prometheus__prometheus-15142/` | `DONE` |
 | 1.3 | Validate what was recovered: `len(_order.json) == len(set(keys)) == cassette file count`, and grep for a leaked `authorization` header | `DONE` |
-| 1.4 | Record the outcome here either way — if absent, the existing 4 prometheus traces are permanently un-reverifiable and that fact belongs in writing | `DONE` |
-| 1.5 | Free the 32 GB of legacy `swe-agent-guest*.qcow2` | `DEFERRED` |
+| 1.4 | Outcome: 147 cassettes + 48 MB trajectory recovered; `_order.json` was absent and was rebuilt from response timestamps, validated 146/146 against the trajectory; one superseded retry excluded. The legacy `swe-agent-guest.provisioned.qcow2` proved to BE prometheus's provisioned image and was promoted | `DONE` |
+| 1.5 | Free the 25.5 GB of legacy `swe-agent-guest*.qcow2` — needs a read-only `-snapshot` inspection of `swe-agent-guest.qcow2` first, since the third image in that set turned out to be load-bearing | `DEFERRED` |
 | 1.6 | **Keep** the 19 GB of `guest-*.provisioned.qcow2` until Phase 1 proves the pipeline | `DONE` |
-
-### Outcome — recovered in full, and more than expected (2026-09-01)
-
-Booted `swe-agent-guest.recorded.qcow2` with QEMU `-snapshot`, so every write
-went to a throwaway overlay; the backing image was verified byte-identical
-afterwards (`md5 94eb6fe51a005a0703831f10df401330`, mtime still 2026-08-06).
-
-**Recovered:** 147 cassettes, the full 48 MB `2ee7bd.traj`, the trajectory logs
-and the problem statement, into
-`qemu-tracing/artifacts/prometheus__prometheus-15142/`. No leaked `authorization`
-header in any cassette.
-
-**The `_order.json` was missing** — the manifest postdates prometheus's Aug-6
-recording; the five later instances all have one. It was reconstructed by
-sorting cassettes on their response `created` timestamp (147 distinct, ties
-broken by response id) and then **validated against the trajectory's own action
-sequence: 146/146 positions match, zero divergence**. That is a stronger
-guarantee than the original manifest ever carried, since the original was
-append-order that nothing ever checked.
-
-**One cassette was superseded and is correctly excluded** from the manifest: a
-retry issued 1 second before its replacement, carrying a truncated command
-(`git log --oneline -5` against the kept `git log --oneline -5 && echo "---" &&
-ls tsdb/`). This is the gson failure mode caught in the wild — 147 cassettes
-against 146 real turns. The file is kept on disk, just not in the order.
-
-**And the provisioned image was found.** `swe-agent-guest.provisioned.qcow2`
-(6.3 GB) turned out to BE prometheus's provisioned state — `/prometheus` at
-`16bba78f1549cfd7909b61ebd7c55c822c86630b`, exactly the descriptor's
-`BASE_COMMIT`, with no cassettes or trajectories (clean pre-record state). Its
-properly-named counterpart was the 33-byte stub. Promoted to
-`guest-prometheus__prometheus-15142.provisioned.qcow2`; the stub is kept as
-`.stub-33b` rather than deleted.
-
-**prometheus-15142 is therefore no longer un-reverifiable.** It now has a
-provisioned image, cassettes, a validated order and a full trajectory — every
-input a verify/profile/trace needs.
-
-### Why 1.5 is deferred, not done
-
-The approval to free 32 GB rested on those three legacy images being
-disposable. One of the three was load-bearing, which falsifies the premise for
-the other two. `swe-agent-guest.qcow2` (12.9 GB) has not been inspected and may
-likewise be someone's working state. ~25 GB remains reclaimable once it is
-checked; there is no pressure (456 GB free, Phase 1 needs ~51 GB), so it waits
-for a look rather than a guess.
-
-**Note:** prometheus-15142 is *not* in the new 36 (the Go picks are caddy-4774,
-gin-2121, prometheus-10720, hugo-12579). This recovery protects the *existing*
-traces, not the new campaign.
-
----
 
 ## Step 2 — trajectory compatibility test
 
@@ -166,82 +82,7 @@ the new 36, has a healthy 45-cassette set of our own (45 entries / 45 unique /
 | 2.4 | Run the verify pass against the provisioned image with the synthesized cassettes | `DONE` |
 | 2.5 | Assert **zero** `REPLAY MISS` | `DONE` |
 | 2.6 | Run `compare_trajectories.py` against the intern's own recorded action sequence — **this is the real gate**; zero misses alone proves nothing, because sequence replay serves responses in order and a desynced replay finishes cleanly | `DONE` |
-| 2.7 | Record the verdict below and its consequence for step 3 | `DONE` |
-
-### Findings so far (2026-09-01)
-
-**The base commit matches exactly.** The intern's `replay_config` names
-`493afba6ec17d9c999dc5a15ac80c71c6bdba1c3`, identical to our descriptor's
-`BASE_COMMIT`. Same repo, same revision.
-
-**But the trajectory is bound to `/testbed`, and our guest builds at
-`/immutable-js`.** Their episodes ran inside the SWE-bench Docker image, whose
-convention is `repo_name: testbed` with the checkout at `/testbed`; we provision
-natively and the descriptor sets `REPO_DIR=/immutable-js`. Across the 139 turns
-there are **136 references to `/testbed` and none to `/immutable-js`**, so an
-as-is replay would fail on essentially every command.
-
-*This is a descriptor fix, not a blocker.* `REPO_DIR` is a per-instance field,
-so the 36 new instances should simply be provisioned with `REPO_DIR=/testbed` to
-match the banked trajectories. Rewriting the recorded model output instead would
-be the wrong repair: it edits what the agent said.
-
-**A new tool:** `scripts/swe-agent/traj_to_cassettes.py` converts a `.traj` or
-`.min.traj` into a replayable cassette set. It works because `--match sequence`
-serves responses in order and ignores the request entirely, so a trajectory *is*
-a cassette set modulo formatting. It asserts
-`len(_order.json) == len(set(order)) == file count` before finishing — the
-invariant whose violation cost the gson capture — and refuses a non-empty output
-directory, since the proxy appends to `_order.json` and never clears it.
-
-**Caveat it cannot fix:** it reconstructs responses, not requests, so the result
-replays only under `--match sequence`. That is the default and the only mode the
-campaign uses.
-
-### Verdict — COMPATIBLE (2026-09-01)
-
-**The intern's banked trajectories replay under our harness.** Verified
-end-to-end on `immutable-js__immutable-js-2006`:
-
-| check | result |
-|---|---|
-| cassettes synthesized | 139 turns → 139 cassettes, manifest invariant asserted |
-| replay misses | **0** |
-| actions executed vs fed | **135/135, zero divergence** |
-| agent's fix applied | yes — `git diff` shows `modified: src/TrieUtils.js` |
-| full test suite in-guest | **44 suites, 683 tests passed, exit 0** |
-| provisioned image | untouched (verify writes only the WORK image) |
-
-**Why 135 and not 139, and why that is correct.** The trajectory contains *two*
-`submit` calls, at index 135 and 138. Our SWE-agent ends the episode on the
-first one, so steps 136–138 are unreachable by construction. Their original run
-continued past the first submit; ours does not. This is the harness behaving
-correctly, not a truncation — and it is exactly the distinction that the redis
-capture got wrong in the other direction (there, a *timeout* truncated a run and
-zero misses hid it). The evidence that this replay is substantive rather than
-merely complete is the working tree: the fix is applied and the whole suite
-passes.
-
-**Required adjustment: provision at `/testbed`.** The trajectories reference
-`/testbed` 136 times and our descriptors default to `/{repo_name}`. `REPO_DIR`
-is free-form — every consumer just dereferences it, and `stage_instance.py:124`
-derives it — so the 36 new descriptors should set `REPO_DIR=/testbed`. For this
-test the path was relocated in a scratch copy of the trajectory to isolate
-"does the mechanism work" from "is the environment right"; **the real captures
-should NOT rewrite trajectories**, they should provision at the path the
-trajectory expects.
-
-**Known caveat for the gate.** `info.submission` and `exit_status` came back
-null in the replay even though the work is visibly done, and
-`compare_trajectories.py` keys partly on the submission SHA. With a *minified*
-recorded trajectory there is no recorded submission to compare against anyway,
-so the action-sequence comparison (used above) is the usable gate for these
-runs. Worth resolving before Phase 1 relies on it.
-
-**Consequence:** reuse the banked trajectories. No API key needed for capture,
-no credits spent, and the intern's B/T/S/M cell labels stay valid because they
-were computed from exactly these trajectories. The re-record fallback stays
-available but is not needed.
+| 2.7 | Verdict → **COMPATIBLE**: 0 misses, 135/135 actions matched, fix applied, in-guest suite green. Two consequences for step 3: descriptors must set `REPO_DIR=/testbed` (trajectories reference it 136×), and trajectories must never be rewritten to suit our paths | `DONE` |
 
 ## Step 3 — Phase 1: five tasks, one per proven language
 
@@ -268,7 +109,7 @@ languages, then C++ and Java last.
 | 3.7 | Profile, trace at **K=5**, convert, validate | `TODO` |
 | 3.8 | Publish to the LOCAL catalog `tracezoo/champsim/version2.1/agentic/…` and append to its `CHECKSUMS.sha256`, asserting the count exhaustively (every window of every task accounted for, no silent `other`). **The local catalog is now a staging cache, not the endpoint** — 3.10 is the endpoint | `TODO` |
 | 3.9 | Establish the new w0 canary band and compare immutable-js against its August traces (the gen-1/gen-2 drift measurement) | `TODO` |
-| 3.10 | **Archive the task's traces to kratos2 as soon as they validate**, re-hash remotely and compare against the local digest before the transfer counts as done — see "Archiving" below | `TODO` |
+| 3.10 | **Archive the task's traces to kratos2** → `/home/rahbera/tracezoo/champsim/version2.1/agentic/swe-agent-w-swe-bench-multilingual/`. rsync, then **re-hash remotely and compare against the local digest** — the transfer is not done until they match. Append to a remote `CHECKSUMS.sha256` (does not exist yet; create on first archive) | `TODO` |
 | 3.11 | Only after 3.10's remote digest check passes, reclaim the local copy — remembering the traces are hardlinked between `champsim_out/<workload>/` and the catalog, so **both** names must go or nothing is freed | `TODO` |
 
 **Per-task ordering, once a capture finishes:** convert → `trace_sanity_check
@@ -283,110 +124,6 @@ never produced a trace, and PHP's only attempt (`carbon-3103`) died to an
 unidentified external SIGTERM across 4–5 provisioning attempts.
 
 ---
-
-## Archiving to kratos2
-
-**PI direction (2026-09-01): once a task's traces are generated and validated,
-and you are confident in them, archive them to the cluster.** Per task, as they
-finish — not batched at the end.
-
-**Destination:**
-`kratos2:/home/rahbera/tracezoo/champsim/version2.1/agentic/swe-agent-w-swe-bench-multilingual/`
-
-**Verified 2026-09-01** by SSH (`kratos2` → `safari-proxy.ethz.ch`, user
-`rahbera`):
-
-| check | result |
-|---|---|
-| path exists | yes |
-| traces already there | **36** (24 with-agent + 12 `.toolchain`), 21 GB |
-| matches the local catalog | breakdown identical, instance for instance |
-| byte-identical | yes — `immutable-js…_w00000` sha256 `9ecf5f1dd262cd0a…` matches the local `CHECKSUMS.sha256` entry exactly |
-| free space | **126 TB available** of 279 TB (55% used) |
-| remote `CHECKSUMS.sha256` | **absent** — the local catalog has one (67 entries), the cluster does not |
-
-**This is the storage answer, not just a backup.** Local free space is 456 GB
-and the campaign expects ~110 GB of traces plus ~86 GB of guest images; the
-cluster has 126 TB. Archiving per task as it validates means local disk never
-has to hold all 36 tasks' traces simultaneously — the local copy becomes a cache
-that can be reclaimed once the archive is verified, rather than a second
-permanent copy.
-
-**The archive step must verify, not just transfer.** A trace that arrives
-truncated is indistinguishable from one that arrived whole until something reads
-it, and this campaign has already lost one 2.3 GB trace to a silent truncation.
-So, per task:
-
-1. `trace_sanity_check --check` passes on every window (already the convert gate)
-2. rsync the task's `.champsim2.zst` files to the destination
-3. **re-hash on the cluster and compare against the local `CHECKSUMS.sha256`
-   entry** — the transfer is not complete until the remote digest matches
-4. append the verified digests to a remote `CHECKSUMS.sha256`, which does not
-   exist yet and should be created as part of the first archive
-5. only then consider the local copy reclaimable
-
-**Caveat inherited from the trace catalog:** locally the traces are hardlinked
-between `champsim_out/<workload>/` and the tracezoo catalog, so deleting one
-path frees nothing. Reclaiming local space after archiving means removing *both*
-names, and only after step 3's digest comparison passes.
-
-### Local reclamation done (2026-09-01)
-
-PI direction: keep one non-`w0` trace per task locally, delete the rest; delete
-all `.toolchain` traces outright; keep the checksum manifest for copying traces
-back.
-
-**The gate ran first.** All 36 remote digests were computed on kratos2 and
-compared against the local `CHECKSUMS.sha256`: **36/36 present, 0 mismatches.**
-Nothing was deleted whose exact digest had not been positively confirmed on the
-cluster — the deletion loop re-checked each file against that list and would
-have skipped any that failed (0 skipped).
-
-| | |
-|---|---|
-| deleted | 30 traces — all 12 `.toolchain` + the non-`w00001` windows of the 6 with-agent tasks |
-| kept locally | 6 — one `_w00001` per with-agent task |
-| hardlink names removed | **63 for 30 files** — 2–3 names each |
-| freed | **17.5 GB** (452 GB → 469 GB available) |
-
-`w00000` was deliberately not the window kept: it is harness startup rather than
-workload, so it is the least useful sample to retain.
-
-**Side effect handled:** prometheus's traces carried a third name — the legacy
-flat `swe_agent_w0000N` alias in `champsim_out/` — so deleting them left three
-dangling symlinks in `bpeval/agentic-traces/`. Those were removed; the
-name-mapping itself stays documented in the catalog README.
-
-**The manifest is kept complete** (all 67 entries, including the 30 no longer
-present) as the record for verifying anything copied back. Verification now
-needs `sha256sum -c --ignore-missing`; the 37 files actually present verify
-clean, 0 failures.
-
-### gem5 checkpoints reclaimed (2026-09-01)
-
-98 GB freed by deleting `/home/rbera/work/tracezoo/gem5/{fs_ckpts,restore_resources}`,
-archived at `kratos2:/home/rahbera/tracezoo/gem5/fs_ckpts/spec26/`. Local free
-space went **469 GB → 567 GB**.
-
-Verified before deleting, at file level rather than by directory totals:
-**1900 files on each side, every one matching by path and byte size** (a `diff`
-of the two manifests showed no differences), all 26 workloads with identical
-checkpoint-directory counts, `restore_resources` and `results.tsv` matching, and
-full sha256 agreement on 7 large files sampled across 7 workloads.
-
-**A trap worth recording:** `du -sh` reports 56 GB remote against 91 GB local and
-looks like a third of the data is missing. It is a block-accounting difference on
-the cluster filesystem — `du -sb` (apparent size) agrees exactly at 90.2 GB. Had
-the check stopped at `du -sh`, this would have looked like a failed archive; had
-it stopped at directory totals, a truncated file would have been invisible.
-
-`package.json`/`package-lock.json` were kept: the remote `gem5/` holds only
-`fs_ckpts` and `rpoint_ckpts`, so they are not archived. Pointer left at
-`tracezoo/gem5/README.md` with the restore commands.
-
-**Storage position now:** 567 GB free against a campaign needing ~110 GB of
-traces and ~85 GB of images — comfortable, without touching the guest-image
-design.
 
 ## ‖ Determinism check (concurrent with step 3)
 
@@ -420,7 +157,7 @@ a quarter of the cost.
 | 8 | **Local, 6-way; storage is the binding constraint** | ~223 GB for 36 tasks against 456 GB free. Release the TCG slot before convert (convert launches no QEMU; gin held a slot 5.0 h with TCG done after 1.8 h). |
 | 9 | **Recover prometheus cassettes, then free 32 GB** | Keep the 19 GB of provisioned images until Phase 1 proves out. |
 | 11 | **Guest images stay one-per-task; no backing-chain restructuring** | PI call 2026-09-01: the layering change is unproven here and a botched base costs more than it saves. It would also add a second guest-image generation variable alongside the one decision 6 already tracks. Measured saving was ~45 GiB against archiving's ~110 GiB, so it was never the dominant lever. Two findings kept for later: `reclaim_space.sh` would classify a shared base as scratch and delete it (its glob is `guest-*.qcow2` with a fall-through to `rm -rf`), and a guest-side cache purge would cut ~23% off every overlay for four lines of shell. |
-| 12 | **Local gem5 checkpoints deleted; kratos2 is the archive** | 98 GB reclaimed 2026-09-01 after a file-level verification (see below). |
+| 12 | **Local gem5 checkpoints deleted; kratos2 is the archive** | 98 GB reclaimed 2026-09-01. Verified file-level (1900/1900 by path+size) before deleting. Restore instructions: `tracezoo/gem5/README.md`. |
 | 10 | **Archive each task's traces to kratos2 as it validates** | Verified 2026-09-01: the path holds the 36 previous traces, byte-identical to ours, with 126 TB free. Per task, with a remote digest check before the local copy is considered reclaimable. |
 
 **Standing constraints**
