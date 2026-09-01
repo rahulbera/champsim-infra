@@ -362,6 +362,32 @@ present) as the record for verifying anything copied back. Verification now
 needs `sha256sum -c --ignore-missing`; the 37 files actually present verify
 clean, 0 failures.
 
+### gem5 checkpoints reclaimed (2026-09-01)
+
+98 GB freed by deleting `/home/rbera/work/tracezoo/gem5/{fs_ckpts,restore_resources}`,
+archived at `kratos2:/home/rahbera/tracezoo/gem5/fs_ckpts/spec26/`. Local free
+space went **469 GB → 567 GB**.
+
+Verified before deleting, at file level rather than by directory totals:
+**1900 files on each side, every one matching by path and byte size** (a `diff`
+of the two manifests showed no differences), all 26 workloads with identical
+checkpoint-directory counts, `restore_resources` and `results.tsv` matching, and
+full sha256 agreement on 7 large files sampled across 7 workloads.
+
+**A trap worth recording:** `du -sh` reports 56 GB remote against 91 GB local and
+looks like a third of the data is missing. It is a block-accounting difference on
+the cluster filesystem — `du -sb` (apparent size) agrees exactly at 90.2 GB. Had
+the check stopped at `du -sh`, this would have looked like a failed archive; had
+it stopped at directory totals, a truncated file would have been invisible.
+
+`package.json`/`package-lock.json` were kept: the remote `gem5/` holds only
+`fs_ckpts` and `rpoint_ckpts`, so they are not archived. Pointer left at
+`tracezoo/gem5/README.md` with the restore commands.
+
+**Storage position now:** 567 GB free against a campaign needing ~110 GB of
+traces and ~85 GB of images — comfortable, without touching the guest-image
+design.
+
 ## ‖ Determinism check (concurrent with step 3)
 
 **No instance has ever been captured twice.** Every determinism claim in the
@@ -393,6 +419,8 @@ a quarter of the cost.
 | 7 | **Automate only the load-bearing gaps** | `create_guest_image.sh`, slot uniqueness, catalog publish, tlist generation. Descriptor writing stays manual for five instances. |
 | 8 | **Local, 6-way; storage is the binding constraint** | ~223 GB for 36 tasks against 456 GB free. Release the TCG slot before convert (convert launches no QEMU; gin held a slot 5.0 h with TCG done after 1.8 h). |
 | 9 | **Recover prometheus cassettes, then free 32 GB** | Keep the 19 GB of provisioned images until Phase 1 proves out. |
+| 11 | **Guest images stay one-per-task; no backing-chain restructuring** | PI call 2026-09-01: the layering change is unproven here and a botched base costs more than it saves. It would also add a second guest-image generation variable alongside the one decision 6 already tracks. Measured saving was ~45 GiB against archiving's ~110 GiB, so it was never the dominant lever. Two findings kept for later: `reclaim_space.sh` would classify a shared base as scratch and delete it (its glob is `guest-*.qcow2` with a fall-through to `rm -rf`), and a guest-side cache purge would cut ~23% off every overlay for four lines of shell. |
+| 12 | **Local gem5 checkpoints deleted; kratos2 is the archive** | 98 GB reclaimed 2026-09-01 after a file-level verification (see below). |
 | 10 | **Archive each task's traces to kratos2 as it validates** | Verified 2026-09-01: the path holds the 36 previous traces, byte-identical to ours, with 126 TB free. Per task, with a remote digest check before the local copy is considered reclaimable. |
 
 **Standing constraints**
