@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"These are in the agent package and use a different `getOrCreate` (the agent's own appender, not the headAppender). Let me verify:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && sed -n '795,810p' tsdb/agent/db.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373355830910903129\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033022,\"id\":\"20260807001700e8b71ca8435f416c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001700e8b71ca8435f416c\",\"usage\":{\"completion_tokens\":64,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":89092,\"prompt_tokens_details\":{\"cached_tokens\":88896},\"total_tokens\":89156}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e7fc19907c231082dae2941f31e6d3482f3563d0ac375d15febec66f4712cec0",
+ "status": 200
+}

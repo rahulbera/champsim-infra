@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"These vet warnings are pre-existing and unrelated to my change (they're in querier.go). Let me verify they exist on the original code:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git stash 2>&1 | tail -1 && export PATH=$PATH:/usr/local/go/bin && go vet ./tsdb/ 2>&1 | tail -5; git stash pop 2>&1 | tail -1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373381360196514975\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032976,\"id\":\"20260807001614d243d0dc39f6442e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001614d243d0dc39f6442e\",\"usage\":{\"completion_tokens\":91,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":87140,\"prompt_tokens_details\":{\"cached_tokens\":86912},\"total_tokens\":87231}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ff9a7898382f33e959e09dc97c5459849f08d24849fd40e2102fb5048baac49d",
+ "status": 200
+}

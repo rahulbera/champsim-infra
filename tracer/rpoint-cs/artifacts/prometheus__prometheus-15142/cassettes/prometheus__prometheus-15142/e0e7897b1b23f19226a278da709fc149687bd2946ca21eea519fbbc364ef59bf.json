@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git show b1fbf4f1e2abbfbd9b65a9e9ca7bb4bb48d11b8c --stat\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373338582322249198\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032230,\"id\":\"20260807000349ce63693112f04ad4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000349ce63693112f04ad4\",\"usage\":{\"completion_tokens\":49,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":16585,\"prompt_tokens_details\":{\"cached_tokens\":16064},\"total_tokens\":16634}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e0e7897b1b23f19226a278da709fc149687bd2946ca21eea519fbbc364ef59bf",
+ "status": 200
+}

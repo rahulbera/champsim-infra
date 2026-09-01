@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me handle `AppendHistogramCTZeroSample`. Let me view its current state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/prometheus/tsdb/head_append.go\\\",\\\"view_range\\\":[770, 880]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373383421780819744\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032375,\"id\":\"2026080700061473ff8ee289514fc0\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700061473ff8ee289514fc0\",\"usage\":{\"completion_tokens\":57,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":40203,\"prompt_tokens_details\":{\"cached_tokens\":38784},\"total_tokens\":40260}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e0f574d5feebc6ea59c5854f25e8491b43d0ade7a87a65eb55d33aad7cbde828",
+ "status": 200
+}

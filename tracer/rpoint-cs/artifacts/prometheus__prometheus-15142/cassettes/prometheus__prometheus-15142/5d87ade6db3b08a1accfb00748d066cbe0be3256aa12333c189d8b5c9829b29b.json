@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me update `AppendHistogram`. Let me view the current state:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/prometheus/tsdb/head_append.go\\\",\\\"view_range\\\":[655, 760]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373378164740841716\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032360,\"id\":\"202608070005581641e3831e2e464f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070005581641e3831e2e464f\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":37385,\"prompt_tokens_details\":{\"cached_tokens\":36480},\"total_tokens\":37439}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5d87ade6db3b08a1accfb00748d066cbe0be3256aa12333c189d8b5c9829b29b",
+ "status": 200
+}

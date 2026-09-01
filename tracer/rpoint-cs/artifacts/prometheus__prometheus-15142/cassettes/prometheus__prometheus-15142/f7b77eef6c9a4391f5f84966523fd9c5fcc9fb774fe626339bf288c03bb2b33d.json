@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && awk 'NR>=6400 && NR<=6500 && /func Test/{print NR\\\\\\\": \\\\\\\"$0}' tsdb/head_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373367203984304040\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032886,\"id\":\"202608070014441cd82f1cbe9c49b5\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070014441cd82f1cbe9c49b5\",\"usage\":{\"completion_tokens\":53,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86039,\"prompt_tokens_details\":{\"cached_tokens\":85952},\"total_tokens\":86092}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f7b77eef6c9a4391f5f84966523fd9c5fcc9fb774fe626339bf288c03bb2b33d",
+ "status": 200
+}

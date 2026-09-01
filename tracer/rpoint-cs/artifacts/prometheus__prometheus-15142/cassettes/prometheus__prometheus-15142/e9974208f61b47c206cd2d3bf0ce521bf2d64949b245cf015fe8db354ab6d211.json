@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me verify the changes compile. Let me build the tsdb package:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && go build ./tsdb/ 2>&1 | head -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373350402072246796\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032395,\"id\":\"2026080700063299e4b79b16b04ae9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700063299e4b79b16b04ae9\",\"usage\":{\"completion_tokens\":45,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":43421,\"prompt_tokens_details\":{\"cached_tokens\":42240},\"total_tokens\":43466}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e9974208f61b47c206cd2d3bf0ce521bf2d64949b245cf015fe8db354ab6d211",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me add the official regression test. Let me check the end of head_test.go:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && tail -20 tsdb/head_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373332569368031143\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032740,\"id\":\"20260807001219079beb1b19d84bda\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001219079beb1b19d84bda\",\"usage\":{\"completion_tokens\":42,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":80177,\"prompt_tokens_details\":{\"cached_tokens\":80064},\"total_tokens\":80219}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "681939541c2e00066bde0f9ccf52a42a8056bf706cef9ae8d302be118c3c9904",
+ "status": 200
+}

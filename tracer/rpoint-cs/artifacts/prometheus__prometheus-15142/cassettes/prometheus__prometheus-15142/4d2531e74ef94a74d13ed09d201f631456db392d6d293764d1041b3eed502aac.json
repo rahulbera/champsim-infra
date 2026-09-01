@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test file is reverted to its original state and the build succeeds. Now only the source fix in `tsdb/head_append.go` remains.\\n\\nLet me do a final verification that the source change is correct and complete:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git diff --cached tsdb/head_append.go 2>&1 | head -5; echo \\\\\\\"...\\\\\\\"; git diff tsdb/head_append.go 2>&1 | head -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373307899075885769\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033097,\"id\":\"20260807001814be395c07ea4b410f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001814be395c07ea4b410f\",\"usage\":{\"completion_tokens\":95,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":94029,\"prompt_tokens_details\":{\"cached_tokens\":93824},\"total_tokens\":94124}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4d2531e74ef94a74d13ed09d201f631456db392d6d293764d1041b3eed502aac",
+ "status": 200
+}

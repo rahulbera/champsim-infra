@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The file uses tabs. Let me use the str_replace with the exact tab content. Let me use bash with sed/python instead to be safe:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && cat -A tsdb/head_append.go | sed -n '435,457p'\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373356655544625335\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032312,\"id\":\"2026080700051076d2d11f31524194\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700051076d2d11f31524194\",\"usage\":{\"completion_tokens\":64,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":31362,\"prompt_tokens_details\":{\"cached_tokens\":30912},\"total_tokens\":31426}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "221e7c356f79aa30b5ee6a738099cbe0ca89d4763379bb5f6bdf48f66d7d1e13",
+ "status": 200
+}

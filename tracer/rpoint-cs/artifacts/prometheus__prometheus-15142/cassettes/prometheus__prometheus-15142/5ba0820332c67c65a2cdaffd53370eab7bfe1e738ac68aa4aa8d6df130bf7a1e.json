@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me also run the agent tests since the agent uses the head appender:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 120 go build ./... 2>&1 | tail -20; echo \\\\\\\"build exit: $?\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373372392304800464\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032922,\"id\":\"20260807001520c436e61f2a7e46b9\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001520c436e61f2a7e46b9\",\"usage\":{\"completion_tokens\":64,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86593,\"prompt_tokens_details\":{\"cached_tokens\":86464},\"total_tokens\":86657}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5ba0820332c67c65a2cdaffd53370eab7bfe1e738ac68aa4aa8d6df130bf7a1e",
+ "status": 200
+}

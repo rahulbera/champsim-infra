@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run the test WITHOUT the fix to confirm it triggers the race. Let me stash the fix:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && git stash push tsdb/head_append.go 2>&1 | tail -2 && go test -race -run TestAppendHistogramRaceRepro -count=1 ./tsdb/ 2>&1 | tail -40\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373354044204511543\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032580,\"id\":\"20260807000938e951aee4d30046be\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000938e951aee4d30046be\",\"usage\":{\"completion_tokens\":92,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73437,\"prompt_tokens_details\":{\"cached_tokens\":73280},\"total_tokens\":73529}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a3934cd5301ffc767dee82ac182e8abab9e1a562a48e26a2516cf7b448e07c8c",
+ "status": 200
+}

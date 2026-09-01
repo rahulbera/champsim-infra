@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me run the CT-related tests:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 120 go test -race -run \\\\\\\"TestHeadAppender_AppendCT|TestHeadAppender_AppendFloatWithSameTimestampAsPreviousHistogram\\\\\\\" -count=1 ./tsdb/ 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373386376718318551\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032903,\"id\":\"20260807001501656d9d42564748e7\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001501656d9d42564748e7\",\"usage\":{\"completion_tokens\":81,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86363,\"prompt_tokens_details\":{\"cached_tokens\":86144},\"total_tokens\":86444}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8c0bea92e101272ba57d6fb717dc114f6dd317d191ec515e35e15a58abf3c3dc",
+ "status": 200
+}

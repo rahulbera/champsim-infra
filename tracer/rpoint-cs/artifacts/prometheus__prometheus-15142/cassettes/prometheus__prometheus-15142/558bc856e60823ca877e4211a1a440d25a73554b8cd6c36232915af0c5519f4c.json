@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me run a more targeted set:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 120 go test -race -run \\\\\\\"TestAppendHistogram$|TestAppendHistogramStaleMarker|TestHeadAppendHistogramAndCommitConcurrency|TestAppendFloatHistogram\\\\\\\" -count=1 ./tsdb/ 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373372942060613301\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032848,\"id\":\"20260807001406402e0c52d3404216\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001406402e0c52d3404216\",\"usage\":{\"completion_tokens\":84,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":85430,\"prompt_tokens_details\":{\"cached_tokens\":85184},\"total_tokens\":85514}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "558bc856e60823ca877e4211a1a440d25a73554b8cd6c36232915af0c5519f4c",
+ "status": 200
+}

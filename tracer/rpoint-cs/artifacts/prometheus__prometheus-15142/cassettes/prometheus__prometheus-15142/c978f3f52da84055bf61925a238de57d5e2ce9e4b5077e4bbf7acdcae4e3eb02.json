@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test passes with the fix. Now let me confirm the test would have failed WITHOUT the fix. Let me temporarily stash my changes to head_append.go and run the test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && git stash push tsdb/head_append.go 2>&1 | tail -3\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373382494067880289\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032541,\"id\":\"20260807000859e3f6dcbba0944920\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000859e3f6dcbba0944920\",\"usage\":{\"completion_tokens\":76,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":61078,\"prompt_tokens_details\":{\"cached_tokens\":60928},\"total_tokens\":61154}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c978f3f52da84055bf61925a238de57d5e2ce9e4b5077e4bbf7acdcae4e3eb02",
+ "status": 200
+}

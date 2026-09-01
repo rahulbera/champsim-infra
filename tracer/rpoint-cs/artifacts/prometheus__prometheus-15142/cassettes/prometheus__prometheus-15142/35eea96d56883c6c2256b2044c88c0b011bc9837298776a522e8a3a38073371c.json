@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git log --oneline --all | head -20 && echo \\\\\\\"---\\\\\\\" && git log -p --all -S \\\\\\\"s.lastHistogramValue = &histogram.Histogram{}\\\\\\\" -- tsdb/head_append.go | head -80\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373345591708871500\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032223,\"id\":\"20260807000341c2a96ad2e74f40aa\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000341c2a96ad2e74f40aa\",\"usage\":{\"completion_tokens\":62,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":14626,\"prompt_tokens_details\":{\"cached_tokens\":14336},\"total_tokens\":14688}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "35eea96d56883c6c2256b2044c88c0b011bc9837298776a522e8a3a38073371c",
+ "status": 200
+}

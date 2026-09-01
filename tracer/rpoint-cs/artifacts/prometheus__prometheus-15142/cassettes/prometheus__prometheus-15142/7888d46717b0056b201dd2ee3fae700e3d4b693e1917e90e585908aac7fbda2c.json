@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"There's a commit `bb70370d7 TSDB head: fix race between AppendHistogram and Commit`. Let me look at it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git show bb70370d7\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373373423096952827\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032293,\"id\":\"20260807000451e374aaa5b1224e79\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000451e374aaa5b1224e79\",\"usage\":{\"completion_tokens\":52,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":23945,\"prompt_tokens_details\":{\"cached_tokens\":23744},\"total_tokens\":23997}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7888d46717b0056b201dd2ee3fae700e3d4b693e1917e90e585908aac7fbda2c",
+ "status": 200
+}

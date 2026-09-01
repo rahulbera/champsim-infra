@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The fix commit didn't add a test. Let me check if there's a test in a later commit. Let me search the git history for race tests related to this:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git log --oneline --all -S \\\\\\\"TestAppendHistogramStaleMarker\\\\\\\" -- tsdb/ 2>&1 | head -5; echo \\\\\\\"---\\\\\\\"; git log --oneline --all --grep=\\\\\\\"race\\\\\\\" --grep=\\\\\\\"Race\\\\\\\" -- tsdb/head_test.go 2>&1 | head -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373344320398554737\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032696,\"id\":\"20260807001134ed97a89ed51f4d84\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001134ed97a89ed51f4d84\",\"usage\":{\"completion_tokens\":114,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":77514,\"prompt_tokens_details\":{\"cached_tokens\":76480},\"total_tokens\":77628}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "37ecccf60f198654b6fdb325c292dab6d7254a597f2ec2fe6fa852d89b78acb8",
+ "status": 200
+}

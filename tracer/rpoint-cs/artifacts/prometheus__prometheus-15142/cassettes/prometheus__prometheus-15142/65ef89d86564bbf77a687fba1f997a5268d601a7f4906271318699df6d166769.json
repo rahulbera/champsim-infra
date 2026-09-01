@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/prometheus/tsdb/head_append.go\\\",\\\"view_range\\\":[338, 360]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373358717128927290\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032348,\"id\":\"20260807000547befd1987d2e84c73\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000547befd1987d2e84c73\",\"usage\":{\"completion_tokens\":38,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":36109,\"prompt_tokens_details\":{\"cached_tokens\":35968},\"total_tokens\":36147}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "65ef89d86564bbf77a687fba1f997a5268d601a7f4906271318699df6d166769",
+ "status": 200
+}

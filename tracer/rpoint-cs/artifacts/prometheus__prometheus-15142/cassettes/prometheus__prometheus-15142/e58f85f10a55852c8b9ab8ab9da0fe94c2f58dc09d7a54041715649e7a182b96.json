@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The output is being polluted with directory listings. Let me check the file content directly:\",\"reasoning_content\":\"The output is being polluted by something. It seems like the bash tool is printing directory listings repeatedly. This is strange. Let me check if there's something weird going on. The assertion failed because the old string wasn't found. Let me check the actual content of the file again - maybe the getOrCreate was already modified, or there's a whitespace issue.\\n\\nWait, the output shows a lot of directory listings which is very strange. This might be some kind of shell completion or prompt issue. Let me try a simpler approach and check the file content first.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"func (a \\\\\\\\*headAppender) getOrCreate\\\\\\\" tsdb/head_append.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373370777397092565\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032323,\"id\":\"2026080700052014664d03c7784d67\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700052014664d03c7784d67\",\"usage\":{\"completion_tokens\":165,\"completion_tokens_details\":{\"reasoning_tokens\":112},\"prompt_tokens\":35030,\"prompt_tokens_details\":{\"cached_tokens\":31680},\"total_tokens\":35195}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e58f85f10a55852c8b9ab8ab9da0fe94c2f58dc09d7a54041715649e7a182b96",
+ "status": 200
+}

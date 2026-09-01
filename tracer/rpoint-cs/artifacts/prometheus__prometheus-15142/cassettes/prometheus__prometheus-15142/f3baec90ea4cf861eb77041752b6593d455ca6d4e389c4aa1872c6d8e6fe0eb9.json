@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && grep -rn \\\\\\\"func Test.*CTZero\\\\\\\\|func Test.*CreatedTimestamp\\\\\\\\|func Test.*CTZeroSample\\\\\\\" tsdb/*_test.go | head -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373346656860758583\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032863,\"id\":\"20260807001421aeb345c12e474919\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001421aeb345c12e474919\",\"usage\":{\"completion_tokens\":60,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":85640,\"prompt_tokens_details\":{\"cached_tokens\":85504},\"total_tokens\":85700}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f3baec90ea4cf861eb77041752b6593d455ca6d4e389c4aa1872c6d8e6fe0eb9",
+ "status": 200
+}

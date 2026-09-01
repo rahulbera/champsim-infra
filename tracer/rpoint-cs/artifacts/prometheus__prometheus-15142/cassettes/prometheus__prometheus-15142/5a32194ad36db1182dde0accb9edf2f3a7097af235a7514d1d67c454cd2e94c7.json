@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"This is the actual test that was added for this race. The task says \\\"I've already taken care of all changes to any of the test files described in the PR description.\\\" Let me check if this test exists in the current HEAD:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"TestHeadAppendHistogramAndCommitConcurrency\\\\\\\\|testHeadAppendHistogramAndCommitConcurrency\\\\\\\" tsdb/head_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373360572554799635\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032707,\"id\":\"20260807001144c064bc7beaca4dae\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001144c064bc7beaca4dae\",\"usage\":{\"completion_tokens\":89,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":78753,\"prompt_tokens_details\":{\"cached_tokens\":77824},\"total_tokens\":78842}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5a32194ad36db1182dde0accb9edf2f3a7097af235a7514d1d67c454cd2e94c7",
+ "status": 200
+}

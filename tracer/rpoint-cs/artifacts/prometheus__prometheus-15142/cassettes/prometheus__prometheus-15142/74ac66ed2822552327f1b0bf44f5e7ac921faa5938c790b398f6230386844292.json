@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"No formatting issues. Let me also run golangci-lint if available, or at least go vet:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && go vet ./tsdb/ 2>&1 | tail -10; echo \\\\\\\"vet exit: $?\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373338066926167785\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032970,\"id\":\"202608070016081526481ca4604c07\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070016081526481ca4604c07\",\"usage\":{\"completion_tokens\":69,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86923,\"prompt_tokens_details\":{\"cached_tokens\":86784},\"total_tokens\":86992}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "74ac66ed2822552327f1b0bf44f5e7ac921faa5938c790b398f6230386844292",
+ "status": 200
+}

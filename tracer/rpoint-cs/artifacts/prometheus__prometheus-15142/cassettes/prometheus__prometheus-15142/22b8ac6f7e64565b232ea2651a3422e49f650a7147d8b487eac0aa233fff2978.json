@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All callers of `a.getOrCreate` (the headAppender method) have been updated to use the new 3-return signature. Let me also check the agent package which might use it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"headAppender.*getOrCreate\\\\\\\\|a.getOrCreate\\\\\\\" tsdb/agent/ 2>/dev/null | head -5; echo \\\\\\\"done\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373368475294629596\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033017,\"id\":\"20260807001655ffbb9194fe0146cc\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001655ffbb9194fe0146cc\",\"usage\":{\"completion_tokens\":89,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":88950,\"prompt_tokens_details\":{\"cached_tokens\":88768},\"total_tokens\":89039}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "22b8ac6f7e64565b232ea2651a3422e49f650a7147d8b487eac0aa233fff2978",
+ "status": 200
+}

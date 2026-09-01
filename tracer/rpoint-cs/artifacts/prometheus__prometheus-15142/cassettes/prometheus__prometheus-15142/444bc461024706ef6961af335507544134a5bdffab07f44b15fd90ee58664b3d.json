@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The build succeeds. Now let me verify the changes look correct by viewing the modified sections:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/prometheus/tsdb/head_append.go\\\",\\\"view_range\\\":[655, 770]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373357617617303951\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032452,\"id\":\"2026080700073150fcedec10d9453e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700073150fcedec10d9453e\",\"usage\":{\"completion_tokens\":57,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":45154,\"prompt_tokens_details\":{\"cached_tokens\":45056},\"total_tokens\":45211}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "444bc461024706ef6961af335507544134a5bdffab07f44b15fd90ee58664b3d",
+ "status": 200
+}

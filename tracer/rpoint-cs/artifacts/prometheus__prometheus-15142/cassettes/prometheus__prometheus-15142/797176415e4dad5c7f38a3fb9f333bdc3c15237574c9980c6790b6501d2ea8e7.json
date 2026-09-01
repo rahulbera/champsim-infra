@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test passes WITH the fix. Let me run it a few more times to make sure it's not flaky:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && go test -race -run TestHeadAppendHistogramAndCommitConcurrency -count=3 ./tsdb/ 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373346966098410654\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032787,\"id\":\"202608070013051658d678c8ec4927\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070013051658d678c8ec4927\",\"usage\":{\"completion_tokens\":78,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":82618,\"prompt_tokens_details\":{\"cached_tokens\":82496},\"total_tokens\":82696}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "797176415e4dad5c7f38a3fb9f333bdc3c15237574c9980c6790b6501d2ea8e7",
+ "status": 200
+}

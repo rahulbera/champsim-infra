@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The output is being polluted with directory listings. Let me verify the file was created:\",\"reasoning_content\":\"The output is being polluted with directory listings. This is strange. It seems like the bash tool is echoing the directory listing. Let me check if the file was actually created.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"ls -la /prometheus/tsdb/race_repro_test.go 2>&1 | tail -2\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373383249982128006\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032492,\"id\":\"20260807000810590ac0479d574439\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000810590ac0479d574439\",\"usage\":{\"completion_tokens\":84,\"completion_tokens_details\":{\"reasoning_tokens\":35},\"prompt_tokens\":55485,\"prompt_tokens_details\":{\"cached_tokens\":50560},\"total_tokens\":55569}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0ee9464cd6c710afe43ea8a0609a59e23201ca1c2adfa164b3ea34351982f8bf",
+ "status": 200
+}

@@ -20,8 +20,8 @@ Banked trajectories for all 36:
 
 | step | what | cost | status |
 |---|---|---|---|
-| **0** | Hygiene and the load-bearing fixes | ~30 min, no VM | `TODO` |
-| **1** | Recover prometheus cassettes, reclaim 32 GB | ~15 min | `TODO` |
+| **0** | Hygiene and the load-bearing fixes | ~30 min, no VM | `DONE` (8/8) |
+| **1** | Recover prometheus, reclaim | ~15 min | `DONE` — recovery succeeded; reclaim deferred |
 | **2** | Trajectory compatibility test | ~5 min | `TODO` |
 | **3** | Phase 1 — five tasks, one per proven language | ~45 instance-h | `TODO` |
 | ‖ | Determinism check (concurrent with step 3) | ~1.7 h | `TODO` |
@@ -38,14 +38,39 @@ corrupt a Phase-1 run.
 
 | # | Target | Status |
 |---|---|---|
-| 0.1 | Fix the 8 doc/code disagreements the audit found (code is correct in all 8; see the table at the end of the orientation brief) | `TODO` |
-| 0.2 | Retire `docs/superpowers/specs/2026-08-06-swe-agent-tracing-design.md` and `plans/2026-08-06-llm-replay-proxy.md` — mark historical; four sections are superseded while the status line still reads "ready for implementation planning" | `TODO` |
-| 0.3 | Move `instances/rubocop__rubocop-13680.env` → `instances/dropped/`, and delete the hardcoded name skip at `capture_status.sh:60` | `TODO` |
-| 0.4 | Introduce `RPOINT_IMAGES` and use it at all call sites: `images/boot_tcg_trace.sh:10,18`, `images/boot_build.sh:5`, `images/boot_tcg_gate.sh:7`, `scripts/capture_agentic.sh:27` | `TODO` |
-| 0.5 | Assert `CAPTURE_SLOT` is present and unique at descriptor load (`lib/common.sh`) — two `.env` files currently both declare slot 1, and a missing slot makes the arithmetic evaluate silently | `TODO` |
-| 0.6 | Record `pip freeze` into `artifacts/<id>/versions.txt` during provisioning; stop discarding the version line through `provision_instance.sh:97`'s `\| tail -40` | `TODO` |
-| 0.7 | Parameterise the hardcoded window count for K=5: `capture_status.sh:72,74,89` (`nw/4`) and `reclaim_space.sh:60` (`n >= 4`) | `TODO` |
-| 0.8 | Archive the old `attempts/` ledger, start a clean one, and actually call `attempts.sh` from the chain — nothing calls it today | `TODO` |
+| 0.1 | Fix the 8 doc/code disagreements the audit found (code is correct in all 8; see the table at the end of the orientation brief) | `DONE` |
+| 0.2 | Retire `docs/superpowers/specs/2026-08-06-swe-agent-tracing-design.md` and `plans/2026-08-06-llm-replay-proxy.md` — mark historical; four sections are superseded while the status line still reads "ready for implementation planning" | `DONE` |
+| 0.3 | Move `instances/rubocop__rubocop-13680.env` → `instances/dropped/`, and delete the hardcoded name skip at `capture_status.sh:60` | `DONE` |
+| 0.4 | Introduce `RPOINT_IMAGES` and use it at all call sites: `images/boot_tcg_trace.sh:10,18`, `images/boot_build.sh:5`, `images/boot_tcg_gate.sh:7`, `scripts/capture_agentic.sh:27` | `DONE` |
+| 0.5 | Assert `CAPTURE_SLOT` is present and unique at descriptor load (`lib/common.sh`) — two `.env` files currently both declare slot 1, and a missing slot makes the arithmetic evaluate silently | `DONE` |
+| 0.6 | Record `pip freeze` into `artifacts/<id>/versions.txt` during provisioning; stop discarding the version line through `provision_instance.sh:97`'s `\| tail -40` | `DONE` |
+| 0.7 | Parameterise the hardcoded window count for K=5: `capture_status.sh:72,74,89` (`nw/4`) and `reclaim_space.sh:60` (`n >= 4`) | `DONE` |
+| 0.8 | Archive the old `attempts/` ledger, start a clean one, and actually call `attempts.sh` from the chain — nothing calls it today | `DONE` |
+
+### Found while doing step 0 (beyond the planned targets)
+
+- **A seventh hardcoded image path.** `run_capture_chain.sh:18` set
+  `LOGDIR=$ROOT/images/chain-$INSTANCE`. The audit had found four call sites;
+  there were seven — six drivers computing `IMAGES=$ROOT/images` plus this one.
+  All now read `RPOINT_IMAGES` from `scripts/lib/paths.sh`.
+- **The boot scripts that actually execute are the LIVE tree's copies.** The
+  drivers `cd "$IMAGES"` and then run `bash boot_build.sh`, which resolves
+  relative to that cwd — so editing only the repo copy changes nothing. The two
+  trees must be kept in sync by hand after any edit to `images/boot_*.sh`.
+- **The chain skipped its own safety gate.** `FIRST=${2:-profile}` meant a bare
+  `run_capture_chain.sh <id>` went straight to profile, skipping verify — so a
+  replay that had already diverged from its recording would be faithfully traced
+  for hours. Default is now `verify` (2–5.5 min under KVM).
+  `advance_instance.sh:113` passes an explicit `profile`, so it does not
+  double-run.
+- **Window count is now per-capture, not global.** Reading K from each
+  capture's own `.meta` rather than a single constant: the August captures are
+  legitimately K=4 and a hardcoded 5 would report every one of them as an
+  incomplete `4/5` forever.
+- **A bug in my own first fix:** `SLOT=... || die` was placed above `die()`'s
+  definition, so a slot failure would have printed "die: command not found"
+  instead of the reason. Now a plain `exit 1` after `resolve_slot` has explained
+  itself on stderr.
 
 **Done when:** both test gates still pass (`tests/test_reports.py`,
 `tests/test_cluster_run.py`), and a dry `capture_status.sh` run reports sanely
@@ -64,12 +89,58 @@ match its name.
 
 | # | Target | Status |
 |---|---|---|
-| 1.1 | Read-only inspect the legacy image for `/opt/cassettes/prometheus__prometheus-15142` (`virt-ls --ro`, or a read-only loopback mount — never a writable attach) | `TODO` |
-| 1.2 | If present: extract cassettes **and** the trajectory to `artifacts/prometheus__prometheus-15142/` | `TODO` |
-| 1.3 | Validate what was recovered: `len(_order.json) == len(set(keys)) == cassette file count`, and grep for a leaked `authorization` header | `TODO` |
-| 1.4 | Record the outcome here either way — if absent, the existing 4 prometheus traces are permanently un-reverifiable and that fact belongs in writing | `TODO` |
-| 1.5 | Free the 32 GB of legacy `swe-agent-guest*.qcow2` | `TODO` |
-| 1.6 | **Keep** the 19 GB of `guest-*.provisioned.qcow2` until Phase 1 proves the pipeline | `TODO` |
+| 1.1 | Read-only inspect the legacy image for `/opt/cassettes/prometheus__prometheus-15142` (`virt-ls --ro`, or a read-only loopback mount — never a writable attach) | `DONE` |
+| 1.2 | If present: extract cassettes **and** the trajectory to `artifacts/prometheus__prometheus-15142/` | `DONE` |
+| 1.3 | Validate what was recovered: `len(_order.json) == len(set(keys)) == cassette file count`, and grep for a leaked `authorization` header | `DONE` |
+| 1.4 | Record the outcome here either way — if absent, the existing 4 prometheus traces are permanently un-reverifiable and that fact belongs in writing | `DONE` |
+| 1.5 | Free the 32 GB of legacy `swe-agent-guest*.qcow2` | `DEFERRED` |
+| 1.6 | **Keep** the 19 GB of `guest-*.provisioned.qcow2` until Phase 1 proves the pipeline | `DONE` |
+
+### Outcome — recovered in full, and more than expected (2026-09-01)
+
+Booted `swe-agent-guest.recorded.qcow2` with QEMU `-snapshot`, so every write
+went to a throwaway overlay; the backing image was verified byte-identical
+afterwards (`md5 94eb6fe51a005a0703831f10df401330`, mtime still 2026-08-06).
+
+**Recovered:** 147 cassettes, the full 48 MB `2ee7bd.traj`, the trajectory logs
+and the problem statement, into
+`qemu-tracing/artifacts/prometheus__prometheus-15142/`. No leaked `authorization`
+header in any cassette.
+
+**The `_order.json` was missing** — the manifest postdates prometheus's Aug-6
+recording; the five later instances all have one. It was reconstructed by
+sorting cassettes on their response `created` timestamp (147 distinct, ties
+broken by response id) and then **validated against the trajectory's own action
+sequence: 146/146 positions match, zero divergence**. That is a stronger
+guarantee than the original manifest ever carried, since the original was
+append-order that nothing ever checked.
+
+**One cassette was superseded and is correctly excluded** from the manifest: a
+retry issued 1 second before its replacement, carrying a truncated command
+(`git log --oneline -5` against the kept `git log --oneline -5 && echo "---" &&
+ls tsdb/`). This is the gson failure mode caught in the wild — 147 cassettes
+against 146 real turns. The file is kept on disk, just not in the order.
+
+**And the provisioned image was found.** `swe-agent-guest.provisioned.qcow2`
+(6.3 GB) turned out to BE prometheus's provisioned state — `/prometheus` at
+`16bba78f1549cfd7909b61ebd7c55c822c86630b`, exactly the descriptor's
+`BASE_COMMIT`, with no cassettes or trajectories (clean pre-record state). Its
+properly-named counterpart was the 33-byte stub. Promoted to
+`guest-prometheus__prometheus-15142.provisioned.qcow2`; the stub is kept as
+`.stub-33b` rather than deleted.
+
+**prometheus-15142 is therefore no longer un-reverifiable.** It now has a
+provisioned image, cassettes, a validated order and a full trajectory — every
+input a verify/profile/trace needs.
+
+### Why 1.5 is deferred, not done
+
+The approval to free 32 GB rested on those three legacy images being
+disposable. One of the three was load-bearing, which falsifies the premise for
+the other two. `swe-agent-guest.qcow2` (12.9 GB) has not been inspected and may
+likewise be someone's working state. ~25 GB remains reclaimable once it is
+checked; there is no pressure (456 GB free, Phase 1 needs ~51 GB), so it waits
+for a look rather than a guess.
 
 **Note:** prometheus-15142 is *not* in the new 36 (the Go picks are caddy-4774,
 gin-2121, prometheus-10720, hugo-12579). This recovery protects the *existing*

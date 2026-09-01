@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run the full tsdb test suite without race (faster) to make sure nothing is broken:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 280 go test -run \\\\\\\"TestAppendHistogram|TestHeadAppender|TestHeadAppendHistogramAndCommitConcurrency|TestOutOfOrderSamplesMetric\\\\\\\" -count=1 ./tsdb/ 2>&1 | tail -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373360400756111261\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032910,\"id\":\"20260807001508114257f11ce946b4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001508114257f11ce946b4\",\"usage\":{\"completion_tokens\":95,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86471,\"prompt_tokens_details\":{\"cached_tokens\":86336},\"total_tokens\":86566}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a84575b66963436fe795aae93da078a244263a66cfb9d029fbe2c8f3582844c7",
+ "status": 200
+}

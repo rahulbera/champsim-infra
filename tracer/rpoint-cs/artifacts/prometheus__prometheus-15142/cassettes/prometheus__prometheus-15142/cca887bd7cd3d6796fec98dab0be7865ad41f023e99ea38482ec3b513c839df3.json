@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Everything looks good. Let me run the complete diff one final time to confirm the changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git diff --stat 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373371979987939161\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033006,\"id\":\"20260807001644efa5dc26b96840e2\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001644efa5dc26b96840e2\",\"usage\":{\"completion_tokens\":45,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":88681,\"prompt_tokens_details\":{\"cached_tokens\":88064},\"total_tokens\":88726}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cca887bd7cd3d6796fec98dab0be7865ad41f023e99ea38482ec3b513c839df3",
+ "status": 200
+}

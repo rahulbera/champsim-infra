@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The `git checkout --` didn't work because the changes were staged. Let me restore the test file from HEAD:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git restore --staged tsdb/head_test.go && git checkout -- tsdb/head_test.go && git diff --stat 2>&1 | tail -5; echo \\\\\\\"=== status ===\\\\\\\"; git status --short 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373349371280089149\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033086,\"id\":\"20260807001804d8a6e15543e049cb\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001804d8a6e15543e049cb\",\"usage\":{\"completion_tokens\":90,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":93730,\"prompt_tokens_details\":{\"cached_tokens\":93568},\"total_tokens\":93820}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3526b02abcc457d512921acd627fd5f254c7a665874155702aedf625c4deaaec",
+ "status": 200
+}

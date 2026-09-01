@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me verify the `Append` and `AppendCTZeroSample` changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/prometheus/tsdb/head_append.go\\\",\\\"view_range\\\":[331, 360]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373354353442155102\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032460,\"id\":\"20260807000738ca967b7fccab41c3\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000738ca967b7fccab41c3\",\"usage\":{\"completion_tokens\":55,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":48019,\"prompt_tokens_details\":{\"cached_tokens\":46720},\"total_tokens\":48074}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "556884815bed0dbcb7984d006774337f22055184ca38c268dbc38ec093954ef2",
+ "status": 200
+}

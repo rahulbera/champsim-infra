@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"There's a commit `631fadc4c Unit test for data race in head.Appender.AppendHistogram`. Let me look at it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git show 631fadc4c 2>&1 | head -150\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373341880857124923\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032701,\"id\":\"202608070011409c7963b6683f4205\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070011409c7963b6683f4205\",\"usage\":{\"completion_tokens\":61,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":77852,\"prompt_tokens_details\":{\"cached_tokens\":77504},\"total_tokens\":77913}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0e8b51c32bfadcea5a748ac1a469161c0e8a07dfff317f5196a183ec5a3b7692",
+ "status": 200
+}

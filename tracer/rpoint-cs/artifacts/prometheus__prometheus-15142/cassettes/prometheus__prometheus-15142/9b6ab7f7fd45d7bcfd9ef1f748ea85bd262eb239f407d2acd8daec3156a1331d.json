@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"race\\\\\\\\|Race\\\\\\\\|concurrent\\\\\\\" tsdb/head_test.go | grep -i \\\\\\\"histogram\\\\\\\\|append\\\\\\\" | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373344560916717784\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032260,\"id\":\"20260807000418a07ee0f7f92a4e74\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000418a07ee0f7f92a4e74\",\"usage\":{\"completion_tokens\":48,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":20182,\"prompt_tokens_details\":{\"cached_tokens\":19968},\"total_tokens\":20230}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b6ab7f7fd45d7bcfd9ef1f748ea85bd262eb239f407d2acd8daec3156a1331d",
+ "status": 200
+}

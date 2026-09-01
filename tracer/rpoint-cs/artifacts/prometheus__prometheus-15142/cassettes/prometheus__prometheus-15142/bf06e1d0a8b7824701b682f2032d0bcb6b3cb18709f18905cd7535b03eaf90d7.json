@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"func.*getOrCreate\\\\\\\" tsdb/agent/db.go | head -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373361775145640259\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033028,\"id\":\"2026080700170742b9d8aa236943ba\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700170742b9d8aa236943ba\",\"usage\":{\"completion_tokens\":34,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":89291,\"prompt_tokens_details\":{\"cached_tokens\":89088},\"total_tokens\":89325}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bf06e1d0a8b7824701b682f2032d0bcb6b3cb18709f18905cd7535b03eaf90d7",
+ "status": 200
+}

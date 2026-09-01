@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The change is staged. Let me confirm the final state - only `head_append.go` is modified:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git status 2>&1 | tail -8\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373373354377471950\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033102,\"id\":\"20260807001820fb529a31944b4c82\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001820fb529a31944b4c82\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":94222,\"prompt_tokens_details\":{\"cached_tokens\":94016},\"total_tokens\":94268}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d5c70bf5ac832e6eeec4fa5b7f6447265f60acd7bde30785235c66736ac2c690",
+ "status": 200
+}

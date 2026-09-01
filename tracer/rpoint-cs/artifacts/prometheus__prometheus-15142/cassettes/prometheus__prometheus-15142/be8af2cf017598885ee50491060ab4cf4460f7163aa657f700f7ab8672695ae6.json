@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"func testHeadSeriesChunkRace\\\\\\\" tsdb/head_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373384624371655750\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032271,\"id\":\"202608070004289288da35fa8b4e04\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070004289288da35fa8b4e04\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":21283,\"prompt_tokens_details\":{\"cached_tokens\":20480},\"total_tokens\":21314}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "be8af2cf017598885ee50491060ab4cf4460f7163aa657f700f7ab8672695ae6",
+ "status": 200
+}

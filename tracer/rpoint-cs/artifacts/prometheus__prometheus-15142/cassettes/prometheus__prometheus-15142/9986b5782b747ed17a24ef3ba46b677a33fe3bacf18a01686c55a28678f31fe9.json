@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The directory listing pollution is happening with heredocs. Let me check the file was written correctly and run the test. First let me confirm the file content:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"head -5 /prometheus/tsdb/race_repro_test.go && echo \\\\\\\"...\\\\\\\" && wc -l /prometheus/tsdb/race_repro_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373343805002474882\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032576,\"id\":\"202608070009340b00df2f9dd04baf\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070009340b00df2f9dd04baf\",\"usage\":{\"completion_tokens\":75,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73329,\"prompt_tokens_details\":{\"cached_tokens\":61440},\"total_tokens\":73404}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9986b5782b747ed17a24ef3ba46b677a33fe3bacf18a01686c55a28678f31fe9",
+ "status": 200
+}

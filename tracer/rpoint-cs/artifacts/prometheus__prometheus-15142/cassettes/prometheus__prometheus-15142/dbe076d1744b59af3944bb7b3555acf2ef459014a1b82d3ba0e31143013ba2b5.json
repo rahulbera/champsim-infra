@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test passes consistently with the fix. Now let me verify the full diff of my changes:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git diff tsdb/head_append.go 2>&1 | tail -200\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373360950511926737\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032798,\"id\":\"202608070013166f81b881fe7944d4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070013166f81b881fe7944d4\",\"usage\":{\"completion_tokens\":49,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":82722,\"prompt_tokens_details\":{\"cached_tokens\":82560},\"total_tokens\":82771}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dbe076d1744b59af3944bb7b3555acf2ef459014a1b82d3ba0e31143013ba2b5",
+ "status": 200
+}

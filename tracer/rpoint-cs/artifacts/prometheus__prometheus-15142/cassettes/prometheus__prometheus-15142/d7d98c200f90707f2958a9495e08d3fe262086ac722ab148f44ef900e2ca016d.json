@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test fails without the fix, but with a histogram validation error rather than a race. The histogram I'm using isn't valid. Let me fix the histogram to be valid. Let me check what a valid histogram looks like:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"histogram.Histogram{\\\\\\\" tsdb/head_test.go | head -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373370605598404540\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032590,\"id\":\"2026080700094733331bc20089447a\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700094733331bc20089447a\",\"usage\":{\"completion_tokens\":79,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73693,\"prompt_tokens_details\":{\"cached_tokens\":73408},\"total_tokens\":73772}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d7d98c200f90707f2958a9495e08d3fe262086ac722ab148f44ef900e2ca016d",
+ "status": 200
+}

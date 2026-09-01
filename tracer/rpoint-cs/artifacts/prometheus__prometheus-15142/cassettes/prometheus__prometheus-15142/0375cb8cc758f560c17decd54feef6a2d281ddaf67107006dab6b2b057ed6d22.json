@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"histogram.TestHistogram\\\\\\\\|histogramOnlyInt\\\\\\\\|func.*Histogram\\\\\\\\b.*Count\\\\\\\" tsdb/head_test.go | head -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373370399439972601\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032595,\"id\":\"20260807000953af202181ee4f473d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000953af202181ee4f473d\",\"usage\":{\"completion_tokens\":47,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":73954,\"prompt_tokens_details\":{\"cached_tokens\":73664},\"total_tokens\":74001}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0375cb8cc758f560c17decd54feef6a2d281ddaf67107006dab6b2b057ed6d22",
+ "status": 200
+}

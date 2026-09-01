@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The str_replace_editor seems to have an issue with the output. Let me view the exact content with line numbers:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/prometheus/tsdb/head_append.go\\\",\\\"view_range\\\":[432, 458]}\",\"name\":\"str_replace_editor\"},\"id\":\"call_-7373354765759019180\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032308,\"id\":\"202608070005076b96aacdb8964bab\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070005076b96aacdb8964bab\",\"usage\":{\"completion_tokens\":62,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":30954,\"prompt_tokens_details\":{\"cached_tokens\":27328},\"total_tokens\":31016}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16411b51d4381588e16b7b6b5869302f98365865c28b3fd38210805f2a7d1aa8",
+ "status": 200
+}

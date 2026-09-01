@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Only `tsdb/head_append.go` is modified now. The test file has been reverted to its original state as instructed.\\n\\nLet me run the existing tests one final time to make sure the source change doesn't break anything (using the existing test suite, not my added test):\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 150 go test -race -run \\\\\\\"TestAppendHistogram$|TestHeadAppender_AppendCT|TestHeadAppender_AppendFloatWithSameTimestampAsPreviousHistogram|TestOutOfOrderSamplesMetric|TestOutOfOrderSamplesMetricNativeHistogramOOODisabled\\\\\\\" -count=1 ./tsdb/ 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373360847432704915\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033108,\"id\":\"20260807001825e955782a3e334d08\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001825e955782a3e334d08\",\"usage\":{\"completion_tokens\":152,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":94320,\"prompt_tokens_details\":{\"cached_tokens\":94208},\"total_tokens\":94472}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b5663d1be7026f6c7a43fd089e423a2c4bdb86d908c7cb9439b53658b0ceb90c",
+ "status": 200
+}

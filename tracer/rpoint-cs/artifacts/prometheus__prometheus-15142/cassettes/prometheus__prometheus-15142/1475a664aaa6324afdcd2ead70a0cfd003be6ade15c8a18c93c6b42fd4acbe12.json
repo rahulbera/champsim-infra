@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The `histogram` import is unused now. Let me remove it:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && python3 -c \\\\\\\"\\\\nwith open('tsdb/race_repro_test.go') as f:\\\\n    c = f.read()\\\\nc = c.replace('\\\\\\\\t\\\\\\\\\\\\\\\"github.com/prometheus/prometheus/model/histogram\\\\\\\\\\\\\\\"\\\\\\\\n', '')\\\\nwith open('tsdb/race_repro_test.go','w') as f:\\\\n    f.write(c)\\\\nprint('done')\\\\n\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373371533311343625\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032661,\"id\":\"20260807001059b18f8caabb88470f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001059b18f8caabb88470f\",\"usage\":{\"completion_tokens\":103,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":76213,\"prompt_tokens_details\":{\"cached_tokens\":76096},\"total_tokens\":76316}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1475a664aaa6324afdcd2ead70a0cfd003be6ade15c8a18c93c6b42fd4acbe12",
+ "status": 200
+}

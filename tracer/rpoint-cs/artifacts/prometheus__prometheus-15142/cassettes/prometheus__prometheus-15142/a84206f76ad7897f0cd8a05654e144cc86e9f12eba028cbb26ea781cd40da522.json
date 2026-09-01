@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now only `tsdb/head_append.go` is modified. Let me verify the test file is back to original and confirm the build still works:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && tail -5 tsdb/head_test.go && echo \\\\\\\"=== build ===\\\\\\\" && go build ./tsdb/ 2>&1 | tail -5; echo \\\\\\\"build exit: $?\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373322364525737718\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033091,\"id\":\"202608070018091df471ab2f774d8b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070018091df471ab2f774d8b\",\"usage\":{\"completion_tokens\":92,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":93841,\"prompt_tokens_details\":{\"cached_tokens\":93696},\"total_tokens\":93933}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a84206f76ad7897f0cd8a05654e144cc86e9f12eba028cbb26ea781cd40da522",
+ "status": 200
+}

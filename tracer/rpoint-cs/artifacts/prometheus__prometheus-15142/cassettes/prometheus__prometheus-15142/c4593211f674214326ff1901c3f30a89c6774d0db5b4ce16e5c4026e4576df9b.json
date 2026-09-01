@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The test file change is staged. Let me check the actual diff now:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git diff HEAD 2>&1 | tail -5; echo \\\\\\\"===staged===\\\\\\\"; git diff --cached --stat 2>&1 | tail -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373368406575149163\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033081,\"id\":\"202608070017597d4edf521f624696\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070017597d4edf521f624696\",\"usage\":{\"completion_tokens\":63,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":93594,\"prompt_tokens_details\":{\"cached_tokens\":93504},\"total_tokens\":93657}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c4593211f674214326ff1901c3f30a89c6774d0db5b4ce16e5c4026e4576df9b",
+ "status": 200
+}

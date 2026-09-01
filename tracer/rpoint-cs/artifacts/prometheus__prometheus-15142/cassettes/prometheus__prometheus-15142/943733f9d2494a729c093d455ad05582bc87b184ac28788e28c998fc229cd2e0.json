@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me use `tsdbutil.GenerateTestHistograms`. Let me restore my fix first and update the test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git stash pop 2>&1 | tail -2\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373356208868030290\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032625,\"id\":\"202608070010248131b4ecb436462e\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070010248131b4ecb436462e\",\"usage\":{\"completion_tokens\":49,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74535,\"prompt_tokens_details\":{\"cached_tokens\":74304},\"total_tokens\":74584}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "943733f9d2494a729c093d455ad05582bc87b184ac28788e28c998fc229cd2e0",
+ "status": 200
+}

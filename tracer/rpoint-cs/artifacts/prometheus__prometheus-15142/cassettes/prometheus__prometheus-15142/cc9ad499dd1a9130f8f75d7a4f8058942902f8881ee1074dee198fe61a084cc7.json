@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"PositiveBuckets\\\\\\\\|NegativeBuckets\\\\\\\\|PositiveSpans\\\\\\\" tsdb/head_test.go | head -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373385689523550062\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032617,\"id\":\"20260807001016678af3cfb448484d\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001016678af3cfb448484d\",\"usage\":{\"completion_tokens\":42,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74174,\"prompt_tokens_details\":{\"cached_tokens\":74112},\"total_tokens\":74216}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cc9ad499dd1a9130f8f75d7a4f8058942902f8881ee1074dee198fe61a084cc7",
+ "status": 200
+}

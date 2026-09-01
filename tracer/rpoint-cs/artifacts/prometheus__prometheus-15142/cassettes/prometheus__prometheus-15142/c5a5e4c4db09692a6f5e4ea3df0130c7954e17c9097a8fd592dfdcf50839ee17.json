@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"Count:.*Sum:\\\\\\\" model/histogram/*_test.go | head -5\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373364661363665980\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032607,\"id\":\"20260807001005bad26e30540e4b62\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001005bad26e30540e4b62\",\"usage\":{\"completion_tokens\":35,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74068,\"prompt_tokens_details\":{\"cached_tokens\":73984},\"total_tokens\":74103}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c5a5e4c4db09692a6f5e4ea3df0130c7954e17c9097a8fd592dfdcf50839ee17",
+ "status": 200
+}

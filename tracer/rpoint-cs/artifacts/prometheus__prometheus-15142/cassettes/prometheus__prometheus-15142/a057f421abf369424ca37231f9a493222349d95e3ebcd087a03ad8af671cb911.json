@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && go test -race -run TestHeadAppendHistogramAndCommitConcurrency -count=1 ./tsdb/ 2>&1 | tail -30\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373341056223407251\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032776,\"id\":\"202608070012548f6446b2668d48db\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070012548f6446b2668d48db\",\"usage\":{\"completion_tokens\":54,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":82537,\"prompt_tokens_details\":{\"cached_tokens\":82240},\"total_tokens\":82591}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a057f421abf369424ca37231f9a493222349d95e3ebcd087a03ad8af671cb911",
+ "status": 200
+}

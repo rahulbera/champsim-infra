@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"All changes look good. Now let me write a reproduction test to confirm the race. Let me first check if there's an existing race test I can model after:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"func TestHead.*Race\\\\\\\\|func Test.*Race\\\\\\\\|AppendHistogram\\\\\\\" tsdb/head_test.go | head -20\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373371773829511913\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032472,\"id\":\"20260807000750b764ccc7e5d2480b\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000750b764ccc7e5d2480b\",\"usage\":{\"completion_tokens\":77,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":49465,\"prompt_tokens_details\":{\"cached_tokens\":48512},\"total_tokens\":49542}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9a30682bd2c0598f17dda454d7ce97331024ea0cec1c5db6379dfca6697b5aa5",
+ "status": 200
+}

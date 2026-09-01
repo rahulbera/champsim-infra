@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Build succeeds. Now let me run gofmt to make sure the formatting is correct:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && gofmt -l tsdb/head_append.go tsdb/head_test.go 2>&1 | tail -5; echo \\\\\\\"gofmt done\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373344835794624776\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032965,\"id\":\"20260807001603b6c8413fb3a74bb6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001603b6c8413fb3a74bb6\",\"usage\":{\"completion_tokens\":72,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":86837,\"prompt_tokens_details\":{\"cached_tokens\":86720},\"total_tokens\":86909}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cf8fcab9e69da105ede964aeef3648351ddc9ca0c161c455f5309dcddfcab84c",
+ "status": 200
+}

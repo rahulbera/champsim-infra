@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me run a final comprehensive race test to make sure everything is solid:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 150 go test -race -run \\\\\\\"TestHeadAppendHistogramAndCommitConcurrency\\\\\\\" -count=5 ./tsdb/ 2>&1 | tail -10\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373366207551894908\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033040,\"id\":\"20260807001718861bb912a00843a4\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001718861bb912a00843a4\",\"usage\":{\"completion_tokens\":75,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":89501,\"prompt_tokens_details\":{\"cached_tokens\":89344},\"total_tokens\":89576}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b3619907b3a3a69ba7969382fb22dca631c2a6f7e5ba32b3766f8ec93e9bec61",
+ "status": 200
+}

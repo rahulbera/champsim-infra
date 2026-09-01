@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Hmm, the test passes even without the fix. The race is hard to trigger because the `created` branch only runs once per series (the first time). Let me make the test more aggressive - I need to create many series concurrently so the `created` branch runs concurrently with commits. Let me restore my fix first:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git stash pop 2>&1 | tail -3\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373374179011198703\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032556,\"id\":\"2026080700091333dbb923015e45ca\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700091333dbb923015e45ca\",\"usage\":{\"completion_tokens\":91,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":61274,\"prompt_tokens_details\":{\"cached_tokens\":61184},\"total_tokens\":61365}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5a00485871b0487cc5c28fdd9acbe721fac61f66d8244225bed3ba23ac1e1783",
+ "status": 200
+}

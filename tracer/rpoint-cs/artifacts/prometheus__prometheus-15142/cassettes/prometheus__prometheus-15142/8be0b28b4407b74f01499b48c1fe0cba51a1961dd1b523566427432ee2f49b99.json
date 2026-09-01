@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && sed -n '720,820p' tsdb/head_append.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373372392304799211\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032066,\"id\":\"202608070001043a740093efbc4dfb\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070001043a740093efbc4dfb\",\"usage\":{\"completion_tokens\":30,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":2914,\"prompt_tokens_details\":{\"cached_tokens\":1792},\"total_tokens\":2944}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8be0b28b4407b74f01499b48c1fe0cba51a1961dd1b523566427432ee2f49b99",
+ "status": 200
+}

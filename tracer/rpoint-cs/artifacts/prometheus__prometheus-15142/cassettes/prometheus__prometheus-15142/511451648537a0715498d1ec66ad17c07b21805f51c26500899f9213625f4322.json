@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me write a reproduction test that triggers the race. The race is between `AppendHistogram` (creating a series and writing `lastHistogramValue` without lock) and `Commit` (writing `lastHistogramValue` under lock). Let me create a test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"func newTestHead\\\\\\\\b\\\\\\\" tsdb/head_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373368750172532460\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032477,\"id\":\"202608070007552f49ee7483ef40f8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070007552f49ee7483ef40f8\",\"usage\":{\"completion_tokens\":83,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":50033,\"prompt_tokens_details\":{\"cached_tokens\":49408},\"total_tokens\":50116}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "511451648537a0715498d1ec66ad17c07b21805f51c26500899f9213625f4322",
+ "status": 200
+}

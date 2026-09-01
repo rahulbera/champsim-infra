@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"The directory listing pollution is odd. Let me check the file content:\",\"reasoning_content\":\"The output is being polluted with directory listings. This is strange. It seems like the `cat > file << EOF` heredoc is somehow triggering a directory listing. Let me check if the file content is correct.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cat /prometheus/tsdb/race_repro_test.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373365314198695738\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032527,\"id\":\"20260807000845c6d1713f3b864537\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000845c6d1713f3b864537\",\"usage\":{\"completion_tokens\":80,\"completion_tokens_details\":{\"reasoning_tokens\":44},\"prompt_tokens\":60649,\"prompt_tokens_details\":{\"cached_tokens\":55744},\"total_tokens\":60729}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "48003315c48ce9fab070506e1ce1ec2771f3a5ab6f80721cfdb7a54771da9a4f",
+ "status": 200
+}

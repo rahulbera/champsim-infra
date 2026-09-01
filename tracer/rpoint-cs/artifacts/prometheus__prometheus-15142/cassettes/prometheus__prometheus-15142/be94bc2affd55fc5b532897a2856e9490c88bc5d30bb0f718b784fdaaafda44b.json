@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"I'll start by exploring the repository structure and understanding the relevant code.\",\"reasoning_content\":\"Let me start by exploring the repository structure and understanding the relevant code.\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && git log --oneline -5 && echo \\\\\\\"---\\\\\\\" && ls tsdb/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373313327914547546\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032060,\"id\":\"20260807000058f686f77435234e36\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000058f686f77435234e36\",\"usage\":{\"completion_tokens\":59,\"completion_tokens_details\":{\"reasoning_tokens\":14},\"prompt_tokens\":1497,\"prompt_tokens_details\":{\"cached_tokens\":704},\"total_tokens\":1556}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "be94bc2affd55fc5b532897a2856e9490c88bc5d30bb0f718b784fdaaafda44b",
+ "status": 200
+}

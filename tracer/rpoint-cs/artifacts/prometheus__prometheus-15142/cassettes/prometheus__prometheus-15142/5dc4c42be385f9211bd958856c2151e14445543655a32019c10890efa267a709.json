@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"func GenerateTestHistograms\\\\\\\" tsdb/tsdbutil/\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373354147283722595\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032630,\"id\":\"202608070010291440966e731a4605\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"202608070010291440966e731a4605\",\"usage\":{\"completion_tokens\":31,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":74651,\"prompt_tokens_details\":{\"cached_tokens\":74496},\"total_tokens\":74682}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5dc4c42be385f9211bd958856c2151e14445543655a32019c10890efa267a709",
+ "status": 200
+}

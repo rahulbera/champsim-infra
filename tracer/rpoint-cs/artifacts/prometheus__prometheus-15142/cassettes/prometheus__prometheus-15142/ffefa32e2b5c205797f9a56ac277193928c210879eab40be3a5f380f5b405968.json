@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"This is the agent's own `appender.getOrCreate` method (different type `*appender`, not `*headAppender`), which has a different signature `(series *memSeries, created bool)`. It's unrelated to my change. The build already confirmed this compiles fine.\\n\\nLet me run the agent tests to be safe:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && timeout 120 go build ./tsdb/agent/... 2>&1 | tail -5; echo \\\\\\\"agent build exit: $?\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373347893811345893\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033035,\"id\":\"20260807001712db5b1a5210204c5f\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001712db5b1a5210204c5f\",\"usage\":{\"completion_tokens\":124,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":89361,\"prompt_tokens_details\":{\"cached_tokens\":89280},\"total_tokens\":89485}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ffefa32e2b5c205797f9a56ac277193928c210879eab40be3a5f380f5b405968",
+ "status": 200
+}

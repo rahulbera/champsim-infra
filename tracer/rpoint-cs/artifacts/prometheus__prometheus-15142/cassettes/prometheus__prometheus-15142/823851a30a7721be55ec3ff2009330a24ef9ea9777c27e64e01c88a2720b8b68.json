@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Now let me update the callers of `getOrCreate`. First, `Append`:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -n \\\\\\\"a.getOrCreate(lset)\\\\\\\" tsdb/head_append.go\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373323051720506808\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032345,\"id\":\"20260807000543710f5b57778f4c2c\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807000543710f5b57778f4c2c\",\"usage\":{\"completion_tokens\":46,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":36026,\"prompt_tokens_details\":{\"cached_tokens\":35328},\"total_tokens\":36072}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "823851a30a7721be55ec3ff2009330a24ef9ea9777c27e64e01c88a2720b8b68",
+ "status": 200
+}

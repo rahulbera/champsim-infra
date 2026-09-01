@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Let me also verify there are no other callers of `getOrCreate` that I might have missed:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && grep -rn \\\\\\\"\\\\\\\\.getOrCreate(\\\\\\\" tsdb/*.go | grep -v \\\\\\\"_test.go\\\\\\\" | grep -v \\\\\\\"head.getOrCreate\\\\\\\\|h.getOrCreate\\\\\\\\|series.getOrCreate\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373339578754657400\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786033012,\"id\":\"20260807001649dfe521cfd06043c8\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001649dfe521cfd06043c8\",\"usage\":{\"completion_tokens\":74,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":88781,\"prompt_tokens_details\":{\"cached_tokens\":88640},\"total_tokens\":88855}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "855b9c16b4ab3503a55397d241cb09de92cba5eb1bbd40a7abf61b5c8366d00e",
+ "status": 200
+}

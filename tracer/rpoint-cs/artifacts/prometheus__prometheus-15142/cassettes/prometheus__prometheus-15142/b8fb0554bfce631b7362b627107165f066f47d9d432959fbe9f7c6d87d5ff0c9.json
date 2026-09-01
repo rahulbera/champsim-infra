@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && export PATH=$PATH:/usr/local/go/bin && go vet ./tsdb/ 2>&1 | grep -i \\\\\\\"head_test\\\\\\\\|race\\\\\\\" | head -10; echo \\\\\\\"exit done\\\\\\\"\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373366654228488933\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032756,\"id\":\"20260807001234ca99303e60c04306\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"20260807001234ca99303e60c04306\",\"usage\":{\"completion_tokens\":56,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":81421,\"prompt_tokens_details\":{\"cached_tokens\":80768},\"total_tokens\":81477}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b8fb0554bfce631b7362b627107165f066f47d9d432959fbe9f7c6d87d5ff0c9",
+ "status": 200
+}

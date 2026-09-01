@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"Good, fix is restored. Now let me remove my repro test and add the official test from `631fadc4c`. Let me first remove my repro test:\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"command\\\":\\\"cd /prometheus && rm -f tsdb/race_repro_test.go && ls tsdb/race_repro_test.go 2>&1 | tail -1\\\"}\",\"name\":\"bash\"},\"id\":\"call_-7373377168308432986\",\"index\":0,\"type\":\"function\"}]}}],\"created\":1786032736,\"id\":\"2026080700121429f6d61788c242c6\",\"model\":\"glm-5.2\",\"object\":\"chat.completion\",\"request_id\":\"2026080700121429f6d61788c242c6\",\"usage\":{\"completion_tokens\":79,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":80069,\"prompt_tokens_details\":{\"cached_tokens\":79680},\"total_tokens\":80148}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "12d50a9c69859f83f1a9b201761b5c808fe635bf8c26b86b114c5f789af09b7f",
+ "status": 200
+}
