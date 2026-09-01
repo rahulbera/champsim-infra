@@ -27,12 +27,19 @@ guaranteed elsewhere: every replay phase restores the provisioned image. Check
 the patch too (--patch-from), because a matching action sequence that produces a
 DIFFERENT patch means the environment diverged even though the script did not.
 
-EXPECTED SHORTFALL. Our SWE-agent ends the episode at the FIRST submit. Foreign
-trajectories routinely contain several (their harness continued past it), so the
-replay legitimately stops early. That is not a truncation: this tool computes
-where the first submit falls and requires the replay to reach exactly there.
-A replay that stops ANYWHERE ELSE is a failure -- which is how the redis capture
-should have been caught, having stopped at 54 of 77 with zero cassette misses.
+LENGTH. The replay must execute EVERY fed action. A short replay is the redis
+failure -- it stopped at 54 of 77 with zero cassette misses and produced a
+609-byte patch instead of 1307 -- and it is the thing this gate exists to catch.
+
+An earlier version of this file required the replay to stop at the fed
+trajectory's FIRST submit, on the belief that our harness ends the episode
+there. That belief came from one observation, and the observation came from a
+DEGRADED run: a step-2 test with rewritten repo paths, which ended early and
+produced an empty patch. Replays against a correctly provisioned guest run the
+whole trajectory and submit the right patch. The rule was inferred from a broken
+run and then enforced against good ones, failing three healthy replays that had
+matched 127/127, 192/192 and 139/139 actions and reproduced the banked patch
+exactly. Trailing submits are simply executed like any other action.
 """
 import argparse
 import hashlib
@@ -73,18 +80,19 @@ def main():
     rep_doc = json.load(open(args.replayed))
     rep = assistant_actions(rep_doc)
 
-    # Where our harness must stop: the first submit in what we fed.
     first_submit = next((i for i, (_, n) in enumerate(fed) if n == "submit"), None)
-    expected = first_submit if first_submit is not None else len(fed)
 
     print(f"  fed actions      : {len(fed)}")
-    print(f"  first submit at  : {first_submit}")
-    print(f"  expected replay  : {expected}")
+    print(f"  first submit at  : {first_submit}  (informational -- not an end condition)")
     print(f"  replayed actions : {len(rep)}")
 
     problems = []
-    if len(rep) != expected:
-        problems.append(f"replay ran {len(rep)} actions, expected exactly {expected}")
+    # Short is the failure mode that matters: it is what redis did, silently.
+    if len(rep) < len(fed):
+        problems.append(f"replay ran only {len(rep)} of {len(fed)} fed actions -- truncated")
+    elif len(rep) > len(fed):
+        problems.append(f"replay ran {len(rep)} actions against {len(fed)} fed -- "
+                        f"it consumed responses we did not supply")
 
     n = min(len(fed), len(rep))
     same = sum(1 for i in range(n) if fed[i][0] == rep[i][0])
@@ -120,11 +128,14 @@ def main():
             ws = hashlib.sha256(want.encode()).hexdigest()
             print(f"  reference patch  : {len(want)} bytes  sha={ws[:16]}")
             if gs != ws:
-                # Reported, not fatal: their patch is the end of a run that
-                # continued past the first submit, so a difference is expected
-                # when the trajectory has several. It is still worth seeing.
-                print("  NOTE: patch differs from the banked reference. Expected when the "
-                      "foreign trajectory submits more than once; investigate if it does not.")
+                # Reported, not fatal -- but it SHOULD match. Identical actions
+                # over the same starting tree produce the same patch, so a
+                # difference means the tree differed, which is precisely what a
+                # trajectory comparison cannot see on its own.
+                print("  WARNING: patch differs from the banked reference. Same actions, "
+                      "different patch means the starting tree was not the same.")
+            else:
+                print("  patch matches the banked reference exactly")
 
     if problems:
         print("  VERDICT: DIVERGED")

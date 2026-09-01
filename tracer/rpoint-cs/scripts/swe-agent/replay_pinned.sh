@@ -34,7 +34,18 @@ PIN_CPU=${PIN_CPU:-1}
 #
 # The recorded trajectory is fixed, so there is nothing for a timeout to
 # protect against. Effectively disabled; override if you need a real bound.
-EXEC_TIMEOUT=${EXEC_TIMEOUT:-36000}      # 10 h per command
+# 30 min per command, not 10 h. The original 30 SECOND default is what
+# truncated the redis capture -- it fired mid-workload and produced a complete,
+# zero-miss trace of a half-finished run -- so timeouts were disabled outright.
+# That traded truncation for indefinite hangs: gin-2121's replay wedged with
+# SWE-ReX's shell in do_select on its PTY and would have sat there for ten
+# hours holding a slot.
+#
+# 1800 s is chosen to be far above any real command here (the longest measured
+# workload command is a redis test suite in minutes; immutable-js's full jest
+# run is 15 s) while still being finite. If a command legitimately needs longer,
+# raise it per instance rather than disabling it again.
+EXEC_TIMEOUT=${EXEC_TIMEOUT:-1800}       # 30 min per command
 TOTAL_TIMEOUT=${TOTAL_TIMEOUT:-604800}   # 7 d per episode
 
 [ "$(id -u)" -eq 0 ] || die "must run as root (SWE-agent writes /root/tools)"
