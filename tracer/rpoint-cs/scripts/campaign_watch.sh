@@ -112,9 +112,14 @@ while read -r pid cmd; do
 # (verify finished, profile's guest not yet booted) has no capture_agentic
 # process and was reported as having DIED SILENTLY -- a false alarm on a healthy
 # run, which is the fastest way to make a watchdog worth ignoring.
+# The bracket idiom, NOT `grep -v grep`. A grep pattern like `[r]un_...` cannot
+# match grep's own command line, so no self-exclusion filter is needed -- and
+# `grep -v grep` was actively harmful here: it drops every line containing the
+# substring "grep", which includes every process working on burntsushi__RIPGREP
+# -2209. That instance was silently deleted from every listing, and it was
+# diagnosed as dead twice on the strength of its absence.
 done < <(ps -eo pid,cmd 2>/dev/null \
-         | grep -E 'run_capture_chain\.sh|capture_agentic\.sh|provision_instance\.sh' \
-         | grep -v grep)
+         | grep -E '[r]un_capture_chain\.sh|[c]apture_agentic\.sh|[p]rovision_instance\.sh')
 
 # Logs whose process is gone: the silent-death case. A log that never reached a
 # terminal marker means nobody was told it ended.
