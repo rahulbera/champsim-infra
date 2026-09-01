@@ -1,5 +1,43 @@
 # LLM Replay Proxy Implementation Plan
 
+> # ⚠ SUPERSEDED — HISTORICAL DOCUMENT
+>
+> **Superseded on 2026-09-01.** This plan was executed on 2026-08-06 and its
+> central design decision — **keying cassettes by a hash of the canonicalised
+> request body** — was then **abandoned**. Do not execute this plan, and do not
+> cite it for how the proxy works.
+>
+> **What actually happened.** Content hashing was implemented and failed in
+> practice with **60 misses in 147 calls**. An agent's request carries its whole
+> conversation *including tool output*, and tool output is volatile (`go test`
+> prints elapsed times), so a single changed byte alters that request's hash and
+> every request after it. No amount of key canonicalisation fixes that, because
+> the volatile data is in the message body rather than in the metadata.
+>
+> **What the code does instead.** `scripts/swe-agent/replay_proxy.py` matches by
+> **sequence**: `--match` is `choices=["key", "sequence"], default="sequence"`,
+> and in sequence mode the handler serves cassettes in recorded order and
+> ignores the request body. `--match key` still exists but is not the default
+> and is not what any capture uses. Running off the end of the recording is
+> fatal, never a wrap. Everything else the plan asserts — stdlib only, a replay
+> miss is a hard 500 and never a passthrough, the API key read from
+> `$LLM_API_KEY` in record mode only and never written to a cassette, one JSON
+> file per exchange written tempfile + atomic rename — did survive and is
+> current.
+>
+> **Where the current truth lives**
+>
+> | For | Read |
+> |---|---|
+> | The proxy's actual contract | `scripts/swe-agent/README.md`, "Contract of the proxy" |
+> | The proxy itself | `scripts/swe-agent/replay_proxy.py` (see `make_handler`'s docstring) |
+> | What the campaign is doing now | `docs/workloads/swe-agent/campaign-2026-09-plan.md` |
+> | The design this plan came from | `docs/superpowers/specs/2026-08-06-swe-agent-tracing-design.md` — **also superseded**, see its banner |
+>
+> Kept unmodified below as a record of what was thought at the time. In
+> particular, Task 1 ("Cassette key canonicalisation") describes work that was
+> done and then superseded.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** A local HTTP proxy that records LLM request/response pairs against a real upstream, then replays them exactly with no network — turning a non-deterministic agent into a deterministic, repeatable workload.

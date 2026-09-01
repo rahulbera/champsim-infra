@@ -2,7 +2,23 @@
 # capture_status.sh — one-screen view of every capture, for the hourly report.
 set -uo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-IMAGES=$ROOT/images
+. "$ROOT/scripts/lib/paths.sh"
+IMAGES=$RPOINT_IMAGES
+
+# Expected windows per capture. Campaign 2026-09 captures K=5 (w1..w4 are
+# workload; w0 is kept as a drift canary), but the August captures are
+# legitimately K=4 -- so the expected count is read PER CAPTURE from that
+# capture's own .meta, which records the geometry it actually ran with.
+# A single hardcoded 4 used to be baked into three places here; a single
+# hardcoded 5 would be just as wrong, reporting every finished August capture
+# as an incomplete 4/5.
+WINDOWS=${WINDOWS:-5}
+
+expected_windows() {  # expected_windows <tag> -- from its .meta, else the default
+  local m="$IMAGES/capture-$1.meta" k=""
+  [ -f "$m" ] && k=$(grep -h '^windows=' "$m" 2>/dev/null | tail -1 | cut -d= -f2 | tr -d '[:space:]')
+  case "$k" in ''|*[!0-9]*) echo "$WINDOWS" ;; *) echo "$k" ;; esac
+}
 OUT=$IMAGES/champsim_out
 
 lang_of() {  # instance -> language, from its descriptor's module
@@ -55,10 +71,6 @@ printf '%.0s-' {1..92}; echo
 
 for env in "$ROOT"/scripts/swe-agent/instances/*.env; do
   inst=$(basename "$env" .env)
-  # 13680 was abandoned mid-recording (the model looped); keep the descriptor
-  # for the record but do not report it as work in flight.
-  [ "$inst" = rubocop__rubocop-13680 ] && continue
-
   pid=$( [ -f "$IMAGES/.qemu-$inst.pid" ] && cat "$IMAGES/.qemu-$inst.pid" 2>/dev/null || true )
   up=""; [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null && up="guest up"
 
@@ -69,9 +81,9 @@ for env in "$ROOT"/scripts/swe-agent/instances/*.env; do
   note=""
   [ "$nc" -gt 0 ] && note="${nc} cassettes"
   [ -n "$up" ] && note="${note:+$note, }$up"
-  [ "$nw" -ge 4 ] && note="${note:+$note, }DONE"
+  k=$(expected_windows "$inst"); [ "$nw" -ge "$k" ] && note="${note:+$note, }DONE"
 
-  printf '%-32s %-5s %-16s %-9s %s\n' "$inst" "$(lang_of "$inst")" "$(phase_of "$inst")" "$nw/4" "$note"
+  printf '%-32s %-5s %-16s %-9s %s\n' "$inst" "$(lang_of "$inst")" "$(phase_of "$inst")" "$nw/$k" "$note"
 done
 
 echo
@@ -85,8 +97,8 @@ for env in "$ROOT"/scripts/swe-agent/instances/*.env; do
   nw=$(grep -l 'all acceptance checks passed' "$OUT/$tag"/*.check.log 2>/dev/null | wc -l)
   meta=$IMAGES/capture-$tag.meta
   st="—"; [ -f "$meta" ] && st="profiled"
-  [ "$nw" -gt 0 ] && st="converting"; [ "$nw" -ge 4 ] && st="DONE"
-  printf '  %-40s %-9s %s\n' "$tag" "$nw/4" "$st"
+  k=$(expected_windows "$tag"); [ "$nw" -gt 0 ] && st="converting"; [ "$nw" -ge "$k" ] && st="DONE"
+  printf '  %-40s %-9s %s\n' "$tag" "$nw/$k" "$st"
 done
 
 echo

@@ -146,10 +146,26 @@ LLM_API_KEY=… ./capture_agentic.sh <instance_id> record    # real LLM, spends 
                 ./capture_agentic.sh <instance_id> convert # -> ChampSim v2 + validate
 ```
 
-`record` snapshots the guest to `<inst>.recorded.qcow2`; **every later phase
-restores from that snapshot first**. Without the restore, the profile pass would
-measure a tree the trace pass does not have, and every window position is
-derived from that number.
+`record` snapshots the guest to `<inst>.recorded.qcow2`, but **every later phase
+restores the PROVISIONED image**, not that snapshot (`restore_from_provisioned`
+in `capture_agentic.sh`; `verify`, `profile` and `trace` all call it). The
+cassettes and the trajectory are pulled out of the recorded guest onto the host
+and re-injected into the restored guest instead.
+
+That is deliberate, and it is the difference between a valid measurement and a
+meaningless one. The recording began from the provisioned state — a fully built
+tree. Restoring the *recorded* image would start each measured run from a guest
+whose repository the agent had already modified: the build outputs, the edited
+files and the harness state from the record pass would all still be there, so
+the replayed agent would redo its work against a tree that already contains the
+answer. The actions would be identical (they are replayed from cassettes, not
+derived from observations), so `compare_trajectories.py` could not see it, while
+the amount of computation traced — the entire measurement — would be wrong.
+Starting from the same disk state the recording started from is the only thing
+that makes the numbers mean anything.
+
+`restore_from_recorded()` is still defined in `capture_agentic.sh` but **nothing
+calls it** — it is dead code left from the earlier design, not an alternate path.
 
 Geometry defaults to `WINDOWS=4`, `WINDOW_LEN=300000000` — 300 M matches the
 SPEC SimPoint slice length in `champsim-infra`, so agentic-vs-SPEC comparisons
@@ -185,6 +201,25 @@ boot — before snapshotting.
 Unattended `verify -> profile -> trace -> convert`, stopping at the FIRST
 failure rather than carrying a bad artifact forward. One log per phase. Each
 phase already has its own gate; this only sequences them.
+
+**The optional second argument is the first phase to run**, and it defaults to
+`verify` (`FIRST=${2:-verify}`). The loop walks `verify profile trace convert`
+and starts executing at whichever phase matches, so:
+
+```bash
+./run_capture_chain.sh <instance_id>           # verify -> profile -> trace -> convert
+./run_capture_chain.sh <instance_id> profile   # profile -> trace -> convert
+./run_capture_chain.sh <instance_id> convert   # convert only
+```
+
+That default is load-bearing rather than cosmetic. It was `profile` at one
+point, which meant a bare invocation skipped `verify` — the only gate that
+catches a replay diverging from its recording — and then spent hours of TCG
+faithfully tracing the wrong execution. Verify costs 2–5.5 minutes under KVM.
+
+`advance_instance.sh` runs `verify` itself, under KVM and outside the TCG slot
+semaphore, and then calls `run_capture_chain.sh <inst> profile` explicitly, so
+the verify pass is not run twice.
 
 The `record` phase is deliberately outside the chain: it spends API credits and
 should be an explicit act. Simulation is outside it too — running traces

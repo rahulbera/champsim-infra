@@ -21,7 +21,8 @@ INSTANCE=${1:?usage: capture_toolchain.sh <instance_id> <phase>}
 PHASE=${2:?usage: capture_toolchain.sh <instance_id> <phase>}
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-IMAGES=$ROOT/images
+. "$ROOT/scripts/lib/paths.sh"
+IMAGES=$RPOINT_IMAGES
 TAG=$INSTANCE.toolchain
 WORK=$IMAGES/guest-$TAG.qcow2
 PROVISIONED=$IMAGES/guest-$INSTANCE.provisioned.qcow2

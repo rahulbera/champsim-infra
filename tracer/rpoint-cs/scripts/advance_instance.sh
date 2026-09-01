@@ -1,17 +1,30 @@
 #!/usr/bin/env bash
 #
 # advance_instance.sh <instance_id> [record_log] — carry one instance from a
-# finished record pass all the way to simulation results.
+# finished record pass all the way to a validated ChampSim trace.
 #
 #   1. wait for the record pass to report success
 #   2. pull the cassettes and trajectory out of the guest onto the host
 #      (every replay phase restores the PROVISIONED image and injects them)
 #   3. verify   — KVM, cheap, runs unthrottled
-#   4. profile -> trace -> convert -> simulate, under a TCG SEMAPHORE
+#   4. profile -> trace -> convert, under a TCG SEMAPHORE
 #
-# The semaphore matters: each TCG pass pins four vCPU threads flat out, and
-# several at once on a box that is also running ChampSim would starve each
-# other. Slots are tried non-blockingly in turn, then waited on.
+# There is no simulate phase: running the traces through ChampSim is an
+# experiment ON them, not part of producing them, and that tooling lives in
+# run-assets/ (see run_capture_chain.sh, which ends at `convert`).
+#
+# The semaphore matters, but NOT because a TCG pass saturates the box -- it does
+# not. images/boot_tcg_trace.sh boots -smp 4, yet the plugin traces vcpus=1 and
+# the guest pins the agent to that one CPU (replay_pinned.sh, taskset -c
+# $PIN_CPU with PIN_CPU=1, isolcpus'd). The other three vCPUs have nothing
+# runnable and sit in the kernel idle loop; with no idle=poll their QEMU vCPU
+# threads block on the emulated HLT rather than spin. zstd compression runs
+# inline on the tracing vCPU thread and is single-threaded (ZSTD_createCCtx, no
+# nbWorkers). So one pass is roughly ONE busy vCPU thread plus QEMU's IO thread
+# -- the cap exists to bound aggregate load and memory (-m 8G each), not because
+# each pass eats four cores. Slots are tried non-blockingly in turn, then waited
+# on. The 2026-08 campaign in fact sustained 6-way for 169 minutes with no
+# per-instance throughput loss (102/111/112 MIPS at increasing occupancy).
 #
 set -uo pipefail
 
@@ -19,7 +32,8 @@ INSTANCE=${1:?usage: advance_instance.sh <instance_id> [record_log]}
 REC_LOG=${2:-/tmp/claude-1000/record_${INSTANCE%%__*}.log}
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-IMAGES=$ROOT/images
+. "$ROOT/scripts/lib/paths.sh"
+IMAGES=$RPOINT_IMAGES
 ARTIFACTS=$ROOT/artifacts/$INSTANCE
 SSH_KEY=$IMAGES/id_ed25519
 LOGDIR=$IMAGES/chain-$INSTANCE

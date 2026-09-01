@@ -85,9 +85,9 @@ kept here because it explains the setup; the findings are not.
 
 ## Host Machine
 
-- **CPU:** Intel i7-8700 (6 cores / 12 threads)
-- **RAM:** 32 GB
-- **OS:** Ubuntu 24.04 LTS
+- **CPU:** AMD Ryzen AI MAX+ 395 w/ Radeon 8060S (16 cores / 32 threads, x86-64)
+- **RAM:** ~60 GB usable (`MemTotal` 63,402,620 kB)
+- **OS:** Ubuntu 24.04.4 LTS
 - **QEMU:** 9.2.4 (built from source with `--enable-kvm --enable-plugins`)
 - **QEMU source:** `~/work/softwares/qemu-9.2.4/`
 - **QEMU install:** `~/qemu-custom/bin/qemu-system-x86_64`

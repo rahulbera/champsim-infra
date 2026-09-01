@@ -4,8 +4,8 @@
 # TCG boot for the flakiness gate. Same CPU model we will use for the traced
 # pass, so the guest kernel picks the same mitigations and the branch mix in
 # kernel code is comparable.
-cd /home/rbera/work/bpeval/qemu-tracing/images
-exec /home/rbera/qemu-custom/bin/qemu-system-x86_64 \
+cd "${RPOINT_IMAGES:-/home/rbera/work/bpeval/qemu-tracing/images}"
+exec "${RPOINT_QEMU:-/home/rbera/qemu-custom/bin/qemu-system-x86_64}" \
   -accel tcg -cpu qemu64 -smp 4 -m 8G \
   -drive file=${IMG:-swe-agent-guest.qcow2},format=qcow2,if=virtio \
   -nic user,model=virtio-net-pci,hostfwd=tcp::${SSH_PORT:-2223}-:22 \

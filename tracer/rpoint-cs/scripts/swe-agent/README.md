@@ -68,10 +68,53 @@ DNS lookup hours later.
 | `lang_offline_gate` | Build **and test** under `unshare -n`. Must assert work happened. |
 | `lang_clean_check` | Assert the build left no file that `git diff` would absorb. |
 
-| Module | Used by | Offline strategy |
-|---|---|---|
-| `go` | prometheus | `go mod download` + `GOPROXY=off` |
-| `c_make` | redis | dependencies are vendored in-tree; nothing to cache |
+### The seven modules
+
+| Module | Used by | Offline strategy | Gate counts work? |
+|---|---|---|---|
+| `c_make` | redis | vendored in-tree, nothing to cache; the gate rebuilds from `make distclean` | yes — `[ok]:` lines (`GATE_TEST_PATTERN`) |
+| `go` | prometheus, gin | `go mod download` (+ `download all`) into `/opt/go`, then `GOPROXY=off` + `-mod=readonly` | **no — see the gap below** |
+| `java_maven` | *(never used for a trace)* | `mvn dependency:go-offline` into `/opt/m2`, then `mvn -o` | yes — sums `Tests run: N` |
+| `node_npm` | immutable-js | `npm ci` against the committed lockfile, then `npm_config_offline=true` | yes — `N passed`/`N passing` |
+| `php_composer` | *(never used for a trace)* | `composer install` (or `update` when a library ships no lock) into `vendor/`, cache at `/opt/composer-cache` | yes — `OK (N tests` / `Tests: N` |
+| `ruby_bundler` | rubocop | `bundle install` into `/opt/bundle` via a global `BUNDLE_PATH`, then `BUNDLE_FROZEN=true` | yes — `N examples,` |
+| `rust_cargo` | ripgrep | `cargo fetch` into `/opt/cargo` (never `cargo vendor`), then `--offline` | yes — sums `N passed` |
+
+Seven modules exist; **only five have ever produced a trace** — `c_make`, `go`,
+`node_npm`, `ruby_bundler` and `rust_cargo`, behind redis, prometheus/gin,
+immutable-js, rubocop and ripgrep respectively. `java_maven` and `php_composer`
+are written and reviewed but have no instance descriptor in `instances/` (the
+Java and PHP candidates are parked in `instances/dropped/`), so they have never
+run end to end. Treat them as untested.
+
+### KNOWN GAP: the Go module's offline gate asserts nothing about work done
+
+The hook contract above says `lang_offline_gate` must assert work happened. Six
+of the seven modules do — each greps its harness's own per-test line out of the
+gate log and refuses a count below `GATE_MIN_TESTS`. **`lang/go.sh` does not.**
+Its gate is three lines and ends at `run_offline "... && $GATE_BUILD_CMD &&
+$GATE_TEST_CMD"`: it checks the exit code and counts nothing.
+
+That would be a weak gate anywhere; here it is weaker still, because **both Go
+descriptors run zero tests by construction**:
+
+```
+prometheus__prometheus-15142:  GATE_TEST_CMD='go test -c -o /dev/null ./tsdb'
+gin-gonic__gin-3820:           GATE_TEST_CMD='go test -c -o /dev/null ./binding'
+```
+
+`go test -c` *compiles* the test binary and writes it out; with `-o /dev/null`
+it is discarded and **never executed**. So the Go gate proves the module cache
+is complete enough to compile, and nothing about whether the suite runs offline.
+`-c -o /dev/null` is itself deliberate — `lang_clean_check` in `go.sh` notes that
+a plain `go test -c ./pkg` drops a multi-MB binary that `git add -A` would
+swallow into the agent's patch — so the two constraints are in genuine tension
+and this is not a one-line fix.
+
+Practical consequence: for a Go instance, a dependency needed only at test
+runtime would not be caught by the gate and would surface as a network stall
+inside the traced window, hours later. Neither Go capture has hit that, but the
+gate is not what is protecting them. This is recorded here rather than fixed.
 
 ### The offline gate is the load-bearing step
 

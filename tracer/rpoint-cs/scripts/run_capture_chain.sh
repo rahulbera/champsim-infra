@@ -2,7 +2,7 @@
 #
 # run_capture_chain.sh <instance_id> [first_phase] — unattended capture.
 #
-# Chains profile -> trace -> convert, stopping at the FIRST failure
+# Chains verify -> profile -> trace -> convert, stopping at the FIRST failure
 # rather than carrying a bad artifact forward. Every phase already has its own
 # gates; this only sequences them and keeps one log per phase.
 #
@@ -12,10 +12,18 @@
 set -uo pipefail
 
 INSTANCE=${1:?usage: run_capture_chain.sh <instance_id> [first_phase]}
-FIRST=${2:-profile}
+
+# Default is VERIFY, not profile. It used to be profile, which meant a bare
+# invocation skipped the only gate that catches a replay diverging from its
+# recording -- and then spent hours of TCG faithfully tracing the wrong
+# execution. Verify costs 2-5.5 minutes under KVM. advance_instance.sh runs
+# verify itself and then calls this with an explicit "profile", so it does not
+# double-run.
+FIRST=${2:-verify}
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-LOGDIR=$ROOT/images/chain-$INSTANCE
+. "$ROOT/scripts/lib/paths.sh"
+LOGDIR=$RPOINT_IMAGES/chain-$INSTANCE
 mkdir -p "$LOGDIR"
 
 stamp() { date '+%Y-%m-%d %H:%M:%S'; }
@@ -34,6 +42,14 @@ run_phase() {
   t1=$(date +%s)
   note "FAILED $phase  ($(( (t1-t0)/60 )) min)  -> $log"
   tail -25 "$log" | sed 's/^/    /' | tee -a "$LOGDIR/chain.log"
+  # Book the failure. Nothing used to call attempts.sh -- every row in the
+  # August ledger was written by hand, and the campaign's most instructive
+  # failure (gson) was never recorded at all. Default the classification to
+  # `instance`: an operator who knows it was an infra bug can re-log it, but
+  # the reverse -- a real instance failure quietly booked as infra -- is the
+  # direction that buys a bad task a fourth try on API credits.
+  bash "$ROOT/scripts/swe-agent/attempts.sh" log "$INSTANCE" instance \
+       "chain: $phase failed (see $log)" >/dev/null 2>&1 || true
   return 1
 }
 

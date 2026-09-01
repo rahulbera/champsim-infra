@@ -29,7 +29,14 @@
 set -uo pipefail
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-IMAGES=$ROOT/images
+. "$ROOT/scripts/lib/paths.sh"
+IMAGES=$RPOINT_IMAGES
+
+# Expected windows per capture. Campaign 2026-09 captures K=5 and analyses
+# w1..w4, keeping w0 as a drift canary (it is harness startup, not workload).
+# This was hardcoded as 4 in several places, which would report every K=5
+# capture as "5/4" and never reach DONE.
+WINDOWS=${WINDOWS:-5}
 OUT=$IMAGES/champsim_out
 APPLY=0
 [ "${1:-}" = "--apply" ] && APPLY=1
@@ -57,15 +64,15 @@ for d in "$IMAGES"/trace_out-*; do
   [ -d "$d" ] || continue
   tag=$(basename "$d" | sed 's/^trace_out-//')
   n=$(validated "$tag")
-  if [ "$n" -ge 4 ]; then
-    drop "$d" "($n/4 windows validated)"
+  if [ "$n" -ge "$WINDOWS" ]; then
+    drop "$d" "($n/$WINDOWS windows validated)"
   else
-    printf '  KEEP   %6s      %-52s (only %s/4 validated -- raw is the only re-convert source)\n' "" "$(basename "$d")" "$n"
+    printf '  KEEP   %6s      %-52s (only %s/%s validated -- raw is the only re-convert source)\n' "" "$(basename "$d")" "$n" "$WINDOWS"
   fi
 done
 # The legacy unsuffixed dir belongs to the first prometheus capture, long since
 # converted and validated under its canonical name.
-[ "$(validated prometheus__prometheus-15142)" -ge 4 ] && drop "$IMAGES/trace_out" "(first prometheus capture, validated)"
+[ "$(validated prometheus__prometheus-15142)" -ge "$WINDOWS" ] && drop "$IMAGES/trace_out" "(first prometheus capture, validated)"
 for d in "$IMAGES"/profile_out*; do drop "$d" "(profile mode writes no records)"; done
 
 say ""

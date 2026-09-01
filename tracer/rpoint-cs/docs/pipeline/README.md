@@ -27,9 +27,11 @@ Six-stage summary of the whole pipeline:
 - Stage 5: Offline converter (`converter/raw2champsim.c`)
 - Stage 6: ChampSim integration
 
-Each stage is marked ✅ complete, 🚫 blocked, or (not started), and
-lists key decisions and outputs. Read this first if you want a mental
-model of the whole pipeline.
+Each stage is marked with its status and lists key decisions and
+outputs. Stages 1–5 are complete; stage 6 (ChampSim integration) is
+**not pursued in this repo** — simulating the traces is a downstream
+repo's job, see the top-level `README.md` "Scope". Read this first if
+you want a mental model of the whole pipeline.
 
 ### `boot-commands.md`
 

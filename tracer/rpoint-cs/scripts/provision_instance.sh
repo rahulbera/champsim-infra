@@ -18,7 +18,8 @@ set -euo pipefail
 INSTANCE=${1:?usage: provision_instance.sh <instance_id>}
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-IMAGES=$ROOT/images
+. "$ROOT/scripts/lib/paths.sh"
+IMAGES=$RPOINT_IMAGES
 WORK=$IMAGES/guest-$INSTANCE.qcow2
 PROVISIONED=$IMAGES/guest-$INSTANCE.provisioned.qcow2
 SSH_KEY=$IMAGES/id_ed25519
@@ -95,6 +96,17 @@ echo "  staged"
 
 say "run provision_guest.sh"
 ssh_g "bash /opt/swe-agent-tools/provision_guest.sh $INSTANCE" 2>&1 | tail -40
+
+say "pull installed versions"
+# Must happen BEFORE the poweroff below -- the guest is unreachable after it.
+mkdir -p "$ROOT/artifacts/$INSTANCE"
+if rsync -a -e "$rsh_opt" "ubuntu@127.0.0.1:/opt/versions.txt" \
+         "$ROOT/artifacts/$INSTANCE/versions.txt" 2>/dev/null; then
+  echo "  -> artifacts/$INSTANCE/versions.txt ($(grep -c . "$ROOT/artifacts/$INSTANCE/versions.txt") lines)"
+  grep -E '^(swe_agent_commit|python)=' "$ROOT/artifacts/$INSTANCE/versions.txt" | sed 's/^/    /'
+else
+  echo "  [warn] could not retrieve /opt/versions.txt -- this capture's software generation is UNRECORDED"
+fi
 
 say "snapshot"
 ssh_g 'sudo systemctl poweroff' 2>/dev/null || true

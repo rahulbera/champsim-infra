@@ -12,7 +12,11 @@ pipeline lives here. Two flavors, split into subdirectories:
   to the project, start here.
 - **`workloads/`** — per-workload playbooks and design specs. Each
   document walks you through setting up one target workload (Memcached,
-  ScyllaDB, RocksDB, FAISS, DLRM) and producing traces from it.
+  ScyllaDB, **SWE-agent**, RocksDB, FAISS, DLRM) and producing traces
+  from it. `workloads/swe-agent/` exists **only on the
+  `swe-agent-tracing` branch** and is the one workload that cannot
+  simply be re-run — it splits into a record pass against a live LLM API
+  and deterministic offline replays from the recorded cassettes.
 - **`validation/`** — how to check that a produced trace is actually
   usable, rather than merely well-formed.
 - **`branch-type-contract.md`** — the explicit branch-type contract
@@ -34,8 +38,10 @@ authoritative long-form references — start there when you want the full
 | File / dir | Purpose |
 |---|---|
 | `pipeline/` | Pipeline-wide references (stages, boot commands, kvmclock patch, idle-loop filtering) |
-| `workloads/` | Per-workload playbooks (Memcached, ScyllaDB, RocksDB, FAISS, DLRM) |
+| `workloads/` | Per-workload playbooks (Memcached, ScyllaDB, SWE-agent, RocksDB, FAISS, DLRM) |
+| `workloads/swe-agent/` | The LLM-coding-agent capture campaign: the plan, the results, and the SPEC comparison (`swe-agent-tracing` branch only) |
 | `validation/` | Checking a produced trace is usable, not just well-formed |
+| `superpowers/` | Dated design specs, plans and research notes. **Historical** — several carry SUPERSEDED banners; never read one as current behavior |
 | `branch-type-contract.md` | Explicit branch type: contract, x86-64 reference, verification, **AArch64 gap** |
 
 See each subdirectory's README for the file-by-file breakdown.

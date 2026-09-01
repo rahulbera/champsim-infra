@@ -24,7 +24,8 @@ INSTANCE=${1:?usage: capture_agentic.sh <instance_id> <phase>}
 PHASE=${2:?usage: capture_agentic.sh <instance_id> <phase>}
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-IMAGES=$ROOT/images
+. "$ROOT/scripts/lib/paths.sh"
+IMAGES=$RPOINT_IMAGES
 WORK=$IMAGES/guest-$INSTANCE.qcow2
 RECORDED=$IMAGES/guest-$INSTANCE.recorded.qcow2
 PROVISIONED=$IMAGES/guest-$INSTANCE.provisioned.qcow2
@@ -40,13 +41,15 @@ SSH_KEY=$IMAGES/id_ed25519
 # process NAME) would kill the first capture's guest mid-run, and both would
 # fight over ports 2222/2223 and /tmp/swe_roi_trigger.
 #
-# SLOT is read from the instance descriptor's CAPTURE_SLOT if present, else
-# from the environment, else 0. Two captures sharing a slot is a configuration
-# error that shows up as a port bind failure, which is the right way round.
-SLOT=${CAPTURE_SLOT:-$(grep -h '^CAPTURE_SLOT=' \
-        "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" 2>/dev/null \
-        | tail -1 | cut -d= -f2)}
-SLOT=${SLOT:-0}
+# SLOT comes from the descriptor's CAPTURE_SLOT, or from the environment as an
+# explicit override. It is validated at load: absent is an error rather than a
+# silent 0, and a duplicate across live descriptors is an error rather than a
+# port bind failure that only fires when two captures happen to overlap in time.
+. "$ROOT/scripts/lib/slots.sh"
+# Plain `exit 1`, not die(): die() is defined further down this file, so a
+# failure here would report "die: command not found" instead of the reason.
+# resolve_slot has already explained itself on stderr.
+SLOT=${CAPTURE_SLOT:-$(resolve_slot "$INSTANCE" "$ROOT/scripts/swe-agent/instances")} || exit 1
 KVM_PORT=$((2300 + SLOT * 10))
 TCG_PORT=$((2301 + SLOT * 10))
 TRIGGER=/tmp/swe_roi_trigger.$INSTANCE
@@ -55,7 +58,13 @@ PROFILE_OUT=$IMAGES/profile_out-$INSTANCE
 
 # Capture geometry. 300M matches the SPEC SimPoint slice length used in
 # champsim-infra, so agentic-vs-SPEC comparisons are at identical geometry.
-WINDOWS=${WINDOWS:-4}
+# K=5 for campaign 2026-09: w1..w4 are workload, w0 is kept as a drift canary.
+# w0 is the SWE-agent/CPython import graph starting up -- near-identical across
+# tasks (8.18-8.25 MPKI, 24.1-24.5% indirect, against 86-88% in the compute
+# windows) -- so counting it as workload across 36 tasks would drag every
+# aggregate toward the startup signature. Marginal TCG cost is ~10 s: the whole
+# trajectory is emulated either way.
+WINDOWS=${WINDOWS:-5}
 WINDOW_LEN=${WINDOW_LEN:-300000000}
 
 say() { printf '\n=== %s ===\n' "$*"; }

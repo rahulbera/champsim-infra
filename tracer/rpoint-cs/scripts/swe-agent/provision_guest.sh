@@ -92,6 +92,29 @@ fi
 ok "sweagent installed: $(/opt/venv/bin/python -c 'import sweagent; print(sweagent.__version__)' 2>/dev/null || echo unknown)"
 
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+say "record installed versions"
+# SWE-agent is cloned UNPINNED and `pip install -e` resolves ~22 unbounded
+# dependency floors, so what is installed is whatever PyPI served that day.
+# Nothing used to record it: the provisioning output was piped through
+# `| tail -40` on the host and the version line was discarded. The August
+# captures agreed on their w0 signature because they were all provisioned
+# inside a 20-hour window, not because anything enforced it -- and w0 measures
+# precisely this import graph. Without this file there is no way to tell which
+# software generation a trace belongs to.
+{
+  echo "# captured at provisioning time; consumed by the host into artifacts/<id>/"
+  echo "instance=$INSTANCE"
+  echo "swe_agent_commit=$(git -C /opt/swe-agent rev-parse HEAD 2>/dev/null || echo unknown)"
+  echo "swe_agent_describe=$(git -C /opt/swe-agent describe --always --tags --dirty 2>/dev/null || echo unknown)"
+  echo "python=$(/opt/venv/bin/python --version 2>&1)"
+  echo "kernel=$(uname -r)"
+  echo "# --- pip freeze ---"
+  /opt/venv/bin/pip freeze 2>/dev/null
+} > /opt/versions.txt
+ok "$(grep -c . /opt/versions.txt) lines -> /opt/versions.txt"
+
+# ---------------------------------------------------------------------------
 say "problem statement"
 [ -f "$PROBLEM_STATEMENT" ] || die "missing $PROBLEM_STATEMENT -- stage it from the host first"
 ok "$(wc -c <"$PROBLEM_STATEMENT") bytes at $PROBLEM_STATEMENT"

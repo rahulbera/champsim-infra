@@ -1,7 +1,46 @@
 # Design: tracing an SWE-agent workload for ChampSim
 
+> # ⚠ SUPERSEDED — HISTORICAL DOCUMENT
+>
+> **Superseded on 2026-09-01.** This is a record of what was designed on
+> 2026-08-06, kept for the reasoning it captures. **It is not a description of
+> the pipeline that exists.** Do not implement from it, and do not cite it for
+> how anything currently works.
+>
+> **Where the current truth lives**
+>
+> | For | Read |
+> |---|---|
+> | What the campaign is doing now | `docs/workloads/swe-agent/campaign-2026-09-plan.md` (living document) |
+> | What the pipeline actually does | the scripts: `scripts/capture_agentic.sh`, `scripts/run_capture_chain.sh`, `scripts/advance_instance.sh`, `scripts/provision_instance.sh` |
+> | The per-instance/per-language kit | `scripts/swe-agent/README.md` and `scripts/swe-agent/lang/*.sh` |
+> | The QEMU invocation actually used | `images/boot_tcg_trace.sh` |
+> | Results to date | `docs/workloads/swe-agent/agentic-vs-spec.md`, `swe-agent-capture-results.md` |
+>
+> **Sections known to be wrong, and how**
+>
+> - **§3, §13, §14 — task counts.** The plan was "one Prometheus (Go) task
+>   first", with 2–3 tasks as the deliverable. Reality: six instances across six
+>   execution models were captured (prometheus, gin, redis, rubocop, ripgrep,
+>   immutable-js), plus toolchain controls, and the campaign now targets 36.
+> - **§7 — guest configuration.** The spec fixes `-cpu qemu64 ... -m 16G`.
+>   `images/boot_tcg_trace.sh` actually boots `-accel tcg -cpu max -smp 4 -m 8G`
+>   with the plugin at `vcpus=1`. `-smp 4`, the isolated/traced vCPU 1 and the
+>   `taskset -c 1` pinning did survive.
+> - **§8 — the trigger check.** The spec says "the driver must verify
+>   `TRIGGER DETECTED` appears in the log". **It does not.** See the inline note
+>   at that section.
+> - **§9, §11.1 — cassette keying.** Content hashing was implemented, failed,
+>   and was **abandoned**. `replay_proxy.py` defaults to `--match sequence`
+>   (`default="sequence"` in its argument parser) and serves cassettes in
+>   recorded order, ignoring the body. See the inline note at §9.
+>
+> Sections not listed here have not been audited against the code; assume
+> nothing in this file is current without checking.
+
 **Date:** 2026-08-06
-**Status:** approved design, ready for implementation planning
+**Status:** SUPERSEDED 2026-09-01 (was: approved design, ready for
+implementation planning). Historical record only — see the banner above.
 **Source brief:** `docs/workloads/swe-agent/swe-agent-tracing-plan.md`
 
 ---
@@ -292,6 +331,19 @@ The guest prints a unique marker to the serial console immediately before
 invoking the agent. The host driver tails the serial log and touches the trigger
 file. This is the pattern already proven by `scripts/smoke-trace/smoke_trace.sh`.
 
+> **⚠ NOT IMPLEMENTED AS SPECIFIED (noted 2026-09-01).** The driver never looks
+> for `TRIGGER DETECTED`. `arm_trigger_on_marker()` in `capture_agentic.sh`
+> tails the serial log for the guest's own `TRACE_ROI_BEGIN` marker and, on
+> seeing it, touches the trigger file and writes `armed at <time>` to
+> `<serial-log>.trigger`. The `profile` and `trace` phases then gate on
+> `grep -q 'armed' "$LOG.trigger"`. That file is written by the **host**, so
+> what is actually verified is "the host decided to arm", not "the plugin saw
+> the trigger". The plugin's own `>>> TRIGGER DETECTED: ... <<<` line is
+> emitted (`plugin/champsim_tracer.c`) and checked by
+> `scripts/smoke-trace/smoke_trace.sh`, but never by the agentic driver. The
+> downstream chunk-count gate (`expected $windows chunks, got $n`) is what
+> catches a trigger that armed but did not take.
+
 The driver must verify `TRIGGER DETECTED` appears in the log and abort loudly
 otherwise. **Rationale:** the plugin polls for the trigger only while
 instructions retire, so if the guest finishes first the polls simply stop and the
@@ -303,6 +355,16 @@ disambiguates if needed.
 ## 9. Replay proxy
 
 A single-file local HTTP server with two modes.
+
+> **⚠ ABANDONED DESIGN (noted 2026-09-01).** Content-hash keying was built and
+> then dropped: an agent's request carries its whole conversation *including
+> tool output*, so one volatile byte (an elapsed time printed by `go test`)
+> changes that request's hash and every later one — 60 misses in 147 calls. No
+> canonicalisation fixes it, because the volatile data is in the body.
+> `replay_proxy.py` now defaults to `--match sequence` and serves cassettes in
+> recorded order, ignoring the body entirely; `--match key` survives only as a
+> non-default option. Running off the end of the recording is fatal, never a
+> wrap. See `scripts/swe-agent/README.md`, "Contract of the proxy".
 
 **RECORD** — forwards to the GLM 5.2 upstream, writes each `(request → response)`
 pair to a cassette keyed by a hash of the *canonicalised* request body (model,
