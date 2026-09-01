@@ -22,7 +22,7 @@ Banked trajectories for all 36:
 |---|---|---|---|
 | **0** | Hygiene and the load-bearing fixes | ~30 min, no VM | `DONE` (8/8) |
 | **1** | Recover prometheus, reclaim | ~15 min | `DONE` — recovery succeeded; reclaim deferred |
-| **2** | Trajectory compatibility test | ~5 min | `IN PROGRESS` |
+| **2** | Trajectory compatibility test | ~5 min | `DONE` — **COMPATIBLE** |
 | **3** | Phase 1 — five tasks, one per proven language | ~45 instance-h | `TODO` |
 | ‖ | Determinism check (concurrent with step 3) | ~1.7 h | `TODO` |
 
@@ -163,10 +163,10 @@ the new 36, has a healthy 45-cassette set of our own (45 entries / 45 unique /
 | 2.1 | Read the intern's `immutable-js__immutable-js-2006.min.traj` (139 assistant turns, all carrying `tool_calls`) and confirm its `replay_config` matches our instance's repo and base commit | `DONE` |
 | 2.2 | Synthesize cassettes in our proxy's format (`{key, status, headers, body}`) from the assistant turns — the bodies must be well-formed chat-completion responses carrying the recorded `tool_calls` | `DONE` |
 | 2.3 | Build `_order.json` and **assert `entries == unique == file count`** before running anything — this is the one-line check that would have caught gson | `DONE` |
-| 2.4 | Run the verify pass against the provisioned image with the synthesized cassettes | `IN PROGRESS` |
-| 2.5 | Assert **zero** `REPLAY MISS` | `TODO` |
-| 2.6 | Run `compare_trajectories.py` against the intern's own recorded action sequence — **this is the real gate**; zero misses alone proves nothing, because sequence replay serves responses in order and a desynced replay finishes cleanly | `TODO` |
-| 2.7 | Record the verdict below and its consequence for step 3 | `TODO` |
+| 2.4 | Run the verify pass against the provisioned image with the synthesized cassettes | `DONE` |
+| 2.5 | Assert **zero** `REPLAY MISS` | `DONE` |
+| 2.6 | Run `compare_trajectories.py` against the intern's own recorded action sequence — **this is the real gate**; zero misses alone proves nothing, because sequence replay serves responses in order and a desynced replay finishes cleanly | `DONE` |
+| 2.7 | Record the verdict below and its consequence for step 3 | `DONE` |
 
 ### Findings so far (2026-09-01)
 
@@ -198,24 +198,50 @@ directory, since the proxy appends to `_order.json` and never clears it.
 replays only under `--match sequence`. That is the default and the only mode the
 campaign uses.
 
-### Verdict (fill in)
+### Verdict — COMPATIBLE (2026-09-01)
 
-- **Outcome:** _pending_
-- **Consequence:** one of —
-  - *Compatible* → reuse all 36 banked trajectories. No API key needed, no
-    credits spent, and the intern's B/T/S/M cell labels stay valid because they
-    were computed from exactly these trajectories.
-  - *Needs the full conversation* → ask the intern to re-export the 36 without
-    minification (they have the machinery); the `.min.traj` keeps only assistant
-    turns, observations are stripped.
-  - *Incompatible* → **re-record live** (PI decision, 2026-09-01: this is not a
-    blocker, budget is sufficient). Requires the **OpenRouter** key — ask for it
-    then; never the old GLM key. Consequence to flag: a fresh recording is a
-    fresh trajectory (sampling at temp 0.6 is stochastic even with an identical
-    model and provider), so cell labels must be recomputed by re-running the
-    intern's classifier over our trajectories.
+**The intern's banked trajectories replay under our harness.** Verified
+end-to-end on `immutable-js__immutable-js-2006`:
 
----
+| check | result |
+|---|---|
+| cassettes synthesized | 139 turns → 139 cassettes, manifest invariant asserted |
+| replay misses | **0** |
+| actions executed vs fed | **135/135, zero divergence** |
+| agent's fix applied | yes — `git diff` shows `modified: src/TrieUtils.js` |
+| full test suite in-guest | **44 suites, 683 tests passed, exit 0** |
+| provisioned image | untouched (verify writes only the WORK image) |
+
+**Why 135 and not 139, and why that is correct.** The trajectory contains *two*
+`submit` calls, at index 135 and 138. Our SWE-agent ends the episode on the
+first one, so steps 136–138 are unreachable by construction. Their original run
+continued past the first submit; ours does not. This is the harness behaving
+correctly, not a truncation — and it is exactly the distinction that the redis
+capture got wrong in the other direction (there, a *timeout* truncated a run and
+zero misses hid it). The evidence that this replay is substantive rather than
+merely complete is the working tree: the fix is applied and the whole suite
+passes.
+
+**Required adjustment: provision at `/testbed`.** The trajectories reference
+`/testbed` 136 times and our descriptors default to `/{repo_name}`. `REPO_DIR`
+is free-form — every consumer just dereferences it, and `stage_instance.py:124`
+derives it — so the 36 new descriptors should set `REPO_DIR=/testbed`. For this
+test the path was relocated in a scratch copy of the trajectory to isolate
+"does the mechanism work" from "is the environment right"; **the real captures
+should NOT rewrite trajectories**, they should provision at the path the
+trajectory expects.
+
+**Known caveat for the gate.** `info.submission` and `exit_status` came back
+null in the replay even though the work is visibly done, and
+`compare_trajectories.py` keys partly on the submission SHA. With a *minified*
+recorded trajectory there is no recorded submission to compare against anyway,
+so the action-sequence comparison (used above) is the usable gate for these
+runs. Worth resolving before Phase 1 relies on it.
+
+**Consequence:** reuse the banked trajectories. No API key needed for capture,
+no credits spent, and the intern's B/T/S/M cell labels stay valid because they
+were computed from exactly these trajectories. The re-record fallback stays
+available but is not needed.
 
 ## Step 3 — Phase 1: five tasks, one per proven language
 
