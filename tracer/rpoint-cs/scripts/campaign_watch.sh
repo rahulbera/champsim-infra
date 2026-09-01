@@ -96,14 +96,27 @@ while read -r pid cmd; do
   [ -n "$log" ] && [ -f "$log" ] && age=$(( ( $(date +%s) - $(stat -c %Y "$log") ) / 60 ))
 
   verdict=ok
-  # A guest that accrued no CPU over the sample window is the gin signature.
-  case "$guestcpu" in
-    0t) verdict="STALLED? guest idle ${SAMPLE}s" ;;
-    gone) verdict="guest vanished mid-phase" ;;
-  esac
+  # CONVERT runs entirely on the host -- raw2champsim, no guest at all -- and can
+  # run for an hour writing nothing to the chain log. Judging it by the guest
+  # rules flagged a perfectly healthy conversion as stalled. Its liveness is the
+  # converter process, or its output growing.
+  if [ "$phase" = convert ]; then
+    if pgrep -x raw2champsim >/dev/null 2>&1; then
+      guestcpu="converting"
+    else
+      guestcpu="no-conv"; verdict="STALLED? convert phase with no raw2champsim"
+    fi
+  else
+    # A guest that accrued no CPU over the sample window is the gin signature.
+    case "$guestcpu" in
+      0t) verdict="STALLED? guest idle ${SAMPLE}s" ;;
+      gone) verdict="guest vanished mid-phase" ;;
+    esac
+  fi
   # Log age alone is NOT a stall: a TCG profile pass legitimately writes nothing
   # for an hour while the guest burns CPU. Only a quiet log AND an idle guest.
-  if [ "$age" != "-" ] && [ "$age" -ge "$STALE" ] && [ "$guestcpu" = "no-guest" ]; then
+  if [ "$age" != "-" ] && [ "$age" -ge "$STALE" ] && [ "$guestcpu" = "no-guest" ] \
+     && [ "$phase" != convert ] && [ "$phase" != chain ]; then
     verdict="STALLED? no guest and log ${age}m old"
   fi
 
