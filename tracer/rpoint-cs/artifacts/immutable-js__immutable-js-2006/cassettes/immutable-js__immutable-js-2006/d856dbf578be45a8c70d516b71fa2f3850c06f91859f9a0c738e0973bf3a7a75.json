@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the es.js version:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"size + index\\\\\\\" dist/immutable.es.js npm/dist/immutable.js npm/dist/immutable.es.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366709557998904689\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000100, \"id\": \"synthesized-00100\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00100\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d856dbf578be45a8c70d516b71fa2f3850c06f91859f9a0c738e0973bf3a7a75",
+ "status": 200
+}

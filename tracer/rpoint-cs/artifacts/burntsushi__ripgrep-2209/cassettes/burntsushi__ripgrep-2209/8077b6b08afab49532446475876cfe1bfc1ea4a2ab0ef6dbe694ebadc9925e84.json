@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Lines 1047 onwards are the new tests (line 1047 is blank, 1048 is the comment). Let me append lines 1047 to 1120 from the upstream file to our test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && tail -n +1047 /tmp/upstream_regression.rs >> /testbed/tests/regression.rs\\\\necho \\\\\\\"appended\\\\\\\"\\\\nwc -l /testbed/tests/regression.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366679012191497031\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000072, \"id\": \"synthesized-00072\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00072\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8077b6b08afab49532446475876cfe1bfc1ea4a2ab0ef6dbe694ebadc9925e84",
+ "status": 200
+}

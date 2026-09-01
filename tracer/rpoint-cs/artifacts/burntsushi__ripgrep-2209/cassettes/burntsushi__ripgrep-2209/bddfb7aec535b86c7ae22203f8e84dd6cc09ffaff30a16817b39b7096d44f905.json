@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"=== Test 3: look-behind with -r (PCRE2) ===\\\\\\\" && ./target/debug/rg --no-config --color never --pcre2 -nU -rquux '(?<=foo\\\\\\\\n)bar' /tmp/lookbehind.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366683169719844017\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000097, \"id\": \"synthesized-00097\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00097\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bddfb7aec535b86c7ae22203f8e84dd6cc09ffaff30a16817b39b7096d44f905",
+ "status": 200
+}

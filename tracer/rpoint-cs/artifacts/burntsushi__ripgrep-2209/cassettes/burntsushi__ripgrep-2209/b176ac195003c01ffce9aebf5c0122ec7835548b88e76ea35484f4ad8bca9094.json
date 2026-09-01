@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the searcher to understand how matches are reported in multi-line mode:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"bytes_range_in_buffer\\\\\\\\|SinkMatch\\\\\\\" /testbed/crates/searcher/src/ | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366666642685686013\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b176ac195003c01ffce9aebf5c0122ec7835548b88e76ea35484f4ad8bca9094",
+ "status": 200
+}

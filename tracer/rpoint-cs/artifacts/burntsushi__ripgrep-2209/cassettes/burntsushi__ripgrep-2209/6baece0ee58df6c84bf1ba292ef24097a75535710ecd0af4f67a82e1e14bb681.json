@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me take a cleaner approach. I'll write a Python script that constructs the exact content with real tabs and real newlines, matching the upstream commit exactly. Let me first look at the exact upstream test by checking out that commit's version of the file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 91afd42:tests/regression.rs | tail -80 | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366692859166057047\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6baece0ee58df6c84bf1ba292ef24097a75535710ecd0af4f67a82e1e14bb681",
+ "status": 200
+}

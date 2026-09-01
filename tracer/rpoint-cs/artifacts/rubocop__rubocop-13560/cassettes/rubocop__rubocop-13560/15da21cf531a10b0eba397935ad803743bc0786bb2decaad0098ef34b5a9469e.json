@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"stub_const.*Platform\\\\\\\\|allow(.*Platform\\\\\\\" spec/ | head; echo \\\\\\\"====\\\\\\\"; grep -rn \\\\\\\"and_return(true)\\\\\\\\|and_return(false)\\\\\\\" spec/rubocop/cop/ | grep -i platform | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350008010732730820\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000090, \"id\": \"synthesized-00090\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00090\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "15da21cf531a10b0eba397935ad803743bc0786bb2decaad0098ef34b5a9469e",
+ "status": 200
+}

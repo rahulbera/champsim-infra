@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Test r2095 passes. Let me run r2208:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration r2208 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366682413805593182\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000078, \"id\": \"synthesized-00078\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00078\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06b18efc9faac72687a9a4376bbedd04f920753561a05b2a2da4d5aed02a54bc",
+ "status": 200
+}

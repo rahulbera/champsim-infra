@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All existing tests pass (272 integration + 94 printer unit tests + 2 doc tests). The test count dropped from 274 to 272 because I reverted my two added tests, which is expected.\\n\\nLet me do a final confirmation of the complete change set:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== Files changed ===\\\\\\\" && git diff --cached --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366633141940775467\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000125, \"id\": \"synthesized-00125\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00125\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "006a66693feceab03110c42470dba7adde5eef517c78e9491241d36de2e4f5a0",
+ "status": 200
+}

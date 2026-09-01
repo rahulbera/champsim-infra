@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Before my change, `Range().filter(...).slice(-2).take(5).toArray()` returns `[]` (empty, because the slice was a no-op returning the whole infinite seq, but then... wait it returned `[]`?). Let me check what it returned:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && cat > __tests__/infinite.ts << 'EOF'\\\\nimport { Range } from 'immutable';\\\\n\\\\ndescribe('infinite', () => {\\\\n  it('filter slice take', () => {\\\\n    const result = Range().filter(x => x % 2 === 0).slice(-2).take(5).toArray();\\\\n    // eslint-disable-next-line no-console\\\\n    console.log('BEFORE RESULT:', JSON.stringify(result));\\\\n  });\\\\n});\\\\nEOF\\\\ntimeout 20 npx jest __tests__/infinite.ts 2>&1 | grep \\\\\\\"BEFORE RESULT\\\\\\\"; echo \\\\\\\"EXIT: $?\\\\\\\"\\\\nrm -f __tests__/infinite.ts\\\\ngit stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366745429565761674\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fa1c94eaef902457d9dd0869c9507096ab60517150233b6582899ed43a8e422d",
+ "status": 200
+}

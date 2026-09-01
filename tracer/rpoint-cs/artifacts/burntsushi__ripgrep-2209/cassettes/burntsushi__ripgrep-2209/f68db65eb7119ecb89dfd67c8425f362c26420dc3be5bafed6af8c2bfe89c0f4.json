@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test a multiline match that spans lines with replacement:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf 'start\\\\\\\\nmiddle\\\\\\\\nend\\\\\\\\n' > /tmp/span.txt\\\\necho \\\\\\\"=== Test 7: multiline span with -r ===\\\\\\\" && ./target/debug/rg --no-config --color never -nU -r'<<$0>>' 'start\\\\\\\\nmiddle' /tmp/span.txt\\\\necho \\\\\\\"=== Test 8: multiline span without -r ===\\\\\\\" && ./target/debug/rg --no-config --color never -nU 'start\\\\\\\\nmiddle' /tmp/span.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366652795711125718\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000102, \"id\": \"synthesized-00102\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00102\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f68db65eb7119ecb89dfd67c8425f362c26420dc3be5bafed6af8c2bfe89c0f4",
+ "status": 200
+}

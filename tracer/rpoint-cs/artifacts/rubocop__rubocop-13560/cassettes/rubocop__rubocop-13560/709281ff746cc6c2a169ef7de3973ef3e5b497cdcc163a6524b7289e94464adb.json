@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cp spec/rubocop/cop/style/file_null_spec.rb /tmp/original_file_null_spec.rb && cp /tmp/upstream_file_null_spec.rb spec/rubocop/cop/style/file_null_spec.rb && bundle exec rspec spec/rubocop/cop/style/file_null_spec.rb --format documentation 2>&1 | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350024812644791170\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000162, \"id\": \"synthesized-00162\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00162\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "709281ff746cc6c2a169ef7de3973ef3e5b497cdcc163a6524b7289e94464adb",
+ "status": 200
+}

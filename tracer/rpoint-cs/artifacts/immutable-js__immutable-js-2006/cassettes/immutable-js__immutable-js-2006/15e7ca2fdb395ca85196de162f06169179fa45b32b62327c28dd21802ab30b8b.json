@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"These infinite tests use `Range()` directly (size Infinity) with zip/interleave, not filter+slice. So they're not affected by my change.\\n\\nLet me verify these still pass:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx jest __tests__/count.ts __tests__/zip.ts 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366717495098471831\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000087, \"id\": \"synthesized-00087\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00087\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "15e7ca2fdb395ca85196de162f06169179fa45b32b62327c28dd21802ab30b8b",
+ "status": 200
+}

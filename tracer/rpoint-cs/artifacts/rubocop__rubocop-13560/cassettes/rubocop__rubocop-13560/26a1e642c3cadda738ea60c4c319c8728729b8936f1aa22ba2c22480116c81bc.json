@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"Platform\\\\\\\" spec/ lib/ | grep -v \\\\\\\"windows?\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350012168261070548\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000109, \"id\": \"synthesized-00109\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00109\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "26a1e642c3cadda738ea60c4c319c8728729b8936f1aa22ba2c22480116c81bc",
+ "status": 200
+}

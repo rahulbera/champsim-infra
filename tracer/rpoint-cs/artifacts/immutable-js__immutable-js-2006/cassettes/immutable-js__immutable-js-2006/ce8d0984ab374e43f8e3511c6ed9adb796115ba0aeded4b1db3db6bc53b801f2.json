@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both minified files are updated. Now let me also check the flow type definition file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"resolveIndex\\\\\\\\|size + index\\\\\\\" dist/immutable.js.flow npm/dist/immutable.js.flow 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366701861417516918\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000112, \"id\": \"synthesized-00112\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00112\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ce8d0984ab374e43f8e3511c6ed9adb796115ba0aeded4b1db3db6bc53b801f2",
+ "status": 200
+}

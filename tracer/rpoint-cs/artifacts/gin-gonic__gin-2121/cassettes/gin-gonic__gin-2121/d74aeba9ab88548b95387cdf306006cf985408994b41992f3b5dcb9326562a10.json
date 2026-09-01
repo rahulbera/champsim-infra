@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases pass. The output shows `ok` at the end. Let me run the full test suite for the render package and the main package to ensure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go build ./... 2>&1 | tail -20 && echo \\\\\\\"BUILD OK\\\\\\\" && go vet ./render/ 2>&1 | tail -20 && echo \\\\\\\"VET OK\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355547178514771449\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d74aeba9ab88548b95387cdf306006cf985408994b41992f3b5dcb9326562a10",
+ "status": 200
+}

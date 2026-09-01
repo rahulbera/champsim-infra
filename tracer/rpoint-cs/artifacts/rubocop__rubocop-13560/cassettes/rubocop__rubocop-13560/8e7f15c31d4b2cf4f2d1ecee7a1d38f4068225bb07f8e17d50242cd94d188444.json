@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No self-offenses. Let me also run the full rubocop check on the file to be safe:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rubocop lib/rubocop/cop/style/file_null.rb 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7349992136533605168\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000178, \"id\": \"synthesized-00178\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00178\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8e7f15c31d4b2cf4f2d1ecee7a1d38f4068225bb07f8e17d50242cd94d188444",
+ "status": 200
+}

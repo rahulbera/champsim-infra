@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"PCRE2 isn't available in this build. Let me check if I can build with pcre2:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"pcre2\\\\\\\" Cargo.toml\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366660767170422752\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000095, \"id\": \"synthesized-00095\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00095\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d9fa344ff44e4d145d2f9709a9177cee4946378e7029f70de5d2469f7c0e918e",
+ "status": 200
+}

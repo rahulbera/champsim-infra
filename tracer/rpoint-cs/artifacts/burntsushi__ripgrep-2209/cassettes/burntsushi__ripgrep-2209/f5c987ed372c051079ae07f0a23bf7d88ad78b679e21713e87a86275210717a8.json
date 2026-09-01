@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search for relevant code related to the replacement/multiline matching:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"replacement\\\\\\\\|interpolate\\\\\\\\|Replacer\\\\\\\\|replace\\\\\\\" /testbed/crates/printer/src/standard.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366671659207489004\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000003, \"id\": \"synthesized-00003\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00003\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f5c987ed372c051079ae07f0a23bf7d88ad78b679e21713e87a86275210717a8",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 10 curl -s \\\\\\\"https://api.github.com/repos/rubocop/rubocop/commits/c8b55e506520908c6833795b30b0624dca4fc6bb\\\\\\\" 2>&1 | grep -E '\\\\\\\"(message|sha)\\\\\\\"' | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350014917040142157\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000129, \"id\": \"synthesized-00129\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00129\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ca8be0d9fe555be018f5c4aa7d7b379cfa97c6f2531403a5ae2586f450475a43",
+ "status": 200
+}

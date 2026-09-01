@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The edit didn't apply (the output was garbled). Let me apply the minimal fix that matches the PR description exactly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/testbed/render/reader.go\\\",\\\"old_str\\\":\\\"\\\\tr.WriteContentType(w)\\\\n\\\\tif r.ContentLength >= 0 {\\\\n\\\\t\\\\tr.Headers[\\\\\\\"Content-Length\\\\\\\"] = strconv.FormatInt(r.ContentLength, 10)\\\\n\\\\t}\\\\n\\\\tr.writeHeaders(w, r.Headers)\\\",\\\"new_str\\\":\\\"\\\\tr.WriteContentType(w)\\\\n\\\\tif r.ContentLength >= 0 {\\\\n\\\\t\\\\tif r.Headers == nil {\\\\n\\\\t\\\\t\\\\tr.Headers = make(map[string]string)\\\\n\\\\t\\\\t}\\\\n\\\\t\\\\tr.Headers[\\\\\\\"Content-Length\\\\\\\"] = strconv.FormatInt(r.ContentLength, 10)\\\\n\\\\t}\\\\n\\\\tr.writeHeaders(w, r.Headers)\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355547831349798370\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000012, \"id\": \"synthesized-00012\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00012\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5e543353ffe19b7eaaea3536dedf023ff4f39a2e5a0be56cf26f8fbc71104aaa",
+ "status": 200
+}

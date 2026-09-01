@@ -103,6 +103,18 @@ say "2. replay (pinned to cpu $PIN_CPU)"
 # taskset pins the agent, and fork/exec children INHERIT the affinity, which is
 # why the local (non-Docker) deployment was chosen: a Docker daemon would spawn
 # tool processes outside this process tree and they would escape the pin.
+# SWE-agent's PreExistingRepoConfig treats repo_name as the DIRECTORY the repo
+# lives in -- it resolves /<repo_name>. That is NOT what REPO_NAME means in our
+# descriptors, where it is the dataset's repo name and stage_instance.py
+# hard-fails if it disagrees with the dataset. Passing REPO_NAME sent SWE-agent
+# to /gin while the checkout was at /testbed. Derive it from REPO_DIR, the
+# actual location; for the August descriptors (REPO_DIR=/gin) this is unchanged.
+#
+# Computed here, NOT inline in the command below: a comment inside a backslash
+# continuation is spliced into the command line and comments out every argument
+# after it, which is exactly how repo_name silently went missing once already.
+REPO_BASENAME=$(basename "$REPO_DIR")
+
 taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --agent.model.name="$MODEL" \
     --agent.model.api_base="$API_BASE" \
@@ -112,7 +124,7 @@ taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --agent.model.total_cost_limit=0 \
     --env.deployment.type=local \
     --env.repo.type=preexisting \
-    --env.repo.repo_name="$REPO_NAME" \
+    --env.repo.repo_name="$REPO_BASENAME" \
     --env.repo.base_commit="$BASE_COMMIT" \
     --env.repo.reset=False \
     --agent.tools.execution_timeout="$EXEC_TIMEOUT" \

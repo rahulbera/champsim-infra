@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test passes now. Let me clean up the repro test file and run the existing render tests to make sure I didn't break anything:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f repro_test.go && go test ./render/ 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355562159360700723\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6fbbfd69a6d458199e163d9f3f10b3157cf0b07e843ca1abd64d4446f0e134a2",
+ "status": 200
+}

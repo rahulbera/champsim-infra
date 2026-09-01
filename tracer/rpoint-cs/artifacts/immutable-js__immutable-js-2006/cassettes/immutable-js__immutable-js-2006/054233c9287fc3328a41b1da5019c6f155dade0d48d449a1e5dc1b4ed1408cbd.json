@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -oP \\\\\\\"function n\\\\\\\\(t,e,r\\\\\\\\)\\\\\\\\{return void 0===t\\\\\\\\?r:i\\\\\\\\(t\\\\\\\\)\\\\\\\\?e===1/0\\\\\\\\?e:[^}]*\\\\\\\\}\\\\\\\" dist/immutable.min.js | head; echo \\\\\\\"---npm---\\\\\\\"; grep -oP \\\\\\\"function n\\\\\\\\(t,e,r\\\\\\\\)\\\\\\\\{return void 0===t\\\\\\\\?r:i\\\\\\\\(t\\\\\\\\)\\\\\\\\?e===1/0\\\\\\\\?e:[^}]*\\\\\\\\}\\\\\\\" npm/dist/immutable.min.js | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366717288940040925\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000111, \"id\": \"synthesized-00111\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00111\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "054233c9287fc3328a41b1da5019c6f155dade0d48d449a1e5dc1b4ed1408cbd",
+ "status": 200
+}

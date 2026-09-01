@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && python3 reproduce_issue.py\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350023988011071966\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000154, \"id\": \"synthesized-00154\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00154\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6093a2edb7f32a023279a1f4c2379165a4de15518dea4288d26745405b24f9bc",
+ "status": 200
+}

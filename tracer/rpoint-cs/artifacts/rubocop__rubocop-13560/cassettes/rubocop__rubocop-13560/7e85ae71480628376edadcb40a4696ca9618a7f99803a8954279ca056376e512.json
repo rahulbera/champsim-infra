@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submission is ready. Let me confirm the test file is in its original state and there's no reproduction script left:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"---\\\\\\\" && ls reproduce_issue.py 2>&1; echo \\\\\\\"---test file diff---\\\\\\\"; git diff spec/rubocop/cop/style/file_null_spec.rb | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7349993476563396284\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000189, \"id\": \"synthesized-00189\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00189\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7e85ae71480628376edadcb40a4696ca9618a7f99803a8954279ca056376e512",
+ "status": 200
+}

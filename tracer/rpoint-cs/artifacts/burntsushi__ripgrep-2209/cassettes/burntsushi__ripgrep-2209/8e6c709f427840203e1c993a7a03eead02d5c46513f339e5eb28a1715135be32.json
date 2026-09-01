@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me also test some additional edge cases to make sure the fix is robust. Let me test a case where the replacement has multiple matches on the same line in multiline mode:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf 'hello world hello\\\\\\\\n' > /tmp/multi.txt\\\\necho \\\\\\\"=== Test 5: multiple matches single line with -r ===\\\\\\\" && ./target/debug/rg --no-config --color never -nU -r'X' 'hello' /tmp/multi.txt\\\\necho \\\\\\\"=== Test 6: multiple matches single line without -r ===\\\\\\\" && ./target/debug/rg --no-config --color never -nU 'hello' /tmp/multi.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366674442346295364\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000101, \"id\": \"synthesized-00101\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00101\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8e6c709f427840203e1c993a7a03eead02d5c46513f339e5eb28a1715135be32",
+ "status": 200
+}

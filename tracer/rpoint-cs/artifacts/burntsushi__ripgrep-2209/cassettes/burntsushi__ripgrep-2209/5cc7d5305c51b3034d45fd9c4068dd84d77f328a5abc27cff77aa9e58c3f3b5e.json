@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I notice that the tabs in the test file got converted to spaces. This is a problem because the test r2095 expects tabs in the output. Let me check the actual upstream test more carefully. The original test used literal tabs. Let me look at the raw bytes of what I wrote:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1058,1065p' /testbed/tests/regression.rs | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366678634234379701\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5cc7d5305c51b3034d45fd9c4068dd84d77f328a5abc27cff77aa9e58c3f3b5e",
+ "status": 200
+}

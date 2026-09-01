@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -e '\\\\nrequire \\\\\\\"rubocop\\\\\\\"\\\\n# What does the actual PR fix look like? Lets check what test expects\\\\n# The test file has \\\\\\\"is case insensitive\\\\\\\" test which expects \\\\\\\"nul\\\\\\\" to be an offense\\\\n# But the PR description says nul should be ignored\\\\n# Lets check the test file again carefully\\\\n'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7349993029886801285\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "45feed9f3f57dd6ed671f469ef97080ea6b7922081e6f636cf744a105755cb5c",
+ "status": 200
+}

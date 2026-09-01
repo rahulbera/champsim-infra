@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the minified version too:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -c \\\\\\\"size+index\\\\\\\\|size + index\\\\\\\" dist/immutable.min.js npm/dist/immutable.min.js 2>/dev/null; ls dist/ npm/dist/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366696466938591175\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000107, \"id\": \"synthesized-00107\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00107\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dd6913b4f2f8ab5db09011076196190781906bbaf2ba603693f9a83624882868",
+ "status": 200
+}

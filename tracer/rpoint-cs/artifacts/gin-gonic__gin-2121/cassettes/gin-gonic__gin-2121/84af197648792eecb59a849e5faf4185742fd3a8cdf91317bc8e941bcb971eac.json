@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix is applied correctly and matches the PR description. Now let me rerun the reproduction test to confirm the error is fixed:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -run TestDataFromReaderNilHeaders ./ 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355542643029306734\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "84af197648792eecb59a849e5faf4185742fd3a8cdf91317bc8e941bcb971eac",
+ "status": 200
+}

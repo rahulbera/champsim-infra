@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works. Now the output is just the first line as expected. Let me also test the other case from the commit (r2095):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test2095.txt << 'EOF'\\\\n#!/usr/bin/env bash\\\\n\\\\nzero=one\\\\n\\\\na=one\\\\n\\\\nif true; then\\\\n\\\\ta=(\\\\n\\\\t\\\\ta\\\\n\\\\t\\\\tb\\\\n\\\\t\\\\tc\\\\n\\\\t)\\\\n\\\\ttrue\\\\nfi\\\\n\\\\na=two\\\\n\\\\nb=one\\\\n});\\\\nEOF\\\\necho \\\\\\\"created\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366655613209668624\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7853038cae107964213b82666e075b129d75a1c7caa5e5c2e007d46b3b4a4e75",
+ "status": 200
+}

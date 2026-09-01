@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"replace_with_captures_at\\\\\\\\|captures_iter_at\\\\\\\\|try_captures_iter_at\\\\\\\\|captures_at\\\\\\\\|find_iter_at\\\\\\\\|try_find_iter_at\\\\\\\" /testbed/crates/regex/src/matcher.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366662863114464920\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "32c0a1f83202f335be803de42ace9df73dc3a7eeda24e6f76d9f52020c25c357",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the multi-line search path in the searcher:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"multi_line\\\\\\\\|MultiLine\\\\\\\\|find_iter\\\\\\\" /testbed/crates/searcher/src/searcher/ | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366687121089754838\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ce56b9601a050784e7c122650a868f9173d20abce6e286866dd93cfbe54c9272",
+ "status": 200
+}

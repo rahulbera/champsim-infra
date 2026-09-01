@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting - the dist and npm changes don't show in git status. Let me check if dist/npm are gitignored:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat .gitignore 2>/dev/null | head -30; echo \\\\\\\"---\\\\\\\"; git check-ignore dist/immutable.js npm/dist/immutable.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366653517265632821\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000130, \"id\": \"synthesized-00130\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00130\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "906e1f57736bbfb7daf077275dafb15faae477603456b85a4693d09ef1b3fd7e",
+ "status": 200
+}

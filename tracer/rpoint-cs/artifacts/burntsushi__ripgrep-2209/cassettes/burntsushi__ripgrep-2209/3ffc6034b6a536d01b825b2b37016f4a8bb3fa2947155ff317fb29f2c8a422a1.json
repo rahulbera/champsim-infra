@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test the replacement_multi_line test case (replacing line terminators):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf 'hello\\\\\\\\nworld\\\\\\\\n' > /tmp/nl.txt\\\\necho \\\\\\\"=== Test 9: replace newlines ===\\\\\\\" && ./target/debug/rg --no-config --color never -nU -r'?' '\\\\\\\\n' /tmp/nl.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366704747635536946\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000103, \"id\": \"synthesized-00103\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00103\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3ffc6034b6a536d01b825b2b37016f4a8bb3fa2947155ff317fb29f2c8a422a1",
+ "status": 200
+}

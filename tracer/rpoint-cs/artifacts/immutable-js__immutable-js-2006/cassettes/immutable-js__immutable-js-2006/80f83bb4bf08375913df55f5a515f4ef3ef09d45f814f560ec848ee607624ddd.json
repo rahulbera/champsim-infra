@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The flow file doesn't contain resolveIndex (it's a type definition). Good.\\n\\nNow let me verify the dist files are still valid JS by requiring them:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && node -e \\\\\\\"const I = require('./dist/immutable.js'); console.log(I.Range(0,10).filter(x=>true).slice(-2).toArray());\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366744330054138130\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000113, \"id\": \"synthesized-00113\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00113\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "80f83bb4bf08375913df55f5a515f4ef3ef09d45f814f560ec848ee607624ddd",
+ "status": 200
+}

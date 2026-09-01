@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The exact reproduction case from the PR description now passes with no offense. Let me also test the original RSpec example from the PR:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test_rspec.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nexpect(subject.parse_char_or_int('nul')).to eq(0x00)\\\\nEOF\\\\nbundle exec rubocop --only Style/FileNull /tmp/test_rspec.rb 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350021720268337183\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000183, \"id\": \"synthesized-00183\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00183\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9d7f1cec4eeafb3ec3125c9d4a65d9494094950226c11a6b2f37ab321ce96ecd",
+ "status": 200
+}

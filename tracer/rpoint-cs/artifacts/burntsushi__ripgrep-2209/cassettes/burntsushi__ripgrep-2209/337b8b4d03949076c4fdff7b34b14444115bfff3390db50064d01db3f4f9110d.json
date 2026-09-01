@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the diff of the CHANGELOG in the upstream commit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 91afd42 -- CHANGELOG.md\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366622765299789013\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000107, \"id\": \"synthesized-00107\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00107\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "337b8b4d03949076c4fdff7b34b14444115bfff3390db50064d01db3f4f9110d",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the count.ts test which checks for infinite size:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '60,80p' __tests__/count.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366743883377536394\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a5695752d3f2eaef18076a5afee41fa9aacd56c233066522d0ddc8e0669d275e",
+ "status": 200
+}

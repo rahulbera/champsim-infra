@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat lib/rubocop/rspec/expect_offense.rb | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350026771149875738\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "11b983d9b9ea584abe8e7f4c3044f4a98508c2b61f362b0a246f638b7df313ec",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fuzz test passes with 0 failures (the I/O error at the end is just because the server shut down, which is expected). The \\\"I/O error\\\" is just the shutdown reply being cut off \\u2014 not a real failure.\\n\\nLet me run a broader test to make sure I haven't broken anything else in the test suite related to strings. Let me also run the full unit tests quickly to be safe:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 900 ./runtest --single unit/type/string --single unit/limits 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355425682479905373\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "296776d8ed4e4c6b5459bcabd2b6c0b429a6ce87bc29d91b83462bed6fe6fc33",
+ "status": 200
+}

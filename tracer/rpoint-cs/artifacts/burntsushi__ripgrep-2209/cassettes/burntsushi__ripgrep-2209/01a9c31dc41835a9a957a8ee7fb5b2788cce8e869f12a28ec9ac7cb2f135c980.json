@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 274 tests pass. Now let me also run the PCRE2 tests since the look-ahead behavior is relevant there. Let me check if pcre2 is available:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration --features pcre2 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366692103251820388\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000080, \"id\": \"synthesized-00080\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00080\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "01a9c31dc41835a9a957a8ee7fb5b2788cce8e869f12a28ec9ac7cb2f135c980",
+ "status": 200
+}

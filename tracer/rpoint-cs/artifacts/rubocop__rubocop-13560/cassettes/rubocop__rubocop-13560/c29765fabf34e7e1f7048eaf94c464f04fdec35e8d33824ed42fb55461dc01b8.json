@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '310,340p' lib/rubocop/cops_documentation_generator.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350032371787228014\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000169, \"id\": \"synthesized-00169\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00169\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c29765fabf34e7e1f7048eaf94c464f04fdec35e8d33824ed42fb55461dc01b8",
+ "status": 200
+}

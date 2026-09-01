@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 274 tests pass with PCRE2 as well. Let me also run the pcre2-specific tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration --features pcre2 2>&1 | grep -i \\\\\\\"pcre\\\\\\\\|fail\\\\\\\\|FAIL\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366682516884810665\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000100, \"id\": \"synthesized-00100\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00100\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "afb7bacc92b1bdadbd59fff6a0cceda8918e1350a4fd172f7f31c518fdccc0ca",
+ "status": 200
+}

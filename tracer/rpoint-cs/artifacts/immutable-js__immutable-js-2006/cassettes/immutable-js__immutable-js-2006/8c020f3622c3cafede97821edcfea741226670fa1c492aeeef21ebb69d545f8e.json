@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"It IS the same when using `List.of`. My earlier test used `List(['a','b','c'])` which creates a different instance than `List.of`, so the `===` comparison was between two different List instances. That was my test error, not a bug. The actual `take(MAX_SAFE_INTEGER)` test passes (verified by the test suite). Good.\\n\\nNow let me run the full test suite one final time to confirm everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 120 npx jest 2>&1 | tail -12; echo \\\\\\\"EXIT: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366676332131906940\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000121, \"id\": \"synthesized-00121\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00121\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8c020f3622c3cafede97821edcfea741226670fa1c492aeeef21ebb69d545f8e",
+ "status": 200
+}

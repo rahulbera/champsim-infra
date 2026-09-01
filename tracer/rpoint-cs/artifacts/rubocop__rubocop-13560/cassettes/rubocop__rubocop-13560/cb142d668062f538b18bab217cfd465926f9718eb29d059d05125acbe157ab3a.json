@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 10 curl -s \\\\\\\"https://github.com/rubocop/rubocop/commit/19ee9090b5a4c5a06b178a6de21381ce96f6019e.diff\\\\\\\" 2>&1 | head -200\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350015432436216935\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000132, \"id\": \"synthesized-00132\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00132\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cb142d668062f538b18bab217cfd465926f9718eb29d059d05125acbe157ab3a",
+ "status": 200
+}

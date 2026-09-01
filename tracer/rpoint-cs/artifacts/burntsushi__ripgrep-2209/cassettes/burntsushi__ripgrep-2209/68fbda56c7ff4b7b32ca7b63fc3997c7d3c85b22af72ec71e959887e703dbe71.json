@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The tabs are preserved. Now let me verify the diff matches the upstream commit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && diff /tmp/upstream_regression.rs /testbed/tests/regression.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366684750267808488\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000074, \"id\": \"synthesized-00074\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00074\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "68fbda56c7ff4b7b32ca7b63fc3997c7d3c85b22af72ec71e959887e703dbe71",
+ "status": 200
+}

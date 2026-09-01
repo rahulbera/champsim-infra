@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The minified version uses different variable names. Let me find the resolveIndex equivalent in the minified file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -o \\\\\\\"Math.max(0,[a-z]*+[a-z]*)|0\\\\\\\" dist/immutable.min.js | head; echo \\\\\\\"---\\\\\\\"; grep -oP \\\\\\\".{80}Math\\\\\\\\.max\\\\\\\\(0,.{40}\\\\\\\" dist/immutable.min.js | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366725913234372546\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000108, \"id\": \"synthesized-00108\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00108\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1c055431703128d8a3fb404c883fc317583efa5a7c3622e3462d9bcaf1173665",
+ "status": 200
+}

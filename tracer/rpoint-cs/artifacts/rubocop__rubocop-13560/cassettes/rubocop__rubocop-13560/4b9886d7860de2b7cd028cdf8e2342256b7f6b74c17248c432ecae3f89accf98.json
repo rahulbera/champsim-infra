@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/rubocop/cop/style/file_null.rb\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7350002513174585665\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000157, \"id\": \"synthesized-00157\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00157\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4b9886d7860de2b7cd028cdf8e2342256b7f6b74c17248c432ecae3f89accf98",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The change matches exactly what was requested in the PR description. Let me verify there are no leftover test files I created:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && ls repro_test.go edge_test.go 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355536320837446577\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fb1d958dbd1c66321922e957f4873476c9e60d3d84f5b9ecb943ef979bc55e47",
+ "status": 200
+}

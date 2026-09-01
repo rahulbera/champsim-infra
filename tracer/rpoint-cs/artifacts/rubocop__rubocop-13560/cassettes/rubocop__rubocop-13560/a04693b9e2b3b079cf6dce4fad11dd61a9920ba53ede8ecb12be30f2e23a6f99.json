@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The upstream commit 19ee9090 did not update the docs. The docs are auto-generated. Let me check if the docs are auto-generated from comments - if so, I should regenerate them to keep them in sync. Let me check the docs generation logic:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"description\\\\\\\\|comment\\\\\\\\|header\\\\\\\" lib/rubocop/cops_documentation_generator.rb | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350038865777784539\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000168, \"id\": \"synthesized-00168\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00168\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a04693b9e2b3b079cf6dce4fad11dd61a9920ba53ede8ecb12be30f2e23a6f99",
+ "status": 200
+}

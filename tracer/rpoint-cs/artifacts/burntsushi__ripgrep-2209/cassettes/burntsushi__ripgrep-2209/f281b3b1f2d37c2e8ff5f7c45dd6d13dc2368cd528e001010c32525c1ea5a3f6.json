@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && diff <(head -1046 /tmp/upstream_regression.rs) /testbed/tests/regression.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366682757402978733\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f281b3b1f2d37c2e8ff5f7c45dd6d13dc2368cd528e001010c32525c1ea5a3f6",
+ "status": 200
+}

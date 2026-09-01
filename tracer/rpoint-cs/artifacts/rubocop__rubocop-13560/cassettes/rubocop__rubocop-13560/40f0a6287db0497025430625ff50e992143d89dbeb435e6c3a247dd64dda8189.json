@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me think about edge cases. The `on_new_investigation` runs once per file, and `on_str` runs for each string. Let me verify the order of callbacks - `on_new_investigation` should run before `on_str`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"on_new_investigation\\\\\\\\|on_str\\\\\\\\|investigate\\\\\\\" lib/rubocop/cop/base.rb lib/rubocop/cop/commissioner.rb 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7349995709946394557\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000173, \"id\": \"synthesized-00173\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00173\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "40f0a6287db0497025430625ff50e992143d89dbeb435e6c3a247dd64dda8189",
+ "status": 200
+}

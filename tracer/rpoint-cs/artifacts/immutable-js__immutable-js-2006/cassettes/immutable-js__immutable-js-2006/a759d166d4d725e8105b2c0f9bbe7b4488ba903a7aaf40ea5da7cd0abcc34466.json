@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The infinite case causes OOM with my change. Let me investigate this more carefully. Before my change, the infinite case \\\"worked\\\" by ignoring the slice. Let me understand the issue better:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"Infinity\\\\\\\" __tests__/ | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366738454538872213\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a759d166d4d725e8105b2c0f9bbe7b4488ba903a7aaf40ea5da7cd0abcc34466",
+ "status": 200
+}

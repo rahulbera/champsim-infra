@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me also add the changelog entry, as is standard practice in this repo:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"create\\\",\\\"path\\\":\\\"/testbed/changelog/fix_false_positives_for_style_file_null.md\\\",\\\"file_text\\\":\\\"* [#13556](https://github.com/rubocop/rubocop/issues/13556): Fix false positives for `Style/FileNull` when using `'nul'` string. ([@koic][])\\\\n\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7350034605170227650\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000165, \"id\": \"synthesized-00165\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00165\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a960dd861c91c1fcbf92fa083192ad5c31aaa59e4eba65a97ab426688d5940fc",
+ "status": 200
+}

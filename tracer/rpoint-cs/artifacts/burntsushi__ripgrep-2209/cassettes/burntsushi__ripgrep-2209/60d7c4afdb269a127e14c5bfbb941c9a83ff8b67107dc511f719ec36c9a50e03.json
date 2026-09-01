@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass with pcre2 as well. Let me also run the multiline tests and the printer unit tests once more to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration multiline 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366662244639177440\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "60d7c4afdb269a127e14c5bfbb941c9a83ff8b67107dc511f719ec36c9a50e03",
+ "status": 200
+}

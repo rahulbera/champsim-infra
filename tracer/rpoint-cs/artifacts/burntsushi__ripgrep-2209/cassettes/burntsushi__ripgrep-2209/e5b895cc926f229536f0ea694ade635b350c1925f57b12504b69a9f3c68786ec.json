@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Now let me also test some edge cases manually to make sure the fix is robust. Let me test the original PR case once more and also test with PCRE2 (look-around):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"=== Test 1: PR case (no -r) ===\\\\\\\" && ./target/debug/rg --no-config --color never -NU '^(?P<predoc>\\\\\\\\n?(# .*\\\\\\\\n)*)(alias (?P<aname>pipc)=\\\\\\\"[^\\\\\\\"]+\\\\\\\"|(?P<fname>pipc) \\\\\\\\(\\\\\\\\) \\\\\\\\{)(  #(?P<usage> .+))?' /tmp/patternfuncs.zsh\\\\necho \\\\\\\"\\\\\\\"\\\\necho \\\\\\\"=== Test 2: PR case (with -r) ===\\\\\\\" && ./target/debug/rg --no-config --color never -NU -r '$usage' '^(?P<predoc>\\\\\\\\n?(# .*\\\\\\\\n)*)(alias (?P<aname>pipc)=\\\\\\\"[^\\\\\\\"]+\\\\\\\"|(?P<fname>pipc) \\\\\\\\(\\\\\\\\) \\\\\\\\{)(  #(?P<usage> .+))?' /tmp/patternfuncs.zsh\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366681348653711087\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000093, \"id\": \"synthesized-00093\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00093\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e5b895cc926f229536f0ea694ade635b350c1925f57b12504b69a9f3c68786ec",
+ "status": 200
+}

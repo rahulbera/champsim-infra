@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find . -path ./vendor -prune -o -name \\\\\\\"*.rb\\\\\\\" -print | xargs grep -l \\\\\\\"docs/modules/ROOT\\\\\\\\|cops_style.adoc\\\\\\\\|cops.adoc\\\\\\\" 2>/dev/null | grep -v vendor | head; echo \\\\\\\"---tasks---\\\\\\\"; ls tasks/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350007460976917425\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000149, \"id\": \"synthesized-00149\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00149\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0d11ad8371a932aefd3c25dbfd17b534042bb919c74da579a591bd471fb80072",
+ "status": 200
+}

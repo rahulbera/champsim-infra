@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works as expected. Let me test with PCRE2 look-around to make sure that still works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf 'foo\\\\\\\\nbar\\\\\\\\n' > /tmp/lookbehind.txt\\\\necho \\\\\\\"=== Test 3: look-behind with -r (PCRE2) ===\\\\\\\" && ./target/debug/rg --no-config --color never --pcre2 -nU -rquux '(?<=foo\\\\\\\\n)bar' /tmp/lookbehind.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366668910428417075\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000094, \"id\": \"synthesized-00094\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00094\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "66bcf602592ea808141cae08461866435cff7c5aa48986204a8f25309c7855c7",
+ "status": 200
+}

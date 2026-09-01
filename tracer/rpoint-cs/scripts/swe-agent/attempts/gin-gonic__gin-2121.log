@@ -1,3 +1,4 @@
 2026-09-01 18:45:31	infra	offline gate rejected a COMMITTED vendor/vendor.json; go.sh tested for the vendor/ dir instead of vendor/modules.txt
 2026-09-01 18:48:19	infra	provision_guest.sh wrote /opt/versions.txt with a plain redirect; /opt is root-owned and the script runs as ubuntu
 2026-09-01 18:51:03	infra	re-run over a partial venv left a 0-byte sweagent entry point; provision_guest.sh's idempotency guard tested for /opt/venv/bin/python existing rather than the venv being usable
+2026-09-01 18:56:51	infra	replay_pinned.sh passed REPO_NAME as SWE-agent's --env.repo.repo_name, which it treats as the repo DIRECTORY; sent it to /gin while the checkout is at /testbed

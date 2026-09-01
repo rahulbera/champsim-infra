@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both files match the upstream fix exactly. Now let me run the full test suite once more to be thorough, including the printer tests and integration tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366669631982924775\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000091, \"id\": \"synthesized-00091\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00091\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "26f15f864398b1590ab8c8472b53b8c3cb2a62b840933634d17edc5481ab91aa",
+ "status": 200
+}

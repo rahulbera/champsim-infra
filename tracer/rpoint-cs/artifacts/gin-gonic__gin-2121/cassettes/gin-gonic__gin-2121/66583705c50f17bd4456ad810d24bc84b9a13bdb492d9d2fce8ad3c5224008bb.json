@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro_test.go << 'EOF'\\\\npackage gin\\\\n\\\\nimport (\\\\n\\\\t\\\\\\\"net/http\\\\\\\"\\\\n\\\\t\\\\\\\"net/http/httptest\\\\\\\"\\\\n\\\\t\\\\\\\"strings\\\\\\\"\\\\n\\\\t\\\\\\\"testing\\\\\\\"\\\\n)\\\\n\\\\nfunc TestDataFromReaderNilHeaders(t *testing.T) {\\\\n\\\\tw := httptest.NewRecorder()\\\\n\\\\tc, _ := CreateTestContext(w)\\\\n\\\\n\\\\tc.DataFromReader(http.StatusOK, 5, MIMEHTML, strings.NewReader(\\\\\\\"1234\\\\\\\\n\\\\\\\"), nil)\\\\n\\\\n\\\\tif w.Code != http.StatusOK {\\\\n\\\\t\\\\tt.Fatalf(\\\\\\\"expected status %d, got %d\\\\\\\", http.StatusOK, w.Code)\\\\n\\\\t}\\\\n\\\\tif w.Body.String() != \\\\\\\"1234\\\\\\\\n\\\\\\\" {\\\\n\\\\t\\\\tt.Fatalf(\\\\\\\"expected body '1234\\\\\\\\\\\\\\\\n', got %q\\\\\\\", w.Body.String())\\\\n\\\\t}\\\\n}\\\\nEOF\\\\ncp /tmp/repro_test.go /testbed/repro_test.go && go test -run TestDataFromReaderNilHeaders ./ 2>&1 | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355542952266950876\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "66583705c50f17bd4456ad810d24bc84b9a13bdb492d9d2fce8ad3c5224008bb",
+ "status": 200
+}

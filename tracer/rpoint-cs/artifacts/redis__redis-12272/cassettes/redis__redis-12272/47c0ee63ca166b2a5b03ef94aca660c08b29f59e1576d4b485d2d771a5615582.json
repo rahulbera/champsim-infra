@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is the Redis repository. The bug is about the SUBSTR command. Let me find the relevant code in `t_string.c`.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"substr\\\\\\\\|SUBSTR\\\\\\\\|getrange\\\\\\\\|GETRANGE\\\\\\\\|substrCommand\\\\\\\\|getrangeCommand\\\\\\\" /testbed/src/t_string.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355422521383975312\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "47c0ee63ca166b2a5b03ef94aca660c08b29f59e1576d4b485d2d771a5615582",
+ "status": 200
+}

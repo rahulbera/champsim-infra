@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The first 1046 lines of the upstream file are identical to our current test file. So I just need to append lines 1047-1120 from the upstream file (the new tests) to our file. Let me verify line 1047:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1045,1050p' /tmp/upstream_regression.rs | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366670422256903979\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "72fe3698e1a8659bbeebe6ec472170d6e1b36400311cfb9bc041ee5de7f9371a",
+ "status": 200
+}

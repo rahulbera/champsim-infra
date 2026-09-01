@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the issue. The bug occurs when filter is followed by slice with negative begin. Let me analyze the issue more closely. Let me look at the `sliceFactory` function again and understand the flow:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/Operations.js\\\",\\\"view_range\\\":[404, 499]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366721858785243018\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "67e3f4a0555da925f723f4c5923210247b1ae1075c9e0d0fdd4efa2029073fd9",
+ "status": 200
+}

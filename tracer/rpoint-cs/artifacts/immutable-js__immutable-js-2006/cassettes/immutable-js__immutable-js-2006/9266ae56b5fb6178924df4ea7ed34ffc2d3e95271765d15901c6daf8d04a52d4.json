@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The sliceFactory didn't exist in that version. Let me find when sliceFactory and the NaN check were introduced:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline -S \\\\\\\"resolvedBegin !== resolvedBegin\\\\\\\" -- src/Operations.js 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366673033597021744\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9266ae56b5fb6178924df4ea7ed34ffc2d3e95271765d15901c6daf8d04a52d4",
+ "status": 200
+}

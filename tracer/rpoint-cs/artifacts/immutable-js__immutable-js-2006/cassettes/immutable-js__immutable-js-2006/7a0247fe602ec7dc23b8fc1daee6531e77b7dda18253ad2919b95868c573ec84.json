@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search for tests related to filter followed by slice:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"filter.*slice\\\\\\\\|slice.*filter\\\\\\\" __tests__/ | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366680833257634338\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7a0247fe602ec7dc23b8fc1daee6531e77b7dda18253ad2919b95868c573ec84",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. When `extraHeaders` is `nil` and `ContentLength >= 0`, the line `r.Headers[\\\"Content-Length\\\"] = ...` panics because you can't write to a nil map. Let me create a reproduction script first to confirm the error.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which go && go version\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355533572058374637\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000008, \"id\": \"synthesized-00008\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00008\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c2a8b7fd786865807be3affdf99290ec0fba524b5cc149b0c43bfc05e6305ad4",
+ "status": 200
+}

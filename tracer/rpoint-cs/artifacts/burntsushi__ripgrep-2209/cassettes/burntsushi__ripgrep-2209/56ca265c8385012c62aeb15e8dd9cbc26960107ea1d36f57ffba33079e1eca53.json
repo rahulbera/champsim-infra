@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Hmm, the diff shows nothing now. That's strange - the source change should still be there. Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366646095562138609\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000115, \"id\": \"synthesized-00115\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00115\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "56ca265c8385012c62aeb15e8dd9cbc26960107ea1d36f57ffba33079e1eca53",
+ "status": 200
+}

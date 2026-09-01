@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test_nul.rb << 'EOF'\\\\n# frozen_string_literal: true\\\\n\\\\nfoo('nul')\\\\nEOF\\\\nbundle exec rubocop --only Style/FileNull /tmp/test_nul.rb 2>&1 | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350011377987091626\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6177b4f34bc1065479e55d7f745f4f2394c0ba531d20a0151346decf765b2f42",
+ "status": 200
+}

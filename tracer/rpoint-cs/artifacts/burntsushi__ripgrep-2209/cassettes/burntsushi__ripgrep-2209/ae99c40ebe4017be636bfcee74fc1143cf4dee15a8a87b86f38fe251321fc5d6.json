@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the tabs are preserved:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1058,1065p' /testbed/tests/regression.rs | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366655441410974102\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000073, \"id\": \"synthesized-00073\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00073\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ae99c40ebe4017be636bfcee74fc1143cf4dee15a8a87b86f38fe251321fc5d6",
+ "status": 200
+}

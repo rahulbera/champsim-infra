@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The heredoc had issues with the tabs. Let me create it differently:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf '#!/usr/bin/env bash\\\\\\\\n\\\\\\\\nzero=one\\\\\\\\n\\\\\\\\na=one\\\\\\\\n\\\\\\\\nif true; then\\\\\\\\n\\\\\\\\ta=(\\\\\\\\n\\\\\\\\t\\\\\\\\ta\\\\\\\\n\\\\\\\\t\\\\\\\\tb\\\\\\\\n\\\\\\\\t\\\\\\\\tc\\\\\\\\n\\\\\\\\t)\\\\\\\\n\\\\\\\\ttrue\\\\\\\\nfi\\\\\\\\n\\\\\\\\na=two\\\\\\\\n\\\\\\\\nb=one\\\\\\\\n});\\\\\\\\n' > /tmp/test2095.txt\\\\ncat -A /tmp/test2095.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366693512001087519\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5961635355330d1d2fa499384b578770c5e082ab73ab1227971d931258db0689",
+ "status": 200
+}

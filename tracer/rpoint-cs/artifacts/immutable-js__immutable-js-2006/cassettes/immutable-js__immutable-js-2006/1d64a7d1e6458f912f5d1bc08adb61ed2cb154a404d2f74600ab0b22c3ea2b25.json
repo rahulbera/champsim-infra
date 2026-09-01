@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 0b0318b5f9de24ccdd5f6b23fbbbfa801aefe58e:src/Operations.js 2>/dev/null | grep -n \\\\\\\"sliceFactory\\\\\\\" \\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366700487027980311\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1d64a7d1e6458f912f5d1bc08adb61ed2cb154a404d2f74600ab0b22c3ea2b25",
+ "status": 200
+}

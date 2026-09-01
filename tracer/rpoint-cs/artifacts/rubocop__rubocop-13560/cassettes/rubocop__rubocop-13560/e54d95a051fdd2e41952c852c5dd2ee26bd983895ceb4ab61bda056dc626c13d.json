@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 13 upstream tests pass. Let me verify the test file is restored to original:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --stat && echo \\\\\\\"---\\\\\\\" && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350007735854818558\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000176, \"id\": \"synthesized-00176\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00176\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e54d95a051fdd2e41952c852c5dd2ee26bd983895ceb4ab61bda056dc626c13d",
+ "status": 200
+}

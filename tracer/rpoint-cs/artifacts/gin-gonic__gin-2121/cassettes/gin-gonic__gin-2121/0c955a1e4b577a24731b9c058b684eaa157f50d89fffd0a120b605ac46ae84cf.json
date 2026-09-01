@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the `DataFromReader` method in context.go:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"DataFromReader\\\\\\\" /testbed/context.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355563121433371342\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000006, \"id\": \"synthesized-00006\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00006\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0c955a1e4b577a24731b9c058b684eaa157f50d89fffd0a120b605ac46ae84cf",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"allow(RuboCop::Platform)\\\\\\\\|Platform).to receive\\\\\\\\|Platform.windows?).and_return\\\\\\\" spec/ | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350034227213105729\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8e44eb0241a88d4d8e7daa96b559da997cdb205a99fd46de87e3651c31d66dd1",
+ "status": 200
+}

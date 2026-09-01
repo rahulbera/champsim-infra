@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat tasks/cops_documentation.rake\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350011377987087372\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000151, \"id\": \"synthesized-00151\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00151\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "67717086ca3ccc21eb4989a5db542c75c7b7cd3b9550d5e57c7001cf5c2360f1",
+ "status": 200
+}

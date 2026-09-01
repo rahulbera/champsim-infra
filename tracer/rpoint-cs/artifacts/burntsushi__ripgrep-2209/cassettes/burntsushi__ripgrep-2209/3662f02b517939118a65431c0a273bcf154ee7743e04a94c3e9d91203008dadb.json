@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the bug. Now let me look at the search without `-r`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/rg --no-config --color never -NU '^(?P<predoc>\\\\\\\\n?(# .*\\\\\\\\n)*)(alias (?P<aname>pipc)=\\\\\\\"[^\\\\\\\"]+\\\\\\\"|(?P<fname>pipc) \\\\\\\\(\\\\\\\\) \\\\\\\\{)(  #(?P<usage> .+))?' /tmp/patternfuncs.zsh\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366665130857196574\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3662f02b517939118a65431c0a273bcf154ee7743e04a94c3e9d91203008dadb",
+ "status": 200
+}

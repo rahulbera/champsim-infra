@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the printer tests for replacement tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/crates/printer/src/standard.rs\\\",\\\"view_range\\\":[3240, 3460]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366647023275081196\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000037, \"id\": \"synthesized-00037\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00037\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "397e29619b38f1af0bd2e7d406a436a2e52c0980699ff16a5bf485f6ff196235",
+ "status": 200
+}

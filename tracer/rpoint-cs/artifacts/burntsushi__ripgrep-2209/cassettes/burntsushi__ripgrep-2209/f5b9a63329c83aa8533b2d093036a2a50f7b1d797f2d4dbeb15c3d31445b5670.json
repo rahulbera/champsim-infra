@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Excellent! The fix works correctly with PCRE2 as well. Let me run the full integration test suite with PCRE2 enabled to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration --features pcre2 2>&1 | tail -8\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366689732429867772\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000099, \"id\": \"synthesized-00099\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00099\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f5b9a63329c83aa8533b2d093036a2a50f7b1d797f2d4dbeb15c3d31445b5670",
+ "status": 200
+}

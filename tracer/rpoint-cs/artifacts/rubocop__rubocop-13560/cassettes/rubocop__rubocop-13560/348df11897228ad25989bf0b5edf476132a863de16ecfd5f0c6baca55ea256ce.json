@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the upstream docs to see if they were updated:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 10 curl -s \\\\\\\"https://raw.githubusercontent.com/rubocop/rubocop/19ee9090b5a4c5a06b178a6de21381ce96f6019e/docs/modules/ROOT/pages/cops_style.adoc\\\\\\\" 2>&1 | sed -n '/== Style\\\\\\\\/FileNull/,/== Style\\\\\\\\/FileRead/p'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350027561423858157\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000167, \"id\": \"synthesized-00167\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00167\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "348df11897228ad25989bf0b5edf476132a863de16ecfd5f0c6baca55ea256ce",
+ "status": 200
+}

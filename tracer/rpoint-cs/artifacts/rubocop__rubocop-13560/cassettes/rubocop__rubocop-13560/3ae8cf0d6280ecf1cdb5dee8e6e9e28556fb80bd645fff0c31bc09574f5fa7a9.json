@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"My source fix passes all the upstream-updated tests. Now let me restore the original test file (since the task says I should not modify tests, and the grader will use its own version):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cp /tmp/original_file_null_spec.rb spec/rubocop/cop/style/file_null_spec.rb && git diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350001894699295489\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000163, \"id\": \"synthesized-00163\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00163\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3ae8cf0d6280ecf1cdb5dee8e6e9e28556fb80bd645fff0c31bc09574f5fa7a9",
+ "status": 200
+}

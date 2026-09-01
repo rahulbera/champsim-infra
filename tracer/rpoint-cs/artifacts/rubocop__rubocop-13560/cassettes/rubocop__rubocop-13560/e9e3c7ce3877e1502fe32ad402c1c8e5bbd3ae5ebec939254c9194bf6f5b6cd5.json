@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the existing tests to see what happens with my fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec spec/rubocop/cop/style/file_null_spec.rb --format documentation 2>&1 | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350007426617174726\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000160, \"id\": \"synthesized-00160\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00160\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e9e3c7ce3877e1502fe32ad402c1c8e5bbd3ae5ebec939254c9194bf6f5b6cd5",
+ "status": 200
+}

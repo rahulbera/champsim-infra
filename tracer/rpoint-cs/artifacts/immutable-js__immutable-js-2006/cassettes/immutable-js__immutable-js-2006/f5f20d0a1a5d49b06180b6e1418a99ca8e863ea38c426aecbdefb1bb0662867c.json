@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The built dist file now works correctly too. Let me also test the es module and a few edge cases against the dist:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && node -e \\\\\\\"\\\\nconst I = require('./dist/immutable.js');\\\\nconsole.log('filter slice(-2):', I.Range(0,10).filter(x=>true).slice(-2).toArray());\\\\nconsole.log('filter slice(-3,-1):', I.Range(0,10).filter(x=>true).slice(-3,-1).toArray());\\\\nconsole.log('filter even slice(-2):', I.Range(0,10).filter(x=>x%2===0).slice(-2).toArray());\\\\nconsole.log('filter slice(2):', I.Range(0,10).filter(x=>true).slice(2).toArray());\\\\nconsole.log('filter slice(0,-2):', I.Range(0,10).filter(x=>true).slice(0,-2).toArray());\\\\nconsole.log('Range slice(-2):', I.Range(0,10).slice(-2).toArray());\\\\nconsole.log('take(MAX_SAFE_INTEGER):', I.List(['a','b','c']).take(Number.MAX_SAFE_INTEGER) === I.List(['a','b','c']) ? 'self' : 'not self');\\\\n\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366738763776517943\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000114, \"id\": \"synthesized-00114\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00114\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f5f20d0a1a5d49b06180b6e1418a99ca8e863ea38c426aecbdefb1bb0662867c",
+ "status": 200
+}

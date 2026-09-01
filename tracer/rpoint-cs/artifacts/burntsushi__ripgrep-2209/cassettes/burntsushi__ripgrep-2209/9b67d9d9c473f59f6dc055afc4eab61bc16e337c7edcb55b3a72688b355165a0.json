@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works with only the source change. Now let me clean up my temporary reproduction files in `/tmp`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/patternfuncs.zsh /tmp/test2095.txt /tmp/lookbehind.txt /tmp/multi.txt /tmp/span.txt /tmp/nl.txt /tmp/add_tests.py /tmp/upstream_regression.rs /tmp/upstream_util.rs && echo \\\\\\\"cleaned up temp files\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366676194692953934\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000122, \"id\": \"synthesized-00122\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00122\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b67d9d9c473f59f6dc055afc4eab61bc16e337c7edcb55b3a72688b355165a0",
+ "status": 200
+}

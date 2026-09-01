@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases work correctly. Let me now run the entire test suite one final time to make sure everything is good (without pcre2, the default):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366641250839029598\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000104, \"id\": \"synthesized-00104\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00104\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "576a06361a5232d4babfa1cfad29fa13cc91444d9422f7ae8f7aed4ad1a07209",
+ "status": 200
+}

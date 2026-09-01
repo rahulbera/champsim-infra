@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file is back to its original state (ending at the `r1891` test). Now let me verify the source change is still intact:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --cached crates/printer/src/util.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366700933704577384\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000119, \"id\": \"synthesized-00119\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00119\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ba0fceef1df76640ce41c1c11f6b2f04e1aff40c194234519a9ac29e1f54066d",
+ "status": 200
+}

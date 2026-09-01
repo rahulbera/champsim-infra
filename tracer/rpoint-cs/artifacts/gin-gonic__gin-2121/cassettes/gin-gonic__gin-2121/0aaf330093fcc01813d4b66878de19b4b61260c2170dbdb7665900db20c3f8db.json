@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor tool isn't applying changes properly due to an environment issue. Let me use `sed` to make the edit instead:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && python -c \\\\\\\"print('python check')\\\\\\\" 2>/dev/null; which python python2 python3 2>/dev/null; echo \\\\\\\"---\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355543295864335653\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0aaf330093fcc01813d4b66878de19b4b61260c2170dbdb7665900db20c3f8db",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -e '\\\\nrequire \\\\\\\"rubocop\\\\\\\"\\\\ncop = RuboCop::Cop::Style::FileNull\\\\nputs cop::REGEXP.source\\\\nputs cop::REGEXP.match?(\\\\\\\"nul\\\\\\\")\\\\nputs cop::REGEXP.match?(\\\\\\\"NUL\\\\\\\")\\\\nputs cop::REGEXP.match?(\\\\\\\"/dev/null\\\\\\\")\\\\nputs cop::REGEXP.match?(\\\\\\\"/DEV/NULL\\\\\\\")\\\\n' 2>&1 | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350013439571390632\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f1f64e2ab5b79b3642248ad26b8df05284a9b6aa553ea3606af2a729015e47cf",
+ "status": 200
+}

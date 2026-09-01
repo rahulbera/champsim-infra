@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The look-behind replacement case (r1412) still works with PCRE2. Let me also test the r2095 case with PCRE2:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"=== Test 4: r2095 case (PCRE2) ===\\\\\\\" && ./target/debug/rg --no-config --color never --pcre2 --line-number --multiline --only-matching --replace '${value}' '^(?P<indent>\\\\\\\\s*)a=(?P<value>(?ms:[(].*?[)])|.*?)$' /tmp/test2095.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366688048802687047\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2ab89b0da0bf7f97ad71ebf10be31c25fad7b587bab0a4aa05ac70c535d760e4",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All my reproduction and edge case tests pass. Now let me run the full test suite once more to confirm nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f __tests__/reproduce.ts && timeout 120 npx jest 2>&1 | tail -10; echo \\\\\\\"EXIT: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366744364413875477\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000092, \"id\": \"synthesized-00092\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00092\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "78b271a2cd1c43709326730d95ddd316ebcb4398e870d6a43fb86411b2f161aa",
+ "status": 200
+}

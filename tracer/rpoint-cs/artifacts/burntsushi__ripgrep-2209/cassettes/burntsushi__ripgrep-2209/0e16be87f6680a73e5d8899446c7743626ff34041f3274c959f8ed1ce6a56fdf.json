@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. Let me look at the pcre2 matcher to see if it overrides `replace_with_captures_at`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"replace_with_captures\\\\\\\\|captures_iter_at\\\\\\\\|try_captures_iter\\\\\\\" /testbed/crates/pcre2/src/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366656300404439940\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0e16be87f6680a73e5d8899446c7743626ff34041f3274c959f8ed1ce6a56fdf",
+ "status": 200
+}

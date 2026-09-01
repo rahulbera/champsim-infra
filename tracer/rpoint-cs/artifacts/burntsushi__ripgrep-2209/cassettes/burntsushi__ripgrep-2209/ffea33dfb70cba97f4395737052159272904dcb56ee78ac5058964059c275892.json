@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me build the project and reproduce the issue. First, let me create the test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/patternfuncs.zsh << 'EOF'\\\\n# Compile requirements.txt files from all found or specified requirements.in files (compile).\\\\n# Use -h to include hashes, -u dep1,dep2... to upgrade specific dependencies, and -U to upgrade all.\\\\npipc () {  # [-h] [-U|-u <pkgspec>[,<pkgspec>...]] [<reqs-in>...] [-- <pip-compile-arg>...]\\\\n    emulate -L zsh\\\\n    unset REPLY\\\\n    if [[ $1 == --help ]] { zpy $0; return }\\\\n    [[ $ZPY_PROCS ]] || return\\\\n\\\\n    local gen_hashes upgrade upgrade_csv\\\\n    while [[ $1 == -[hUu] ]] {\\\\n        if [[ $1 == -h ]] { gen_hashes=--generate-hashes; shift   }\\\\n        if [[ $1 == -U ]] { upgrade=1;                    shift   }\\\\n        if [[ $1 == -u ]] { upgrade=1; upgrade_csv=$2;    shift 2 }\\\\n    }\\\\n}\\\\nEOF\\\\necho \\\\\\\"created\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366694714591929658\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ffea33dfb70cba97f4395737052159272904dcb56ee78ac5058964059c275892",
+ "status": 200
+}

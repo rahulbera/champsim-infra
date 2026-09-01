@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the regex implementation of `replace_with_captures_at`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"replace_with_captures_at\\\\\\\\|captures_iter_at\\\\\\\\|try_captures_iter_at\\\\\\\" /testbed/crates/regex/src/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366828099096280151\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8b365e11249dcaa3ab41a4987d2ce3de16233c8f3fd0495ea786af8326708c9d",
+ "status": 200
+}

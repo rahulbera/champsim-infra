@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I can see the exact format with tabs (`^I`). Let me write a Python script that appends the exact content from the upstream commit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 91afd42:tests/regression.rs > /tmp/upstream_regression.rs\\\\nwc -l /tmp/upstream_regression.rs /testbed/tests/regression.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366688289320859903\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000068, \"id\": \"synthesized-00068\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00068\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a177b89b82ba0e2438b7a019376000ac3fc06e71685ba90b0b08cbeec7082df7",
+ "status": 200
+}

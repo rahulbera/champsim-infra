@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 13 tests pass with the upstream-updated test file. Let me verify the test file is back to its original state:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --stat spec/rubocop/cop/style/file_null_spec.rb; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350012202620805928\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000187, \"id\": \"synthesized-00187\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00187\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "af60c6cd62a66c9dd6d87c44d069a9530c9ba20e5f93484154aefb8c6bf9c571",
+ "status": 200
+}

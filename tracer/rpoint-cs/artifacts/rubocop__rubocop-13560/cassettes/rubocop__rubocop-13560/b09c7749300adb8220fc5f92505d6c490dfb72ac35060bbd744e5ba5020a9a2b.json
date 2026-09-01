@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -e '\\\\nrequire \\\\\\\"rubocop\\\\\\\"\\\\n# Test current behavior\\\\nputs \\\\\\\"nul: #{RuboCop::Cop::Style::FileNull::REGEXP.match?(\\\\\\\"nul\\\\\\\")}\\\\\\\"\\\\nputs \\\\\\\"NUL: #{RuboCop::Cop::Style::FileNull::REGEXP.match?(\\\\\\\"NUL\\\\\\\")}\\\\\\\"\\\\nputs \\\\\\\"Nul: #{RuboCop::Cop::Style::FileNull::REGEXP.match?(\\\\\\\"Nul\\\\\\\")}\\\\\\\"\\\\nputs \\\\\\\"/dev/null: #{RuboCop::Cop::Style::FileNull::REGEXP.match?(\\\\\\\"/dev/null\\\\\\\")}\\\\\\\"\\\\nputs \\\\\\\"/DEV/NULL: #{RuboCop::Cop::Style::FileNull::REGEXP.match?(\\\\\\\"/DEV/NULL\\\\\\\")}\\\\\\\"\\\\n'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350026839869356084\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b09c7749300adb8220fc5f92505d6c490dfb72ac35060bbd744e5ba5020a9a2b",
+ "status": 200
+}

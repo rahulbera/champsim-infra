@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now only the source file `crates/printer/src/util.rs` is modified (staged). Let me verify the test file is back to its original state:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && tail -5 tests/regression.rs && echo \\\\\\\"---\\\\\\\" && git diff --cached tests/regression.rs | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366689182674059255\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000118, \"id\": \"synthesized-00118\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00118\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f90ad2e6eff6263d38e86b105ac0365b95d362f5f42f437f790b9bd614c46e67",
+ "status": 200
+}

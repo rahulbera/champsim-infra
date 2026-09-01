@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"windows?)\\\\\\\" spec/rubocop/cop/lint/script_permission_spec.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350004402960200795\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000094, \"id\": \"synthesized-00094\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00094\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f6e9450d7f712a220c10c71a4ce3e481f67d55cac306f48feb0ffd7cb208d198",
+ "status": 200
+}

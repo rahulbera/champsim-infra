@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So the `| 0` was added in commit 0f33f4e5 \\\"Bound indicies by size and Infinity (#1078)\\\" to fix #1040. Let me look at that issue's context:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 0f33f4e5bb7eb67c87f5ac336547227da0c5d7e8 --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366718079214019356\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "eea4bffb460d860fa524955e44a730070bf8267b606feda12f9a8e5794f7d7ec",
+ "status": 200
+}
