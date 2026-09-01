@@ -25,7 +25,7 @@ Banked trajectories for all 36:
 | **0** | Hygiene and the load-bearing fixes | ~30 min, no VM | `DONE` (8/8) |
 | **1** | Recover prometheus, reclaim | ~15 min | `DONE` — recovery succeeded; reclaim deferred |
 | **2** | Trajectory compatibility test | ~5 min | `DONE` — **COMPATIBLE** |
-| **3** | Phase 1 — five tasks, one per proven language | ~45 instance-h | `IN PROGRESS` (3/11) |
+| **3** | Phase 1 — **four** tasks (gin deferred) | ~45 instance-h | `IN PROGRESS` |
 | ‖ | Determinism check (concurrent with step 3) | ~1.7 h | `TODO` |
 
 Steps 0–2 are the high-value targets: **many step-3 decisions depend on step 2's
@@ -84,7 +84,7 @@ the new 36, has a healthy 45-cassette set of our own (45 entries / 45 unique /
 | 2.6 | Run `compare_trajectories.py` against the intern's own recorded action sequence — **this is the real gate**; zero misses alone proves nothing, because sequence replay serves responses in order and a desynced replay finishes cleanly | `DONE` |
 | 2.7 | Verdict → **COMPATIBLE**: 0 misses, 135/135 actions matched, fix applied, in-guest suite green. Two consequences for step 3: descriptors must set `REPO_DIR=/testbed` (trajectories reference it 136×), and trajectories must never be rewritten to suit our paths | `DONE` |
 
-## Step 3 — Phase 1: five tasks, one per proven language
+## Step 3 — Phase 1: four tasks (gin-2121 deferred)
 
 Begins once step 2's verdict is known. Language scope is phased by PI
 direction: proven languages first at one task each, then depth in those
@@ -94,7 +94,7 @@ languages, then C++ and Java last.
 |---|---|---|---|---|
 | C | `redis__redis-12272` | B | 50 core-s | redis-13115 captured cleanly |
 | Rust | `burntsushi__ripgrep-2209` | T | 82 | ripgrep-2576 captured cleanly |
-| Go | `gin-gonic__gin-2121` | T | 18 | gin-3820 captured; smallest fence in the set |
+| ~~Go~~ | ~~`gin-gonic__gin-2121`~~ | T | 18 | **DEFERRED 2026-09-01** — replay wedges, truncates at 31/39. See `known-issue-gin-2121-replay-wedge.md`. Go coverage moves to Phase 2 (caddy-4774, prometheus-10720, hugo-12579 remain) |
 | Ruby | `rubocop__rubocop-13560` | M | 37 | rubocop-13668 captured cleanly |
 | TypeScript | `immutable-js__immutable-js-2006` | T | 655 | proven, **and** the gen-1/gen-2 bridge |
 
