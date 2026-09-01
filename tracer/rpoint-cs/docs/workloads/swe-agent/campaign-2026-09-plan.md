@@ -125,6 +125,32 @@ unidentified external SIGTERM across 4–5 provisioning attempts.
 
 ---
 
+### A short trace is not a lost trace (2026-09-02)
+
+`redis__redis-12272`'s trace produced 4 of 5 windows and the trace gate refused
+it on the count. The four were converted and kept rather than discarded:
+
+1. The plugin manifest records each as a **complete 300,000,000-instruction
+   window** at its intended start (0, 61170567571, 117119665770, 172057209993).
+   Nothing is truncated; the run simply ended before the fifth.
+2. The replay driving them was **FAITHFUL** — 45/45 actions, 0 misses, no
+   cancelled steps, patch 775 B matching the banked reference exactly.
+3. The unit of analysis is the **task**, so uneven window counts are harmless by
+   construction: this instance contributes a mean over its 3 usable windows
+   (w0 being the startup canary) instead of 4.
+
+**The count gate lives only in the trace phase**, not in convert, so converting
+a short capture needs no override — just run `convert` directly. Record the real
+count as `actual_windows=` in the `.meta`.
+
+**Root cause, and it generalises:** the profile pass that computed
+`sample_gap=48 Ginstr` hit the SWE-ReX wedge; the trace pass ran clean. A wedge
+changes how much user work a run performs, so the geometry was measured on an
+unrepresentative run and then consumed by a representative one. **A wedge during
+profile can silently poison the geometry**, and the damage only surfaces two
+hours later at the trace gate. Re-profiling on a clean pass would fix it
+(~2.5 h TCG); not done.
+
 ## ‖ Determinism check (concurrent with step 3)
 
 **No instance has ever been captured twice.** Every determinism claim in the
