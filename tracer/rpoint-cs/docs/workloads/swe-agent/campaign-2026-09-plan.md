@@ -268,12 +268,59 @@ languages, then C++ and Java last.
 | 3.7 | Profile, trace at **K=5**, convert, validate | `TODO` |
 | 3.8 | Publish to `tracezoo/champsim/version2.1/agentic/…`, append to `CHECKSUMS.sha256`, with an exhaustive count assertion | `TODO` |
 | 3.9 | Establish the new w0 canary band and compare immutable-js against its August traces (the gen-1/gen-2 drift measurement) | `TODO` |
+| 3.10 | **Archive each task's traces to kratos2 as soon as they validate** — see "Archiving" below | `TODO` |
 
 Not in Phase 1: JavaScript and PHP are **unproven** — they have modules but
 never produced a trace, and PHP's only attempt (`carbon-3103`) died to an
 unidentified external SIGTERM across 4–5 provisioning attempts.
 
 ---
+
+## Archiving to kratos2
+
+**PI direction (2026-09-01): once a task's traces are generated and validated,
+and you are confident in them, archive them to the cluster.** Per task, as they
+finish — not batched at the end.
+
+**Destination:**
+`kratos2:/home/rahbera/tracezoo/champsim/version2.1/agentic/swe-agent-w-swe-bench-multilingual/`
+
+**Verified 2026-09-01** by SSH (`kratos2` → `safari-proxy.ethz.ch`, user
+`rahbera`):
+
+| check | result |
+|---|---|
+| path exists | yes |
+| traces already there | **36** (24 with-agent + 12 `.toolchain`), 21 GB |
+| matches the local catalog | breakdown identical, instance for instance |
+| byte-identical | yes — `immutable-js…_w00000` sha256 `9ecf5f1dd262cd0a…` matches the local `CHECKSUMS.sha256` entry exactly |
+| free space | **126 TB available** of 279 TB (55% used) |
+| remote `CHECKSUMS.sha256` | **absent** — the local catalog has one (67 entries), the cluster does not |
+
+**This is the storage answer, not just a backup.** Local free space is 456 GB
+and the campaign expects ~110 GB of traces plus ~86 GB of guest images; the
+cluster has 126 TB. Archiving per task as it validates means local disk never
+has to hold all 36 tasks' traces simultaneously — the local copy becomes a cache
+that can be reclaimed once the archive is verified, rather than a second
+permanent copy.
+
+**The archive step must verify, not just transfer.** A trace that arrives
+truncated is indistinguishable from one that arrived whole until something reads
+it, and this campaign has already lost one 2.3 GB trace to a silent truncation.
+So, per task:
+
+1. `trace_sanity_check --check` passes on every window (already the convert gate)
+2. rsync the task's `.champsim2.zst` files to the destination
+3. **re-hash on the cluster and compare against the local `CHECKSUMS.sha256`
+   entry** — the transfer is not complete until the remote digest matches
+4. append the verified digests to a remote `CHECKSUMS.sha256`, which does not
+   exist yet and should be created as part of the first archive
+5. only then consider the local copy reclaimable
+
+**Caveat inherited from the trace catalog:** locally the traces are hardlinked
+between `champsim_out/<workload>/` and the tracezoo catalog, so deleting one
+path frees nothing. Reclaiming local space after archiving means removing *both*
+names, and only after step 3's digest comparison passes.
 
 ## ‖ Determinism check (concurrent with step 3)
 
@@ -306,6 +353,7 @@ a quarter of the cost.
 | 7 | **Automate only the load-bearing gaps** | `create_guest_image.sh`, slot uniqueness, catalog publish, tlist generation. Descriptor writing stays manual for five instances. |
 | 8 | **Local, 6-way; storage is the binding constraint** | ~223 GB for 36 tasks against 456 GB free. Release the TCG slot before convert (convert launches no QEMU; gin held a slot 5.0 h with TCG done after 1.8 h). |
 | 9 | **Recover prometheus cassettes, then free 32 GB** | Keep the 19 GB of provisioned images until Phase 1 proves out. |
+| 10 | **Archive each task's traces to kratos2 as it validates** | Verified 2026-09-01: the path holds the 36 previous traces, byte-identical to ours, with 126 TB free. Per task, with a remote digest check before the local copy is considered reclaimable. |
 
 **Standing constraints**
 
