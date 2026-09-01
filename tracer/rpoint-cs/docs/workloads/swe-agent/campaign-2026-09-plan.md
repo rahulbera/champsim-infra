@@ -266,9 +266,17 @@ languages, then C++ and Java last.
 | 3.5 | Obtain trajectories per step 2's verdict (reuse or re-record) | `TODO` |
 | 3.6 | Verify pass on each — zero misses **and** trajectory match | `TODO` |
 | 3.7 | Profile, trace at **K=5**, convert, validate | `TODO` |
-| 3.8 | Publish to `tracezoo/champsim/version2.1/agentic/…`, append to `CHECKSUMS.sha256`, with an exhaustive count assertion | `TODO` |
+| 3.8 | Publish to the LOCAL catalog `tracezoo/champsim/version2.1/agentic/…` and append to its `CHECKSUMS.sha256`, asserting the count exhaustively (every window of every task accounted for, no silent `other`). **The local catalog is now a staging cache, not the endpoint** — 3.10 is the endpoint | `TODO` |
 | 3.9 | Establish the new w0 canary band and compare immutable-js against its August traces (the gen-1/gen-2 drift measurement) | `TODO` |
-| 3.10 | **Archive each task's traces to kratos2 as soon as they validate** — see "Archiving" below | `TODO` |
+| 3.10 | **Archive the task's traces to kratos2 as soon as they validate**, re-hash remotely and compare against the local digest before the transfer counts as done — see "Archiving" below | `TODO` |
+| 3.11 | Only after 3.10's remote digest check passes, reclaim the local copy — remembering the traces are hardlinked between `champsim_out/<workload>/` and the catalog, so **both** names must go or nothing is freed | `TODO` |
+
+**Per-task ordering, once a capture finishes:** convert → `trace_sanity_check
+--check` on every window (3.7) → local catalog + digest (3.8) → archive to
+kratos2 + remote digest comparison (3.10) → reclaim locally (3.11). The local
+catalog is a cache between the tracer and the cluster; the cluster is where a
+trace durably lives. Nothing is reclaimed on the strength of a transfer having
+been *attempted*.
 
 Not in Phase 1: JavaScript and PHP are **unproven** — they have modules but
 never produced a trace, and PHP's only attempt (`carbon-3103`) died to an
@@ -321,6 +329,38 @@ So, per task:
 between `champsim_out/<workload>/` and the tracezoo catalog, so deleting one
 path frees nothing. Reclaiming local space after archiving means removing *both*
 names, and only after step 3's digest comparison passes.
+
+### Local reclamation done (2026-09-01)
+
+PI direction: keep one non-`w0` trace per task locally, delete the rest; delete
+all `.toolchain` traces outright; keep the checksum manifest for copying traces
+back.
+
+**The gate ran first.** All 36 remote digests were computed on kratos2 and
+compared against the local `CHECKSUMS.sha256`: **36/36 present, 0 mismatches.**
+Nothing was deleted whose exact digest had not been positively confirmed on the
+cluster — the deletion loop re-checked each file against that list and would
+have skipped any that failed (0 skipped).
+
+| | |
+|---|---|
+| deleted | 30 traces — all 12 `.toolchain` + the non-`w00001` windows of the 6 with-agent tasks |
+| kept locally | 6 — one `_w00001` per with-agent task |
+| hardlink names removed | **63 for 30 files** — 2–3 names each |
+| freed | **17.5 GB** (452 GB → 469 GB available) |
+
+`w00000` was deliberately not the window kept: it is harness startup rather than
+workload, so it is the least useful sample to retain.
+
+**Side effect handled:** prometheus's traces carried a third name — the legacy
+flat `swe_agent_w0000N` alias in `champsim_out/` — so deleting them left three
+dangling symlinks in `bpeval/agentic-traces/`. Those were removed; the
+name-mapping itself stays documented in the catalog README.
+
+**The manifest is kept complete** (all 67 entries, including the 30 no longer
+present) as the record for verifying anything copied back. Verification now
+needs `sha256sum -c --ignore-missing`; the 37 files actually present verify
+clean, 0 failures.
 
 ## ‖ Determinism check (concurrent with step 3)
 
