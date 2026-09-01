@@ -1,0 +1,1 @@
+2026-09-01 18:45:31	infra	offline gate rejected a COMMITTED vendor/vendor.json; go.sh tested for the vendor/ dir instead of vendor/modules.txt

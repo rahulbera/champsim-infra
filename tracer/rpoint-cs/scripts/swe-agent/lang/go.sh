@@ -77,7 +77,18 @@ lang_clean_check() {
   # swallow into the patch; the gate command uses -o /dev/null to avoid it.
   [ -z "$(cd "$REPO_DIR" && git status --porcelain)" ] \
     || die "tree dirty after gate: $(cd "$REPO_DIR" && git status --porcelain | head -3)"
-  [ ! -d "$REPO_DIR/vendor" ] \
-    || die "vendor/ present -- would silently switch builds to -mod=vendor"
+  # The hazard is -mod=vendor being selected silently, and Go selects it on
+  # vendor/modules.txt, NOT on the mere existence of a vendor/ directory.
+  # Testing the directory rejected gin-2121, whose commit tracks a lone
+  # vendor/vendor.json -- a govendor manifest from the pre-modules era that Go
+  # ignores entirely. That file is COMMITTED source at that revision (the
+  # tree-dirty check above passes), so deleting it to satisfy the gate would
+  # have modified the repo under test.
+  #
+  # An UNTRACKED vendor tree is still a real problem: it means the gate build
+  # vendored dependencies as a side effect. The dirty-tree check above already
+  # catches that, since anything untracked shows up there.
+  [ ! -f "$REPO_DIR/vendor/modules.txt" ] \
+    || die "vendor/modules.txt present -- builds would silently use -mod=vendor"
   ok "no stray build artifacts"
 }
