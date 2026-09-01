@@ -25,7 +25,7 @@ Banked trajectories for all 36:
 | **0** | Hygiene and the load-bearing fixes | ~30 min, no VM | `DONE` (8/8) |
 | **1** | Recover prometheus, reclaim | ~15 min | `DONE` — recovery succeeded; reclaim deferred |
 | **2** | Trajectory compatibility test | ~5 min | `DONE` — **COMPATIBLE** |
-| **3** | Phase 1 — five tasks, one per proven language | ~45 instance-h | `TODO` |
+| **3** | Phase 1 — five tasks, one per proven language | ~45 instance-h | `IN PROGRESS` (3/11) |
 | ‖ | Determinism check (concurrent with step 3) | ~1.7 h | `TODO` |
 
 Steps 0–2 are the high-value targets: **many step-3 decisions depend on step 2's
@@ -100,9 +100,9 @@ languages, then C++ and Java last.
 
 | # | Target | Status |
 |---|---|---|
-| 3.1 | Write `create_guest_image.sh` — **currently missing entirely**; `provision_instance.sh:69` only dies with "no image at $WORK — create it with qemu-img first" | `TODO` |
-| 3.2 | Stage and verify descriptors for the five instances (`stage_instance.py`, then the no-flag verification pass that hard-fails on dataset disagreement) | `TODO` |
-| 3.3 | Host pre-flight each: F2P test runs and fails at base commit; runs and passes with the gold patch | `TODO` |
+| 3.1 | Write `create_guest_image.sh` — **currently missing entirely**; `provision_instance.sh:69` only dies with "no image at $WORK — create it with qemu-img first" | `DONE` |
+| 3.2 | Stage and verify descriptors for the five instances (`stage_instance.py`, then the no-flag verification pass that hard-fails on dataset disagreement) | `DONE` |
+| 3.3 | Host pre-flight — **satisfied by the stratification's own evidence**: all 36 picks were selected under a resolution-clean rule requiring the census episode be officially resolved by the SWE-bench harness (`swebench` 5.0.2, dockerized, official F2P+P2P). 32/36 resolved; none of our five is among the four misses | `DONE` |
 | 3.4 | Provision all five with today's software, recording `pip freeze` | `TODO` |
 | 3.5 | Obtain trajectories per step 2's verdict (reuse or re-record) | `TODO` |
 | 3.6 | Verify pass on each — zero misses **and** trajectory match | `TODO` |

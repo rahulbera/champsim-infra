@@ -121,7 +121,13 @@ def main():
         print(f"INSTANCE={row['instance_id']}")
         print(f"REPO_URL=https://github.com/{row['repo']}")
         print(f"REPO_NAME={row['repo'].split('/')[-1]}")
-        print(f"REPO_DIR=/{row['repo'].split('/')[-1]}")
+        # /testbed, not /<repo>. SWE-bench's Docker images check the repo out at
+        # /testbed, so every banked trajectory addresses files there -- the
+        # immutable-js trajectory alone references /testbed 136 times and
+        # /immutable-js never. Provisioning at the path the trajectory expects is
+        # the correct repair; rewriting the trajectory to suit our layout would
+        # edit what the agent said.
+        print("REPO_DIR=/testbed")
         print(f"BASE_COMMIT={row['base_commit']}")
         return
 
