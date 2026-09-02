@@ -169,6 +169,38 @@ a quarter of the cost.
 
 ---
 
+## Writing a gate command: read the trajectory, not the repo layout
+
+Learned the hard way twice on 2026-09-02, both costing a full provisioning run.
+
+1. **fastlane-20958** — I guessed `bundle exec rspec spec/action_spec.rb`.
+   fastlane is a monorepo: specs live under `<gem>/spec/`. rspec reported
+   "No examples found" and the gate correctly refused.
+2. **micropython-13039** — I then read the instance's `FAIL_TO_PASS`
+   (`basics/slice_indices.py`) and still guessed the *invocation*:
+   `cd ports/unix && ./run-tests`. At this commit the runner is
+   `tests/run-tests.py` and needs `MICROPY_MICROPYTHON` pointed at the built
+   binary.
+
+**The rule:** the F2P entry names *which* test matters, but the trajectory shows
+*how it is invoked* — and the invocation is the part that keeps being wrong.
+Grep the instance's own `.min.traj` for the test command before writing
+`GATE_TEST_CMD`:
+
+```bash
+python3 - <<'EOF'
+import json
+d=json.load(open('<replay_trajs>/<instance>.min.traj'))
+for m in d['history']:
+    for tc in (m.get('tool_calls') or []):
+        a=tc['function'].get('arguments','')
+        if 'test' in a.lower(): print(a[:160])
+EOF
+```
+
+Both failures were logged as **infra**, not instance strikes: a wrong gate in a
+descriptor is our bug, and under the house rule the task keeps all three tries.
+
 ## House rule: three strikes, and only if we understand them
 
 Set by the PI, 2026-09-02.
