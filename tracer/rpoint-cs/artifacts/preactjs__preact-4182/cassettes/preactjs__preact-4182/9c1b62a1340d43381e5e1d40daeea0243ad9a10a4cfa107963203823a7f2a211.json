@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The directory listing output is being repeated. Let me just run the debug test by redirecting to file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 180 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"hooks/test/browser/errorBoundaryDebug.test.js\\\\\\\" > /tmp/karma_debug.txt 2>&1; grep -A2 \\\\\\\"CLICKING\\\\\\\\|AFTER CLICK\\\\\\\\|AFTER RERENDER\\\\\\\\|first render\\\\\\\\|_catchError\\\\\\\\|HTML:\\\\\\\" /tmp/karma_debug.txt | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355317827261164401\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9c1b62a1340d43381e5e1d40daeea0243ad9a10a4cfa107963203823a7f2a211",
+ "status": 200
+}

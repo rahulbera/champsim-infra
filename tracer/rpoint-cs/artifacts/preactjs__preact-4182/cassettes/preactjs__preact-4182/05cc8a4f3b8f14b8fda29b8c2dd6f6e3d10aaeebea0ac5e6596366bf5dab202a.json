@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No failures. Let me also check the debug tests for component-stack and any error-related debug tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -i \\\\\\\"error\\\\\\\\|boundary\\\\\\\\|catch\\\\\\\" /tmp/karma_full.txt | grep -i \\\\\\\"\\u00e2\\u009c\\u0096\\\\\\\\|fail\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355300853550408875\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000083, \"id\": \"synthesized-00083\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00083\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "05cc8a4f3b8f14b8fda29b8c2dd6f6e3d10aaeebea0ac5e6596366bf5dab202a",
+ "status": 200
+}

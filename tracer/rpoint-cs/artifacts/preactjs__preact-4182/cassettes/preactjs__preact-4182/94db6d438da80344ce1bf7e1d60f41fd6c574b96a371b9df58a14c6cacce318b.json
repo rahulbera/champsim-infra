@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the full test suite for the diff/render related tests. Let me run the entire karma test suite to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 600 node_modules/.bin/karma start karma.conf.js --single-run > /tmp/karma_full.txt 2>&1; tail -30 /tmp/karma_full.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355272678564946643\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "94db6d438da80344ce1bf7e1d60f41fd6c574b96a371b9df58a14c6cacce318b",
+ "status": 200
+}

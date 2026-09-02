@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me trace through the scenario more carefully. Let me add some instrumentation to understand what's happening. Let me create a debug version of the test that logs the diff:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"_processingException\\\\\\\\|_pendingError\\\\\\\" src/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355298620167414492\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bdf7299abf8dec74df7733f6a246324783173fcbb373989a805ead899d978b64",
+ "status": 200
+}

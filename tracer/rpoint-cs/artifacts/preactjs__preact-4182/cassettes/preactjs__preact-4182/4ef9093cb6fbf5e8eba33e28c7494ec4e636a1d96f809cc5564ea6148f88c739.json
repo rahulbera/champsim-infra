@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 1106 tests pass (11 skipped, which are pre-existing skips). Let me check the summary for any failures:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -i \\\\\\\"FAILED\\\\\\\\|failed\\\\\\\\|\\u00e2\\u009c\\u0096\\\\\\\" /tmp/karma_full.txt | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355297073979193798\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ef9093cb6fbf5e8eba33e28c7494ec4e636a1d96f809cc5564ea6148f88c739",
+ "status": 200
+}

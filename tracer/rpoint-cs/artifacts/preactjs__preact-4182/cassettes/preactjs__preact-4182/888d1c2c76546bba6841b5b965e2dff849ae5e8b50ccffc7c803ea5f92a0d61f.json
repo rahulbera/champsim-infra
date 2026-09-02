@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at commit 4cad9618 which is about \\\"parent catches error and switches vnode return type\\\" - that's very relevant:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 4cad9618 --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355277076611461706\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "888d1c2c76546bba6841b5b965e2dff849ae5e8b50ccffc7c803ea5f92a0d61f",
+ "status": 200
+}

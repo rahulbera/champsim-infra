@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All getDerivedStateFromError tests pass. Now let me run the full lifecycle test suite and the broader test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 300 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"test/browser/lifecycles/lifecycle.test.js\\\\\\\" > /tmp/karma_lc.txt 2>&1; tail -20 /tmp/karma_lc.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355299238642710596\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000080, \"id\": \"synthesized-00080\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00080\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "32265ac72079c0de6605a717794f3ca4e2243acf0487e1438d69f35a71b28f59",
+ "status": 200
+}

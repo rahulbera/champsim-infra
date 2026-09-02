@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The console.log values are being split across lines by karma's logging. Let me look at the raw output:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -A6 \\\\\\\"CATCH in diff\\\\\\\" /tmp/karma_debug2.txt | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355296936540234530\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2bda3783652957b733336e314d2a7e4a36e0790d7688338274b96946e61264e4",
+ "status": 200
+}

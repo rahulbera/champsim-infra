@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the tests for error boundaries to understand the expected behavior:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find /testbed -path /testbed/node_modules -prune -o -name \\\\\\\"*.js\\\\\\\" -print | xargs grep -l \\\\\\\"useErrorBoundary\\\\\\\\|_catchError\\\\\\\\|_processingException\\\\\\\\|_pendingError\\\\\\\" 2>/dev/null | grep -i test\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355293294407970846\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "07e385e85fd789ca829b1bbe752f20439c638ba2beb1658d0e57ea47fc2c8672",
+ "status": 200
+}

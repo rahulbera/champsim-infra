@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 1104 tests pass (11 skipped, pre-existing), no failures. \\n\\nLet me also run the mocha (node) tests to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 300 node_modules/.bin/mocha --recursive --require \\\\\\\"@babel/register\\\\\\\" test/shared test/node > /tmp/mocha_final.txt 2>&1; tail -15 /tmp/mocha_final.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355646375079437205\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000114, \"id\": \"synthesized-00114\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00114\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6062008c842d6a9e112f0c8efdd5ca735edda1dcae5391b23291622bb030f111",
+ "status": 200
+}

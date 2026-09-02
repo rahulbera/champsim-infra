@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace failed because of whitespace differences (tabs vs spaces). Let me check the actual indentation:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '265,276p' src/diff/index.js | cat -A | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355295905748086648\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cd7a0ddd1a2f5ef1d30880df9bc4476629c7c9d6e5800b3edb72a9c6f000a5ec",
+ "status": 200
+}

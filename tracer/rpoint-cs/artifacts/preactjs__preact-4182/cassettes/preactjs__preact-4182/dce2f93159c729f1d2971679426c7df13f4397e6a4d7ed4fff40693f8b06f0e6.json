@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No lint errors (just a warning about React version, which is unrelated). \\n\\nNow let me do a final review of my change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355648505383216005\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000117, \"id\": \"synthesized-00117\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00117\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dce2f93159c729f1d2971679426c7df13f4397e6a4d7ed4fff40693f8b06f0e6",
+ "status": 200
+}

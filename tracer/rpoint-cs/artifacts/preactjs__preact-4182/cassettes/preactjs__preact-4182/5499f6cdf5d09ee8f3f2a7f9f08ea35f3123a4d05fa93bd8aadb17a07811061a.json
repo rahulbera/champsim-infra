@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now only `src/diff/index.js` is modified. Let me check if there are existing tests in the repo that test this specific scenario (double rendering with error boundary). Let me search the test files more broadly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"double\\\\\\\\|_dom.*oldVNode\\\\\\\\|orphan\\\\\\\\|list item\\\\\\\" test/browser/lifecycles/ hooks/test/ 2>/dev/null | grep -i \\\\\\\"error\\\\\\\\|boundary\\\\\\\\|catch\\\\\\\" | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355291335902879784\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000095, \"id\": \"synthesized-00095\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00095\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5499f6cdf5d09ee8f3f2a7f9f08ea35f3123a4d05fa93bd8aadb17a07811061a",
+ "status": 200
+}

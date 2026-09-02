@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All error boundary tests pass. Now let me run the lifecycle tests for componentDidCatch and getDerivedStateFromError:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 240 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"test/browser/lifecycles/componentDidCatch.test.js\\\\\\\" > /tmp/karma_cdc.txt 2>&1; tail -50 /tmp/karma_cdc.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355301094068577992\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000078, \"id\": \"synthesized-00078\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00078\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4e3a5c5196a6ff8fe3c2a2dfbf70db22c6abf75fce44b3def453ad0cc30ec446",
+ "status": 200
+}

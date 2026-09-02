@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the official test to verify my fix passes it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 180 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"hooks/test/browser/errorBoundary.test.js\\\\\\\" > /tmp/karma_official.txt 2>&1; tail -20 /tmp/karma_official.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355656511202260176\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000109, \"id\": \"synthesized-00109\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00109\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ac4536922506fe80cd38415bc4682d671cad7e06dfb74aad21f8a880d984ad00",
+ "status": 200
+}

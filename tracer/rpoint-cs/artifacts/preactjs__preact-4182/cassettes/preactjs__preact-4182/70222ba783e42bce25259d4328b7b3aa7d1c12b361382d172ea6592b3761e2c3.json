@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the existing tests for error boundaries in the main test directory:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find /testbed/test -path /testbed/node_modules -prune -o -name \\\\\\\"*.js\\\\\\\" -print | xargs grep -l \\\\\\\"componentDidCatch\\\\\\\\|getDerivedStateFromError\\\\\\\\|errorBoundary\\\\\\\\|ErrorBoundary\\\\\\\" 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355305629554044779\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "70222ba783e42bce25259d4328b7b3aa7d1c12b361382d172ea6592b3761e2c3",
+ "status": 200
+}

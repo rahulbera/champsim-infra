@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 180 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"hooks/test/browser/errorBoundaryDebug.test.js\\\\\\\" > /tmp/karma_debug2.txt 2>&1; grep \\\\\\\"CATCH in diff\\\\\\\\|CLICKING\\\\\\\\|AFTER CLICK\\\\\\\\|AFTER RERENDER\\\\\\\\|first render\\\\\\\\|HTML:\\\\\\\" /tmp/karma_debug2.txt | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355308240894159974\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d4778b0e4352d3f7d665652f159bed8a473e7298e1f65c0ad8cafc9b83b45d83",
+ "status": 200
+}

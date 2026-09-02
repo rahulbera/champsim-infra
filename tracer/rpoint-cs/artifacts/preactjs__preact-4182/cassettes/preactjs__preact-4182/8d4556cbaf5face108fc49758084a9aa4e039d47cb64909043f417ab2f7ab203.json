@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file change was staged. Let me reset it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git reset HEAD hooks/test/browser/errorBoundary.test.js && git checkout hooks/test/browser/errorBoundary.test.js && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355639365692810580\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000111, \"id\": \"synthesized-00111\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00111\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8d4556cbaf5face108fc49758084a9aa4e039d47cb64909043f417ab2f7ab203",
+ "status": 200
+}

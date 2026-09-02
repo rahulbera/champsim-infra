@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The file was created. The strange output was just the directory listing. Let me run the reproduction test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 180 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"hooks/test/browser/errorBoundaryRepro.test.js\\\\\\\" 2>&1 | grep -v \\\\\\\"karma.conf.js\\\\\\\" | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355294565718292153\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ce63200a8007c6701d727ed25f661e3784fe92cc061077629f16a89a3503a33b",
+ "status": 200
+}

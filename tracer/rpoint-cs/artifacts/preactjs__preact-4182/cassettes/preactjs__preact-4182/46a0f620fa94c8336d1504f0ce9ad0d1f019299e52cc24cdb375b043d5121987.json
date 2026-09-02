@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The output is very verbose. Let me run the test and redirect output to a file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && export CHROME_BIN=/usr/bin/google-chrome && timeout 180 node_modules/.bin/karma start karma.conf.js --single-run --grep=\\\\\\\"hooks/test/browser/errorBoundaryRepro.test.js\\\\\\\" > /tmp/karma_out.txt 2>&1; tail -40 /tmp/karma_out.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355302262299688688\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "46a0f620fa94c8336d1504f0ce9ad0d1f019299e52cc24cdb375b043d5121987",
+ "status": 200
+}

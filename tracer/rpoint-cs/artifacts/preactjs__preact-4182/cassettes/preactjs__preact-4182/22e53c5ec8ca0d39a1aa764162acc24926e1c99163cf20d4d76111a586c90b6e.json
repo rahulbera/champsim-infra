@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submission confirms my changes. Let me verify the final state once more to ensure everything is clean:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== Untracked test files check ===\\\\\\\" && ls hooks/test/browser/ | grep -i \\\\\\\"repro\\\\\\\\|debug\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355641083679731221\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000120, \"id\": \"synthesized-00120\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00120\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "22e53c5ec8ca0d39a1aa764162acc24926e1c99163cf20d4d76111a586c90b6e",
+ "status": 200
+}
