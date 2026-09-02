@@ -41,10 +41,25 @@ sudo git config --system protocol.version 1
 # A FULL clone on purpose. Blobless/shallow clones save a few hundred MB but
 # break `git log -p`, `git show <old-sha>` and `git blame` offline, and
 # SWE-agent routinely runs git history commands while exploring.
+# RETRIED, because the clone is not reliable from this host. Pinning v1 above
+# fixes the v2 handshake, but GitHub still throttles git operations from this IP
+# and drops larger clones part-way with `the remote end hung up unexpectedly`
+# (fluentd-3328, 2026-09-02: failed once, succeeded on the very next attempt with
+# no other change). An unretried clone turns that into a provisioning failure
+# booked against the instance, which is how jekyll-8167 spent its last attempt.
+# The partial checkout is removed between tries: git refuses to clone into a
+# non-empty directory, so a leftover would turn one flake into a hard failure.
+sudo mkdir -p "$REPO_DIR"; sudo chown ubuntu:ubuntu "$REPO_DIR"
 if [ ! -d "$REPO_DIR/.git" ]; then
-  sudo mkdir -p "$REPO_DIR"
-  sudo chown ubuntu:ubuntu "$REPO_DIR"
-  git clone "$REPO_URL" "$REPO_DIR"
+  tries=0 max=${GIT_CLONE_RETRIES:-5}
+  until git clone "$REPO_URL" "$REPO_DIR"; do
+    tries=$((tries + 1))
+    [ "$tries" -lt "$max" ] || die "git clone failed $max times -- see the throttling note above"
+    say "clone attempt $tries failed; retrying in $((tries * 20))s"
+    sudo rm -rf "$REPO_DIR"
+    sleep $((tries * 20))
+    sudo mkdir -p "$REPO_DIR"; sudo chown ubuntu:ubuntu "$REPO_DIR"
+  done
 fi
 cd "$REPO_DIR"
 git config --global --add safe.directory "$REPO_DIR"

@@ -227,6 +227,53 @@ EOF
 Both failures were logged as **infra**, not instance strikes: a wrong gate in a
 descriptor is our bug, and under the house rule the task keeps all three tries.
 
+## NEVER edit a script while a chain is executing it (2026-09-02)
+
+1. Bash reads a running script **by byte offset**, re-reading as it goes. Change
+   the file underneath it and it resumes at the wrong place.
+2. This is not theoretical. `run_capture_chain.sh` changed at 11:41:59 while
+   micropython-13039's chain was inside its 183-minute convert. When convert
+   returned, bash resumed mid-file, printed
+   `line 64: === capture chain for ... ===: command not found`, fell back into
+   the phase loop and started a **second, spurious cycle** — verify, profile,
+   and a trace that would have overwritten five already-validated windows at
+   ~13:04. The real chain had completed correctly at 12:06.
+3. The completed capture was intact and was killed only in its duplicate form;
+   nothing was lost. It cost roughly 30 minutes of TCG and 811 MB of raw.
+4. The scripts at risk are the LONG-LIVED ones: `run_capture_chain.sh` (hours)
+   and `capture_agentic.sh` (a whole phase). Editing `provision_guest.sh` or a
+   `lang/` module between runs is safe; editing them mid-provision is not.
+5. **Rule: before editing either, check `ps -eo cmd | grep '[r]un_capture_chain'`.
+   If any chain is live, defer the edit.** A commit is not an edit — git does not
+   rewrite unmodified files — but any Write/sed/python rewrite is.
+6. **PENDING FIX** (deliberately not applied yet, because three chains are
+   executing the very file it changes): have `run_capture_chain.sh` and
+   `capture_agentic.sh` copy themselves to a temp snapshot and re-exec from it,
+   passing the script root through the environment since `$0` moves. This is the
+   same principle as `create_jobfile.py --no-snapshot-exe` snapshotting the
+   simulator binary so a mid-sweep rebuild cannot change what queued jobs run.
+   Apply it the next time no chain is running.
+
+## GitHub is throttling git from this host (2026-09-02)
+
+1. Two distinct failures, both reported as `could not read Username for
+   'https://github.com'`, which is neither an auth nor a rate-limit problem:
+   1. **protocol v2 handshake fails outright** (`expected flush after ref
+      listing`). `protocol.version=0` and `=1` clone the same URL in the same
+      second. Pinned to v1 in `/etc/gitconfig` by `provision_guest.sh`.
+   2. **larger clones drop part-way** (`the remote end hung up unexpectedly`),
+      intermittently. fluentd-3328 failed once and succeeded on the very next
+      attempt with no other change.
+2. Evidence it is not auth or quota: curl GET of `info/refs` and POST of
+   `git-upload-pack` both return HTTP 200 with a valid v2 ref listing, the API
+   reports 60/60 requests remaining, there is no credential helper and no
+   `GITHUB_TOKEN`, and it reproduces with the Bash sandbox disabled.
+3. The clone is now retried up to 5 times with linear backoff, removing the
+   partial checkout between tries (git refuses to clone into a non-empty
+   directory, so a leftover turns one flake into a hard failure).
+4. This had already cost jekyll-8167 its fifth and final attempt, 60 seconds in,
+   before any of the real work ran.
+
 ## House rule: three strikes, and only if we understand them
 
 Set by the PI, 2026-09-02.

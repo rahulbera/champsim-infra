@@ -1,0 +1,1 @@
+2026-09-02 12:41:42	infra	git clone throttled by GitHub (remote end hung up); added retry+backoff, protocol v1 already pinned
