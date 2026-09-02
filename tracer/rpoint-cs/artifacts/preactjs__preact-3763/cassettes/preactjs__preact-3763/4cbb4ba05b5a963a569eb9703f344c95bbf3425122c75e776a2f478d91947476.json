@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All passing. Let me view the final state of the modified section once more:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '108,125p' src/diff/index.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355343906302587802\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4cbb4ba05b5a963a569eb9703f344c95bbf3425122c75e776a2f478d91947476",
+ "status": 200
+}

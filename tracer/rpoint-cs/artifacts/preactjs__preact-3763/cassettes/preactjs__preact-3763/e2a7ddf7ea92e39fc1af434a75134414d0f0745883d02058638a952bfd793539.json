@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The file was created (the glob expansion was just echoed to stdout, but the file is fine). Let me run the test to confirm the bug:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat package.json | grep -A30 '\\\\\\\"scripts\\\\\\\"'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355365552937760986\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e2a7ddf7ea92e39fc1af434a75134414d0f0745883d02058638a952bfd793539",
+ "status": 200
+}

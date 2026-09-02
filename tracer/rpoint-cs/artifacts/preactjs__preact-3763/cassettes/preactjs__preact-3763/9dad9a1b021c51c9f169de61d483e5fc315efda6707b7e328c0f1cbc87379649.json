@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, the mangle config already has `_stateCallbacks`. My fix doesn't introduce any new properties, so no mangle changes needed.\\n\\nLet me run the minified test suite to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CHROME_BIN=/usr/bin/google-chrome MINIFY=true timeout 600 npx karma start karma.conf.js --single-run --grep='test/browser/lifecycles/componentDidUpdate.test.js' 2>&1 | grep -E \\\\\\\"SUMMARY|tests completed|tests failed|FAILED TESTS|interfere\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355343219107818588\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9dad9a1b021c51c9f169de61d483e5fc315efda6707b7e328c0f1cbc87379649",
+ "status": 200
+}

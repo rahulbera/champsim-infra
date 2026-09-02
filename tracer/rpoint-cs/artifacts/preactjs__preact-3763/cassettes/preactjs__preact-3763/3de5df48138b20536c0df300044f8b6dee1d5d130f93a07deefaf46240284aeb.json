@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run a broader minified test to ensure the minified build works with my change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CHROME_BIN=/usr/bin/google-chrome MINIFY=true timeout 600 npx karma start karma.conf.js --single-run --grep='test/browser/components.test.js' 2>&1 | grep -E \\\\\\\"SUMMARY|tests completed|tests failed|FAILED TESTS\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355363353914504805\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000049, \"id\": \"synthesized-00049\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00049\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3de5df48138b20536c0df300044f8b6dee1d5d130f93a07deefaf46240284aeb",
+ "status": 200
+}

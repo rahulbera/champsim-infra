@@ -1,0 +1,1 @@
+2026-09-02 20:03:04	infra	descriptor omitted NODE_VERSION, which node_npm.sh requires; aborted with unbound variable

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me verify the lint passes on the modified file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx eslint src/diff/index.js 2>&1 | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355361807726279093\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0a5969ec197649ab2cff3e92553488315fcbec97d65ab353191a81ef7019e076",
+ "status": 200
+}

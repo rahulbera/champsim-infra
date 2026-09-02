@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix is confirmed. Without the fix, both tests fail (only first callback executed). With the fix, both pass.\\n\\nNow let me run the existing test suite to make sure I didn't break anything. Let me run the lifecycle tests and component tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CHROME_BIN=/usr/bin/google-chrome timeout 300 npx karma start karma.conf.js --single-run --grep='test/browser/lifecycles/**.test.js' 2>&1 | grep -E \\\\\\\"SUMMARY|tests completed|tests failed|FAILED TESTS\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355379915308398945\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bbb5c6b3141051536c28fd972a3af9c40ea69f447d87c84eb115f65d23cc2c4e",
+ "status": 200
+}

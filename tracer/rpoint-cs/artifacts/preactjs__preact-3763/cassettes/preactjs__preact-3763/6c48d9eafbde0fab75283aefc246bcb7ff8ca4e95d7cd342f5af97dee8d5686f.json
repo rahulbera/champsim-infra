@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The grep pattern doesn't match. Let me check how grep works - it looks like it's used as a glob pattern. Let me use a proper path:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CHROME_BIN=/usr/bin/google-chrome timeout 180 npx karma start karma.conf.js --single-run --grep='test/browser/repro.test.js' 2>&1 | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355358371752439191\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000025, \"id\": \"synthesized-00025\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00025\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6c48d9eafbde0fab75283aefc246bcb7ff8ca4e95d7cd342f5af97dee8d5686f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The original test from #3743 still passes. Let me also verify the fix works with the minified build (since the project tests with minification too). But first, let me check the mangle.json to ensure `_stateCallbacks` is properly mangled (it was added in #3743):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"_stateCallbacks\\\\\\\\|_sb\\\\\\\\|_renderCallbacks\\\\\\\" mangle.json\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355376754212463311\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c84ef0cb8bc219fb7d891536ed679a6aad8deb9a08d6bf50b322d8ba51cf8b42",
+ "status": 200
+}

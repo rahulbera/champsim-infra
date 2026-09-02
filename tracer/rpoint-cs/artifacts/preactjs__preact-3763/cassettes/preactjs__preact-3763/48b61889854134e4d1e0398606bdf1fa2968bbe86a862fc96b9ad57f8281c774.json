@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I found the bug. Let me look at the loop more carefully:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat test/browser/setup.js 2>/dev/null | head -40; echo \\\\\\\"===\\\\\\\"; ls test/browser/ | head; echo \\\\\\\"===\\\\\\\"; cat karma.conf.js | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355351224926858609\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "48b61889854134e4d1e0398606bdf1fa2968bbe86a862fc96b9ad57f8281c774",
+ "status": 200
+}

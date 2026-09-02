@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No lint errors. Now let me think about edge cases:\\n\\n1. **Single callback** - works (the `if` block handles it)\\n2. **Multiple callbacks** - now works (apply moves all)\\n3. **No callbacks** - the `if` check skips unnecessary work\\n4. **Callbacks that add more callbacks during execution** - The callbacks are moved to `_renderCallbacks` and `_stateCallbacks` is reset to `[]` before they execute. If a callback triggers another `setState` with a callback, that new callback goes into the freshly reset `_stateCallbacks` array, which won't be processed in this render cycle (correct behavior - it'll be processed in the next render). This matches the original intent.\\n\\nLet me also verify that `tmp` variable is still used elsewhere (since I removed the loop that used `tmp`):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"tmp\\\\\\\" src/diff/index.js | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355366240132522831\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "12cef124d098b9e5226e5287c9885b100a0ea02ba0a2b468aaa1921b914f1b31",
+ "status": 200
+}

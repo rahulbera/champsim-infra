@@ -55,10 +55,14 @@ LANG = {
     # opaque native-extension build failure naming only the gem.
     "Ruby":       dict(mod="ruby_bundler", apt="ruby-full ruby-bundler build-essential libyaml-dev zlib1g-dev",
                        cmds="ruby bundle", pat=r"assertions|examples"),
+    # node_npm.sh REQUIRES NODE_VERSION and installs from NodeSource rather than
+    # the distro. Omitting it aborts provisioning with "NODE_VERSION: unbound
+    # variable" AFTER the whole apt stage has run (vuejs__core-11870, 2026-09-02).
+    # apt must NOT list nodejs/npm -- NodeSource supplies them.
     "JavaScript": dict(mod="node_npm",     apt="build-essential",
-                       cmds="node npm", pat=r"^(ok|PASS|✓)"),
+                       cmds="node npm", pat=r"^(ok|PASS|✓)", node="20"),
     "TypeScript": dict(mod="node_npm",     apt="build-essential",
-                       cmds="node npm", pat=r"^(ok|PASS|✓)"),
+                       cmds="node npm", pat=r"^(ok|PASS|✓)", node="20"),
 }
 
 TEST_RE = re.compile(
@@ -158,6 +162,9 @@ def main():
     out.append(f"LANG_MODULE={cfg['mod']}")
     out.append(f'APT_PACKAGES="{cfg["apt"]}"')
     out.append(f'REQUIRED_COMMANDS="{cfg["cmds"]}"')
+    if cfg.get("node"):
+        out.append("# REQUIRED by node_npm.sh; check the repo's engines field before changing.")
+        out.append(f'NODE_VERSION={cfg["node"]}')
     out.append("MODEL=openai/glm-5.2")
     out.append("UPSTREAM=https://api.z.ai")
     out.append("")

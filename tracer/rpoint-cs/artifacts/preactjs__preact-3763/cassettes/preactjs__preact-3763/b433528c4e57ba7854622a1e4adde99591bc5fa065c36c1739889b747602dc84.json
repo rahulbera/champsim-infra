@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if Chrome is available to run karma tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && which google-chrome chromium chromium-browser chrome 2>/dev/null; ls node_modules/.bin/ | grep -i karma; echo \\\\\\\"CHROME_BIN=$CHROME_BIN\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355351534164502530\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b433528c4e57ba7854622a1e4adde99591bc5fa065c36c1739889b747602dc84",
+ "status": 200
+}

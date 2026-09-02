@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I found the bug. Let me look at the test file to understand expected behavior:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '375,440p' test/browser/lifecycles/componentDidUpdate.test.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355373524397059365\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "93f8e1169549476a6b4a8ec8a6c2cc30a14f13d931cbeb1f6bf79e24d63f83dd",
+ "status": 200
+}

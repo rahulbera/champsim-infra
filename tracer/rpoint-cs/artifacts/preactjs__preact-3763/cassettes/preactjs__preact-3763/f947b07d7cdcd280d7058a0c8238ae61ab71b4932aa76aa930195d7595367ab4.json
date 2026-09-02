@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '290,360p' karma.conf.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355368748393425671\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f947b07d7cdcd280d7058a0c8238ae61ab71b4932aa76aa930195d7595367ab4",
+ "status": 200
+}

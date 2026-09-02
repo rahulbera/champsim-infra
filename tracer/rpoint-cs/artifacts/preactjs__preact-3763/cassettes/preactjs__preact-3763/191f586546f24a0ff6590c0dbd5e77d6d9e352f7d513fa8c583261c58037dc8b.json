@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace failed because the indentation didn't match. Let me view the exact content:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '112,118p' src/diff/index.js | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355367786320753939\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "191f586546f24a0ff6590c0dbd5e77d6d9e352f7d513fa8c583261c58037dc8b",
+ "status": 200
+}

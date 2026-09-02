@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both tests pass now. Let me verify the fix works by checking that the test would fail without the fix. Let me temporarily revert to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && CHROME_BIN=/usr/bin/google-chrome timeout 180 npx karma start karma.conf.js --single-run --grep='test/browser/repro.test.js' 2>&1 | grep -E \\\\\\\"\\u00e2\\u009c\\u0094|\\u00e2\\u009c\\u0096|FAILED|SUMMARY|tests completed|expected|actual\\\\\\\" | head -30; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355357650197932545\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000034, \"id\": \"synthesized-00034\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00034\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b02346379793762e0ecd40698d4f2071e0c1a83d1c7303ba6356e8488292ff07",
+ "status": 200
+}

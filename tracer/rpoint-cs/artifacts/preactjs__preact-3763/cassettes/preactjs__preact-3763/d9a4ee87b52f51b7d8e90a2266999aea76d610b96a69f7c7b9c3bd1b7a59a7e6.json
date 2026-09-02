@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the repro test again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CHROME_BIN=/usr/bin/google-chrome timeout 180 npx karma start karma.conf.js --single-run --grep='test/browser/repro.test.js' 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355373490037325584\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d9a4ee87b52f51b7d8e90a2266999aea76d610b96a69f7c7b9c3bd1b7a59a7e6",
+ "status": 200
+}

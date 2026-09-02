@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CHROME_BIN=/usr/bin/google-chrome timeout 300 npx karma start karma.conf.js --single-run --grep='test/browser/components.test.js' 2>&1 | grep -E \\\\\\\"SUMMARY|tests completed|tests failed|FAILED TESTS\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355342806790955078\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e5d35645e36c79c746f0f5fbaf9e6db35eeb4a5c82afa57762f0bd4b620dfe75",
+ "status": 200
+}
