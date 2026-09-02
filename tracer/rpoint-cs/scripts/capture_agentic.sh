@@ -317,7 +317,20 @@ profile)
   stage_tools $TCG_PORT
   inject_artifacts $TCG_PORT
   arm_trigger_on_marker "$LOG"
+  # errexit off, as in verify: a failing replay would otherwise abort here and
+  # the EXIT trap would stop the guest before the log could be fetched. Under
+  # TCG this matters MORE, not less -- preactjs__preact-4182 replayed 122/122
+  # under KVM in verify and only 70/122 here, and that difference is the whole
+  # question.
+  set +e
   ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
+  _rc=${PIPESTATUS[0]}
+  set -e
+  ssh_guest $TCG_PORT "sudo cat /root/replay_full.log" \
+      > "$IMAGES/replay_full-$INSTANCE.log" 2>/dev/null || true
+  [ -s "$IMAGES/replay_full-$INSTANCE.log" ] && \
+    echo "    full SWE-agent log -> $IMAGES/replay_full-$INSTANCE.log ($(wc -l < "$IMAGES/replay_full-$INSTANCE.log") lines)" || true
+  [ "$_rc" -eq 0 ] || exit "$_rc"
   shutdown_guest $TCG_PORT
 
   # The plugin starts DORMANT and only counts once the trigger file appears, so
@@ -363,13 +376,50 @@ trace)
   stage_tools $TCG_PORT
   inject_artifacts $TCG_PORT
   arm_trigger_on_marker "$LOG"
+  # errexit off, as in verify: a failing replay would otherwise abort here and
+  # the EXIT trap would stop the guest before the log could be fetched. Under
+  # TCG this matters MORE, not less -- preactjs__preact-4182 replayed 122/122
+  # under KVM in verify and only 70/122 here, and that difference is the whole
+  # question.
+  set +e
   ssh_guest $TCG_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -25
+  _rc=${PIPESTATUS[0]}
+  set -e
+  ssh_guest $TCG_PORT "sudo cat /root/replay_full.log" \
+      > "$IMAGES/replay_full-$INSTANCE.log" 2>/dev/null || true
+  [ -s "$IMAGES/replay_full-$INSTANCE.log" ] && \
+    echo "    full SWE-agent log -> $IMAGES/replay_full-$INSTANCE.log ($(wc -l < "$IMAGES/replay_full-$INSTANCE.log") lines)" || true
+  [ "$_rc" -eq 0 ] || exit "$_rc"
   shutdown_guest $TCG_PORT
 
   grep -q 'armed' "$LOG.trigger" 2>/dev/null || die "the trigger never armed -- no window was captured"
   n=$(find "$OUT" -name 'trace_vcpu*_c*.raw.zst' | wc -l)
   echo "  chunks: $n"
-  [ "$n" -eq "$windows" ] || die "expected $windows chunks, got $n"
+  # A SHORT TRACE IS NOT A FAILURE -- campaign rule, and this used to `die`.
+  #
+  # Window starts are computed from the PROFILE pass's instruction count, and
+  # the traced run can execute slightly fewer instructions than the profile
+  # measured. The last window's start then falls past the end of the actual run
+  # and never fires. vuejs__core-11870 traced 4 of 5 that way: profile_user
+  # 630.26e9 against sample_gap 157.19e9 puts window 4 at 628.76e9, leaving less
+  # than 1.5e9 instructions of headroom for a 300e6 window.
+  #
+  # Those 4 windows are real traces of real work. Rejecting them discards ~2h of
+  # TCG over a rounding error, and the count is recoverable -- so record the TRUE
+  # number and carry on. Only zero chunks, or more than requested, is a fault.
+  if [ "$n" -eq 0 ]; then
+    die "no chunks at all -- nothing was traced"
+  elif [ "$n" -gt "$windows" ]; then
+    die "got $n chunks but only $windows were requested -- the plugin is misconfigured"
+  elif [ "$n" -lt "$windows" ]; then
+    echo "  NOTE: $n of $windows windows -- the traced run was shorter than the profile predicted"
+    if grep -q '^actual_windows=' "$META" 2>/dev/null; then
+      sed -i "s/^actual_windows=.*/actual_windows=$n/" "$META"
+    else
+      echo "actual_windows=$n" >> "$META"
+    fi
+    echo "  recorded actual_windows=$n in $(basename "$META")"
+  fi
   cat "$OUT"/*manifest.txt 2>/dev/null | sed 's/^/  /'
   ;;
 

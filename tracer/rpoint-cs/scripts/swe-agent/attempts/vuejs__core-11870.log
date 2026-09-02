@@ -1,1 +1,2 @@
 2026-09-02 20:03:04	infra	descriptor omitted NODE_VERSION, which node_npm.sh requires; aborted with unbound variable
+2026-09-02 23:46:00	infra	chain: trace failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-vuejs__core-11870/trace.log) -- RECLASSIFIED 2026-09-03: replay was FAITHFUL 80/80; 4 of 5 windows is the documented short-trace case, our check wrongly hard-failed it
