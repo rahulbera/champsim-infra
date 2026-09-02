@@ -1,1 +1,2 @@
 2026-09-02 06:02:56	infra	my GATE_TEST_CMD guessed ports/unix/run-tests; the runner at this commit is tests/run-tests.py and needs MICROPY_MICROPYTHON set
+2026-09-02 07:03:14	infra	gate ran the whole basics dir and demanded green; 6 tests fail at the base commit including slice_op, which is the very bug this instance fixes

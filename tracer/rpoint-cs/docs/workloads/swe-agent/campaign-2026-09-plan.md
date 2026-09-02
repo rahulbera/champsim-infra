@@ -182,6 +182,15 @@ Learned the hard way twice on 2026-09-02, both costing a full provisioning run.
    `tests/run-tests.py` and needs `MICROPY_MICROPYTHON` pointed at the built
    binary.
 
+**And a third layer, learned an hour later on the same instance:** the
+trajectory gives the *runner and its environment*, but the **test set** must come
+from `PASS_TO_PASS`. Gating micropython on the whole `basics` directory ran 514
+tests, 508 passed and **6 failed** — including `slice_op`, because that
+instance's bug *is* in slicing. A gate demanding a green suite at a base commit
+which by construction contains a bug rejects the instance for having the very
+defect it was selected for. `PASS_TO_PASS` is the set SWE-bench guarantees passes
+at that commit, so it is the only honest choice.
+
 **The rule:** the F2P entry names *which* test matters, but the trajectory shows
 *how it is invoked* — and the invocation is the part that keeps being wrong.
 Grep the instance's own `.min.traj` for the test command before writing
