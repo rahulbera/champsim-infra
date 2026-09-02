@@ -182,6 +182,23 @@ Learned the hard way twice on 2026-09-02, both costing a full provisioning run.
    `tests/run-tests.py` and needs `MICROPY_MICROPYTHON` pointed at the built
    binary.
 
+**And a fourth, on the same instance again:** set `GATE_TEST_PATTERN`.
+`c_make.sh` counts gate tests with that field, defaulting to `^\[ok\]` — which
+is redis's tcl harness, not a universal format. micropython's `run-tests.py`
+prints `pass  <file>`, so with the default the counter saw **0** and the gate
+refused a run in which all 13 PASS_TO_PASS tests had just passed. The field
+existed and was documented; I had simply not set it.
+
+**A four-field checklist for every new descriptor**, each item learned by losing
+a provisioning run:
+
+| field | source | failure if wrong |
+|---|---|---|
+| which test matters | the instance's `FAIL_TO_PASS` | gate exercises nothing |
+| how it is invoked | the instance's own trajectory | "no such file", "no examples found" |
+| which set may be required to pass | `PASS_TO_PASS` | gate rejects the instance for having its own bug |
+| how to count what ran | `GATE_TEST_PATTERN` | counter reads 0 on a passing run |
+
 **And a third layer, learned an hour later on the same instance:** the
 trajectory gives the *runner and its environment*, but the **test set** must come
 from `PASS_TO_PASS`. Gating micropython on the whole `basics` directory ran 514
