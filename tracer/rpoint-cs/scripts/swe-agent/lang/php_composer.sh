@@ -39,6 +39,32 @@ lang_deps() {
   say "composer packages"
   cd "$REPO_DIR"
   export COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache
+
+  # Composer derives the ROOT package's version FROM GIT. A detached checkout of
+  # an old commit has no branch to read, so composer falls back to the clone's
+  # default branch -- today's, not the commit's. laravel/framework at a
+  # laravel-11 commit therefore resolved as "13.x-dev", and every dev dependency
+  # pinning `laravel/framework ^11` came back as an unsatisfiable conflict:
+  #
+  #     laravel/framework is present at version 13.x-dev and cannot be modified
+  #     by Composer
+  #
+  # which reads like a broken dependency set and is really a wrong self-version.
+  # The commit states its own answer in extra.branch-alias, so read it from there
+  # rather than hardcoding a version per instance.
+  if [ -z "${COMPOSER_ROOT_VERSION:-}" ] && [ -f composer.json ]; then
+    COMPOSER_ROOT_VERSION=$(php -r '
+      $j = json_decode(file_get_contents("composer.json"), true);
+      $a = $j["extra"]["branch-alias"] ?? [];
+      echo $a ? reset($a) : "";
+    ' 2>/dev/null || true)
+  fi
+  if [ -n "${COMPOSER_ROOT_VERSION:-}" ]; then
+    export COMPOSER_ROOT_VERSION
+    ok "root package version pinned to $COMPOSER_ROOT_VERSION (from extra.branch-alias)"
+  else
+    echo "  no extra.branch-alias in composer.json; letting composer infer the root version"
+  fi
   # Prefer `composer install`: it obeys composer.lock exactly, where `update`
   # resolves afresh. But LIBRARIES deliberately do not commit a lock file (carbon
   # gitignores it), so there is nothing to obey and update is the only option.
@@ -70,6 +96,10 @@ lang_offline_gate() {
   # gate died three times at exactly this point with no output.
   OFFLINE_ENV=(COMPOSER_HOME=/opt/composer-cache COMPOSER_CACHE_DIR=/opt/composer-cache/cache
                HOME=/home/ubuntu TZ=UTC)
+  # run_offline builds a clean environment, so the root-version pin must be
+  # carried in explicitly or composer re-infers today's branch and the gate
+  # fails with the very conflict lang_deps just resolved.
+  [ -n "${COMPOSER_ROOT_VERSION:-}" ] && OFFLINE_ENV+=("COMPOSER_ROOT_VERSION=$COMPOSER_ROOT_VERSION")
   local log=/tmp/offline_gate.log
   run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD" >"$log" 2>&1 \
     || { tail -40 "$log"; die "OFFLINE GATE FAILED -- the traced pass would die"; }

@@ -1,0 +1,1 @@
+2026-09-02 18:03:38	infra	composer resolved the root package as 13.x-dev from the clone default branch, not the laravel-11 base commit; php_composer now reads extra.branch-alias
