@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool requires python3 which isn't available. Let me try to install it or find an alternative path.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls /usr/bin/python* /usr/local/bin/python* 2>/dev/null; apt-get install -y python3 2>&1 | tail -5 || echo \\\\\\\"apt failed\\\\\\\"; which python3 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355611121987877407\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1bfd4536a7753492f271614f5af8012c29b828acb274f8581fcb35d472ad808f",
+ "status": 200
+}

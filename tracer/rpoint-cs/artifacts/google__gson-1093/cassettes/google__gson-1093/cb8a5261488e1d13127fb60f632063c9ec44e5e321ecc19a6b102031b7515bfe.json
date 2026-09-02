@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The changes are correctly persisted to disk. The `submit` tool is failing because its underlying implementation requires `python3`, which isn't installed in this environment. This is an environment limitation, not an issue with my changes.\\n\\nLet me try the submit once more in case it's intermittent.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355603734644128529\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cb8a5261488e1d13127fb60f632063c9ec44e5e321ecc19a6b102031b7515bfe",
+ "status": 200
+}

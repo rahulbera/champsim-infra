@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the available tools and the project structure.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which java javac mvn python python2 2>/dev/null; java -version 2>&1; echo \\\\\\\"---\\\\\\\"; ls gson/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355608063971155972\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000008, \"id\": \"synthesized-00008\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00008\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "423a95802fefe41df2eb2b8c754e611e164bbbf96fee03c590120335042bbcd8",
+ "status": 200
+}

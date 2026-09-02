@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the git status and look for any lenient-related tests in the test file.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"lenient\\\\\\\\|Lenient\\\\\\\\|NaN\\\\\\\\|Infinity\\\\\\\" gson/src/test/java/com/google/gson/stream/JsonWriterTest.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355609094763310714\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ee4c9be14ba6ec0c89a1850ea76fcdd7daa26e039a700d01784ab5eebe3dc3d3",
+ "status": 200
+}

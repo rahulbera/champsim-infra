@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the runtime-test for v-for with shallowReactive:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rln \\\\\\\"shallowReactive\\\\\\\" /testbed/packages/runtime-core/__tests__/ /testbed/packages/runtime-test/__tests__/ 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820544593224015\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000010, \"id\": \"synthesized-00010\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00010\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c3cdef901cf8cf3e7be400f68a487c934b170e43a9185b1730bf825dea14512e",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me understand the issue clearly. Let me create a reproduction script. First, let me check how the tests are run:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat package.json | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355835388000205485\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7d8c07dd3ce55ee85958f952ee2daef3a5beb86eba1b1da4f81af13f151ee45b",
+ "status": 200
+}

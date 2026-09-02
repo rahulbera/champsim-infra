@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works correctly. Now let me verify I haven't modified any test files.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355604971594706702\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "84a4289f03587358e6fda491bc6b28efbe9a96e948b29aef0013124becefcc81",
+ "status": 200
+}

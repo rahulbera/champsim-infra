@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. Let me look at the `value(double)` and `value(Number)` methods more closely. The PR wants `value(double)` to be lenient in lenient mode, just like `value(Number)` already is.\\n\\nLet me check the git history and the actual test file to understand the expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"testLenient\\\\\\\\|Lenient.*Double\\\\\\\\|NonFinite\\\\\\\" gson/src/test/java/com/google/gson/stream/JsonWriterTest.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355612565096889829\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d719c9415fb4b6460c95280bceb4ccdf6c689951e6b75cc0418c1a5478732f53",
+ "status": 200
+}

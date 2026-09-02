@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The editor tool seems to have an issue. Let me check if the edit was applied.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '486,502p' ./gson/src/main/java/com/google/gson/stream/JsonWriter.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355611637383950261\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8c09a8729e4e35a0cca5189e9cd3745b206d5a4e8beab71e0c45c8c9fddef1c6",
+ "status": 200
+}

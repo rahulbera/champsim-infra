@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the reproduction script again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx vitest run repro.spec.ts 2>&1 | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355832742300349930\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3b4a7a5f6b7c9a528b17c0fe1d5a5dc0ae46932399b3f8e271eb5069ae85b6bb",
+ "status": 200
+}

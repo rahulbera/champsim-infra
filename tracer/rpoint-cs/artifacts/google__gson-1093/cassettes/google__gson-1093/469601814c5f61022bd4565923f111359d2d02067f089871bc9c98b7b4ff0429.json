@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. Let me check what scripting languages are available.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python python2 python3 2>/dev/null; echo \\\\\\\"done\\\\\\\"; ls /usr/bin/python* 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355614695400667439\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000012, \"id\": \"synthesized-00012\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00012\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "469601814c5f61022bd4565923f111359d2d02067f089871bc9c98b7b4ff0429",
+ "status": 200
+}

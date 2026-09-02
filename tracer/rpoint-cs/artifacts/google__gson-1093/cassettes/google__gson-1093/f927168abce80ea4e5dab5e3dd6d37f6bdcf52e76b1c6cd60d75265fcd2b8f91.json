@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"lenient\\\\\\\\|Lenient\\\\\\\" gson/src/test/java/com/google/gson/stream/ | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355605830588170226\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000010, \"id\": \"synthesized-00010\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00010\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f927168abce80ea4e5dab5e3dd6d37f6bdcf52e76b1c6cd60d75265fcd2b8f91",
+ "status": 200
+}

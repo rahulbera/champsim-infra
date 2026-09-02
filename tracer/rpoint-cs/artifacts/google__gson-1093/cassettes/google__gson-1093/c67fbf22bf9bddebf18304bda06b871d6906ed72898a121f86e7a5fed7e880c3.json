@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works. In lenient mode, `value(double)` now allows NaN/Infinity, and in strict mode it still throws the exception.\\n\\nNow let me run the existing test suite to make sure I haven't broken anything. Let me check if there's a way to run the JsonWriterTest.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find / -name \\\\\\\"junit*.jar\\\\\\\" 2>/dev/null | head; find / -name \\\\\\\"hamcrest*.jar\\\\\\\" 2>/dev/null | head; ls ~/.m2/repository 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355617959575812781\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c67fbf22bf9bddebf18304bda06b871d6906ed72898a121f86e7a5fed7e880c3",
+ "status": 200
+}

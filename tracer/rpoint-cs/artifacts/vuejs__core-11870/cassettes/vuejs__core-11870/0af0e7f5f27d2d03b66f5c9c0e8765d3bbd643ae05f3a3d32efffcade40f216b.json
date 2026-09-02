@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx vitest run packages/reactivity/__tests__/reactiveArray.spec.ts 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355835800317063819\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0af0e7f5f27d2d03b66f5c9c0e8765d3bbd643ae05f3a3d32efffcade40f216b",
+ "status": 200
+}

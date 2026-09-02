@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've confirmed the bug. The issue is in `renderList.ts`: when the source is a `shallowReactive` array, `isReactive(source)` returns `true`, so `toReactive(source[i])` is called, converting the item to a deep reactive proxy (which unwraps the ref). For shallowReactive arrays, items should NOT be converted.\\n\\nLet me check the git status to see if test files were already modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && git diff HEAD --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823327732036389\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7171c2eef4e304444b9022777049f5bcf23cf65ec7fc87a04b5098cbb82db00f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the structure. Let me look at the `isShallow` usage and check the changelog for any related fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"shallowReactive\\\\\\\" /testbed/CHANGELOG.md | head -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355840267083051206\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "51511705d758f1422767fe2b6a24ebd01c45b40ecbb57d6d6ceb52a403c0bb41",
+ "status": 200
+}

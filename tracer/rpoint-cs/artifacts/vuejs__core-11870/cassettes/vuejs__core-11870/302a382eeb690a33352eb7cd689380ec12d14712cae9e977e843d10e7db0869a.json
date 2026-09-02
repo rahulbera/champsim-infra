@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rln \\\\\\\"v-for\\\\\\\\|shallowReactive\\\\\\\" /testbed/packages/vue/__tests__/e2e/ 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821197428260559\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "302a382eeb690a33352eb7cd689380ec12d14712cae9e977e843d10e7db0869a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both behave identically now. The state after a failed write is consistent.\\n\\nNow let me run the broader test suite to make sure nothing else broke. Let me run the JsonReader tests too since they relate to lenient parsing.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CP=\\\\\\\"/tmp/gson_classes:/root/.m2/repository/junit/junit/4.12/junit-4.12.jar:/root/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar\\\\\\\" && rm -rf /tmp/test_classes && mkdir -p /tmp/test_classes && javac -cp \\\\\\\"$CP\\\\\\\" -d /tmp/test_classes gson/src/test/java/com/google/gson/stream/JsonReaderTest.java gson/src/test/java/com/google/gson/stream/JsonWriterTest.java 2>&1 | head -20; echo \\\\\\\"compile exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355628130058367963\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d48f73a9157df7ba451586f97c1f07be682fb96e478db3da653ec2da89162de7",
+ "status": 200
+}

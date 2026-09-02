@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"apt-get update 2>&1 | tail -3; apt-get install -y python3-minimal 2>&1 | tail -5; which python3 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355606105466071024\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cab8260f6dcd16f2a12828a76af7f8275deadc720624ccee05c73fa16626492a",
+ "status": 200
+}

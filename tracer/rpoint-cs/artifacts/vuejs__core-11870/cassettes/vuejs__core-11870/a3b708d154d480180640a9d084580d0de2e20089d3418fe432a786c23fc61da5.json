@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The SSR version accesses `source[i]` directly through the proxy, which already handles shallow vs deep correctly. So no change needed there.\\n\\nLet me verify the SSR behavior is consistent and check if there are existing tests for this scenario. Let me look at the test files that might have been added for this:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff HEAD --stat; echo \\\\\\\"---\\\\\\\"; grep -rn \\\\\\\"shallowReactive\\\\\\\\|toReactive\\\\\\\\|isShallow\\\\\\\" packages/runtime-core/__tests__/helpers/renderList.spec.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355822709256741992\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a3b708d154d480180640a9d084580d0de2e20089d3418fe432a786c23fc61da5",
+ "status": 200
+}

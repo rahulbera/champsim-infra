@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me recompile and run the full test suite again to make sure everything still passes.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -rf /tmp/gson_classes && mkdir -p /tmp/gson_classes && javac -d /tmp/gson_classes @/tmp/sources.txt 2>&1 | head -20; echo \\\\\\\"compile exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355605555710261206\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cdc3b6d277c347a3e505f710cea74fe467cc0533061745b064581fa2c66683c2",
+ "status": 200
+}

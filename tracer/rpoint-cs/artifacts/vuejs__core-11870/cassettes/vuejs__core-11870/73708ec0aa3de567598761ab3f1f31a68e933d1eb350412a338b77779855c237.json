@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the v-for tests in the compiler-core or runtime-core:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find /testbed/packages -name \\\\\\\"*.spec.ts\\\\\\\" | xargs grep -l \\\\\\\"v-for\\\\\\\" 2>/dev/null | grep -v node_modules | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819719959503261\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "73708ec0aa3de567598761ab3f1f31a68e933d1eb350412a338b77779855c237",
+ "status": 200
+}

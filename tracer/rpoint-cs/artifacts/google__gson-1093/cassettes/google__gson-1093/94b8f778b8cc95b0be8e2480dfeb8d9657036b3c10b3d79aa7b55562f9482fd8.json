@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the test file for JsonWriter to understand the expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -name \\\\\\\"JsonWriterTest.java\\\\\\\" -type f\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355598374524937111\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000005, \"id\": \"synthesized-00005\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00005\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "94b8f778b8cc95b0be8e2480dfeb8d9657036b3c10b3d79aa7b55562f9482fd8",
+ "status": 200
+}

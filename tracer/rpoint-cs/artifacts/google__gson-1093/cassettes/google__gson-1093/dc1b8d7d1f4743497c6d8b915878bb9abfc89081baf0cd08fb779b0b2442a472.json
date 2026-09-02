@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'm in the `gson` directory. Let me check the path.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && pwd && ls gson/src/main/java/com/google/gson/stream/ && sed -n '486,502p' gson/src/main/java/com/google/gson/stream/JsonWriter.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355614832839619827\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dc1b8d7d1f4743497c6d8b915878bb9abfc89081baf0cd08fb779b0b2442a472",
+ "status": 200
+}

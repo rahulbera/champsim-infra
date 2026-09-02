@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works. Now let me think about edge cases.\\n\\nLet me consider the case where the array is a `shallowReadonly` array. Let me check what `isShallow` returns for those:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"shallowReadonly\\\\\\\\|shallowReactive\\\\\\\" packages/reactivity/src/reactive.ts | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821575385378451\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8baaa31bc828721df468192a6156d5eb4117f6241c5ef08b04a4b1806772ddf3",
+ "status": 200
+}

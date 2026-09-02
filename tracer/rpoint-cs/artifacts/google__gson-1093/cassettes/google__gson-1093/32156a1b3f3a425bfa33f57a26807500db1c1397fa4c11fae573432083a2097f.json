@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me also update the javadoc for `value(Number)` to be consistent, since it also has the same lenient behavior. Let me check it.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '515,537p' gson/src/main/java/com/google/gson/stream/JsonWriter.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355615142077263477\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "32156a1b3f3a425bfa33f57a26807500db1c1397fa4c11fae573432083a2097f",
+ "status": 200
+}

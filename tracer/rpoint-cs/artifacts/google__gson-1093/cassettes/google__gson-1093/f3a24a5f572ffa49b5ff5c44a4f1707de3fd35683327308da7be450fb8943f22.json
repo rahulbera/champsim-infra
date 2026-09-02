@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No Python available, but I have Java. Let me create a reproduction script in Java. First, let me understand the exact behavior I need to implement.\\n\\nThe PR description says:\\n- `JsonWriter#value(java.lang.Number)` can be lenient (allows NaN, Infinity, -Infinity in lenient mode)\\n- `JsonWriter#value(double)` can't be lenient (always throws IllegalArgumentException for NaN/Infinity)\\n\\nThe fix should make `value(double)` also respect the lenient setting, so that NaN/Infinity can be written without boxing.\\n\\nLet me look at the test file to see if there are existing tests that may need to pass.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '174,215p' gson/src/test/java/com/google/gson/stream/JsonWriterTest.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355629951124502620\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f3a24a5f572ffa49b5ff5c44a4f1707de3fd35683327308da7be450fb8943f22",
+ "status": 200
+}

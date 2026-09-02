@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 157 tests pass. Let me also check if there are other places in the codebase that might be affected, like `JsonTreeWriter` which might have a similar `value(double)` method.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"isNaN\\\\\\\\|isInfinite\\\\\\\\|value(double\\\\\\\\|value(double value)\\\\\\\\|Numeric values must be finite\\\\\\\" gson/src/main/java/ \\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355615485674647786\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "795da0e7ac6dba7021c833aacd29edb10ab3eb7804d49db190531a4f6a0bb90a",
+ "status": 200
+}

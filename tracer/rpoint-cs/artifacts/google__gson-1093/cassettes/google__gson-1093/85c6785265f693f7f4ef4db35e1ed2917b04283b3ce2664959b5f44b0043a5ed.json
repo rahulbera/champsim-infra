@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the JsonWriter class which is the focus of the PR.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -name \\\\\\\"JsonWriter.java\\\\\\\" -type f\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355611534304738457\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000002, \"id\": \"synthesized-00002\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00002\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "85c6785265f693f7f4ef4db35e1ed2917b04283b3ce2664959b5f44b0043a5ed",
+ "status": 200
+}

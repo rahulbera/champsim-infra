@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the edge cases with readonly arrays. Let me look at the baseHandlers to understand the flags:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"IS_REACTIVE\\\\\\\\|IS_SHALLOW\\\\\\\\|IS_READONLY\\\\\\\\|RAW\\\\\\\\|SKIP\\\\\\\" packages/reactivity/src/reactive.ts | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819513801080686\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "379458ead5d248721fa7b50a17805a3bceeddfef5a7a2bfe60fc0c756a8e2d42",
+ "status": 200
+}

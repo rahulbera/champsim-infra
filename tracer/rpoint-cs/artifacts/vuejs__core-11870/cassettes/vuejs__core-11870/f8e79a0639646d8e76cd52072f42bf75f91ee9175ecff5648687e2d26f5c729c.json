@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file wasn't modified. The PR description says \\\"I've already taken care of all changes to any of the test files described in the <pr_description>.\\\" Let me check if there are tests elsewhere that test v-for with shallowReactive. Let me search broadly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rln \\\\\\\"shallowReactive\\\\\\\" packages/ --include=\\\\\\\"*.spec.ts\\\\\\\" | xargs grep -l \\\\\\\"v-for\\\\\\\\|renderList\\\\\\\\|map\\\\\\\" 2>/dev/null | grep -v node_modules\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355822468738576346\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f8e79a0639646d8e76cd52072f42bf75f91ee9175ecff5648687e2d26f5c729c",
+ "status": 200
+}

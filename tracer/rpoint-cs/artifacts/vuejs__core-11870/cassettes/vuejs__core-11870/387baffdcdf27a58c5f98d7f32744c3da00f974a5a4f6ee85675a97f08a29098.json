@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me write a reproduction test using the runtime-test renderer. First, let me check the runtime-test setup:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat packages/runtime-test/src/index.ts | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355835353640462324\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "387baffdcdf27a58c5f98d7f32744c3da00f974a5a4f6ee85675a97f08a29098",
+ "status": 200
+}

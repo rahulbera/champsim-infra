@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The edit wasn't applied because of the python3 env issue with the editor tool. Let me use sed or a different approach to make the edit.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && python3 -c \\\\\\\"print('hi')\\\\\\\" 2>&1; echo \\\\\\\"---\\\\\\\"; which python3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355606723941362304\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d7f8e0b17f8492754395eb9d1fc1ab7edc795a57f9a39a3612eede1a5d06ad9b",
+ "status": 200
+}

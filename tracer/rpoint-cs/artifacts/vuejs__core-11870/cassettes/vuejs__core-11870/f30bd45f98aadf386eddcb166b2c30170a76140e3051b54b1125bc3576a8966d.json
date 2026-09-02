@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the `isShallow` function and how it's exported:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"export function isShallow\\\\\\\\|export const isShallow\\\\\\\\|isShallow\\\\\\\" /testbed/packages/reactivity/src/reactive.ts | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824083646275816\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000006, \"id\": \"synthesized-00006\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00006\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f30bd45f98aadf386eddcb166b2c30170a76140e3051b54b1125bc3576a8966d",
+ "status": 200
+}

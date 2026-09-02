@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The reproduction script was already removed. Let me confirm the final state and that no test files were modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && ls repro.spec.ts 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821231787999162\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000075, \"id\": \"synthesized-00075\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00075\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5619623cfd946a2c8aef4c16c8ec6db2814c919758f04ffdbcd581ca9ee6f4c0",
+ "status": 200
+}

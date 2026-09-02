@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me use the runtime-test's nodeOps instead of document. Let me look at the nodeOps:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat packages/runtime-test/src/nodeOps.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355829581204420904\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "eff16ba6568019870e579689ce6170d8cb4b62f690a167b83a399643dba5053c",
+ "status": 200
+}

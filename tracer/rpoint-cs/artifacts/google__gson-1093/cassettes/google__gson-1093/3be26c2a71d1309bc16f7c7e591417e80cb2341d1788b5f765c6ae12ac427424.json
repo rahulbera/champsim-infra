@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting! The `JsonTreeWriter` already implements the lenient-aware behavior for `value(double)`. Let me look at it to ensure consistency.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '160,200p' gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355605796228428882\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3be26c2a71d1309bc16f7c7e591417e80cb2341d1788b5f765c6ae12ac427424",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/packages/reactivity/__tests__/shallowReactive.spec.ts\\\",\\\"view_range\\\":[160, 220]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355820750751654157\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0118bbe08f280e3efe14400c5c9d77c8dae10ec6c611168fa9d59c4c6497d23e",
+ "status": 200
+}

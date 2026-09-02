@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works. Now let me consider edge cases and run the existing test suites to make sure nothing breaks:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx vitest run packages/runtime-core/__tests__/helpers/renderList.spec.ts 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366602561773632449\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a576389cf7f6216faa83a323d2e8d2039dfd01b1270672a51acb810c8561b5b1",
+ "status": 200
+}

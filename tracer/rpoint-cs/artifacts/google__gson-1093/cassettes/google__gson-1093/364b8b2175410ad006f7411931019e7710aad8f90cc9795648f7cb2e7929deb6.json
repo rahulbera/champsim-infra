@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Only the source file `JsonWriter.java` is modified - no test files were touched. Now let me remove the reproduction scripts.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -rf /tmp/repro /tmp/gson_classes /tmp/test_classes /tmp/sources.txt /tmp/patch.py && echo \\\\\\\"cleaned up\\\\\\\" && ls /tmp/repro 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355608510647758598\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "364b8b2175410ad006f7411931019e7710aad8f90cc9795648f7cb2e7929deb6",
+ "status": 200
+}

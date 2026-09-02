@@ -85,7 +85,17 @@ lang_deps() {
       || { tail -40 /tmp/provision_npm.log; die "yarn install failed"; }
     ok "node_modules installed from yarn.lock (frozen)"
   elif [ -f pnpm-lock.yaml ]; then
-    command -v pnpm >/dev/null || sudo npm install -g pnpm >/dev/null 2>&1
+    # Honour package.json's packageManager pin. `npm install -g pnpm` installs
+    # the LATEST pnpm, and vuejs/core pins pnpm@9.10.0 -- a whole major behind
+    # current, reading a lockfile written by that major. Installing the pinned
+    # version is both more faithful to the recording and less likely to reject
+    # the lockfile outright. The field can carry a +sha512 integrity suffix,
+    # which is not part of the version.
+    _pm=$(node -e 'try{const p=(require("./package.json").packageManager||"");
+                       console.log(p.startsWith("pnpm@")?p.slice(5).split("+")[0]:"")}
+                   catch(e){console.log("")}' 2>/dev/null || true)
+    [ -n "$_pm" ] && echo "  package.json pins pnpm@$_pm"
+    command -v pnpm >/dev/null || sudo npm install -g "pnpm@${_pm:-latest}" >/dev/null 2>&1
     pnpm install --frozen-lockfile >/tmp/provision_npm.log 2>&1 \
       || { tail -40 /tmp/provision_npm.log; die "pnpm install failed"; }
     ok "node_modules installed from pnpm-lock.yaml (frozen)"

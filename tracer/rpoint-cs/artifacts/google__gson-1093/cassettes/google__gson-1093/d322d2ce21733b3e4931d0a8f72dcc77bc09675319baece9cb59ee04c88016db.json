@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && CP=\\\\\\\"/tmp/gson_classes:/tmp/test_classes:/root/.m2/repository/junit/junit/4.12/junit-4.12.jar:/root/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar\\\\\\\" && java -cp \\\\\\\"$CP\\\\\\\" org.junit.runner.JUnitCore com.google.gson.stream.JsonWriterTest com.google.gson.stream.JsonReaderTest 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355616928783656226\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000034, \"id\": \"synthesized-00034\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00034\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d322d2ce21733b3e4931d0a8f72dcc77bc09675319baece9cb59ee04c88016db",
+ "status": 200
+}
