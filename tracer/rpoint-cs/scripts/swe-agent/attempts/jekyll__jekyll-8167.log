@@ -1,0 +1,1 @@
+2026-09-02 09:21:45	infra	bundle install died building psych 5.5.0; APT_PACKAGES lacked libyaml-dev

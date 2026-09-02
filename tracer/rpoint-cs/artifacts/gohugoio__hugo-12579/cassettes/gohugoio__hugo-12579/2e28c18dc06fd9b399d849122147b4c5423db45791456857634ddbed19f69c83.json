@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the relevant tests to confirm everything passes.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test ./resources/page/ -run \\\\\\\"TestGroupByParam\\\\\\\" -v 2>&1 | cat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355245087695038759\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2e28c18dc06fd9b399d849122147b4c5423db45791456857634ddbed19f69c83",
+ "status": 200
+}

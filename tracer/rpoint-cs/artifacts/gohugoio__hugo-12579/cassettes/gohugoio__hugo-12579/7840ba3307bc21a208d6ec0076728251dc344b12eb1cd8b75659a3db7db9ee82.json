@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me examine the test files more carefully to understand the current expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '145,152p' resources/page/pagegroup_test.go; echo \\\\\\\"===\\\\\\\"; sed -n '255,262p' resources/page/pagegroup_test.go; echo \\\\\\\"=== site_test ===\\\\\\\"; sed -n '788,794p' hugolib/site_test.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355237562912338211\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7840ba3307bc21a208d6ec0076728251dc344b12eb1cd8b75659a3db7db9ee82",
+ "status": 200
+}

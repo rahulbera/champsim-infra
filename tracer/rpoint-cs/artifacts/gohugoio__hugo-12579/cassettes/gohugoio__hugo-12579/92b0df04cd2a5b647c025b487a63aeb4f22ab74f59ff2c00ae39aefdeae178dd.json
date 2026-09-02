@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean. Let me check the site_test.go which also references GroupByParam.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '760,820p' hugolib/site_test.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355256529487918031\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000006, \"id\": \"synthesized-00006\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00006\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "92b0df04cd2a5b647c025b487a63aeb4f22ab74f59ff2c00ae39aefdeae178dd",
+ "status": 200
+}

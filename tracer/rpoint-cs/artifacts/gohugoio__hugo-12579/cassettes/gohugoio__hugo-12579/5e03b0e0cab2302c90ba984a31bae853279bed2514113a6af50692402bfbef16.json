@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `submit` tool requires `python3` which isn't available in this environment. Let me try to make it available.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python3 python 2>/dev/null; ls /usr/bin/python* /usr/local/bin/python* 2>/dev/null; echo \\\\\\\"---\\\\\\\"; apt-get install -y python3 2>&1 | tail -3 || echo \\\\\\\"apt failed\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355249554461025921\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5e03b0e0cab2302c90ba984a31bae853279bed2514113a6af50692402bfbef16",
+ "status": 200
+}

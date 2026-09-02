@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the final state of the source change and confirm the build still works.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go build ./resources/page/... 2>&1 | cat; echo \\\\\\\"build exit: $?\\\\\\\"; go vet ./resources/page/... 2>&1 | cat; echo \\\\\\\"vet exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355255533055502338\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "25f62b184601b40eae348a1029af1e7f8b787d673b0789a5c13947106d37c2a1",
+ "status": 200
+}

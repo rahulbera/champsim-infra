@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No linting errors. Let me also run the broader test suite for the server directory to make sure nothing else broke:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && yarn jest packages/docusaurus/src/server/__tests__/ 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367091844447985908\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5be76ecff99bcbdfd0aec70ac48ad03b82d3b55c7f5b0ebce2f6e3aa4366c422",
+ "status": 200
+}

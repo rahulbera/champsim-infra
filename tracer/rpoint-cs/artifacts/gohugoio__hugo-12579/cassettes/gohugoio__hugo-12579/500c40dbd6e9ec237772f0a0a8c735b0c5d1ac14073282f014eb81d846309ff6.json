@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The heredoc got mangled by the pager. Let me create the file using the editor tool with create (it might also have python3 issues). Let me try a different approach using printf.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f resources/page/repro_test.go && cat > resources/page/repro_test.go << 'GOEOF'\\\\npackage page\\\\n\\\\nimport (\\\\n\\\\t\\\\\\\"testing\\\\\\\"\\\\n)\\\\n\\\\nfunc TestReproGroupByParamNil(t *testing.T) {\\\\n\\\\tpages := preparePageGroupTestPages(t)\\\\n\\\\tgroups, err := pages.GroupByParam(\\\\\\\"UnavailableKey\\\\\\\")\\\\n\\\\tif err != nil {\\\\n\\\\t\\\\tt.Errorf(\\\\\\\"GroupByParam should return nil error but got: %s\\\\\\\", err)\\\\n\\\\t}\\\\n\\\\tif groups != nil {\\\\n\\\\t\\\\tt.Errorf(\\\\\\\"GroupByParam should return nil groups but got: %#v\\\\\\\", groups)\\\\n\\\\t}\\\\n\\\\tt.Logf(\\\\\\\"GroupByParam returned nil, nil as expected\\\\\\\")\\\\n}\\\\nGOEOF\\\\ncat resources/page/repro_test.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355245740530067349\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "500c40dbd6e9ec237772f0a0a8c735b0c5d1ac14073282f014eb81d846309ff6",
+ "status": 200
+}

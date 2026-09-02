@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me run a final broader build check to ensure nothing is broken across the whole project compilation.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go build ./... 2>&1 | cat | head -20; echo \\\\\\\"build exit: ${PIPESTATUS[0]}\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355246908761172449\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1ad30636138c2f5abac6216e3c949a3feccd77223afed3b75da122ed8f3f3a24",
+ "status": 200
+}

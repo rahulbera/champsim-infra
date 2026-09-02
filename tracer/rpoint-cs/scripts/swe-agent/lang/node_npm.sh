@@ -63,10 +63,35 @@ lang_deps() {
   # package-lock.json disagree -- which is what we want, because `npm install`
   # would silently update the lockfile and land it in the agent's patch.
   # node_modules/ is gitignored in every project that ships a lockfile.
-  [ -f package-lock.json ] || die "no package-lock.json -- npm ci cannot be used, and npm install rewrites the lockfile"
-  npm ci --no-audit --no-fund >/tmp/provision_npm.log 2>&1 \
-    || { tail -40 /tmp/provision_npm.log; die "npm ci failed"; }
-  ok "node_modules installed from the lockfile"
+  # Three package managers, one rule: install EXACTLY the lockfile and fail if it
+  # disagrees with package.json. `npm install`/`yarn`/`pnpm install` without the
+  # frozen flag would silently rewrite the lockfile and land it in the agent's
+  # patch, which corrupts both the measurement and the diff.
+  #
+  # This module accepted ONLY package-lock.json until 2026-09-02, which quietly
+  # excluded every remaining TypeScript pick: vuejs uses pnpm and both docusaurus
+  # instances use yarn. immutable-js-2006 was capturable purely because it ships
+  # an npm lockfile. That is a coverage hole disguised as a dependency check.
+  if [ -f package-lock.json ]; then
+    npm ci --no-audit --no-fund >/tmp/provision_npm.log 2>&1 \
+      || { tail -40 /tmp/provision_npm.log; die "npm ci failed"; }
+    ok "node_modules installed from package-lock.json (npm ci)"
+  elif [ -f yarn.lock ]; then
+    command -v yarn >/dev/null || sudo npm install -g yarn >/dev/null 2>&1
+    # --immutable is yarn 2+; --frozen-lockfile is yarn 1. Try the modern flag
+    # and fall back rather than guessing the major version from the lockfile.
+    yarn install --immutable >/tmp/provision_npm.log 2>&1 \
+      || yarn install --frozen-lockfile >>/tmp/provision_npm.log 2>&1 \
+      || { tail -40 /tmp/provision_npm.log; die "yarn install failed"; }
+    ok "node_modules installed from yarn.lock (frozen)"
+  elif [ -f pnpm-lock.yaml ]; then
+    command -v pnpm >/dev/null || sudo npm install -g pnpm >/dev/null 2>&1
+    pnpm install --frozen-lockfile >/tmp/provision_npm.log 2>&1 \
+      || { tail -40 /tmp/provision_npm.log; die "pnpm install failed"; }
+    ok "node_modules installed from pnpm-lock.yaml (frozen)"
+  else
+    die "no package-lock.json, yarn.lock or pnpm-lock.yaml -- cannot install a pinned dependency tree"
+  fi
 
   local dirty
   dirty=$(git status --porcelain)

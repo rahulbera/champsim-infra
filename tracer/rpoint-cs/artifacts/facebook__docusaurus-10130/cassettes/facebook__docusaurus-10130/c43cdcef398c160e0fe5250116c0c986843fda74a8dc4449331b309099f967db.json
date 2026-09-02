@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've confirmed the issue. Now let me understand how docs routes are configured (strict or not):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"strict\\\\\\\" packages/docusaurus-plugin-content-docs/src/ --include=\\\\\\\"*.ts\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367060645805551519\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c43cdcef398c160e0fe5250116c0c986843fda74a8dc4449331b309099f967db",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The staged changes still include the test file and package.json changes. Let me reset the index and keep only the source file change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git reset HEAD -- package.json packages/docusaurus/src/server/__tests__/brokenLinks.test.ts && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367102324168189200\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ae5430d4fc212befc09dd5f6b72a0c68ab8c4f47728a96b6627c29576fb7be7d",
+ "status": 200
+}

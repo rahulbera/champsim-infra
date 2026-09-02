@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works. Now let me run the existing test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm packages/docusaurus/src/server/__tests__/repro.test.ts && yarn jest packages/docusaurus/src/server/__tests__/brokenLinks.test.ts 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367055904161659431\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "95fb965fbe92b01e6b236e1c2ba264c415cc5306d8429c6ecbb998dfc408eda4",
+ "status": 200
+}

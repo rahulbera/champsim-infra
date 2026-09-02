@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"RouteConfig\\\\\\\\|addRoute\\\\\\\\|exact\\\\\\\\|strict\\\\\\\" packages/docusaurus-plugin-content-docs/src/index.ts | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367044531088256548\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b44ac389221d273d192abd980a9516d59bd6aa5a5d30178591b56dde8723522",
+ "status": 200
+}

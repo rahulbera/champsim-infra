@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is the Hugo repository (Go codebase). Let me search for the `GroupByParam` method.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"GroupByParam\\\\\\\" --include=\\\\\\\"*.go\\\\\\\" | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355248317510443693\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8856423ecb489387baf95ca4c4127e0be137886b3702f317feddedbb1f932444",
+ "status": 200
+}

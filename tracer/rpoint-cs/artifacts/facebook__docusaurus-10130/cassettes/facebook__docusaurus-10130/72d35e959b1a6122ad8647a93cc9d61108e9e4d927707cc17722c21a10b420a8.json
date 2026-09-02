@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"My source fix passes the test from the actual PR. The temporary verification test has been removed.\\n\\nLet me confirm the final state of the repository - only the source file `brokenLinks.ts` should be modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"===DIFF===\\\\\\\" && git diff HEAD\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367075798450168402\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000072, \"id\": \"synthesized-00072\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00072\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "72d35e959b1a6122ad8647a93cc9d61108e9e4d927707cc17722c21a10b420a8",
+ "status": 200
+}

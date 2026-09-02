@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases pass:\\n1. The valid non-strict link with anchor (both with and without trailing slash) is now accepted.\\n2. A truly broken anchor (existing path but missing anchor) is still rejected.\\n3. A truly broken path with anchor is still rejected.\\n\\nLet me clean up the repro test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm packages/docusaurus/src/server/__tests__/repro.test.ts && ls packages/docusaurus/src/server/__tests__/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367058584221248023\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000054, \"id\": \"synthesized-00054\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00054\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c81353c3af67c54d3d8ff230b19fd36b39ad5d233133f86b45c1161c31c53644",
+ "status": 200
+}

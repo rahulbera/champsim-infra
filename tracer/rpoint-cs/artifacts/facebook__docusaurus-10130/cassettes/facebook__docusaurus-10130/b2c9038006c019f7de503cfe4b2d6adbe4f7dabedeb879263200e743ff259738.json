@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The instructions ask me to revert any TEST file changes since the test files were already supposed to be taken care of. Let me revert the test file change I made, and also clean up the unintended `package.json` change that was auto-added by corepack when I ran yarn.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout -- packages/docusaurus/src/server/__tests__/brokenLinks.test.ts package.json && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367067139796105716\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b2c9038006c019f7de503cfe4b2d6adbe4f7dabedeb879263200e743ff259738",
+ "status": 200
+}

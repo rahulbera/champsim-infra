@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean, but I notice the tests still expect errors. Let me look more carefully at the test files to understand the expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"should return an error\\\\\\\\|didn't return an expected error\\\\\\\\|return an error\\\\\\\" resources/page/pagegroup_test.go hugolib/site_test.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355265875336752625\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cf3b9b59800614e52242d69f0d04aaf1902d3b5ac44c93985c16ae70f225d1dc",
+ "status": 200
+}

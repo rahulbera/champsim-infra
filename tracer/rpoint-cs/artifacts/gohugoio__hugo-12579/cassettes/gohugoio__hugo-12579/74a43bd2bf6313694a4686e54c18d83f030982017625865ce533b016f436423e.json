@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && perl -i -0pe 's/\\\\\\\\tif !tmp\\\\\\\\.IsValid\\\\\\\\(\\\\\\\\) \\\\\\\\{\\\\\\\\n\\\\\\\\t\\\\\\\\treturn nil, errors\\\\\\\\.New\\\\\\\\(\\\\\\\"there is no such param\\\\\\\"\\\\\\\\)\\\\\\\\n\\\\\\\\t\\\\\\\\}/\\\\\\\\tif !tmp.IsValid() {\\\\\\\\n\\\\\\\\t\\\\\\\\t\\\\\\\\/\\\\\\\\/ None of the pages has the given param. Return nil instead of an\\\\\\\\n\\\\\\\\t\\\\\\\\t\\\\\\\\/\\\\\\\\/ error to be symmetric with e.g. SortByParam and GroupByParamDate,\\\\\\\\n\\\\\\\\t\\\\\\\\t\\\\\\\\/\\\\\\\\/ and to avoid dead ends for empty sites.\\\\\\\\n\\\\\\\\t\\\\\\\\treturn nil, nil\\\\\\\\n\\\\\\\\t}/' resources/page/pagegroup.go\\\\necho \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355259828022799823\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "74a43bd2bf6313694a4686e54c18d83f030982017625865ce533b016f436423e",
+ "status": 200
+}

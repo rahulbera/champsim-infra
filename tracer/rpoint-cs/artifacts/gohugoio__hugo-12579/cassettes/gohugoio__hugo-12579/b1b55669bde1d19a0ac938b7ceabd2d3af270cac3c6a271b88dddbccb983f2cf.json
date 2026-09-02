@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me also check the docs for `GroupByParam` to see if documentation needs updating to reflect the new behavior. The PR description is about behavior; let me check the docs.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"there is no such param\\\\\\\\|GroupByParam\\\\\\\" docs/ 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355242545074398347\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b1b55669bde1d19a0ac938b7ceabd2d3af270cac3c6a271b88dddbccb983f2cf",
+ "status": 200
+}

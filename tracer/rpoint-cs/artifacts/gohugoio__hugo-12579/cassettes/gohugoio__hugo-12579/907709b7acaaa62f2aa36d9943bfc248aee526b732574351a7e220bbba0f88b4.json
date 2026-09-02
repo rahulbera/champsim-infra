@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The broken pipe is just from `cat`/`head`. Let me run the build without piping.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go build ./... > /tmp/build.log 2>&1; echo \\\\\\\"build exit: $?\\\\\\\"; tail -5 /tmp/build.log\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355241754800416701\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "907709b7acaaa62f2aa36d9943bfc248aee526b732574351a7e220bbba0f88b4",
+ "status": 200
+}

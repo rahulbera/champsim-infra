@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file and package.json still have unstaged modifications. Let me checkout those files to revert them:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout -- package.json packages/docusaurus/src/server/__tests__/brokenLinks.test.ts && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082258080982732\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000068, \"id\": \"synthesized-00068\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00068\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c2198d39d682f65aa70be0771929d506f60dd2eb558883d0d181a77ab0e022e7",
+ "status": 200
+}

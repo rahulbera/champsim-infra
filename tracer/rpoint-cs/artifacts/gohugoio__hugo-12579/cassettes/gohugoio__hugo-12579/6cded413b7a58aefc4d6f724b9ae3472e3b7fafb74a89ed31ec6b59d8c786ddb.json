@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The file is now correctly written. The earlier mangling was due to the pager. Let me run the test.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test ./resources/page/ -run TestReproGroupByParamNil -v 2>&1 | cat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355240346051148083\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6cded413b7a58aefc4d6f724b9ae3472e3b7fafb74a89ed31ec6b59d8c786ddb",
+ "status": 200
+}

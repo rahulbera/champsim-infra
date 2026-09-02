@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file changes are still staged (the `git checkout` reverted the working tree but the staged version remains). The `git diff HEAD` shows the changes are still present because they were staged. Let me properly restore the test files from HEAD.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout HEAD -- hugolib/site_test.go resources/page/pagegroup_test.go && git reset HEAD hugolib/site_test.go resources/page/pagegroup_test.go 2>&1 | cat; echo \\\\\\\"=== status ===\\\\\\\"; git status | cat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355249279583122268\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a68a31934a509b08edcf87982fac7a516922a05c2ada89475761f8256bd5306d",
+ "status": 200
+}

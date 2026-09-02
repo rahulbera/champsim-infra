@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search the test file for any tests related to the trailing slash behavior with anchors:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"trailingSlash\\\\\\\\|trailing slash\\\\\\\\|/page2/#\\\\\\\\|/docs/\\\\\\\" packages/docusaurus/src/server/__tests__/brokenLinks.test.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367059443214705830\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "607fddcf074ee04da83febfe108de72824907579373d22a2cf765b38c8acee79",
+ "status": 200
+}

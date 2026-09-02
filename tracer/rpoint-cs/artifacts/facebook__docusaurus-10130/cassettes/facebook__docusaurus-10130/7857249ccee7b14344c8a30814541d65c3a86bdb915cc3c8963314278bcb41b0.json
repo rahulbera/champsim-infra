@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file does NOT have the new test yet. Let me check the relationship between the current HEAD and the fix commit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git merge-base --is-ancestor 394ce84691 HEAD && echo \\\\\\\"fix is ancestor of HEAD\\\\\\\" || echo \\\\\\\"fix is NOT ancestor of HEAD\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367075867169645465\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000043, \"id\": \"synthesized-00043\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00043\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7857249ccee7b14344c8a30814541d65c3a86bdb915cc3c8963314278bcb41b0",
+ "status": 200
+}

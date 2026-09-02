@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the structure. Let me look at how the collected links are keyed and how routes are configured for docs:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"collectLink\\\\\\\\|collectAnchor\\\\\\\\|collectedLinks\\\\\\\" packages/docusaurus-theme-common/src/utils/brokenLinks.ts 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367073358908745633\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cf54737b6c2034a46c68a9a10fd424318638f1a5f8f5a5a3763ad772c11f871f",
+ "status": 200
+}

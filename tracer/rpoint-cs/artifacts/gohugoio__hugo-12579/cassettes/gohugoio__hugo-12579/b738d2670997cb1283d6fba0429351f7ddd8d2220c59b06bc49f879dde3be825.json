@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The change wasn't applied due to the python3 issue. Let me use sed instead.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"python -c \\\\\\\"print('python works')\\\\\\\" 2>/dev/null || which python python3 python2 2>/dev/null; echo \\\\\\\"done\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355251306807684444\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b738d2670997cb1283d6fba0429351f7ddd8d2220c59b06bc49f879dde3be825",
+ "status": 200
+}

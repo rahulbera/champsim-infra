@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"TypeScript compiles without errors. Let me also run the linter to make sure the code style is correct:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx eslint packages/docusaurus/src/server/brokenLinks.ts 2>&1 | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367081502166740893\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "35412e0eeee8820443a4a7d828d8631ea6a4e65014742fb5a9f183bdc3258f1b",
+ "status": 200
+}

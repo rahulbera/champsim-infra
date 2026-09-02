@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `package.json` change reappeared (it's auto-added by corepack when running yarn). Let me revert it again since it's not part of my fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout -- package.json && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367084044787379616\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000073, \"id\": \"synthesized-00073\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00073\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7533ec1f9304e845ff97007e3a7c9dff36a749fbf942088d3bf41db1ae143fd8",
+ "status": 200
+}
