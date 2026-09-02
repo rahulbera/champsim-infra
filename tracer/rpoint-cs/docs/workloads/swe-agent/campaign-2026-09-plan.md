@@ -231,6 +231,13 @@ descriptor is our bug, and under the house rule the task keeps all three tries.
 
 Set by the PI, 2026-09-02.
 
+0. **Hard ceiling: five attempts of ANY kind, infra included** (PI, 2026-09-02).
+   Understanding a failure is what makes a retry defensible; it is not what makes
+   it free. jekyll-8167 consumed four attempts, each a different bug in my own
+   descriptor and each understood before the next retry — and four provisioning
+   runs is about an hour of machine time. At five, take the next candidate from
+   the same cell regardless of how well the cause is understood. Enforced by
+   `attempts.sh check`, which now reports both ceilings.
 1. **Retry a failing task at most three times** — and only while we can say
    *why* it failed. A retry justified by "let's see if it works this time" is
    not a retry, it is a coin flip with a nine-hour stake.

@@ -30,6 +30,7 @@ set -uo pipefail
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 DIR=$ROOT/scripts/swe-agent/attempts
 LIMIT=${ATTEMPT_LIMIT:-3}
+TOTAL_LIMIT=${TOTAL_ATTEMPT_LIMIT:-5}   # any cause, infra included
 mkdir -p "$DIR"
 
 cmd=${1:-report}
@@ -53,10 +54,26 @@ log)
 check)
   inst=${2:?instance}
   n=$(awk -F'\t' '$2=="instance"' "$DIR/$inst.log" 2>/dev/null | wc -l)
+  total=$(wc -l < "$DIR/$inst.log" 2>/dev/null || echo 0)
+  # TWO ceilings, and either stops the task.
+  #
+  #   LIMIT (3)       instance-attributable failures -- the task is a bad fit.
+  #   TOTAL_LIMIT (5) failures of ANY kind, infra included.
+  #
+  # The second was added by the PI on 2026-09-02 after jekyll-8167 consumed four
+  # attempts, every one of them a different bug in my own descriptor and every
+  # one understood before the next retry. Understanding a failure is what makes a
+  # retry defensible; it is not what makes it free. Four provisioning runs is
+  # roughly an hour of machine time, and at some point the honest move is to take
+  # the next candidate from the same cell rather than keep paying.
   if [ "$n" -ge "$LIMIT" ]; then
-    echo "$inst: $n/$LIMIT instance failures -- OUT OF TRIES"; exit 1
+    echo "$inst: $n/$LIMIT INSTANCE failures -- OUT OF TRIES (bad fit; ditch and document)"; exit 1
   fi
-  echo "$inst: $n/$LIMIT instance failures"
+  if [ "$total" -ge "${TOTAL_LIMIT:-5}" ]; then
+    echo "$inst: $total/${TOTAL_LIMIT:-5} TOTAL attempts ($n instance, $((total-n)) infra)" \
+         "-- OUT OF TRIES even though the causes were understood; take the next candidate"; exit 1
+  fi
+  echo "$inst: $n/$LIMIT instance failures, $total/${TOTAL_LIMIT:-5} total"
   ;;
 report)
   printf '%-34s %-9s %-6s %s\n' INSTANCE TRIES INFRA LAST

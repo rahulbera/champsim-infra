@@ -50,6 +50,10 @@ run_phase() {
   # direction that buys a bad task a fourth try on API credits.
   bash "$ROOT/scripts/swe-agent/attempts.sh" log "$INSTANCE" instance \
        "chain: $phase failed (see $log)" >/dev/null 2>&1 || true
+  # Surface the ceilings in the chain log itself, so an operator reading it sees
+  # that a task is out of tries without going to look.
+  bash "$ROOT/scripts/swe-agent/attempts.sh" check "$INSTANCE" 2>&1 \
+    | sed 's/^/    /' | tee -a "$LOGDIR/chain.log" || true
   return 1
 }
 
