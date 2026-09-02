@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 13 tests pass with the upstream test file, including the new \\\"without caching\\\" test. Now let me revert the test file to its original state (since I shouldn't modify tests):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cp /tmp/import_from_git_spec.rb.bak fastlane/spec/actions_specs/import_from_git_spec.rb && git diff --stat HEAD\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366674511065768389\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "72c6709e0e63189765efa6a69e95457622c92776d6f7180f9b929c0438c72527",
+ "status": 200
+}

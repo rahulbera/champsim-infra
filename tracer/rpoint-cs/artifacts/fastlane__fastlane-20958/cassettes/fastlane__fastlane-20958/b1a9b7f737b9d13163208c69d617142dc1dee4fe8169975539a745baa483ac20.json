@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Now let me clean up my reproduction files since they shouldn't be part of the final submission. But first, let me reconsider whether I should keep the regression test. The PR description says \\\"I've already taken care of all changes to any of the test files described in the <pr_description>\\\". This means the test files are already in their final state. Let me check if the existing test file already has tests for the non-caching case:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"cache_path\\\\\\\" fastlane/spec/actions_specs/import_from_git_spec.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366742783865912921\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000043, \"id\": \"synthesized-00043\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00043\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b1a9b7f737b9d13163208c69d617142dc1dee4fe8169975539a745baa483ac20",
+ "status": 200
+}

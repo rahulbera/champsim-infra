@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the original code before PR #20895 to understand the original behavior:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show a8ef69493~1:fastlane/lib/fastlane/fast_file.rb | sed -n '279,395p'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366720724913880858\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b852e8dbd561f07d2199826804aab275425d17ff6bb4d0e20c00213f95f93852",
+ "status": 200
+}

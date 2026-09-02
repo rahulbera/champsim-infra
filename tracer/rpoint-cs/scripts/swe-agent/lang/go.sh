@@ -6,6 +6,18 @@
 # Sourced by provision_guest.sh; see lib/common.sh for the hook contract.
 
 lang_toolchain() {
+  # APT_PACKAGES is a descriptor field, and until 2026-09-02 this module simply
+  # ignored it -- as did go.sh and node_npm.sh, while c_make, java_maven,
+  # php_composer and ruby_bundler honoured it. A descriptor could therefore
+  # declare a system dependency and have it silently dropped. nushell-13831
+  # declared `pkg-config libssl-dev`, got neither, and died on openssl-sys with
+  # "pkg-config could not be found" after the whole toolchain had installed.
+  if [ -n "${APT_PACKAGES:-}" ]; then
+    say "apt packages: $APT_PACKAGES"
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+    # shellcheck disable=SC2086
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq $APT_PACKAGES
+  fi
   say "toolchain: Go ${GO_VERSION}"
   # Ubuntu noble ships Go 1.22. A module declaring `toolchain go1.23.0` fails
   # outright under GOTOOLCHAIN=local with 1.22, and under the default

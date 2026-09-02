@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `FORCE_SH_DURING_TESTS` env var is not being respected in this context. Let me check how the tests handle this:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"FORCE_SH_DURING_TESTS\\\\\\\" --include=\\\\\\\"*.rb\\\\\\\" | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366748693740912233\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b3bb0b85a40072ea855759fa570cee08fe40c69501f86e4b51c55ecf1ca7ea1d",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 71 tests pass. The fix is complete and ready for submission.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7366741409476377105\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000068, \"id\": \"synthesized-00068\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00068\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8fd1b986778611e70b421c59d98017f297fbe55ecf41abbfe8f56278f084b83e",
+ "status": 200
+}

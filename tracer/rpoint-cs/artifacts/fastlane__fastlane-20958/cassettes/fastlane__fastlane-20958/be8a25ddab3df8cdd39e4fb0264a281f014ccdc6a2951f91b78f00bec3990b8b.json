@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Rubocop has an environment issue (unrelated to my change). Let me check the error:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rubocop fastlane/lib/fastlane/fast_file.rb 2>&1 | head -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366736736551956547\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "be8a25ddab3df8cdd39e4fb0264a281f014ccdc6a2951f91b78f00bec3990b8b",
+ "status": 200
+}

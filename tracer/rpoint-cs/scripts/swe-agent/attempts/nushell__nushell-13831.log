@@ -1,0 +1,1 @@
+2026-09-02 03:04:09	infra	rust_cargo.sh ignored APT_PACKAGES entirely (as did go.sh and node_npm.sh); descriptor declared pkg-config libssl-dev, module dropped them, cargo died on openssl-sys

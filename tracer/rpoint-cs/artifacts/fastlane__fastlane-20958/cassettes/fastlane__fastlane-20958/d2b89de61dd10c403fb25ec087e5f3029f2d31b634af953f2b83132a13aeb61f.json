@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also run a quick rubocop check on the modified file to ensure code style compliance:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rubocop fastlane/lib/fastlane/fast_file.rb 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366723851650068835\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d2b89de61dd10c403fb25ec087e5f3029f2d31b634af953f2b83132a13aeb61f",
+ "status": 200
+}

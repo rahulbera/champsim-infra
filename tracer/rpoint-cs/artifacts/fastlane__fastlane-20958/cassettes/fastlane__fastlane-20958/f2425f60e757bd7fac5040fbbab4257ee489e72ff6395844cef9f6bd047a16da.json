@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Hmm, there's an error when running this test in isolation. Let me look at the full error:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb -e \\\\\\\"doesn't superfluously execute checkout\\\\\\\" 2>&1 | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366709798517076367\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f2425f60e757bd7fac5040fbbab4257ee489e72ff6395844cef9f6bd047a16da",
+ "status": 200
+}

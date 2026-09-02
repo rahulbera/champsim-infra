@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show a8ef69493 -- fastlane/spec/actions_specs/import_from_git_spec.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366737148868815112\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7e094add1b2fb8f7581c4231a587faef11f2339d4d3d196866c54023a317e181",
+ "status": 200
+}

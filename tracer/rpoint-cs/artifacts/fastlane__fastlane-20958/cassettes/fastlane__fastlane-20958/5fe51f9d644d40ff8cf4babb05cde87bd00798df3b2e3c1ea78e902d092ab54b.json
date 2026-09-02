@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All three regression test cases now pass. Let me run the original test suite to make sure I didn't break anything:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366732716462570187\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5fe51f9d644d40ff8cf4babb05cde87bd00798df3b2e3c1ea78e902d092ab54b",
+ "status": 200
+}

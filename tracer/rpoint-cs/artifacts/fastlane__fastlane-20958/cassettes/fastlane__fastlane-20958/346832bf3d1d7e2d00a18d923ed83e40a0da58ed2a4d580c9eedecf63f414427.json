@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Confirmed. With `--no-checkout`, even though `current_tag` is \\\"2\\\" (the latest, matching a potential `version: '2'`), the files are NOT present. So we MUST checkout. My fix correctly always checks out in the non-caching case.\\n\\nThis is exactly the regression scenario. The original PR #20895 code would skip the checkout when `current_tag == version` even in the non-caching case, leading to \\\"Could not find Fastfile\\\". My fix correctly requires `is_eligible_for_caching` to be true for the skip optimization.\\n\\nLet me clean up the temp test directories:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp && rm -rf test_clone_repo test_clone_dir\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366709317480736248\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "346832bf3d1d7e2d00a18d923ed83e40a0da58ed2a4d580c9eedecf63f414427",
+ "status": 200
+}

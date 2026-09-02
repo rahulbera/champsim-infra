@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me verify there are no leftover reproduction scripts and that no test files were modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls reproduce_issue.rb fastlane/spec/actions_specs/import_from_git_regression_spec.rb 2>&1; echo \\\\\\\"=== git status ===\\\\\\\"; git status; echo \\\\\\\"=== test file diff ===\\\\\\\"; git diff -- fastlane/spec/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366758967302681961\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "86281f27780ac0396d012cc5027f26b33d5248ed41de6edcddf3ce39b27cc064",
+ "status": 200
+}

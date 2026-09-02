@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 13 tests pass with the upstream test file (including the new \\\"without caching\\\" test that covers the regression). The test file is reverted to its original state.\\n\\nLet me confirm the final state of changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== DIFF ===\\\\\\\" && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366733128779430213\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0f6d437659aef95aef6ff130f73e32b5897834100e99bf97e76e8fde63a5ba76",
+ "status": 200
+}

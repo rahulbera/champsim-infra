@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Everything is clean:\\n- No reproduction scripts remain.\\n- No test files were modified (the `fastlane/spec/` diff is empty).\\n- Only the source file `fastlane/lib/fastlane/fast_file.rb` is modified.\\n\\nLet me run the test suite one final time to confirm everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb fastlane/spec/fast_file_spec.rb 2>&1 | tail -8\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366755359530153090\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "70ed0bea119cd13f2924f8e16955cb33dda69cfc0dd6f60c09592b0bc836d901",
+ "status": 200
+}

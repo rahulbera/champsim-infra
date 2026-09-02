@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting! In a local clone (without `file://`), `--depth` is ignored, so the clone is full and `git describe` returns the tag. But for remote clones (the real-world scenario), `--depth 1` would be applied. Let me test with `file://` to simulate a real remote clone:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp && rm -rf test_clone_dir && git clone \\\\\\\"file:///tmp/test_clone_repo\\\\\\\" test_clone_dir --depth 1 --no-checkout 2>&1 && cd test_clone_dir && echo \\\\\\\"--- git describe ---\\\\\\\" && git describe --exact-match --tags HEAD 2>&1; echo \\\\\\\"exit code: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366749861972009336\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "51a182ee95655866516070154d581a8956277998dcb1508adf8c654dee6a6f03",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the regression. Now let me understand the root cause better. Let me check the current HEAD and look at the logic flow:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366725844514895721\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c7f7385aaf9c0f3947acb19699ee2e75270533563f7d24605387226dabda6880",
+ "status": 200
+}

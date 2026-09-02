@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This failure is because the test \\\"doesn't superfluously execute checkout\\\" relies on tag \\\"6\\\" being created by a previous test (\\\"works with new tags and branch\\\"). When running in isolation, the previous tests don't run, so tag \\\"6\\\" doesn't exist. This is a test-ordering dependency, not related to my change. Let me verify this is also the case on the original code by checking with git stash:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb -e \\\\\\\"doesn't superfluously execute checkout\\\\\\\" 2>&1 | tail -10; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366763434068665818\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e67a2ac7be0acc29a105020a3b8e070d656522b3667094745e7f8f4db8029ef0",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The change is clean and minimal. Let me also run the broader fast_file spec to make sure nothing else broke:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/fast_file_spec.rb 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366734984205298492\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2857a97b0e87fe2ffca64614b8e51ee2af49b12c3f2dc396d7ea1699b0402fdf",
+ "status": 200
+}

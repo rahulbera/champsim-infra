@@ -12,6 +12,18 @@
 # execution model rather than language family, this is where it should show.
 
 lang_toolchain() {
+  # APT_PACKAGES is a descriptor field, and until 2026-09-02 this module simply
+  # ignored it -- as did go.sh and node_npm.sh, while c_make, java_maven,
+  # php_composer and ruby_bundler honoured it. A descriptor could therefore
+  # declare a system dependency and have it silently dropped. nushell-13831
+  # declared `pkg-config libssl-dev`, got neither, and died on openssl-sys with
+  # "pkg-config could not be found" after the whole toolchain had installed.
+  if [ -n "${APT_PACKAGES:-}" ]; then
+    say "apt packages: $APT_PACKAGES"
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+    # shellcheck disable=SC2086
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq $APT_PACKAGES
+  fi
   say "toolchain: Node ${NODE_VERSION}"
   # NodeSource rather than the distro package: noble ships whatever Node was
   # current at release, and a project's engines field can reject it.

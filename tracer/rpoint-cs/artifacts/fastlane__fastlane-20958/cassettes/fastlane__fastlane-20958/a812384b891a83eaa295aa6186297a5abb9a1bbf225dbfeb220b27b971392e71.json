@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now only the source file is modified. Let me run the original test suite one more time to confirm everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366743093103558046\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a812384b891a83eaa295aa6186297a5abb9a1bbf225dbfeb220b27b971392e71",
+ "status": 200
+}

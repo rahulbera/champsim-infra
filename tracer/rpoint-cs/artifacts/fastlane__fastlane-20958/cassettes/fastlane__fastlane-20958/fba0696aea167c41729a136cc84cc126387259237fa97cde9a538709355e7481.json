@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All original tests pass, including the \\\"doesn't superfluously execute checkout\\\" test that PR #20895 added. Let me verify that the optimization test still works correctly by checking that it actually skips the checkout when caching is used and the tag matches:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb -e \\\\\\\"doesn't superfluously execute checkout\\\\\\\" 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366706774860101710\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fba0696aea167c41729a136cc84cc126387259237fa97cde9a538709355e7481",
+ "status": 200
+}

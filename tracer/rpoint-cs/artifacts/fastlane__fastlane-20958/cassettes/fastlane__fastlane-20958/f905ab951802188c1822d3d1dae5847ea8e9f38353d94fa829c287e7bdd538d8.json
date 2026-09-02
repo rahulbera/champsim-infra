@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So for non-caching with version, `find_tag(folder:..., version:..., remote: true)` is called, which does `git fetch --all --tags` first. This fetches all tags. But with `--depth 1`, the actual commit objects for older tags may not be present, so `git checkout <tag>` could still fail. However, this is the pre-existing behavior and not part of the regression I'm fixing.\\n\\nActually, wait. Let me re-test. The `git fetch --all --tags` might fetch the tag objects and their commits. Let me test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/test_clone_dir && echo \\\\\\\"--- fetching all tags ---\\\\\\\" && git fetch --all --tags 2>&1 | tail -3 && echo \\\\\\\"--- git tag -l ---\\\\\\\" && git tag -l && echo \\\\\\\"--- trying checkout tag 1 ---\\\\\\\" && git checkout 1 fastlane/Fastfile 2>&1; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366713268850648210\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f905ab951802188c1822d3d1dae5847ea8e9f38353d94fa829c287e7bdd538d8",
+ "status": 200
+}

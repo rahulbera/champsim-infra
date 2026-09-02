@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I need to require fastlane first. Let me update the script:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/testbed/reproduce_issue.rb\\\",\\\"old_str\\\":\\\"require \\\\\\\"tmpdir\\\\\\\"\\\\n\\\\nENV[\\\\\\\"FORCE_SH_DURING_TESTS\\\\\\\"] = \\\\\\\"1\\\\\\\"\\\",\\\"new_str\\\":\\\"require \\\\\\\"tmpdir\\\\\\\"\\\\nrequire \\\\\\\"fastlane\\\\\\\"\\\\n\\\\nENV[\\\\\\\"FORCE_SH_DURING_TESTS\\\\\\\"] = \\\\\\\"1\\\\\\\"\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366752473312128229\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cef8d3e7d6059153ef7e5967b662d295d5d1cf5bef857f97fa63bd5f44c79b6d",
+ "status": 200
+}

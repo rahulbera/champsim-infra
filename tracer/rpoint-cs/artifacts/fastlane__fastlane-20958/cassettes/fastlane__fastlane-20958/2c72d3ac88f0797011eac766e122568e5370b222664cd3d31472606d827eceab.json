@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the broader test suite to make sure nothing else is broken. Let me run the fast_file spec and the import specs:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec rspec fastlane/spec/actions_specs/import_from_git_spec.rb fastlane/spec/actions_specs/import_from_git_regression_spec.rb fastlane/spec/fast_file_spec.rb 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366616443107931765\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2c72d3ac88f0797011eac766e122568e5370b222664cd3d31472606d827eceab",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the rest of the `fast_file.rb` and check the git diff for any test changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"---DIFF---\\\\\\\" && git diff HEAD\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366687361607924486\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000006, \"id\": \"synthesized-00006\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00006\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "04c700b1beab5a453872406a5b283dfd75d3575e9c4771ad8ef06bbdb21a61c6",
+ "status": 200
+}
