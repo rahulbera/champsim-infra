@@ -99,7 +99,21 @@ for INSTANCE in "$@"; do
   done
   ok "$INSTANCE archived and verified; digests appended to $(basename "$RSUMS")"
   echo "  reclaimable locally: $(du -ch "${files[@]}" | tail -1 | cut -f1)"
-  echo "     NOTE: the traces are HARDLINKED between champsim_out/<instance>/ and"
-  echo "     the tracezoo catalog. Removing one name frees nothing; both must go."
+  # Most windows exist under champsim_out/ ONLY, so removing that name frees the
+  # space. The exception is the ONE representative window per instance that the
+  # tracezoo catalog keeps -- that one is hardlinked, and removing either name
+  # alone frees nothing. Measured, not assumed: of the first 28 windows archived,
+  # 27 had link count 1 and exactly one (immutable-js w00001) had 2. An earlier
+  # version of this note claimed all of them were linked, which would have made a
+  # reclaim look like it had failed.
+  local linked
+  linked=$(find "${files[@]}" -links +1 2>/dev/null)
+  if [ -n "$linked" ]; then
+    echo "     NOTE: these also live in the tracezoo catalog (hardlinked) -- BOTH"
+    echo "     names must go before the space is actually freed:"
+    printf '       %s\n' $(basename -a $linked)
+  fi
+  echo "     KEEP the .check.log siblings: the cluster has the bytes but not the"
+  echo "     validation evidence, and they are a few KB each."
 done
 exit $rc
