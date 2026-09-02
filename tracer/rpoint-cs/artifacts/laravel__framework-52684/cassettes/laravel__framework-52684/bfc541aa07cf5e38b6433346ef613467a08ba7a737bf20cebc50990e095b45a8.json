@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"trim\\\\\\\\|squish\\\\\\\" tests/Support/SupportStrTest.php | grep -i \\\\\\\"null\\\\\\\\|chr\\\\\\\\|x00\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\0\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355598786841799425\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bfc541aa07cf5e38b6433346ef613467a08ba7a737bf20cebc50990e095b45a8",
+ "status": 200
+}

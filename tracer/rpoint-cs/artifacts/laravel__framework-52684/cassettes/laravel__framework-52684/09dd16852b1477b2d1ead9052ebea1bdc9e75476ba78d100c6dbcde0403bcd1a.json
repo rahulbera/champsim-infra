@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All middleware tests pass. Let me also check the validation `trim` method to see if it's related:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '2680,2700p' src/Illuminate/Validation/Concerns/ValidatesAttributes.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355601123304013689\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000037, \"id\": \"synthesized-00037\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00037\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "09dd16852b1477b2d1ead9052ebea1bdc9e75476ba78d100c6dbcde0403bcd1a",
+ "status": 200
+}

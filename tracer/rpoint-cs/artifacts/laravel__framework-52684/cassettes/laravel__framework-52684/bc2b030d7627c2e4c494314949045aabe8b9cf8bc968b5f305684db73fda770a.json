@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Confirmed - the `testIs` error is pre-existing and unrelated to our change. \\n\\nLet me also check the `TrimStrings` middleware that uses these methods, to ensure consistency:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"Str::trim\\\\\\\\|Str::ltrim\\\\\\\\|Str::rtrim\\\\\\\\|->trim()\\\\\\\\|->ltrim()\\\\\\\\|->rtrim()\\\\\\\" src/ | grep -v \\\\\\\"Str.php\\\\\\\\|Stringable.php\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355592361570729131\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bc2b030d7627c2e4c494314949045aabe8b9cf8bc968b5f305684db73fda770a",
+ "status": 200
+}

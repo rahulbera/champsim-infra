@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"That's a separate validation helper using native `trim`, not related to our change.\\n\\nNow let me verify the final diff:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355603837723343489\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "53d78608c7771485ea4475388ca057f619b62b912623030cdebd89b3018e484a",
+ "status": 200
+}

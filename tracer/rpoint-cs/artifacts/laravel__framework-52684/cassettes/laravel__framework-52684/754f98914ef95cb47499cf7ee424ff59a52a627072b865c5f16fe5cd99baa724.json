@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Everything is in order:\\n- Only `src/Illuminate/Support/Str.php` was modified (no test files touched).\\n- The reproduction script was already removed.\\n- All trim-related tests pass.\\n\\nLet me run the submit command one final time to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355587929164479650\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "754f98914ef95cb47499cf7ee424ff59a52a627072b865c5f16fe5cd99baa724",
+ "status": 200
+}

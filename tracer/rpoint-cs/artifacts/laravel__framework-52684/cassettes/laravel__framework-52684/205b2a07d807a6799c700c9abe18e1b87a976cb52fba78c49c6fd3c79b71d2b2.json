@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Http/Middleware/TrimStringsTest.php 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355583118801105250\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "205b2a07d807a6799c700c9abe18e1b87a976cb52fba78c49c6fd3c79b71d2b2",
+ "status": 200
+}

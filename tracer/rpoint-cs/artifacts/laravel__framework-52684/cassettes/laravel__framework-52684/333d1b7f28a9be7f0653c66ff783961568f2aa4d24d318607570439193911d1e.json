@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submission was successful. Let me follow the review steps to confirm everything is in order:\\n\\n1. My reproduction script was already removed earlier.\\n2. I haven't modified any test files (the working tree only shows changes to `src/Illuminate/Support/Str.php`).\\n\\nLet me verify there are no test file changes and run the tests one final time to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== Running trim tests ===\\\\\\\" && ./vendor/bin/phpunit --filter 'testTrim|testLtrim|testRtrim|testSquish' tests/Support/SupportStrTest.php 2>&1 | tail -8\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355584974226976236\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "333d1b7f28a9be7f0653c66ff783961568f2aa4d24d318607570439193911d1e",
+ "status": 200
+}

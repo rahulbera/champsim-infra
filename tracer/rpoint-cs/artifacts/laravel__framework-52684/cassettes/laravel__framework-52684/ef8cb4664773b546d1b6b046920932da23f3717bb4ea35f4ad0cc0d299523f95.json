@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there are any tests related to the null byte case that have already been added:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git diff HEAD --stat; echo \\\\\\\"---\\\\\\\"; grep -rn \\\\\\\"chr(0)\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\x00\\\\\\\\|null byte\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\0\\\\\\\" tests/Support/SupportStrTest.php tests/Support/SupportStringableTest.php 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355609507080175457\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000008, \"id\": \"synthesized-00008\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00008\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ef8cb4664773b546d1b6b046920932da23f3717bb4ea35f4ad0cc0d299523f95",
+ "status": 200
+}

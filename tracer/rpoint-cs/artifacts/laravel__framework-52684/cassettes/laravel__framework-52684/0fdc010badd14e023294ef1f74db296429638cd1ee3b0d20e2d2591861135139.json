@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the git status and look at the test files for any trim-related null byte tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git status; echo \\\\\\\"---DIFF---\\\\\\\"; git diff HEAD\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355589509712443389\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000010, \"id\": \"synthesized-00010\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00010\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0fdc010badd14e023294ef1f74db296429638cd1ee3b0d20e2d2591861135139",
+ "status": 200
+}

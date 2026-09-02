@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All the special invisible characters (FEFF, 200B, 200E) are still being trimmed, AND now the default trim characters including the null byte are also being trimmed. The fix is complete and maintains backward compatibility with the special characters while restoring the Laravel 10 behavior of removing the default trim characters.\\n\\nLet me run the full Str test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Support/SupportStrTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355591262059100266\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "11c31cd8ef123d6aa550c4648d321541e4337c6884ed9e0b3289f06b86b011c8",
+ "status": 200
+}

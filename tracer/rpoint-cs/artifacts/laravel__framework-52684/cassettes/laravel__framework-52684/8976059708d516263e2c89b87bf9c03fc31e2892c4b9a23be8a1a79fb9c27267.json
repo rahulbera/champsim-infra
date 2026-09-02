@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean. Let me look at the full trim/ltrim/rtrim methods and check the git history for context:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline --all -- src/Illuminate/Support/Str.php | head -10; echo \\\\\\\"---\\\\\\\"; git log -p --all -S \\\\\\\"x{FEFF}\\\\\\\" -- src/Illuminate/Support/Str.php | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355591571296744565\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8976059708d516263e2c89b87bf9c03fc31e2892c4b9a23be8a1a79fb9c27267",
+ "status": 200
+}

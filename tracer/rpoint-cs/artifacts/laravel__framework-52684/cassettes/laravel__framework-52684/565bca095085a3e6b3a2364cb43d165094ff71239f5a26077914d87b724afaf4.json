@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's one error but it's unrelated to our change (it's about a missing `StringableObjectStub` class - a pre-existing test environment issue). Let me verify it's pre-existing by checking on the original code:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && ./vendor/bin/phpunit --filter testIs tests/Support/SupportStringableTest.php 2>&1 | tail -15; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355593529801832029\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "565bca095085a3e6b3a2364cb43d165094ff71239f5a26077914d87b724afaf4",
+ "status": 200
+}

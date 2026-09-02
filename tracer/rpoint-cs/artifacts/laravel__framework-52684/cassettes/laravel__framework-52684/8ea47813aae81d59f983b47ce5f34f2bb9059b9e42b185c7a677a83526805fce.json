@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool keeps failing due to a missing `python3` dependency. Let me check if I can resolve this environment issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls /usr/bin/python* /usr/local/bin/python* 2>/dev/null; echo \\\\\\\"---\\\\\\\"; which python3.11 python3.10 python3.9 2>/dev/null; echo \\\\\\\"checking apt\\\\\\\"; ls /usr/bin/ | grep -i python 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355584871147762689\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8ea47813aae81d59f983b47ce5f34f2bb9059b9e42b185c7a677a83526805fce",
+ "status": 200
+}

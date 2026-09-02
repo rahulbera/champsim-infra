@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'll start by exploring the repository structure to understand what we're working with.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls -la && git log --oneline -5 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355595385227705421\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000000, \"id\": \"synthesized-00000\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00000\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3079afb5ab706dc277c2b44ccc91857d54e9cd033d9b816ae121260945fb82f3",
+ "status": 200
+}
