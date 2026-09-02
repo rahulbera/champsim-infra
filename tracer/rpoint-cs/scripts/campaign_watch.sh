@@ -131,8 +131,15 @@ while read -r pid cmd; do
 # substring "grep", which includes every process working on burntsushi__RIPGREP
 # -2209. That instance was silently deleted from every listing, and it was
 # diagnosed as dead twice on the strength of its absence.
+# The script must be the FIRST word after `bash`, i.e. an actual invocation.
+# Matching the name anywhere on the command line also matched the LAUNCHER --
+# a `bash -c '... provision_instance.sh X && run_capture_chain.sh X'` wrapper
+# stays alive for the whole run, has no guest of its own, and was reported as
+# `STALLED? no guest and log 11m old` while the real chain underneath it was
+# converting perfectly happily. A watchdog that cries wolf about its own
+# launcher is a watchdog people stop reading.
 done < <(ps -eo pid,cmd 2>/dev/null \
-         | grep -E '[r]un_capture_chain\.sh|[c]apture_agentic\.sh|[p]rovision_instance\.sh')
+         | grep -E '^[[:space:]]*[0-9]+[[:space:]]+(/bin/)?bash[[:space:]]+[^[:space:]]*([r]un_capture_chain|[c]apture_agentic|[p]rovision_instance)\.sh')
 
 # Logs whose process is gone: the silent-death case. A log that never reached a
 # terminal marker means nobody was told it ended.
