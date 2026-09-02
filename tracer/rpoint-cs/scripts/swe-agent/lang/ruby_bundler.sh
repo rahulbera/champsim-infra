@@ -44,6 +44,47 @@ export BUNDLE_JOBS=4
 EOF
   export BUNDLE_PATH=/opt/bundle GEM_HOME=/opt/bundle BUNDLE_JOBS=$(nproc)
 
+  # Gems the recording'"'"'s image had but a stock Ubuntu guest does not. Ruby 3
+  # moved several stdlib libraries out to BUNDLED gems (webrick, and others),
+  # so a repo whose test helper requires one loads fine in the SWE-bench image
+  # and dies here.
+  #
+  # INSTALLING THE GEM IS NOT ENOUGH, and this is the whole trap: `bundle exec`
+  # prunes $LOAD_PATH to the gems named in Gemfile.lock, so a gem the lockfile
+  # does not mention is unrequirable NO MATTER WHERE IT IS INSTALLED. jekyll'"'"'s
+  # `sudo gem install webrick` succeeded and every single test file still died
+  # with `cannot load such file -- webrick`, because bundler had already
+  # removed the system gem dir from the load path.
+  #
+  # RUBYLIB is the one channel bundler leaves alone: Ruby puts those entries on
+  # $LOAD_PATH at startup, and Bundler'"'"'s cleanup only drops entries rooted in a
+  # gem path. So install the gem, then put its require path on RUBYLIB.
+  #
+  # The alternative -- adding it to the Gemfile -- also works and is rejected:
+  # it rewrites Gemfile and Gemfile.lock, which lands in the agent'"'"'s own
+  # `git diff` answer and corrupts the artifact we are trying to measure.
+  RUBYLIB_EXTRA=""
+  if [ -n "${EXTRA_BUNDLE_GEMS:-}" ]; then
+    say "gems outside the bundle: $EXTRA_BUNDLE_GEMS"
+    for g in $EXTRA_BUNDLE_GEMS; do
+      # Into GEM_HOME (/opt/bundle, owned by ubuntu), NOT system-wide with
+      # sudo: sudo resets the environment, so the gem would land in the
+      # root-owned system dir while the lookup below runs under GEM_HOME.
+      gem install "$g" --no-document >/tmp/provision_extragem.log 2>&1 \
+        || { tail -20 /tmp/provision_extragem.log; die "gem install $g failed"; }
+      gp=$(ruby -e "puts Gem::Specification.find_by_name('"'"'$g'"'"').full_require_paths" \
+           2>/dev/null | tr '"'"'\n'"'"' '"'"':'"'"')
+      [ -n "$gp" ] || die "installed $g but cannot locate its require path"
+      RUBYLIB_EXTRA="${RUBYLIB_EXTRA}${gp}"
+      ok "$g -> ${gp%:}"
+    done
+    RUBYLIB_EXTRA=${RUBYLIB_EXTRA%:}
+    # Exported to every shell for the same reason BUNDLE_PATH is: provisioning
+    # runs as ubuntu, the agent runs as root.
+    echo "export RUBYLIB=$RUBYLIB_EXTRA" | sudo tee -a /etc/profile.d/00-ruby.sh >/dev/null
+    export RUBYLIB=$RUBYLIB_EXTRA
+  fi
+
   cd "$REPO_DIR"
   bundle install >/tmp/provision_bundle.log 2>&1 \
     || { tail -40 /tmp/provision_bundle.log; die "bundle install failed"; }
@@ -60,22 +101,46 @@ EOF
   [ -z "$(git status --porcelain)" ] || die "tree still dirty after restore"
   ok "tree clean"
   du -sh /opt/bundle 2>/dev/null | sed 's/^/  gems: /'
+
+  # The decisive check. `gem list` proving webrick is installed is exactly the
+  # evidence that made jekyll look provisioned four times; the only question
+  # that matters is whether it is requirable UNDER BUNDLE EXEC, which is how
+  # both the gate and the traced agent will load it.
+  for g in ${EXTRA_BUNDLE_GEMS:-}; do
+    (cd "$REPO_DIR" && bundle exec ruby -e "require '$g'" >/dev/null 2>&1) \
+      || die "$g installed but NOT requirable under bundle exec -- RUBYLIB did not take"
+    ok "require '$g' works under bundle exec"
+  done
 }
 
 lang_offline_gate() {
   OFFLINE_ENV=(BUNDLE_PATH=/opt/bundle BUNDLE_FROZEN=true GEM_HOME=/opt/bundle)
+  # run_offline builds a clean environment, so an unexported RUBYLIB would be
+  # dropped precisely where it is needed.
+  [ -n "${RUBYLIB_EXTRA:-}" ] && OFFLINE_ENV+=("RUBYLIB=$RUBYLIB_EXTRA")
   local log=/tmp/offline_gate.log
   run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD" >"$log" 2>&1 \
     || { tail -40 "$log"; die "OFFLINE GATE FAILED -- the traced pass would die"; }
 
-  # RSpec prints "N examples, M failures". Zero examples is a PASS as far as the
-  # exit code is concerned, and is exactly what a mistyped spec path produces.
-  local n
+  # Zero tests is a PASS as far as the exit code is concerned, and is exactly
+  # what a mistyped test path produces -- so the count is the real gate.
+  #
+  # BOTH Ruby test frameworks in this campaign must be recognised. RSpec prints
+  # "N examples, M failures" (rubocop, fastlane); MINITEST prints "N runs, M
+  # assertions, ..." (jekyll). Matching only the rspec form made the gate reject
+  # a perfectly good minitest run with "no rspec example count" -- a failure of
+  # the gate, indistinguishable in the log from a failure of the instance.
+  local n unit
   n=$(grep -oE '^[0-9]+ examples?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
-  [ -n "$n" ] || { tail -30 "$log"; die "no rspec example count in the gate output"; }
+  unit=examples
+  if [ -z "$n" ]; then
+    n=$(grep -oE '^[0-9]+ runs?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
+    unit=runs
+  fi
+  [ -n "$n" ] || { tail -30 "$log"; die "no rspec example or minitest run count in the gate output"; }
   [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
-    || { tail -30 "$log"; die "offline gate ran only $n examples, expected >= ${GATE_MIN_TESTS:-1}"; }
-  ok "offline gate: ran $n rspec examples with NO network"
+    || { tail -30 "$log"; die "offline gate ran only $n $unit, expected >= ${GATE_MIN_TESTS:-1}"; }
+  ok "offline gate: ran $n $unit with NO network"
 }
 
 lang_clean_check() {
