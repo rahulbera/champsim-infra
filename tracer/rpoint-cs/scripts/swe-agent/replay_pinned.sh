@@ -48,6 +48,27 @@ PIN_CPU=${PIN_CPU:-1}
 EXEC_TIMEOUT=${EXEC_TIMEOUT:-1800}       # 30 min per command
 TOTAL_TIMEOUT=${TOTAL_TIMEOUT:-604800}   # 7 d per episode
 
+# NEITHER of the above governs SWE-agent's STATE command, and that is what ends
+# episodes under TCG. sweagent/tools/tools.py:345 calls
+#     env.communicate(state_command, check="warn")
+# with NO timeout argument, so it inherits a hardcoded 25 s default that
+# --agent.tools.execution_timeout cannot reach. Three consecutive state-command
+# timeouts then end the run ("Exit due to multiple consecutive command
+# timeouts") and SWE-agent autosubmits a truncated patch.
+#
+# Under KVM the state command is trivial. Under TCG the machine is ~50x slower,
+# and preactjs__preact-4182 shows the difference exactly: 122 of 122 actions
+# replayed in verify (KVM), then 70 and 71 of 122 in profile (TCG), on the same
+# trajectory and the same guest image.
+#
+# check="warn" means a timed-out state command is NOT fatal in itself, and in a
+# REPLAY the state it gathers cannot change what happens next: the model's
+# responses come from cassettes, so the action sequence is fixed regardless.
+# Raising the consecutive limit therefore lets the replay finish without
+# changing which actions run -- and it is behaviour-neutral for every capture
+# that never times out, which is all of them so far.
+MAX_CONSEC_TIMEOUTS=${MAX_CONSEC_TIMEOUTS:-100}
+
 [ "$(id -u)" -eq 0 ] || die "must run as root (SWE-agent writes /root/tools)"
 
 say "0. preflight"
@@ -140,6 +161,7 @@ taskset -c "$PIN_CPU" /opt/venv/bin/sweagent run \
     --env.repo.reset=False \
     --agent.tools.execution_timeout="$EXEC_TIMEOUT" \
     --agent.tools.total_execution_timeout="$TOTAL_TIMEOUT" \
+    --agent.tools.max_consecutive_execution_timeouts="$MAX_CONSEC_TIMEOUTS" \
     --problem_statement.type=text_file \
     --problem_statement.path="$PROBLEM_STATEMENT" \
     --output_dir="$TRAJ" \
