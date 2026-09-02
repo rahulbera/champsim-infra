@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works with all presentation types. Now let me clean up the reproduction files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f repro.cpp repro repro2.cpp repro2 repro3.cpp repro3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355828138095408110\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a91129a29b32352d33c66dacc00872bcb8c26cac6580cba7ce6db329198d035a",
+ "status": 200
+}

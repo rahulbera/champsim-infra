@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 20 tests pass. Let me also check the test file to see if the test was updated to include negative numbers (since the PR description says the test files were already taken care of):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/test/format-test.cc\\\",\\\"view_range\\\":[1837, 1841]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355829684283636342\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e641661f46a15bd4bf2ec618694745cb84d0192fda3cf340fb2884e3277b3a48",
+ "status": 200
+}

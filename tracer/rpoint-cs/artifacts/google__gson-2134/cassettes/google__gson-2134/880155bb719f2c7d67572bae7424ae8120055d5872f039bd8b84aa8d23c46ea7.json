@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All valid dates still work correctly, and invalid dates now throw exceptions. Let me run the existing test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/gson && mvn -q test -Dtest=ISO8601UtilsTest -DfailIfNoTests=false 2>&1 | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355465642855621759\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "880155bb719f2c7d67572bae7424ae8120055d5872f039bd8b84aa8d23c46ea7",
+ "status": 200
+}

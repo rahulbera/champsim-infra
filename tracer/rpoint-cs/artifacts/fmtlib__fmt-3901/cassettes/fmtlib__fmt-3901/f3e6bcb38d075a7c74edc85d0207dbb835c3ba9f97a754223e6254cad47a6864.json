@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the `is_negative` function and `make_write_int_arg` more closely:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"is_negative\\\\\\\\|uint64_or_128_t\\\\\\\\|uint32_or_64_or_128_t\\\\\\\" /testbed/include/fmt/base.h | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355829409405729842\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f3e6bcb38d075a7c74edc85d0207dbb835c3ba9f97a754223e6254cad47a6864",
+ "status": 200
+}

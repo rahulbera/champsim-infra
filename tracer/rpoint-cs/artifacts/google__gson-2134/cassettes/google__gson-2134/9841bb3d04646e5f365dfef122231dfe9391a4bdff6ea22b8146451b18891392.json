@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the test files to understand the testing structure.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -name \\\\\\\"*ISO8601*\\\\\\\" -o -name \\\\\\\"*ISO8061*\\\\\\\" 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355467154684109280\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000004, \"id\": \"synthesized-00004\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00004\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9841bb3d04646e5f365dfef122231dfe9391a4bdff6ea22b8146451b18891392",
+ "status": 200
+}

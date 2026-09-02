@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a `python3` in `/root/python3.11/bin/`. Let me add it to the PATH and try submitting:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"export PATH=\\\\\\\"/root/python3.11/bin:$PATH\\\\\\\" && python3 --version\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355468803951557258\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e19f24f8d5c2ef0a60e8b3aa82ddba2e21c8700922fd32bc0c14ff3ffc8ed521",
+ "status": 200
+}

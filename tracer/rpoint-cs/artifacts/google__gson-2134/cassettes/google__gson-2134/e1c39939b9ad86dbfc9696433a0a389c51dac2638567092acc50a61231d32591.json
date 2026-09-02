@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me create a reproduction script to confirm the issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"mkdir -p /tmp/repro && cat > /tmp/repro/Repro.java << 'EOF'\\\\nimport com.google.gson.internal.bind.util.ISO8601Utils;\\\\nimport java.text.ParseException;\\\\nimport java.text.ParsePosition;\\\\nimport java.util.Date;\\\\n\\\\npublic class Repro {\\\\n    public static void main(String[] args) throws ParseException {\\\\n        String[] tests = {\\\\\\\"2022-14-30\\\\\\\", \\\\\\\"2022-12-33\\\\\\\", \\\\\\\"2022-02-30\\\\\\\", \\\\\\\"2022-13-01\\\\\\\"};\\\\n        for (String dateStr : tests) {\\\\n            try {\\\\n                Date date = ISO8601Utils.parse(dateStr, new ParsePosition(0));\\\\n                System.out.println(\\\\\\\"NO EXCEPTION for '\\\\\\\" + dateStr + \\\\\\\"' -> \\\\\\\" + date);\\\\n            } catch (Exception e) {\\\\n                System.out.println(\\\\\\\"Exception for '\\\\\\\" + dateStr + \\\\\\\"': \\\\\\\" + e.getMessage());\\\\n            }\\\\n        }\\\\n    }\\\\n}\\\\nEOF\\\\necho \\\\\\\"Created\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355470968615072040\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000008, \"id\": \"synthesized-00008\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00008\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e1c39939b9ad86dbfc9696433a0a389c51dac2638567092acc50a61231d32591",
+ "status": 200
+}

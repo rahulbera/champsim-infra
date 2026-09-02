@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search for `group_digits` in the codebase:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"group_digits\\\\\\\" /testbed/include /testbed/src\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355829856082326389\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000002, \"id\": \"synthesized-00002\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00002\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d9c15cb3882a84b95d8d4678c47633acfdd308f1c1a5b630b39c056a6dea8bfa",
+ "status": 200
+}

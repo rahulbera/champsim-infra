@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 666 functional tests pass. Let me view the final state of the modified file to confirm the change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '125,160p' /testbed/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355461450967541847\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d59ed5d2e9308a3eec84f79b2d24015880b9d28ea869161fabffc3191edceed9",
+ "status": 200
+}

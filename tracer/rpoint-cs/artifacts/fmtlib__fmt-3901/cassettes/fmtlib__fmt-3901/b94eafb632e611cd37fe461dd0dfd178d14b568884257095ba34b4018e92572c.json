@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases work correctly, including:\\n- `0` and `-0` \\u2192 `0`\\n- `1` and `-1` \\u2192 `1` and `-1`\\n- Positive and negative numbers with grouping\\n- Width alignment with negative numbers\\n- Sign specifiers (`+`, ` `)\\n- `INT_MIN` and `LLONG_MIN` (these are tricky because negating them overflows, but `make_write_int_arg` handles this correctly using `0 - abs_value`)\\n- Unsigned values\\n\\nNow let me build and run the actual test suite to make sure I didn't break anything:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make -j$(nproc) format-test 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355832329983492084\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b94eafb632e611cd37fe461dd0dfd178d14b568884257095ba34b4018e92572c",
+ "status": 200
+}

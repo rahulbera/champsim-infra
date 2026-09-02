@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also run the broader functional date tests to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/gson && mvn test -Dtest='*Date*Test' -DfailIfNoTests=false 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355453823105629958\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9f81277f6a7ea630bc0d8838109c4d6493e3cdd5cda091dfcc76f67e58f3cd1f",
+ "status": 200
+}

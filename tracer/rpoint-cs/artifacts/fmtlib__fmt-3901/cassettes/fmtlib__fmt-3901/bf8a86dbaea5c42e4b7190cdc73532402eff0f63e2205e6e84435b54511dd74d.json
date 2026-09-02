@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me create a reproduction script:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat > /testbed/repro.cpp << 'EOF'\\\\n#include <fmt/format.h>\\\\n#include <iostream>\\\\n\\\\nint main() {\\\\n  std::cout << fmt::format(\\\\\\\"{}\\\\\\\", fmt::group_digits(-12345)) << std::endl;\\\\n  std::cout << fmt::format(\\\\\\\"{}\\\\\\\", fmt::group_digits(12345)) << std::endl;\\\\n  std::cout << fmt::format(\\\\\\\"{}\\\\\\\", fmt::group_digits(10000000)) << std::endl;\\\\n  std::cout << fmt::format(\\\\\\\"{}\\\\\\\", fmt::group_digits(-10000000)) << std::endl;\\\\n  return 0;\\\\n}\\\\nEOF\\\\ncd /testbed && g++ -std=c++17 -I include repro.cpp build/libfmt.a -o repro && ./repro\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355839889125930646\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bf8a86dbaea5c42e4b7190cdc73532402eff0f63e2205e6e84435b54511dd74d",
+ "status": 200
+}

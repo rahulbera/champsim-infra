@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix is confirmed working. Let me submit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355846829793077570\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "05235426f701161c43c82a4731f9730bc17cb8fbb04b7648f528d97308f0fe87",
+ "status": 200
+}

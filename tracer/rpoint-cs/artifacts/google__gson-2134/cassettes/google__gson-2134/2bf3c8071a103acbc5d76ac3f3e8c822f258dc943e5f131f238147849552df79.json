@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls gson/target/classes/com/google/gson/internal/bind/util/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355459320663766125\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2bf3c8071a103acbc5d76ac3f3e8c822f258dc943e5f131f238147849552df79",
+ "status": 200
+}

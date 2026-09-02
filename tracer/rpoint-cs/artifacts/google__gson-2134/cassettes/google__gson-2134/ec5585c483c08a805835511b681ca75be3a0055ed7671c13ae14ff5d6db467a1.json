@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works correctly \\u00e2\\u0080\\u0094 all the non-existent dates now throw exceptions. Now let me remove the reproduction scripts:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -rf /tmp/repro && echo \\\\\\\"Reproduction scripts removed\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355466158251696137\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ec5585c483c08a805835511b681ca75be3a0055ed7671c13ae14ff5d6db467a1",
+ "status": 200
+}

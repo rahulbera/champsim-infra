@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -name \\\\\\\"ISO8601Utils.java\\\\\\\" -o -name \\\\\\\"ISO8061Utils.java\\\\\\\" 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355464337185570314\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9c97cf453b2229baccc83e05702a7c66a30ee3ce731b21c6b007d42281f1ac5e",
+ "status": 200
+}

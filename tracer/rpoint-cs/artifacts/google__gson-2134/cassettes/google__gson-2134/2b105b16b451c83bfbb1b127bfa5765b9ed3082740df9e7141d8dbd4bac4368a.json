@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 7 tests pass. Let me also check if there are other places that use the `ISO8601Utils.parse` method or related date parsing, to make sure I'm not missing anything. Let me also check the `DefaultDateTypeAdapter` which is the public-facing date adapter:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rl \\\\\\\"ISO8601Utils\\\\\\\\|setLenient\\\\\\\" gson/src/main/java/ \\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355459904779314461\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2b105b16b451c83bfbb1b127bfa5765b9ed3082740df9e7141d8dbd4bac4368a",
+ "status": 200
+}

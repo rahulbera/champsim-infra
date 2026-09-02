@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Only the source file `ISO8601Utils.java` was modified \\u00e2\\u0080\\u0094 no test files were touched. Now let me run the submit command again to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355462344320738024\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "29bad402b745432d6e63099bf165faf1ecf3c54b1c8ae4e81edce96751106065",
+ "status": 200
+}

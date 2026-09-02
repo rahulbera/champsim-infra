@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro && java -cp /testbed/gson/target/classes:. Repro\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355462928436296026\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3c90d83bc08fd56af09ead8860c38bdceb86daad86c9aaa8dcd7b8cd4d54409f",
+ "status": 200
+}

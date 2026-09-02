@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me create a reproduction script. First let me check how to build/run a test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls /testbed/build/bin /testbed/build/test 2>/dev/null; cat /testbed/CMakeLists.txt | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355827347821427423\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06b27cfdacea25a68a6a200c110d05ed306e469175aa0e277eb05733f9a4207d",
+ "status": 200
+}

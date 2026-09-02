@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases pass correctly. Let me double-check the test file to see if the PR test cases were already added:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"NonExistent\\\\\\\\|nonExistent\\\\\\\\|2022-14\\\\\\\\|2022-12-33\\\\\\\" gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java; echo \\\\\\\"---git status---\\\\\\\"; git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355448566065659795\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f227753730da0ad1bf2a6d3fe9a2b3de0d2ab89c27ad8d915e3fdd4a6744448b",
+ "status": 200
+}
