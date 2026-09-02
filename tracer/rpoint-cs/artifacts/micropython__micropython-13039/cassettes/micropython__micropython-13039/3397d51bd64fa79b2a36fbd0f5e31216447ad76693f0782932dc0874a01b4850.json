@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"cannot be interpreted as an integer\\\\\\\" /testbed/py/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819582520551482\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000004, \"id\": \"synthesized-00004\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00004\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3397d51bd64fa79b2a36fbd0f5e31216447ad76693f0782932dc0874a01b4850",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '130,170p' /testbed/py/objslice.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820029197152250\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8eb4dbac3b79695d7fee04567b1a9a3a404767b617a333bc4744a89c670fe406",
+ "status": 200
+}

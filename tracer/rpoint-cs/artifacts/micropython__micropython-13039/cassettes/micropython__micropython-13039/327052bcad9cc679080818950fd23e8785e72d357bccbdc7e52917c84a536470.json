@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/tests && MICROPY_MICROPYTHON=../ports/unix/build-standard/micropython ./run-tests.py basics/slice_indices.py 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355817727094681538\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "327052bcad9cc679080818950fd23e8785e72d357bccbdc7e52917c84a536470",
+ "status": 200
+}

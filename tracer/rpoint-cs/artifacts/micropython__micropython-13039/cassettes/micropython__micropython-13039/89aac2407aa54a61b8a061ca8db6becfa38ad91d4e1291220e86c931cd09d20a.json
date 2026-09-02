@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls ports/unix/ && cat ports/unix/Makefile | grep -i \\\\\\\"build\\\\\\\\|micropython\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355818929685525503\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000012, \"id\": \"synthesized-00012\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00012\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "89aac2407aa54a61b8a061ca8db6becfa38ad91d4e1291220e86c931cd09d20a",
+ "status": 200
+}

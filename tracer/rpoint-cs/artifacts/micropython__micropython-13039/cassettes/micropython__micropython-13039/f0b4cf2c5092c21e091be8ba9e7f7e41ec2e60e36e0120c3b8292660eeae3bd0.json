@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '152,190p' /testbed/py/objfloat.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355836728029999209\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f0b4cf2c5092c21e091be8ba9e7f7e41ec2e60e36e0120c3b8292660eeae3bd0",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now it raises a TypeError. Let me verify it matches CPython's behavior and run the existing tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ports/unix/build-standard/micropython tests/basics/slice_indices.py\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821025629565650\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ab100f3a4ec12bb79f723b0569e83c6bc4887b9192f74c71b6f57fc65a7d8c7b",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test edge cases:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/edge.py << 'EOF'\\\\nclass A:\\\\n    def __getitem__(self, idx):\\\\n        return idx\\\\n\\\\n# bool should work (True = 1, False = 0)\\\\nprint(A()[:].indices(True))\\\\nprint(A()[:].indices(False))\\\\n\\\\n# int should work\\\\nprint(A()[:].indices(10))\\\\nprint(A()[:].indices(-1))\\\\n\\\\n# float should raise\\\\ntry:\\\\n    print(A()[:].indices(.0))\\\\nexcept TypeError as e:\\\\n    print(\\\\\\\"TypeError:\\\\\\\", e)\\\\n\\\\ntry:\\\\n    print(A()[:].indices(1.5))\\\\nexcept TypeError as e:\\\\n    print(\\\\\\\"TypeError:\\\\\\\", e)\\\\n\\\\n# string should raise\\\\ntry:\\\\n    print(A()[:].indices(\\\\\\\"10\\\\\\\"))\\\\nexcept TypeError as e:\\\\n    print(\\\\\\\"TypeError:\\\\\\\", e)\\\\n\\\\n# None should raise\\\\ntry:\\\\n    print(A()[:].indices(None))\\\\nexcept TypeError as e:\\\\n    print(\\\\\\\"TypeError:\\\\\\\", e)\\\\nEOF\\\\nports/unix/build-standard/micropython /tmp/edge.py\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820372794536843\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "adde4bcf455076468634e771b42fb17fb729680aae28d275dbb5c8735d3789c4",
+ "status": 200
+}

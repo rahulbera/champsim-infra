@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me verify that `mp_obj_get_int_maybe` correctly handles floats (doesn't accidentally convert them):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"INT_MAYBE\\\\\\\\|MP_UNARY_OP_INT\\\\\\\" /testbed/py/objfloat.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355826282669538028\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0b837ca6525f56e6e56d0786a0660f710055efc4b21d0f2a8ac2111a21df129d",
+ "status": 200
+}

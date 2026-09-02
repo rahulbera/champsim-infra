@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"is_str_or_int\\\\\\\\|mp_obj_is_int\\\\\\\\|mp_obj_is_type\\\\\\\" /testbed/py/obj.c | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355840335802530031\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000005, \"id\": \"synthesized-00005\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00005\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9f673ce3e1eb6a1d151717ac8d0f4fb8cb0a9d61c94e9b1fc53418e34990088b",
+ "status": 200
+}

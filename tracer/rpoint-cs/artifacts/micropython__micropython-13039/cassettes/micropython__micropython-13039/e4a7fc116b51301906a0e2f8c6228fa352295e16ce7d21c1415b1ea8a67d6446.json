@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if using `mp_obj_get_int` would give a better error message matching CPython:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test2.py << 'EOF'\\\\nclass A:\\\\n    def __getitem__(self, idx):\\\\n        return idx\\\\nprint(A()[:].indices(.0))\\\\nEOF\\\\nports/unix/build-standard/micropython /tmp/test2.py 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821918982762803\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e4a7fc116b51301906a0e2f8c6228fa352295e16ce7d21c1415b1ea8a67d6446",
+ "status": 200
+}
