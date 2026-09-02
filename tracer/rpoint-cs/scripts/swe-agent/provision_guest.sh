@@ -116,7 +116,15 @@ lang_clean_check
 # ---------------------------------------------------------------------------
 say "SWE-agent"
 if [ ! -d /opt/swe-agent ]; then
-  sudo git clone https://github.com/SWE-agent/SWE-agent.git /opt/swe-agent
+  # From the host-staged mirror when present, for the same SLIRP reason as
+  # /testbed above: fluentd-3328 cleared its whole offline gate and then died
+  # here, on the one clone that still went to GitHub.
+  if [ -d /opt/repo-cache/SWE-agent.git ]; then
+    sudo git clone /opt/repo-cache/SWE-agent.git /opt/swe-agent \
+      && sudo git -C /opt/swe-agent remote set-url origin https://github.com/SWE-agent/SWE-agent.git
+  else
+    sudo git clone https://github.com/SWE-agent/SWE-agent.git /opt/swe-agent
+  fi
   sudo chown -R ubuntu:ubuntu /opt/swe-agent
 fi
 # /opt is root-owned, so `python3 -m venv /opt/venv` fails as ubuntu. It must be

@@ -105,27 +105,33 @@ REPO_URL=$(grep -h '^REPO_URL=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env
            | tail -1 | cut -d= -f2-)
 REPO_NAME=$(grep -h '^REPO_NAME=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
             | tail -1 | cut -d= -f2-)
+# SWE-agent is cloned into every guest too, and fails exactly the same way --
+# fluentd-3328 got all the way through its offline gate and then died on
+# `Cloning into '/opt/swe-agent'`. Mirroring only the instance repo fixes half
+# the problem; both repos have to come from the host.
+mirror_repo() {  # mirror_repo <name> <url>
+  local name=$1 url=$2 tries=0
+  [ -d "$CACHE/$name.git" ] && {
+    echo "  reusing $CACHE/$name.git ($(du -sh "$CACHE/$name.git" | cut -f1))"; return 0; }
+  until git -c protocol.version=1 clone --mirror -q "$url" "$CACHE/$name.git"; do
+    tries=$((tries + 1))
+    [ "$tries" -lt 5 ] || die "could not mirror $url after 5 attempts"
+    echo "  mirror attempt $tries failed; retrying in $((tries * 20))s"
+    rm -rf "$CACHE/$name.git"; sleep $((tries * 20))
+  done
+  echo "  mirrored -> $CACHE/$name.git ($(du -sh "$CACHE/$name.git" | cut -f1))"
+}
+
 if [ -n "$REPO_URL" ] && [ -n "$REPO_NAME" ]; then
-  say "repo mirror for $REPO_NAME"
+  say "repo mirrors ($REPO_NAME + SWE-agent)"
   CACHE=$IMAGES/repo-cache
   mkdir -p "$CACHE"
-  if [ ! -d "$CACHE/$REPO_NAME.git" ]; then
-    tries=0
-    # protocol v1: GitHub's v2 handshake fails from this host (see the note in
-    # provision_guest.sh). --mirror so every ref the agent might touch is here.
-    until git -c protocol.version=1 clone --mirror -q "$REPO_URL" "$CACHE/$REPO_NAME.git"; do
-      tries=$((tries + 1))
-      [ "$tries" -lt 5 ] || die "could not mirror $REPO_URL after 5 attempts"
-      echo "  mirror attempt $tries failed; retrying in $((tries * 20))s"
-      rm -rf "$CACHE/$REPO_NAME.git"; sleep $((tries * 20))
-    done
-    echo "  mirrored -> $CACHE/$REPO_NAME.git ($(du -sh "$CACHE/$REPO_NAME.git" | cut -f1))"
-  else
-    echo "  reusing $CACHE/$REPO_NAME.git ($(du -sh "$CACHE/$REPO_NAME.git" | cut -f1))"
-  fi
+  mirror_repo "$REPO_NAME" "$REPO_URL"
+  mirror_repo SWE-agent https://github.com/SWE-agent/SWE-agent.git
   ssh_g 'sudo mkdir -p /opt/repo-cache && sudo chown -R ubuntu:ubuntu /opt/repo-cache'
-  rsync -a -e "$rsh_opt" "$CACHE/$REPO_NAME.git" "ubuntu@127.0.0.1:/opt/repo-cache/"
-  echo "  staged into the guest at /opt/repo-cache/$REPO_NAME.git"
+  rsync -a -e "$rsh_opt" "$CACHE/$REPO_NAME.git" "$CACHE/SWE-agent.git" \
+        "ubuntu@127.0.0.1:/opt/repo-cache/"
+  echo "  staged $REPO_NAME.git + SWE-agent.git into the guest at /opt/repo-cache/"
 fi
 
 say "run provision_guest.sh"

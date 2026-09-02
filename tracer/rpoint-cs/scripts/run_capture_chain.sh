@@ -21,6 +21,45 @@ INSTANCE=${1:?usage: run_capture_chain.sh <instance_id> [first_phase]}
 # double-run.
 FIRST=${2:-verify}
 
+# --- snapshot guard --------------------------------------------------------
+# Bash reads a running script BY BYTE OFFSET, re-reading as it executes. Change
+# the file underneath a live chain and it resumes at the wrong place.
+#
+# On 2026-09-02 that turned three COMPLETED chains into spurious second cycles.
+# micropython-13039, docusaurus-10130 and hugo-12579 each finished convert with
+# all five windows validated, then printed
+#     line 64: === capture chain for ... ===: command not found
+# fell back into the phase loop, and began re-tracing -- on a path that ends in
+# a convert that would overwrite the very windows they had just validated. The
+# edit that did it was a one-line comment change made hours after those chains
+# started.
+#
+# So a chain now runs from an immutable copy of the whole scripts/ tree, taken
+# at start. This covers capture_agentic.sh too, which runs for an entire phase
+# and is invoked through $ROOT below.
+#
+# RPOINT_ARTIFACTS is pinned to the REAL repo on the way in: cassettes and
+# trajectories cost API credits and cannot be regenerated identically, so they
+# must never be read from -- or written to -- a throwaway copy.
+if [ -z "${RPOINT_CHAIN_SNAPSHOT:-}" ]; then
+  _src=$(cd "$(dirname "$0")/.." && pwd)
+  _snap=$(mktemp -d "${TMPDIR:-/tmp}/rpoint-chain.XXXXXXXX") || exit 1
+  cp -a "$_src/scripts" "$_snap/scripts" \
+    || { printf '  [FAIL] could not snapshot scripts/ to %s\n' "$_snap" >&2; rm -rf "$_snap"; exit 1; }
+  export RPOINT_CHAIN_SNAPSHOT=$_snap
+  : "${RPOINT_ARTIFACTS:=$_src/artifacts}"
+  # The attempts LEDGER must also live in the real repo. Written through $ROOT
+  # it landed in the snapshot and was deleted with it -- every chain-phase
+  # failure would have been silently discarded, which is exactly the record the
+  # three-strikes rule is decided from.
+  export RPOINT_REPO_ROOT=$_src
+  export RPOINT_ARTIFACTS
+  bash "$_snap/scripts/run_capture_chain.sh" "$@"
+  _rc=$?
+  rm -rf "$_snap"
+  exit $_rc
+fi
+
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 . "$ROOT/scripts/lib/paths.sh"
 LOGDIR=$RPOINT_IMAGES/chain-$INSTANCE
@@ -48,11 +87,11 @@ run_phase() {
   # `instance`: an operator who knows it was an infra bug can re-log it, but
   # the reverse -- a real instance failure quietly booked as infra -- is the
   # direction that buys a bad task a fourth try on API credits.
-  bash "$ROOT/scripts/swe-agent/attempts.sh" log "$INSTANCE" instance \
+  bash "${RPOINT_REPO_ROOT:-$ROOT}/scripts/swe-agent/attempts.sh" log "$INSTANCE" instance \
        "chain: $phase failed (see $log)" >/dev/null 2>&1 || true
   # Surface the ceilings in the chain log itself, so an operator reading it sees
   # that a task is out of tries without going to look.
-  bash "$ROOT/scripts/swe-agent/attempts.sh" check "$INSTANCE" 2>&1 \
+  bash "${RPOINT_REPO_ROOT:-$ROOT}/scripts/swe-agent/attempts.sh" check "$INSTANCE" 2>&1 \
     | sed 's/^/    /' | tee -a "$LOGDIR/chain.log" || true
   return 1
 }
