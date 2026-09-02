@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The instructions ask me to revert any test file changes. The task stated I shouldn't modify tests. Let me revert the test file to its original state and confirm there are no leftover reproduction scripts.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout -- test/plugin/test_in_tail.rb\\\\necho \\\\\\\"--- checking for leftover repro scripts ---\\\\\\\"\\\\nls test/plugin/test_reproduce_issue.rb test/plugin/test_check_struct.rb 2>/dev/null || echo \\\\\\\"no leftover repro scripts\\\\\\\"\\\\necho \\\\\\\"--- git status ---\\\\\\\"\\\\ngit status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355837587023455399\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000144, \"id\": \"synthesized-00144\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00144\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "38710210676fb248e8f0b746ce1ebe57adf759f9322ca780ef51b555116c56bc",
+ "status": 200
+}

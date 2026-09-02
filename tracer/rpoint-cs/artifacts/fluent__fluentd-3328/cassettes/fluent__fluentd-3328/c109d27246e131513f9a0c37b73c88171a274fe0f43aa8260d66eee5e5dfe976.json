@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look for tests that may have been added related to this issue.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"ENOENT\\\\\\\\|not found\\\\\\\\|Drop tail watcher\\\\\\\\|stop_watchers\\\\\\\\|start_watchers\\\\\\\\|each_value\\\\\\\\|existence_path\\\\\\\\|expand_paths\\\\\\\" /testbed/test/plugin/test_in_tail.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821987702240498\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c109d27246e131513f9a0c37b73c88171a274fe0f43aa8260d66eee5e5dfe976",
+ "status": 200
+}

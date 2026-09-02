@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -e 'require \\\\\\\"fluent/plugin/in_tail\\\\\\\"; ti = Fluent::Plugin::TailInput::TargetInfo.new(\\\\\\\"/tmp/foo\\\\\\\", 123); puts ti.respond_to?(:each_value); p ti.methods.grep(/each/)'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824976999478923\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2ce345e332482f9f31455c68f047bee0ff950ea338b83c084d16b768aaa9886b",
+ "status": 200
+}

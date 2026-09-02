@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean. Let me look at the test that may be relevant to this issue. Let me check the `test_missing_file` test and around it to understand the expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/test/plugin/test_in_tail.rb\\\",\\\"view_range\\\":[1083, 1210]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355824839560525700\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c9fedb3544bb79d66f3a295cf4b528d9ec013282550b8140b075e55b6884c207",
+ "status": 200
+}

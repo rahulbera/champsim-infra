@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -i \\\\\\\"s|require_relative 'test/helper'|require_relative '../helper'|\\\\\\\" /testbed/test/plugin/test_reproduce_issue.rb\\\\nbundle exec ruby -Itest test/plugin/test_reproduce_issue.rb 2>&1 | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355822709256745863\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f8dd9788311606e1b4463bd4aa3b83c8994787c807e140966c062719041f7806",
+ "status": 200
+}

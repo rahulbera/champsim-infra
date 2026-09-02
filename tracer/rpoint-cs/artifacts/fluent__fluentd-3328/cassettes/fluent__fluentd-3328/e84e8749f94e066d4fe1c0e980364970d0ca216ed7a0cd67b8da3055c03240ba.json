@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, `cleanup_file` is defined. The test passes.\\n\\nLet me view the final diff of both files to confirm everything is in order.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821094349040351\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000126, \"id\": \"synthesized-00126\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00126\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e84e8749f94e066d4fe1c0e980364970d0ca216ed7a0cd67b8da3055c03240ba",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search the entire git history for commits that touch the `stop_watchers` line or the rescue block.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --all --oneline -S \\\\\\\"stop_watchers(target_info\\\\\\\" -- lib/fluent/plugin/in_tail.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823774408634826\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000099, \"id\": \"synthesized-00099\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00099\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6019b01487470d5ae92fc0fc5fc5846a4f58d9b0da2ff610d6906f32b262637d",
+ "status": 200
+}

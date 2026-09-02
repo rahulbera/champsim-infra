@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the current state of the test file to see what tests exist around the relevant area.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"def test\\\\\\\\|sub_test_case\\\\\\\" /testbed/test/plugin/test_in_tail.rb | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355844012294529049\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f283522a4c5999330993a0827e007e868e852bee1d8c86bca38eb615a6da22e1",
+ "status": 200
+}

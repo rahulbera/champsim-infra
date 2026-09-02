@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 200 bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/should_delete_file_pos_entry_for_non_existing_file|should_write_latest_offset|should_keep_and_update|should_mark_file_unwatched_after_limit|should_read_from_head_on_file_renaming|should_not_read_from_head_on_rotation|should_mark_file_unwatched_if_same_name|should_close_watcher_after_rotate_wait|should_create_new_watcher_for_new_file|truncate_file_with_follow_inodes/\\\\\\\" 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355822468738577907\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000114, \"id\": \"synthesized-00114\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00114\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2e5a5ecbb6557b00db0d4d968370a91763333be91676bf237c7c16f97a858561",
+ "status": 200
+}

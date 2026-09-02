@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Tabs preserved. Now let me run the new test and the whitespace test to confirm everything works.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/test_ENOENT_error_after_setup_watcher|test_whitespace/\\\\\\\" 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355841469673891095\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000135, \"id\": \"synthesized-00135\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00135\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "92e7c396babe131c9138f8c8e5dd8d9eeaa34c2a74c3d767832d29086950d919",
+ "status": 200
+}

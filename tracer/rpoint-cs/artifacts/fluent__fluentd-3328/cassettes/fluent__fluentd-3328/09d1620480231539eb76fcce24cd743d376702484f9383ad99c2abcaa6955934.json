@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `git checkout -- test/plugin/test_in_tail.rb` reverted the test file, but it shows as staged because the previous `git checkout` staged it. Wait, let me check the actual content of the test file - the checkout should have restored it to HEAD.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff HEAD -- test/plugin/test_in_tail.rb; echo \\\\\\\"=== exit code: $? ===\\\\\\\"; tail -5 test/plugin/test_in_tail.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355827485260374592\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000146, \"id\": \"synthesized-00146\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00146\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "09d1620480231539eb76fcce24cd743d376702484f9383ad99c2abcaa6955934",
+ "status": 200
+}

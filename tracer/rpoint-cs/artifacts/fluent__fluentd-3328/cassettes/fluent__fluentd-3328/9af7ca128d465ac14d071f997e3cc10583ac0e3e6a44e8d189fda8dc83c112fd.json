@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The full suite takes too long for the 30s limit. Let me run it in the background and check the result.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && nohup bundle exec ruby -Itest test/plugin/test_in_tail.rb > /tmp/test_in_tail_result.log 2>&1 &\\\\necho \\\\\\\"Started PID $!\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824324164451353\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000116, \"id\": \"synthesized-00116\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00116\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9af7ca128d465ac14d071f997e3cc10583ac0e3e6a44e8d189fda8dc83c112fd",
+ "status": 200
+}

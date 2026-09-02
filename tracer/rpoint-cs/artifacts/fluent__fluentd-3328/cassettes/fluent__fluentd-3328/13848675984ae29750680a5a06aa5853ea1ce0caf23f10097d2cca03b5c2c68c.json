@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting! `stop_watchers` was NOT called at all (no DEBUG output). This means the third stat call's ENOENT is being caught somewhere else. Let me look again at the `start_watchers` method.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/fluent/plugin/in_tail.rb\\\",\\\"view_range\\\":[395, 426]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355844115373744806\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "13848675984ae29750680a5a06aa5853ea1ce0caf23f10097d2cca03b5c2c68c",
+ "status": 200
+}

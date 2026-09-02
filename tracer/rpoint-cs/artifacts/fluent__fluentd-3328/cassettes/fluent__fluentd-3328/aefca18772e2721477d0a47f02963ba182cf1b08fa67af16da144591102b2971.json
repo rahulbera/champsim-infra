@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"While that runs, let me review the final state of the source change once more.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/fluent/plugin/in_tail.rb\\\",\\\"view_range\\\":[395, 427]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355823052854129913\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000137, \"id\": \"synthesized-00137\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00137\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "aefca18772e2721477d0a47f02963ba182cf1b08fa67af16da144591102b2971",
+ "status": 200
+}

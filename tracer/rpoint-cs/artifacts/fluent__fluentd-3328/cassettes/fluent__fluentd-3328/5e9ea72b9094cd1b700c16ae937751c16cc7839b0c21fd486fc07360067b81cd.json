@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The \\\"unexpected error\\\" comes from `lib/fluent/engine.rb:156` and `lib/fluent/supervisor.rb:976`. The exception propagates up from `start` to the root_agent and engine. In the test driver, the error during start might be captured. Let me check the test driver's handling of start errors.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"start\\\\\\\\|rescue\\\\\\\\|raise\\\\\\\\|error\\\\\\\" lib/fluent/test/driver/base.rb | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823327732036004\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5e9ea72b9094cd1b700c16ae937751c16cc7839b0c21fd486fc07360067b81cd",
+ "status": 200
+}

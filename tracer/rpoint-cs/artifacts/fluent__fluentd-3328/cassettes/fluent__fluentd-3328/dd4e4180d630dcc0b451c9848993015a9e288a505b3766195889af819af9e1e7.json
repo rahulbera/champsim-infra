@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All inode_processing tests pass. Now let me run the full test_in_tail.rb suite to make sure nothing is broken. This may take a while, so let me run it with a timeout.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 600 bundle exec ruby -Itest test/plugin/test_in_tail.rb 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824461603403424\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000115, \"id\": \"synthesized-00115\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00115\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dd4e4180d630dcc0b451c9848993015a9e288a505b3766195889af819af9e1e7",
+ "status": 200
+}

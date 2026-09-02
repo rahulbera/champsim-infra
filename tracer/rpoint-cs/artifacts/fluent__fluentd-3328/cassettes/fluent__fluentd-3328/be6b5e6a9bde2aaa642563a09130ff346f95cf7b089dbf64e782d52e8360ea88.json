@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file is now restored to its original HEAD state (no diff). Let me verify the final state.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status; echo \\\\\\\"=== diff vs HEAD ===\\\\\\\"; git diff HEAD\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355822915415178312\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000148, \"id\": \"synthesized-00148\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00148\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "be6b5e6a9bde2aaa642563a09130ff346f95cf7b089dbf64e782d52e8360ea88",
+ "status": 200
+}

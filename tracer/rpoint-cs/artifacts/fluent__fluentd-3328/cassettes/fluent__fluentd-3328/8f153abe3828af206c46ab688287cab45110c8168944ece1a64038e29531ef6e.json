@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me write a quick ruby script using the test helper approach to check if TargetInfo responds to each_value.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /testbed/test/plugin/test_check_struct.rb << 'EOF'\\\\nrequire_relative '../helper'\\\\nrequire 'fluent/plugin/in_tail'\\\\n\\\\nclass CheckStructTest < Test::Unit::TestCase\\\\n  test \\\\\\\"TargetInfo responds to each_value?\\\\\\\" do\\\\n    ti = Fluent::Plugin::TailInput::TargetInfo.new(\\\\\\\"/tmp/foo\\\\\\\", 123)\\\\n    puts \\\\\\\"responds to each_value? #{ti.respond_to?(:each_value)}\\\\\\\"\\\\n    puts \\\\\\\"methods: #{ti.methods.grep(/each/).inspect}\\\\\\\"\\\\n  end\\\\nend\\\\nEOF\\\\nbundle exec ruby -Itest test/plugin/test_check_struct.rb 2>&1 | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355825045718953174\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8f153abe3828af206c46ab688287cab45110c8168944ece1a64038e29531ef6e",
+ "status": 200
+}

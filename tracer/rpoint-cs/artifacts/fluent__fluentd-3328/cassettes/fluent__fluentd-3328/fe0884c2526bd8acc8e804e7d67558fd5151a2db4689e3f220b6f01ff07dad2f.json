@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix matches the upstream exactly. Let me wait for the test suite to finish and check the result.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sleep 60 && tail -20 /tmp/test_in_tail_result.log\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355834769524914146\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000119, \"id\": \"synthesized-00119\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00119\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fe0884c2526bd8acc8e804e7d67558fd5151a2db4689e3f220b6f01ff07dad2f",
+ "status": 200
+}

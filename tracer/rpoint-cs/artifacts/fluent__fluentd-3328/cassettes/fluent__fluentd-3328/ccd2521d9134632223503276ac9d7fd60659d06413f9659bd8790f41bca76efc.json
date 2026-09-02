@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the actual upstream test to verify it passes.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/test_ENOENT_error_after_setup_watcher/\\\\\\\" 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824221085236909\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000106, \"id\": \"synthesized-00106\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00106\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ccd2521d9134632223503276ac9d7fd60659d06413f9659bd8790f41bca76efc",
+ "status": 200
+}

@@ -137,7 +137,14 @@ lang_offline_gate() {
     n=$(grep -oE '^[0-9]+ runs?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
     unit=runs
   fi
-  [ -n "$n" ] || { tail -30 "$log"; die "no rspec example or minitest run count in the gate output"; }
+  if [ -z "$n" ]; then
+    # TEST-UNIT (fluentd): "N tests, M assertions, X failures, ...". A third
+    # distinct summary line -- the campaign's Ruby picks use all three
+    # frameworks, so recognising two of them is not enough.
+    n=$(grep -oE '^[0-9]+ tests?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
+    unit=tests
+  fi
+  [ -n "$n" ] || { tail -30 "$log"; die "no rspec/minitest/test-unit count in the gate output"; }
   [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
     || { tail -30 "$log"; die "offline gate ran only $n $unit, expected >= ${GATE_MIN_TESTS:-1}"; }
   ok "offline gate: ran $n $unit with NO network"

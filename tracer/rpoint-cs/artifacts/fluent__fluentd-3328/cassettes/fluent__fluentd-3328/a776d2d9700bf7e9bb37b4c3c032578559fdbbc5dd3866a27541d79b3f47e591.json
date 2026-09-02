@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Still running. Let me wait more.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sleep 25; tail -20 /tmp/test_in_tail_result.log\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355826042151369325\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000121, \"id\": \"synthesized-00121\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00121\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a776d2d9700bf7e9bb37b4c3c032578559fdbbc5dd3866a27541d79b3f47e591",
+ "status": 200
+}

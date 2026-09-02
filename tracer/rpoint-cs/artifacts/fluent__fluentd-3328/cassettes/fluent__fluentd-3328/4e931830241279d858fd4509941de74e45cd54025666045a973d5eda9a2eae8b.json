@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the change is correct and the tabs in `test_whitespace` are preserved.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff test/plugin/test_in_tail.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823808768372410\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000133, \"id\": \"synthesized-00133\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00133\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4e931830241279d858fd4509941de74e45cd54025666045a973d5eda9a2eae8b",
+ "status": 200
+}

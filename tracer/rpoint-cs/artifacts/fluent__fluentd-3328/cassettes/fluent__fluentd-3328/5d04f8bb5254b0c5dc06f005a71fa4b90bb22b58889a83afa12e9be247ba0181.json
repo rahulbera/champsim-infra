@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 120 bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/missing_file/\\\\\\\" 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823705689158824\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000077, \"id\": \"synthesized-00077\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00077\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5d04f8bb5254b0c5dc06f005a71fa4b90bb22b58889a83afa12e9be247ba0181",
+ "status": 200
+}

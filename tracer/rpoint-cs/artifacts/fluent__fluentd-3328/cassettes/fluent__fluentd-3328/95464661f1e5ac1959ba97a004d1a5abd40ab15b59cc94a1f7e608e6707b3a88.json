@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test fails without the fix (confirming it's meaningful) and passes with the fix. \\n\\nNow let me clean up my temporary test files and run the broader test suite to make sure I didn't break anything.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f test/plugin/test_reproduce_issue.rb test/plugin/test_check_struct.rb\\\\ngit status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823052854130160\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000108, \"id\": \"synthesized-00108\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00108\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "95464661f1e5ac1959ba97a004d1a5abd40ab15b59cc94a1f7e608e6707b3a88",
+ "status": 200
+}

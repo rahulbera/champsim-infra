@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 103 tests pass (3 omissions are environmental - Linux capability not enabled). \\n\\nLet me do a final review of the complete diff.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824873920258330\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000142, \"id\": \"synthesized-00142\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00142\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "78971627548ecdf189f68a9a5eb7960d663ef9dab321795843fe1afe3bbfc318",
+ "status": 200
+}

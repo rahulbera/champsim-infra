@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the rotate file tests and the inode_processing tests which are most relevant to the watcher lifecycle.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 180 bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/inode_processing|rotate file|truncate/\\\\\\\" 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820853830873402\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000112, \"id\": \"synthesized-00112\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00112\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "61bb6ae2fbdd5b16040ffaec6e18075c53231623277392b4792c1a6f3c231247",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline -5 -- lib/fluent/plugin/in_tail.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355836143914444788\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000015, \"id\": \"synthesized-00015\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00015\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06002382676074c4dca6373c7becdfcbe24379fdd1612870f5654ae720da492b",
+ "status": 200
+}

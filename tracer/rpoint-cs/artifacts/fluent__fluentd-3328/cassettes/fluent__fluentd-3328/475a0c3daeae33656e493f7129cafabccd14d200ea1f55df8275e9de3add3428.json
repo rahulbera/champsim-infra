@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the test helper to see how it loads things.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && head -30 test/helper.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355825251877382195\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "475a0c3daeae33656e493f7129cafabccd14d200ea1f55df8275e9de3add3428",
+ "status": 200
+}

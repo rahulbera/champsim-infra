@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the relevant in_tail tests to make sure nothing is broken. Let me run a subset that's likely to be affected.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 150 bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/missing_file|ENOENT_error|should_delete_file_pos_entry|should_keep_and_update_existing_file_pos_entry|should_mark_file_unwatched|should_close_watcher_after_rotate_wait|should_create_new_watcher_for_new_file|unwatched_files_should_be_removed|skip_refresh_on_startup|z_refresh_watchers/\\\\\\\" 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824873920263130\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000109, \"id\": \"synthesized-00109\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00109\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3bcf34f98db59d8d08c7a00778484ef1fb7252900b559f59433cd9ca74ab4ff8",
+ "status": 200
+}

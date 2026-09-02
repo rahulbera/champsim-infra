@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 120 bundle exec ruby -Itest test/plugin/in_tail/test_position_file.rb 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355824839560527608\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000111, \"id\": \"synthesized-00111\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00111\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fafbe9dd5e93b0902d247d3b514d2657c3e690f5678290abed6d1e6fc60ad4f4",
+ "status": 200
+}

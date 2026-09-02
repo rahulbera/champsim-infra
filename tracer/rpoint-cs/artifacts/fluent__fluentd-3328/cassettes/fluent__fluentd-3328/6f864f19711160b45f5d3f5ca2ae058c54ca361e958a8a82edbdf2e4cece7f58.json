@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `-n` filter with `/.../` only matched test names containing those words. Let me run the full inode_processing sub_test_case properly.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 200 bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/inode_processing/\\\\\\\" 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820922550351649\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000113, \"id\": \"synthesized-00113\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00113\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6f864f19711160b45f5d3f5ca2ae058c54ca361e958a8a82edbdf2e4cece7f58",
+ "status": 200
+}

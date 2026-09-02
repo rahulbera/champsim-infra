@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/reproduce.rb << 'EOF'\\\\n$LOAD_PATH.unshift('/testbed/lib')\\\\nrequire 'fluent/plugin/in_tail'\\\\n\\\\ntarget_info = Fluent::Plugin::TailInput::TargetInfo.new(\\\\\\\"/tmp/nonexistent_file\\\\\\\", 12345)\\\\n\\\\n# Simulate the stop_watchers call with a single TargetInfo object\\\\nbegin\\\\n  target_info.each_value { |ti| puts ti }\\\\nrescue NoMethodError => e\\\\n  puts \\\\\\\"Reproduced error: #{e.message}\\\\\\\"\\\\nend\\\\nEOF\\\\nruby /tmp/reproduce.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355825664194247273\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "13324f177a3604b5d1c369a8de5371b587b6baec6bc754ea4bf3564096e7e493",
+ "status": 200
+}

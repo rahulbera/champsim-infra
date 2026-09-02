@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All pass. Let me also run the expand_paths tests and the position file tests.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 120 bundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/expand_paths|log_file_without_extension|test_limit_recently_modified/\\\\\\\" 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355822881055439453\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000110, \"id\": \"synthesized-00110\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00110\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5f5c4b11250bd9d2ce628c01fa3f28e44a165163f35711fac23ff162c8bf94e5",
+ "status": 200
+}

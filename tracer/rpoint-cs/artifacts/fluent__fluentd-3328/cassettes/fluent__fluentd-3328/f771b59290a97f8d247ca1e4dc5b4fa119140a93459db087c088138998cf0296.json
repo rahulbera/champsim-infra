@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is a problem. The `test_whitespace` test had actual tab characters, and my editing tool seems to have converted them to spaces. This would break the test (it's testing whitespace handling with actual tabs). I need to revert this change. Let me check the original.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show HEAD:test/plugin/test_in_tail.rb | sed -n '676,700p' | cat -A | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355837758822150941\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000128, \"id\": \"synthesized-00128\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00128\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f771b59290a97f8d247ca1e4dc5b4fa119140a93459db087c088138998cf0296",
+ "status": 200
+}

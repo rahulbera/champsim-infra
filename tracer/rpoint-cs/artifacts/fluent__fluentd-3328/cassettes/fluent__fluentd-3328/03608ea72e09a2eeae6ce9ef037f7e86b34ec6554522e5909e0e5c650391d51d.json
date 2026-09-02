@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The actual upstream test passes. Let me verify the test FAILS without my fix (to confirm the test is meaningful). Let me temporarily revert the fix.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash -- lib/fluent/plugin/in_tail.rb\\\\nbundle exec ruby -Itest test/plugin/test_in_tail.rb -n \\\\\\\"/test_ENOENT_error_after_setup_watcher/\\\\\\\" 2>&1 | tail -25\\\\ngit stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355842912782903520\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000107, \"id\": \"synthesized-00107\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00107\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "03608ea72e09a2eeae6ce9ef037f7e86b34ec6554522e5909e0e5c650391d51d",
+ "status": 200
+}

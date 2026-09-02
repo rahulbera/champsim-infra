@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the test file is restored to original. Let me verify the tabs are back.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '683,688p' test/plugin/test_in_tail.rb | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355825251877387122\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000130, \"id\": \"synthesized-00130\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00130\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "df8eae5c01b12139a4d8b1683b02e5c2eb01c8addbfb840bc3105914ec2afa79",
+ "status": 200
+}

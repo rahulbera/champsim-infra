@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 103 tests pass (3 omissions are due to Linux capability not being enabled, which is environmental). \\n\\nLet me also run the test_io_handler and test_fifo tests to be thorough since they relate to the TailWatcher.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -Itest test/plugin/in_tail/test_io_handler.rb 2>&1 | tail -8\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355823190293078521\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000123, \"id\": \"synthesized-00123\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00123\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "499eff05b736a047559f82916f000a06491ece8dcebe14ed7844d165fbbebbf4",
+ "status": 200
+}

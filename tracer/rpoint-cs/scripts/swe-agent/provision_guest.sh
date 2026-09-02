@@ -24,6 +24,20 @@ lang_toolchain
 
 # ---------------------------------------------------------------------------
 say "checkout at ${BASE_COMMIT:0:12}"
+# Pin git's wire protocol to v1. GitHub's protocol-v2 handshake started failing
+# from this host on 2026-09-02, and it fails in a maximally misleading way: git
+# reports `could not read Username for 'https://github.com'` followed by
+# `expected flush after ref listing`, which reads like an auth or rate-limit
+# problem and is neither. Measured the same day -- curl GET of info/refs and
+# POST of git-upload-pack both return HTTP 200 with a valid v2 ref listing, the
+# API reports 60/60 requests remaining, there is no credential helper and no
+# GITHUB_TOKEN, and the failure reproduces identically with the sandbox off.
+# `protocol.version=0` and `=1` both succeed against the same URL in the same
+# second that `=2` fails. It cost jekyll-8167 its last attempt, 60 seconds in,
+# before any of the real work ran.
+# Written to /etc/gitconfig rather than exported, so it also covers the clone
+# below that runs under sudo, and every git the AGENT runs as root later.
+sudo git config --system protocol.version 1
 # A FULL clone on purpose. Blobless/shallow clones save a few hundred MB but
 # break `git log -p`, `git show <old-sha>` and `git blame` offline, and
 # SWE-agent routinely runs git history commands while exploring.

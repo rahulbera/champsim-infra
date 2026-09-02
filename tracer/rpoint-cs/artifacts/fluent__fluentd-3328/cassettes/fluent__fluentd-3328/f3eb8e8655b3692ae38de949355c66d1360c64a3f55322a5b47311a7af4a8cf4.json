@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if `TargetInfo` (a Struct) has `each_value` in this Ruby version.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -e \\\\\\\"\\\\n$LOAD_PATH.unshift('/testbed/lib')\\\\nrequire 'fluent/plugin/in_tail'\\\\nti = Fluent::Plugin::TailInput::TargetInfo.new('/tmp/foo', 123)\\\\nputs ti.respond_to?(:each_value)\\\\nputs ti.methods.grep(/each/)\\\\n\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355827622699330347\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f3eb8e8655b3692ae38de949355c66d1360c64a3f55322a5b47311a7af4a8cf4",
+ "status": 200
+}

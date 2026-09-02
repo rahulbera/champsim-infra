@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both tests pass. Let me run the full test suite once more in the background to confirm nothing is broken with the clean diff.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && (bundle exec ruby -Itest test/plugin/test_in_tail.rb > /tmp/test_in_tail_result2.log 2>&1 &) ; echo \\\\\\\"started\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355825767273457311\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000136, \"id\": \"synthesized-00136\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00136\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "75cf3a24b2f77e60a76646188fe7e10f5f183d44b4b1f50d0977bbf3050699b4",
+ "status": 200
+}
