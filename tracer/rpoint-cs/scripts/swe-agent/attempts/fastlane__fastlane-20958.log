@@ -1,0 +1,1 @@
+2026-09-02 04:03:06	infra	my GATE_TEST_CMD guessed spec/action_spec.rb; fastlane is a monorepo with specs under <gem>/spec/, so rspec found no examples
