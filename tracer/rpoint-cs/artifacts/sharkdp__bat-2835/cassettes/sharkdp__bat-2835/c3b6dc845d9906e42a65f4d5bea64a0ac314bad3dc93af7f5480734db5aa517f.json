@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Tabs preserved. Now let me verify the full diff is clean (only header tests added):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --stat tests/integration_tests.rs && echo \\\\\\\"===\\\\\\\" && git diff tests/integration_tests.rs | grep -E \\\\\\\"^[-+]\\\\\\\" | grep -v \\\\\\\"^[-+]{3}\\\\\\\" | grep -vE \\\\\\\"^[-+]\\\\\\\\s*$\\\\\\\" | grep -vE \\\\\\\"^\\\\\\\\+.*header|^[-+].*test|^[-+].*bat\\\\\\\\(\\\\\\\\)|^[-+].*arg|^[-+].*assert|^[-+].*stdout|^[-+].*success|^[-+].*stderr|^[-+].*File:|^[-+].*\\u00e2\\u0094\\u0094|^[-+].*\\u00e2\\u0094\\u0080|^[-+].*The header|^[-+].*is-really|^[-+].*uld-have|^[-+].*ayout|^[-+].*xt|^[-+].*ken|^[-+].*-file|^[-+].*long|^[-+].*would|^[-+].*broken|^[-+].*e-layout|^[-+].*f-the|^[-+].*er.txt|^[-+].* is not|^[-+].*oken\\\\\\\" | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355420562878882416\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000152, \"id\": \"synthesized-00152\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00152\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c3b6dc845d9906e42a65f4d5bea64a0ac314bad3dc93af7f5480734db5aa517f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me reproduce the issue. First, let me create a test file with a long path:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && mkdir -p /tmp/longpath && echo \\\\\\\"test content\\\\\\\" > \\\\\\\"/tmp/longpath/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355446607560569089\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3cddcc4e6f40d0232504914730fe26a657894fcf83b04b7b6314f09afca487ac",
+ "status": 200
+}

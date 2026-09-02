@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fixture file matches the original PR exactly (content \\\"The header is not broken\\\" with no trailing newline).\\n\\nNow let me run clippy to make sure my code is clean:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo clippy --bin bat 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355427503546039277\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000168, \"id\": \"synthesized-00168\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00168\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3261b9756599c602ac6b4eb80ddda5b7256b3c3a822e765aeb06b7cab7b020d7",
+ "status": 200
+}

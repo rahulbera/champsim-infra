@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat >> Gemfile <<'EOF'\\\\n\\\\n# Temporary: webrick needed for serve servlet in tests on Ruby 3.x\\\\ngem \\\\\\\"webrick\\\\\\\", \\\\\\\"~> 1.9\\\\\\\", :group => :test\\\\nEOF\\\\nbundle install 2>&1 | tail -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355362598000255005\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000054, \"id\": \"synthesized-00054\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00054\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9a5d1e97303e106271fec513329c49379bcddc9d800879666c2f89340fe4b8f1",
+ "status": 200
+}

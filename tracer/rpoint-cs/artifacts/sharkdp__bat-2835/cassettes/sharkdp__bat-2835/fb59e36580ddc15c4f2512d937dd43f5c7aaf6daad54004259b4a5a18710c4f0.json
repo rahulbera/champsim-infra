@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Hmm, it seems `tests/integration_tests.rs` is still showing as modified (staged). The `git checkout --` may not have worked as expected because of staging. Let me check the actual content:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --cached --stat; echo \\\\\\\"=== unstaged ===\\\\\\\"; git diff --stat; echo \\\\\\\"=== check if header tests present ===\\\\\\\"; grep -c \\\\\\\"header_narrow_terminal\\\\\\\" tests/integration_tests.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355429015374524258\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000183, \"id\": \"synthesized-00183\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00183\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fb59e36580ddc15c4f2512d937dd43f5c7aaf6daad54004259b4a5a18710c4f0",
+ "status": 200
+}

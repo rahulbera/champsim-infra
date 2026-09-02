@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So with ONLY printer.rs changed (test file original), all 126 pass. So my printer.rs is fine. Now let me test with ONLY the test file changed (printer.rs reverted):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash push src/printer.rs && cargo test --test integration_tests 2>&1 | tail -8; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355427159948653657\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000139, \"id\": \"synthesized-00139\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00139\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f76c9189ac4264e5be6841d8984a291bc7981afa7538d0d94083d006015cd1a9",
+ "status": 200
+}

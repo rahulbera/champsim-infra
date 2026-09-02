@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline --all -- src/printer.rs | head; echo \\\\\\\"===\\\\\\\"; git show 25f4f96e:src/printer.rs 2>/dev/null | grep -n \\\\\\\"print_header_multiline_component\\\\\\\\|split_at\\\\\\\\|char_indices\\\\\\\\|floor_char_boundary\\\\\\\" \\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355435440645599058\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000089, \"id\": \"synthesized-00089\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00089\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b9f3052b2b9939ceaf7bed2194ae5b1baa2fc46734f8b22cd1fce98f0fb7e43",
+ "status": 200
+}

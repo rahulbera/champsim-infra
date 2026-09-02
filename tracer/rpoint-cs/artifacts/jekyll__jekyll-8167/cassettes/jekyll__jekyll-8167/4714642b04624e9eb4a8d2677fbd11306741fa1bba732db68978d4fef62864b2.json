@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The webrick issue is an environment problem unrelated to my change. Let me try to make webrick available to the bundle:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle add webrick --group test 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355377029090376588\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4714642b04624e9eb4a8d2677fbd11306741fa1bba732db68978d4fef62864b2",
+ "status": 200
+}

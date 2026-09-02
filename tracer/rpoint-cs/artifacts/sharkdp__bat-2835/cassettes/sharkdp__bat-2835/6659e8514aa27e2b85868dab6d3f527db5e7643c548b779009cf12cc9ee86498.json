@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, no trailing newline. Now let me test with this file to verify the expected output matches the test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cd tests/examples && ../../target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=never \\\\\\\"this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355425751199382621\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6659e8514aa27e2b85868dab6d3f527db5e7643c548b779009cf12cc9ee86498",
+ "status": 200
+}

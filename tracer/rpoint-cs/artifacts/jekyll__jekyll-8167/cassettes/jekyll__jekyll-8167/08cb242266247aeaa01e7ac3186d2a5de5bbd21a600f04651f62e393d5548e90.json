@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases pass. Let me verify the emoji test case (which expects empty slug + warning):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && python3 -c \\\\\\\"\\\\ncontent = '''# encoding: utf-8\\\\n\\\\\\\\$LOAD_PATH.unshift(\\\\\\\\\\\\\\\"/testbed/lib\\\\\\\\\\\\\\\")\\\\nrequire \\\\\\\\\\\\\\\"jekyll\\\\\\\\\\\\\\\"\\\\n\\\\nJekyll.logger = Logger.new(StringIO.new, :error)\\\\nputs Jekyll::Utils.slugify(\\\\\\\\\\\\\\\"\\\\\\\\U0001F48E\\\\\\\\\\\\\\\").inspect\\\\n'''\\\\nopen('/tmp/emoji.rb','w').write(content)\\\\n\\\\\\\"\\\\nruby /tmp/emoji.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378712717551308\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "08cb242266247aeaa01e7ac3186d2a5de5bbd21a600f04651f62e393d5548e90",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Same count (18 tabs). The tabs tests are byte-identical to the original. \\n\\nNow let me run a final comprehensive test to confirm the original PR scenario works as expected. Let me create the exact scenario from the PR description:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && mkdir -p \\\\\\\"/tmp/this/is/an/example/for/an/insanely/long/path/./it/might/even/reach/to/the/moon/and\\\\\\\" 2>/dev/null; echo \\\\\\\"test content here\\\\\\\" > \\\\\\\"/tmp/this/is/an/example/for/an/insanely/long/path/it/might/even/reach/to/the/moon/and/back.txt\\\\\\\" 2>/dev/null; ./target/debug/bat --terminal-width=80 --decorations=always --paging=never --color=never \\\\\\\"/tmp/this/is/an/example/for/an/insanely/long/path/it/might/even/reach/to/the/moon/and/back.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355407403099087976\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000177, \"id\": \"synthesized-00177\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00177\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "acf486bfe01239c118a11bb2e8c775a6c7d70e67bef82d5a923887a0b9305771",
+ "status": 200
+}

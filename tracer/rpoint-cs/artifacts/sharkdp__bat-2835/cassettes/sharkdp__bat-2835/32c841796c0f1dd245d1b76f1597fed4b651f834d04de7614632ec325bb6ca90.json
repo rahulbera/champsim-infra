@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me create the example file as in the original PR (no trailing newline):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"create\\\",\\\"path\\\":\\\"/testbed/tests/examples/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\",\\\"file_text\\\":\\\"The header is not broken\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355447741431938278\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "32c841796c0f1dd245d1b76f1597fed4b651f834d04de7614632ec325bb6ca90",
+ "status": 200
+}

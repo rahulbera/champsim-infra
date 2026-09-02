@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The tabs are preserved now. Let me check the diff to confirm only the header tests were added:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff tests/integration_tests.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355431935952286342\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000133, \"id\": \"synthesized-00133\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00133\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "09482e946a58926449c70737c8032a10669bda5a377c1134bdca55d31e50e1a6",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && bundle install 2>&1 | tail -2 && bundle exec ruby -Itest test/test_filters.rb 2>&1 | tail -5; git stash pop; bundle install 2>&1 | tail -2\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355406234867985923\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ccdbff303528350b760e178da404bc2a32bdefd2eb38182fb69c55dab36c1e9a",
+ "status": 200
+}

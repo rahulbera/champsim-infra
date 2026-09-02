@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -e 'puts \\\\\\\"5\\u00e6\\u0099\\u0082\\u00e3\\u0080\\u009c6\\u00e6\\u0099\\u0082 \\u00e4\\u00b8\\u0089\\u00e3\\u0083\\u00bb\\u00e4\\u00b8\\u0080\\u00e5\\u009b\\u009b\\\\\\\".chars.map { |c| \\\\\\\"#{c}: L=#{c.match?(/\\\\\\\\p{L}/)} Nd=#{c.match?(/\\\\\\\\p{Nd}/)} No=#{c.match?(/\\\\\\\\p{No}/)} M=#{c.match?(/\\\\\\\\p{M}/)} alnum=#{c.match?(/[[:alnum:]]/)}\\\\\\\" }'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355376891651417058\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000012, \"id\": \"synthesized-00012\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00012\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7dabf587d5aec070060aa8314a5175f5af001319325e0ea61e8b964b68816e52",
+ "status": 200
+}

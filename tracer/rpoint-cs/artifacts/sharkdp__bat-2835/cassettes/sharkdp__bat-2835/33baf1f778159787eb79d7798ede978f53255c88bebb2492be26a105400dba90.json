@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test the original PR scenario - a very long path with the `./` in the middle:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/bat --terminal-width=80 --decorations=always --paging=never --color=never \\\\\\\"/tmp/longpath/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355442312593275948\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000158, \"id\": \"synthesized-00158\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00158\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "33baf1f778159787eb79d7798ede978f53255c88bebb2492be26a105400dba90",
+ "status": 200
+}

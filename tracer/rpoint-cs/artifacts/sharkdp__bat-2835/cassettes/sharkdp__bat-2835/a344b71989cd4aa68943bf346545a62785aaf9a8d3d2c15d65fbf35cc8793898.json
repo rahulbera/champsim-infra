@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me build the project to check for compilation errors:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo build --bin bat 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355441522319289951\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a344b71989cd4aa68943bf346545a62785aaf9a8d3d2c15d65fbf35cc8793898",
+ "status": 200
+}

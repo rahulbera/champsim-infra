@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && gem list webrick 2>/dev/null; ruby -e 'require \\\\\\\"webrick\\\\\\\"; puts \\\\\\\"webrick ok\\\\\\\"' 2>&1 | head -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355383694879617684\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0f69e1722ab3217649a08574ce19fd234da031d28d902ee1af0b86bd46b9a956",
+ "status": 200
+}

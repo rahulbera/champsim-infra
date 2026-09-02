@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"It compiles. Now let me test the fix with the reproduction case:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=never \\\\\\\"/tmp/longpath/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355427847143416710\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bc250657163ff89fb6a4210db9157eadad1970d32c063064624ba0ac688414f0",
+ "status": 200
+}

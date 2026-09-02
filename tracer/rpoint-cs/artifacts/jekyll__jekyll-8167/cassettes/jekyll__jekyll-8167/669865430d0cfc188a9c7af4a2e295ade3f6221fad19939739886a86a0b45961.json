@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Emoji still produces empty slug (since it's not L/M/Nd). Now let me run the broader test suite to make sure nothing else broke:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -Itest test/test_filters.rb 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378712717556374\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "669865430d0cfc188a9c7af4a2e295ade3f6221fad19939739886a86a0b45961",
+ "status": 200
+}

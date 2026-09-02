@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All slugify tests pass. Let me run the full test_utils.rb and test_filters.rb suites:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -Itest test/test_utils.rb 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355379949668133947\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "612e4265f9d9a1427fb210a0987e909da961fb181a9c89f7a0c4117ab0f33f37",
+ "status": 200
+}

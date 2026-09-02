@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No more panic. The shell mangled the multi-byte characters (encoding issues in my test command), but the important thing is it doesn't crash and wraps at character boundaries. Let me test with a cleaner multi-byte file name using a Python script to avoid shell encoding issues:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && python3 -c \\\\\\\"\\\\nimport subprocess\\\\n# Use a long Japanese filename\\\\nname = '\\u00e3\\u0083\\u0095\\u00e3\\u0082\\u00a1\\u00e3\\u0082\\u00a4\\u00e3\\u0083\\u00ab' * 10  # 40 chars, each width 2 = 80 display cols\\\\nresult = subprocess.run(\\\\n    ['./target/debug/bat', '--terminal-width=30', '--decorations=always',\\\\n     '--paging=never', '--color=never', '--file-name=' + name, 'tests/examples/test.txt'],\\\\n    capture_output=True, text=True\\\\n)\\\\nprint('exit:', result.returncode)\\\\nprint(result.stdout)\\\\nprint('STDERR:', result.stderr)\\\\n\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355432760586002639\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2171037168423d480c3ac4c090c3e48249e34ad5efd1a95bcbd010240bee1e66",
+ "status": 200
+}

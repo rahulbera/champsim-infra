@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the issue. The header file path is not wrapped and overflows the terminal width. Now let me implement the fix. \\n\\nLet me look at the current `print_header` method and surrounding code more carefully:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/printer.rs\\\",\\\"view_range\\\":[272, 314]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355428946655043958\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e12654b921aa7a292c9a08ee22555172cd58e4e073c9497e8b4cf58dec21c666",
+ "status": 200
+}

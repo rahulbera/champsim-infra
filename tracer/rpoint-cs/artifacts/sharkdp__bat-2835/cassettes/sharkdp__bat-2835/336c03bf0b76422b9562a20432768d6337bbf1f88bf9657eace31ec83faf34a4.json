@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"With color enabled, the output renders correctly (the bold styling is applied to the filename). Let me verify the raw bytes to confirm escape sequences are intact:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cd tests/examples && ../../target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=always --style=full \\\\\\\"this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\" | sed -n '2,6p' | cat -v\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355408914927575375\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000163, \"id\": \"synthesized-00163\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00163\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "336c03bf0b76422b9562a20432768d6337bbf1f88bf9657eace31ec83faf34a4",
+ "status": 200
+}

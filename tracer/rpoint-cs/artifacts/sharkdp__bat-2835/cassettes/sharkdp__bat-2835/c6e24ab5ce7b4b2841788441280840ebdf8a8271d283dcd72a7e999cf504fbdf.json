@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Without grid, the indent is just the panel_width (5 for numbers: 4 + 1 space). content_width = 30 - 5 = 25. \\\"File: this-file-path-is-r\\\" = 25 chars. Correct!\\n\\nLet me verify the indent length calculation. With numbers (width 4) and no grid: panel_width = decorations.len() + sum of widths = 1 + 4 = 5. The decoration is printed as \\\"   1 \\\" (4 chars + 1 space). So content starts at column 5. content_width = 30 - 5 = 25. \\\"File: this-file-path-is-r\\\" is 25 chars. \\n\\nNow let me test the case where header is shown but NO decorations at all (no numbers, no grid):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cd tests/examples && ../../target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=never --style=header \\\\\\\"this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355402730174670884\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000161, \"id\": \"synthesized-00161\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00161\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c6e24ab5ce7b4b2841788441280840ebdf8a8271d283dcd72a7e999cf504fbdf",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So tabs.txt has literal tabs. With `--tabs=0`, tabs are passed through (literal `\\\\t`). But the expected output shows spaces. This is strange.\\n\\nWait, let me re-read the test. The expected output is `\\\"   1       2       3       4\\\\n\\\"`. Let me check what `--tabs=0` actually does. Let me look at the tabs handling:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"tab_width\\\\\\\\|tabs=0\\\\\\\\|tab_width == 0\\\\\\\\|tab_width > 0\\\\\\\" src/preprocessor.rs src/config.rs | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355421834189202505\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000113, \"id\": \"synthesized-00113\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00113\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fe6a290f593a603405a85d6f2492c144161ffd550b14caf4f36ddaf935ee3f3a",
+ "status": 200
+}

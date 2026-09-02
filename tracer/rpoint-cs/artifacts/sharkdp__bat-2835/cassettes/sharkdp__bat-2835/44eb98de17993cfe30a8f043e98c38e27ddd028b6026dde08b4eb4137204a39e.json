@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now `tests/integration_tests.rs` is reverted to original (0 header tests, 18 tabs preserved). Let me verify the final state:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== verify test file is original ===\\\\\\\" && git diff tests/integration_tests.rs | head -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355416302271326324\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000185, \"id\": \"synthesized-00185\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00185\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "44eb98de17993cfe30a8f043e98c38e27ddd028b6026dde08b4eb4137204a39e",
+ "status": 200
+}

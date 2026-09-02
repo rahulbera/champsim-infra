@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"These tests use `--style=plain` and `--tabs=0`. They don't involve headers at all. So why would my change break them? \\n\\nWait, the test failure output showed the actual output had `\\\\t` (literal tab characters) instead of expanded spaces. The expected output has spaces (tabs expanded to 8). With `--tabs=0`, tabs should be passed through (not expanded). But the expected output shows expanded tabs...\\n\\nWait, let me re-read. The expected stdout is `\\\"   1       2       3       4\\\\n...\\\"` which has spaces. But the actual output (from the failure) was `\\\\t1\\\\t2\\\\t3\\\\t4` (literal tabs). \\n\\nHmm, this is confusing. These tests don't use headers. Let me check if these tests are flaky/environment-dependent. Let me run them in isolation with my changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration_tests tabs_passthrough 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355423036780046574\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000111, \"id\": \"synthesized-00111\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00111\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7de68453885d5d95bba1e232dfd86d39e1f8c717e8afbe0ef781e8ceb9370f57",
+ "status": 200
+}

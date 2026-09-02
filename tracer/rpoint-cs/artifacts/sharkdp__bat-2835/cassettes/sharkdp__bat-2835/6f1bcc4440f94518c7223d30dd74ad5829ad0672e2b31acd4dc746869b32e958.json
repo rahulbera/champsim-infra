@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The Size line is short enough to fit, and the File line wraps. Let me test a scenario where the panel is shown but no grid (to test the non-grid indent path):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cd tests/examples && ../../target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=never --style=header,numbers \\\\\\\"this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355420047482808262\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000160, \"id\": \"synthesized-00160\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00160\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6f1bcc4440f94518c7223d30dd74ad5829ad0672e2b31acd4dc746869b32e958",
+ "status": 200
+}

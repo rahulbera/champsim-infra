@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search for tests related to long file paths or header wrapping:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"long\\\\\\\" /testbed/tests/integration_tests.rs | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355451967679758172\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c5cda40cf3deb3038f7a446ccac4146e82a5cee0677e1d105398f1f8b77da616",
+ "status": 200
+}

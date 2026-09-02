@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"`floor_char_boundary` was stabilized in Rust 1.80. Since `rust-version = \\\"1.70\\\"`, I can't use it (would break the MSRV). Let me write a manual char-boundary-safe split.\\n\\nActually, let me reconsider the whole thing. I want to handle multi-byte AND keep it clean. Let me write a helper that wraps text by display width, handling ANSI codes via AnsiCodeIterator.\\n\\nLet me look at how the line wrapping code does it for inspiration (the `print_line` wrapping branch), since it already handles ANSI passthrough and character widths:\\n\\nThe existing wrapping code in `print_line` (lines 602-696) uses `AnsiCodeIterator` and `UnicodeWidthChar`. I can model the header wrapping similarly.\\n\\nLet me write the robust version:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/printer.rs\\\",\\\"view_range\\\":[305, 336]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355423964492982809\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000091, \"id\": \"synthesized-00091\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00091\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7975ddb5df72f9787140b42d90a9a7f9eae4a5905cf60ddfba87e52e247fd204",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The filename is too long for the filesystem. Let me use a shorter multi-byte filename:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"test\\\\\\\" > \\\\\\\"/tmp/longpath/\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00ad\\u00c3\\u00a3\\u00c2\\u00b9\\u00c3\\u00a3\\u00c3\\u00a3\\u00c2\\u00af.txt\\\\\\\" 2>&1; ls /tmp/longpath/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355432348269142373\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000085, \"id\": \"synthesized-00085\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00085\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cc0d7b645f2aab5792f9cd60bbb650be3c3661e966a3bdfe41857f5cd2888cf5",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So on the original code, `tabs_passthrough` passes. With my changes, it fails. But my changes don't touch tab handling...\\n\\nWait. Let me think. The test `tabs_passthrough` uses `--style=plain`. With plain style, there's no header. So `print_header` returns early (header not enabled). My changes to `print_header` shouldn't affect plain output.\\n\\nBut wait - the test expects tabs EXPANDED to spaces. With `--tabs=0` and `--style=plain` and `--decorations=always`. Let me check: `tab_width` default when plain && paging never is 0. But `--tabs=0` is explicitly passed, so tab_width=0. With tab_width=0, preprocess doesn't expand. So output should have literal tabs.\\n\\nBut the test expects spaces. So how did it pass before?? Let me actually run the original bat on this:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && cd tests/examples && ../../target/debug/bat tabs.txt --tabs=0 --style=plain --decorations=always --paging=never | od -c | head; cd /testbed && git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355432210830193829\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000118, \"id\": \"synthesized-00118\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00118\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "015292b41bf5c203a12792b7e7f786c71f02668a4cdc8d69f0f106b58a64ca67",
+ "status": 200
+}

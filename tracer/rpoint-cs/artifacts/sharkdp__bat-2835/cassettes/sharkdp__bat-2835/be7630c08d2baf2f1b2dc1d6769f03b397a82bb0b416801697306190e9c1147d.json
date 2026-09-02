@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Wait, the diff STILL shows the tabs tests being modified! Let me look at the full diff around line 377:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff tests/integration_tests.rs | sed -n '1,40p' | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355426300955191584\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000143, \"id\": \"synthesized-00143\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00143\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "be7630c08d2baf2f1b2dc1d6769f03b397a82bb0b416801697306190e9c1147d",
+ "status": 200
+}

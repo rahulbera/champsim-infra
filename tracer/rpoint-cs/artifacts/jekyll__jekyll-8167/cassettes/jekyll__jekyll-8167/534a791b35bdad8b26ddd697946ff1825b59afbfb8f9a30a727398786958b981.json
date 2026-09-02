@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat /usr/local/lib/ruby/3.3.0/bundled_gems.rb | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355406303587465309\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "534a791b35bdad8b26ddd697946ff1825b59afbfb8f9a30a727398786958b981",
+ "status": 200
+}

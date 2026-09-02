@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass with the original (unmodified) test files. My source change is complete and correct.\\n\\nLet me do a final review of the complete diff:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --cached src/printer.rs CHANGELOG.md && echo \\\\\\\"=== new fixture file ===\\\\\\\" && git diff --cached --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355414893522058158\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000189, \"id\": \"synthesized-00189\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00189\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d4af01952ed4b744a99cee53052daaf7a8f0f25afc89e7d31159e0204ae2c835",
+ "status": 200
+}

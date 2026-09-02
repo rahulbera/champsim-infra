@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All slugify tests pass. Now let me revert the temporary webrick addition to the Gemfile, since that's not part of the actual fix (it was only needed to run tests in this Ruby 3.x environment):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff Gemfile\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355386718536592156\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000068, \"id\": \"synthesized-00068\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00068\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b7929ba2af5621df1943d8867629abe2a4f101d4edf8b52ca6bf8c51ba465e12",
+ "status": 200
+}

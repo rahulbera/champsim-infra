@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls /usr/local/bundle/gems/ | grep -i webrick; echo \\\\\\\"---\\\\\\\"; cat /usr/local/bundle/config 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355385962622345447\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0bc10a796ed782f2f5ac83bc3cc5362920b5502a1d01fef87707f53e194e7264",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me find the `tabs_passthrough` test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"fn tabs_passthrough\\\\\\\\b\\\\\\\\|fn tabs_passthrough(\\\\\\\" tests/integration_tests.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355450318412309070\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000109, \"id\": \"synthesized-00109\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00109\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ea0f97719bbf1d48855123d8f9e297d414a325a9464e86e868c7a6201cafdc99",
+ "status": 200
+}

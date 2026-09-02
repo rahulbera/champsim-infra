@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the only changes are:\\n1. `CHANGELOG.md` - documentation of the fix\\n2. `src/printer.rs` - the actual source fix\\n3. `tests/examples/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt` - the test fixture (data file needed by tests)\\n\\nThe test logic file `tests/integration_tests.rs` is reverted to its original state.\\n\\nLet me rebuild and verify the source still compiles and the fixture is correct:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo build --bin bat 2>&1 | tail -3 && echo \\\\\\\"=== fixture content ===\\\\\\\" && cat tests/examples/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt && echo \\\\\\\"|END\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355418192056941013\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000186, \"id\": \"synthesized-00186\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00186\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4b9bfadd202d06b0aeb06b1eac5bb7e48799e8249a43557f9798a3f726cde91f",
+ "status": 200
+}

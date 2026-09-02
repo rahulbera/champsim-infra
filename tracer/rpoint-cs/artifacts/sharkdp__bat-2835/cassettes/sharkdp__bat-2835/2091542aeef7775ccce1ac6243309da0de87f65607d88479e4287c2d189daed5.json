@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There are 18 tab characters in the test file (the tabs tests). Let me verify the original had the same count:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show HEAD:tests/integration_tests.rs | grep -c $'\\\\\\\\t'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355423242938476412\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000176, \"id\": \"synthesized-00176\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00176\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2091542aeef7775ccce1ac6243309da0de87f65607d88479e4287c2d189daed5",
+ "status": 200
+}

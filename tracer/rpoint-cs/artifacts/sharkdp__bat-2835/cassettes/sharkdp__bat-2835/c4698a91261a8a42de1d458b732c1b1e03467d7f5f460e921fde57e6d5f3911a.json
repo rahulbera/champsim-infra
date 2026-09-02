@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=never \\\\\\\"/tmp/longpath/this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355412660139058000\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c4698a91261a8a42de1d458b732c1b1e03467d7f5f460e921fde57e6d5f3911a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -e '\\\\ns = \\\\\\\"\\u00e0\\u00ae\\u00ae\\u00e0\\u00ae\\u00b2\\u00e0\\u00af\\u008d\\u00e0\\u00ae\\u00b2\\u00e0\\u00ae\\u00bf\\u00e0\\u00ae\\u00aa\\u00e0\\u00af\\u008d\\u00e0\\u00ae\\u00aa\\u00e0\\u00af\\u0082 \\u00e0\\u00ae\\u00b5\\u00e0\\u00ae\\u0095\\u00e0\\u00af\\u0088\\u00e0\\u00ae\\u0095\\u00e0\\u00ae\\u00b3\\u00e0\\u00af\\u008d.md\\\\\\\"\\\\ns.chars.each { |c| puts \\\\\\\"#{c} (U+%04X): L=#{c.match?(/\\\\\\\\p{L}/)} Nd=#{c.match?(/\\\\\\\\p{Nd}/)} M=#{c.match?(/\\\\\\\\p{M}/)} alnum=#{c.match?(/[[:alnum:]]/)}\\\\\\\" }\\\\n'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355379812229181753\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2946ff9dccd0a4b9479ece5de38f9b4493ab0836d5b97ee46d1c52df5bca4630",
+ "status": 200
+}

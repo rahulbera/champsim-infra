@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 128 tests pass now (126 original + 2 new header tests). The tabs tests pass too. The issue was the `str_replace_editor` tool converting tabs to spaces.\\n\\nNow let me run the snapshot tests too:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test snapshot_tests 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355437674028594800\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000154, \"id\": \"synthesized-00154\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00154\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a25c07bed7325bd5938560f71695a0b398a496b871dca73806d9442e8ca41513",
+ "status": 200
+}

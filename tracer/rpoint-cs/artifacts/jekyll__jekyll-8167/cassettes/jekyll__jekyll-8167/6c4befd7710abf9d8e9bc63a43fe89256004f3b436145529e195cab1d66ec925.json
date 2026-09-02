@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The stash removed the webrick addition too, so the test couldn't even load. The 2 jsonify errors are clearly pre-existing Ruby 3.x keyword-argument compatibility issues unrelated to my change. Let me verify by temporarily putting webrick back but reverting utils.rb:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cp lib/jekyll/utils.rb /tmp/utils_fixed.rb && git checkout lib/jekyll/utils.rb && bundle exec ruby -Itest test/test_filters.rb 2>&1 | tail -5; cp /tmp/utils_fixed.rb lib/jekyll/utils.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355383213843278246\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6c4befd7710abf9d8e9bc63a43fe89256004f3b436145529e195cab1d66ec925",
+ "status": 200
+}

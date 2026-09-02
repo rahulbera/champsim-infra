@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix is complete. Let me view the final diff to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355362460561309065\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000072, \"id\": \"synthesized-00072\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00072\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e0d1af11404b69dea572623011e7fe571912f10cd7978a5d7fe03c4d1f9cc71a",
+ "status": 200
+}

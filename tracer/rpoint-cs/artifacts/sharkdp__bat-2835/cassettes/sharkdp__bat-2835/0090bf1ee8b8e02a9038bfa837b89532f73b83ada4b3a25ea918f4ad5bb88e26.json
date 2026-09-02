@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting! With my changes stashed, the tabs tests pass. So my changes broke them. Let me restore my changes and investigate:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355428774856353945\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000105, \"id\": \"synthesized-00105\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00105\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0090bf1ee8b8e02a9038bfa837b89532f73b83ada4b3a25ea918f4ad5bb88e26",
+ "status": 200
+}

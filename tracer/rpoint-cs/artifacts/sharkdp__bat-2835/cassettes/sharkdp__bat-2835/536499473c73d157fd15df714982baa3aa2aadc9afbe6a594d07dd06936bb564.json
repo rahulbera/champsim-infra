@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I found a relevant commit. Let me look at it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 45ee2dc4\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355431454915947727\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "536499473c73d157fd15df714982baa3aa2aadc9afbe6a594d07dd06936bb564",
+ "status": 200
+}

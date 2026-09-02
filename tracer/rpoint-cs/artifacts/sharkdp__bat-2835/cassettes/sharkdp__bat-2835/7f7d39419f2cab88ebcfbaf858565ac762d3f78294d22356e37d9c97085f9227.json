@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Two test failures: `tabs_passthrough` and `tabs_passthrough_wrapped`. Let me check if these are pre-existing failures (unrelated to my change) by stashing my changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && cargo test --test integration_tests tabs_passthrough tabs_passthrough_wrapped 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355421937268423615\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000103, \"id\": \"synthesized-00103\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00103\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7f7d39419f2cab88ebcfbaf858565ac762d3f78294d22356e37d9c97085f9227",
+ "status": 200
+}

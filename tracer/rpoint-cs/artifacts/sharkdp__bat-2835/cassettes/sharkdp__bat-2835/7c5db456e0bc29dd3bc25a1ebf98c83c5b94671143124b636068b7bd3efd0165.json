@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Still fails with single thread. So it's not parallelism. Let me run ONLY the tabs tests with single thread:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration_tests tabs_passthrough -- --test-threads=1 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355423449096908811\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000141, \"id\": \"synthesized-00141\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00141\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7c5db456e0bc29dd3bc25a1ebf98c83c5b94671143124b636068b7bd3efd0165",
+ "status": 200
+}

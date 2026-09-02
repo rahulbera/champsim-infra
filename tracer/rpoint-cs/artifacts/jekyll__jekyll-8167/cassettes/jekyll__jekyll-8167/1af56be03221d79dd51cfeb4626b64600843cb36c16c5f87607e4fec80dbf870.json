@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, Gemfile.lock and Gemfile are back to original. Now let me run the tests. The webrick issue is a Ruby 3.x environment problem; let me make webrick available via a local require path so the test helper can load it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && gem which webrick 2>/dev/null; ruby -e 'puts $LOAD_PATH' 2>/dev/null | tr ':' '\\\\\\\\n' | head; echo \\\\\\\"---bundled---\\\\\\\"; bundle exec ruby -e 'puts Gem.loaded_specs[\\\\\\\"webrick\\\\\\\"]&.full_gem_path' 2>&1 | tail -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355389089358541538\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1af56be03221d79dd51cfeb4626b64600843cb36c16c5f87607e4fec80dbf870",
+ "status": 200
+}

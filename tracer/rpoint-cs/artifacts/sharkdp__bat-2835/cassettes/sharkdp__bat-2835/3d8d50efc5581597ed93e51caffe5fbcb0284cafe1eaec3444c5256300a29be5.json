@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So the expected string has SPACES, not tabs. And `--tabs=0` should pass tabs through. So the test expects spaces but `--tabs=0` produces tabs. This is contradictory... unless the test was written expecting a specific terminal behavior.\\n\\nWait, maybe these tests are inherently flaky/environment-dependent and normally FAIL in this environment, but my changes somehow made them run differently. Let me check: maybe these tests were ALREADY failing before my changes in this specific environment, and the \\\"passing\\\" I saw was because of test ordering/caching.\\n\\nActually, I ran `git stash` (reverting ALL my changes) and the tabs tests PASSED. Then with my test changes, they FAIL. The only difference is the test file. Let me look very carefully at what I changed in the test file - maybe I accidentally broke something.\\n\\nLet me diff the test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff tests/integration_tests.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355417264343999371\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000129, \"id\": \"synthesized-00129\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00129\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3d8d50efc5581597ed93e51caffe5fbcb0284cafe1eaec3444c5256300a29be5",
+ "status": 200
+}

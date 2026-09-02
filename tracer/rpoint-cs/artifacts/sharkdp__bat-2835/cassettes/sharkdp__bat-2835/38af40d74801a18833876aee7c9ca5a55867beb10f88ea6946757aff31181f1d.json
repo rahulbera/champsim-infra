@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the full integration test suite again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --test integration_tests 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355425682479904673\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000135, \"id\": \"synthesized-00135\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00135\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "38af40d74801a18833876aee7c9ca5a55867beb10f88ea6946757aff31181f1d",
+ "status": 200
+}

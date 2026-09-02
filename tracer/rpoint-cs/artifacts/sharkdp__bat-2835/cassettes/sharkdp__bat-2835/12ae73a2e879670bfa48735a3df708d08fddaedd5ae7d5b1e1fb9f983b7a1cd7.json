@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Clippy isn't available. Let me at least run a build with warnings check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo build --bin bat 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355400668590374449\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000169, \"id\": \"synthesized-00169\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00169\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "12ae73a2e879670bfa48735a3df708d08fddaedd5ae7d5b1e1fb9f983b7a1cd7",
+ "status": 200
+}

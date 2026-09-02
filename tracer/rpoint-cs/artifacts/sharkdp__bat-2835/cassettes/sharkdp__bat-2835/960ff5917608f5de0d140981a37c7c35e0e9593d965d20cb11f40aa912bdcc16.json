@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me do a final review of all my changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== DIFF src/printer.rs ===\\\\\\\" && git diff src/printer.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355415649436297625\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000174, \"id\": \"synthesized-00174\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00174\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "960ff5917608f5de0d140981a37c7c35e0e9593d965d20cb11f40aa912bdcc16",
+ "status": 200
+}

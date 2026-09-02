@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the assert_cmd/predicates behavior. Maybe predicates normalizes whitespace by default. Let me check the Cargo.lock for predicates version and look at how `.stdout()` works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"assert_cmd\\\\\\\\|predicates\\\\\\\" Cargo.toml\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355446023445019294\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000123, \"id\": \"synthesized-00123\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00123\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0a9984234eae5406491002b76d02c852206ef438d85c2e5f768f35078210e31d",
+ "status": 200
+}

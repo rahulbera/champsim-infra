@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me create the test file and tests that match the original PR, so I can verify the expected output. First, let me create the example file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat tests/examples/single-line.txt | xxd | head; echo \\\\\\\"---\\\\\\\"; ls tests/examples/ | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7353136190033229827\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4b359d68d2358630ac2546b6084c6aaab178502b46583d8ef76e2d238f1b7770",
+ "status": 200
+}

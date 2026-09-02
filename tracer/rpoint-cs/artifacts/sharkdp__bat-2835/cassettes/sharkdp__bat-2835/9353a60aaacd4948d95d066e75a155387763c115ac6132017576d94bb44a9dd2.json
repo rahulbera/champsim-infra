@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now there's a double blank line at the start (the `+` shows two blank lines: one from original `}\\\\n` and one `\\\\n` from snippet). Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1380,1386p' tests/integration_tests.rs | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355437433510428006\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000149, \"id\": \"synthesized-00149\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00149\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9353a60aaacd4948d95d066e75a155387763c115ac6132017576d94bb44a9dd2",
+ "status": 200
+}

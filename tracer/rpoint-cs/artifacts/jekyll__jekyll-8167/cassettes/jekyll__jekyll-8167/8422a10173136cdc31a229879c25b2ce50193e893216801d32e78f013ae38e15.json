@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting - plain `ruby` works but `bundle exec ruby` doesn't. The issue is that `bundle exec` activates only gems in the bundle, and webrick is not in the bundle. This is purely an environment issue. Let me run the test without bundle exec, just using the right load paths:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bundle exec ruby -e 'puts $LOAD_PATH.grep(/webrick/)' 2>&1 | tail -5; echo \\\\\\\"===plain===\\\\\\\"; ruby -e 'puts $LOAD_PATH.grep(/webrick/)' 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355388333444296909\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8422a10173136cdc31a229879c25b2ce50193e893216801d32e78f013ae38e15",
+ "status": 200
+}

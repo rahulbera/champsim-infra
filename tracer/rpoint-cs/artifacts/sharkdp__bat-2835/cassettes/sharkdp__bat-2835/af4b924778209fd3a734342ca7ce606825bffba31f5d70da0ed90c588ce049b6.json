@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All lib tests pass. Now let me verify my reproduction case once more and test a few edge cases:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cd tests/examples && ../../target/debug/bat --terminal-width=30 --decorations=always --paging=never --color=never \\\\\\\"this-file-path-is-really-long-and-would-have-broken-the-layout-of-the-header.txt\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355422830621619214\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000157, \"id\": \"synthesized-00157\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00157\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "af4b924778209fd3a734342ca7ce606825bffba31f5d70da0ed90c588ce049b6",
+ "status": 200
+}

@@ -1,0 +1,32 @@
+{
+  "instance_id": "jekyll__jekyll-8167",
+  "dataset": "SWE-bench/SWE-bench_Multilingual",
+  "repo": "jekyll/jekyll",
+  "base_commit": "11dd8934166d0947055bc01017426bad01277bc1",
+  "patch": "diff --git a/lib/jekyll/utils.rb b/lib/jekyll/utils.rb\nindex 062300aeca7..049d57d49f6 100644\n--- a/lib/jekyll/utils.rb\n+++ b/lib/jekyll/utils.rb\n@@ -13,8 +13,8 @@ module Utils\n     # Constants for use in #slugify\n     SLUGIFY_MODES = %w(raw default pretty ascii latin).freeze\n     SLUGIFY_RAW_REGEXP = Regexp.new('\\\\s+').freeze\n-    SLUGIFY_DEFAULT_REGEXP = Regexp.new(\"[^[:alnum:]]+\").freeze\n-    SLUGIFY_PRETTY_REGEXP = Regexp.new(\"[^[:alnum:]._~!$&'()+,;=@]+\").freeze\n+    SLUGIFY_DEFAULT_REGEXP = Regexp.new(\"[^\\\\p{M}\\\\p{L}\\\\p{Nd}]+\").freeze\n+    SLUGIFY_PRETTY_REGEXP = Regexp.new(\"[^\\\\p{M}\\\\p{L}\\\\p{Nd}._~!$&'()+,;=@]+\").freeze\n     SLUGIFY_ASCII_REGEXP = Regexp.new(\"[^[A-Za-z0-9]]+\").freeze\n \n     # Takes a slug and turns it into a simple title.\n",
+  "test_patch": "diff --git a/test/test_utils.rb b/test/test_utils.rb\nindex 8089f00675a..1b3534e4f27 100644\n--- a/test/test_utils.rb\n+++ b/test/test_utils.rb\n@@ -176,6 +176,11 @@ class TestUtils < JekyllUnitTest\n       assert_equal \"5\u6642-6\u6642-\u4e09-\u4e00\u56db\", Utils.slugify(\"5\u6642\u301c6\u6642 \u4e09\u30fb\u4e00\u56db\")\n     end\n \n+    should \"not replace Unicode 'Mark', 'Letter', or 'Number: Decimal Digit' category characters\" do\n+      assert_equal \"\u0bae\u0bb2\u0bcd\u0bb2\u0bbf\u0baa\u0bcd\u0baa\u0bc2-\u0bb5\u0b95\u0bc8\u0b95\u0bb3\u0bcd\", Utils.slugify(\"\u0bae\u0bb2\u0bcd\u0bb2\u0bbf\u0baa\u0bcd\u0baa\u0bc2 \u0bb5\u0b95\u0bc8\u0b95\u0bb3\u0bcd\")\n+      assert_equal \"\u0bae\u0bb2\u0bcd\u0bb2\u0bbf\u0baa\u0bcd\u0baa\u0bc2-\u0bb5\u0b95\u0bc8\u0b95\u0bb3\u0bcd\", Utils.slugify(\"\u0bae\u0bb2\u0bcd\u0bb2\u0bbf\u0baa\u0bcd\u0baa\u0bc2 \u0bb5\u0b95\u0bc8\u0b95\u0bb3\u0bcd\", :mode => \"pretty\")\n+    end\n+\n     should \"not modify the original string\" do\n       title = \"Quick-start guide\"\n       Utils.slugify(title)\n",
+  "FAIL_TO_PASS": [
+    "TestUtils#test_: The `Utils.slugify` method should not replace Unicode 'Mark', 'Letter', or 'Number: Decimal Digit' category characters"
+  ],
+  "PASS_TO_PASS": [
+    "TestUtils#test_: The `Utils.slugify` method should not change behaviour if mode is nil",
+    "TestUtils#test_: The `Utils.slugify` method should ignore hyphens",
+    "TestUtils#test_: The `Utils.slugify` method should Keep all uppercase letters if cased is true",
+    "TestUtils#test_: The `Utils.slugify` method should trim leading and trailing whitespace",
+    "TestUtils#test_: The `Utils.slugify` method should replace everything else but ASCII characters",
+    "TestUtils#test_: The `Utils.slugify` method should replace punctuation in any scripts by hyphens",
+    "TestUtils#test_: The `Utils.slugify` method should not replace period and underscore if mode is pretty",
+    "TestUtils#test_: The `Utils.slugify` method should only replace whitespace if mode is raw",
+    "TestUtils#test_: The `Utils.slugify` method should map accented latin characters to ASCII characters",
+    "TestUtils#test_: The `Utils.slugify` method should not modify the original string",
+    "TestUtils#test_: The `Utils.slugify` method should combine adjacent hyphens and spaces",
+    "TestUtils#test_: The `Utils.slugify` method should replace consecutive whitespace with a single hyphen",
+    "TestUtils#test_: The `Utils.slugify` method should not change behaviour if mode is default",
+    "TestUtils#test_: The `Utils.slugify` method should replace whitespace with hyphens",
+    "TestUtils#test_: The `Utils.slugify` method should return the given string if mode is none",
+    "TestUtils#test_: The `Utils.slugify` method should replace underscores with hyphens",
+    "TestUtils#test_: The `Utils.slugify` method should drop trailing punctuation",
+    "TestUtils#test_: The `Utils.slugify` method should records a warning in the log if the returned slug is empty",
+    "TestUtils#test_: The `Utils.slugify` method should return nil if passed nil"
+  ]
+}

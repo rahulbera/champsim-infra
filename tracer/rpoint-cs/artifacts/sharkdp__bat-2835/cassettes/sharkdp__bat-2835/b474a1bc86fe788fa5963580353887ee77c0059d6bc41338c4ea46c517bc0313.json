@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"My changes are complete and clean. Let me submit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355447363474813695\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000190, \"id\": \"synthesized-00190\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00190\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b474a1bc86fe788fa5963580353887ee77c0059d6bc41338c4ea46c517bc0313",
+ "status": 200
+}

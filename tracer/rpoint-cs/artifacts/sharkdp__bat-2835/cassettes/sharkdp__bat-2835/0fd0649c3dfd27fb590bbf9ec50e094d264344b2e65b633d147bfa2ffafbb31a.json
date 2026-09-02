@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"colored_output\\\\\\\" src/bin/bat/*.rs src/*.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355426644552573362\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0fd0649c3dfd27fb590bbf9ec50e094d264344b2e65b633d147bfa2ffafbb31a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"fn stdout\\\\\\\\|normalize\\\\\\\\|fn get_output\\\\\\\\|self.output\\\\\\\\|fn success\\\\\\\" /usr/local/cargo/registry/src/index.crates.io-6f17d22bba15001f/assert_cmd-2.0.12/src/assert.rs | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355425888638331345\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000126, \"id\": \"synthesized-00126\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00126\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "461023d00efcb9dcb1ad5d692301152d6e9843ea7881fc1a035f93a6839686a2",
+ "status": 200
+}

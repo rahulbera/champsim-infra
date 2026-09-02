@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"These 2 errors are pre-existing failures unrelated to my change (they're about `jsonify` filter and keyword arguments - a Ruby version compatibility issue). Let me confirm they exist on the original code by checking git stash:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && bundle exec ruby -Itest test/test_filters.rb 2>&1 | tail -5; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355386306219735647\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6bf688d4da8fa2b487c8d9af2786e4ddb3d47f1f0aee6b8b2b3c9336978d65d6",
+ "status": 200
+}

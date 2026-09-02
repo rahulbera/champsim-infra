@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No warnings. Let me also run the test build with all features to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cargo test --no-run 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355419051050400243\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000170, \"id\": \"synthesized-00170\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00170\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "75bd04322e7cc65c094584cfe5263a7eb9feb2bd9cdb505e9c23467c9e5f3884",
+ "status": 200
+}
