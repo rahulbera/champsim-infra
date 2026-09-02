@@ -281,8 +281,15 @@ verify)
   boot_kvm "$IMAGES/verify-$INSTANCE.boot.log"
   stage_tools $KVM_PORT
   inject_artifacts $KVM_PORT
+  # errexit OFF around the replay. This script runs `set -euo pipefail` with a
+  # `trap cleanup_on_exit EXIT` that stops the guest -- so a FAILING replay
+  # aborted the script AT this pipeline and the trap tore the guest down
+  # before the log could be fetched. The first attempt at keeping that log
+  # therefore captured nothing on exactly the runs it was written for.
+  set +e
   ssh_guest $KVM_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -30
   rc=${PIPESTATUS[0]}
+  set -e
   # ALWAYS pull SWE-agent's full log back to the host BEFORE the guest goes
   # away. replay_pinned.sh tees it to /root/replay_full.log in the guest and
   # prints only `tail -25`, and the next restore_from_provisioned discards the
