@@ -282,7 +282,24 @@ verify)
   stage_tools $KVM_PORT
   inject_artifacts $KVM_PORT
   ssh_guest $KVM_PORT "sudo bash /opt/swe-agent-tools/replay_pinned.sh $INSTANCE" 2>&1 | tail -30
+  rc=${PIPESTATUS[0]}
+  # ALWAYS pull SWE-agent's full log back to the host BEFORE the guest goes
+  # away. replay_pinned.sh tees it to /root/replay_full.log in the guest and
+  # prints only `tail -25`, and the next restore_from_provisioned discards the
+  # disk -- so when a replay DIVERGES, the one artefact that says why is
+  # deleted before anyone can read it.
+  #
+  # preactjs__preact-3763 replayed 27 of 55 fed actions, all 27 identical, and
+  # exited "with autosubmission". Cost limits are 0 (unlimited) and the total
+  # execution timeout is 7 days, so it was neither of those -- and the reason
+  # was not recoverable from anything kept on the host.
+  ssh_guest $KVM_PORT "sudo cat /root/replay_full.log" \
+      > "$IMAGES/replay_full-$INSTANCE.log" 2>/dev/null || true
+  if [ -s "$IMAGES/replay_full-$INSTANCE.log" ]; then
+    echo "    full SWE-agent log -> $IMAGES/replay_full-$INSTANCE.log ($(wc -l < "$IMAGES/replay_full-$INSTANCE.log") lines)"
+  fi
   shutdown_guest $KVM_PORT
+  [ "$rc" -eq 0 ] || exit "$rc"
   ;;
 
 profile)
