@@ -86,10 +86,34 @@ def main():
     print(f"  first submit at  : {first_submit}  (informational -- not an end condition)")
     print(f"  replayed actions : {len(rep)}")
 
+    submits = [i for i, (_, n) in enumerate(fed) if n == "submit"]
+    got_patch = bool((rep_doc.get("info") or {}).get("submission"))
+
     problems = []
-    # Short is the failure mode that matters: it is what redis did, silently.
+    # Short is the failure mode that matters -- but "short" needs care, because
+    # two very different things look identical by length alone:
+    #
+    #   redis, August: stopped at 54 of 77 because a TIMEOUT fired mid-stream,
+    #     shipping a 609-byte patch where the recording produced 1307. Truncated.
+    #   hugo-12579:    stopped at 51 of 66 exactly AT its second submit (submits
+    #     are at 48, 50, 52, 56, 65), with a full 2725-byte patch and no
+    #     cancelled steps. The episode ENDED because the agent submitted
+    #     successfully; the recording's remaining actions are its own agent
+    #     carrying on past its own submit.
+    #
+    # So a replay that stops on a submit index AND produced a patch is complete.
+    # Anywhere else, short is short.
     if len(rep) < len(fed):
-        problems.append(f"replay ran only {len(rep)} of {len(fed)} fed actions -- truncated")
+        ended_on_submit = (len(rep) - 1) in submits
+        if ended_on_submit and got_patch:
+            print(f"  COMPLETE AT SUBMIT: ended on the submit at index {len(rep)-1} "
+                  f"(submits at {submits}) with a non-empty patch -- the remaining "
+                  f"{len(fed)-len(rep)} recorded actions are the original agent "
+                  f"continuing past its own submit.")
+        else:
+            why = "no patch was produced" if ended_on_submit else "did not end on a submit"
+            problems.append(f"replay ran only {len(rep)} of {len(fed)} fed actions "
+                            f"-- truncated ({why})")
     elif len(rep) > len(fed):
         problems.append(f"replay ran {len(rep)} actions against {len(fed)} fed -- "
                         f"it consumed responses we did not supply")

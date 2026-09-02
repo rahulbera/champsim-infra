@@ -1,1 +1,2 @@
 2026-09-02 09:21:45	infra	bundle install died building psych 5.5.0; APT_PACKAGES lacked libyaml-dev
+2026-09-02 10:04:25	infra	Ruby 3 dropped webrick from stdlib; jekyll's test/helper.rb loads serve/servlet.rb which requires it, so every test file fails to load
