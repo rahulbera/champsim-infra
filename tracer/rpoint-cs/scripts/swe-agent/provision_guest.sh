@@ -50,9 +50,19 @@ sudo git config --system protocol.version 1
 # The partial checkout is removed between tries: git refuses to clone into a
 # non-empty directory, so a leftover would turn one flake into a hard failure.
 sudo mkdir -p "$REPO_DIR"; sudo chown ubuntu:ubuntu "$REPO_DIR"
+# Prefer the bare mirror the HOST staged at /opt/repo-cache/<name>.git. The
+# guest reaches the network through QEMU's user-mode (SLIRP) stack, which drops
+# larger clones outright: fluentd-3328 failed 5 of 5 in-guest attempts on
+# 2026-09-02 while the identical clone succeeded from the host minutes earlier.
+# Cloning from a local path removes GitHub from the guest's path completely.
+CLONE_SRC=$REPO_URL
+if [ -d "/opt/repo-cache/$REPO_NAME.git" ]; then
+  CLONE_SRC=/opt/repo-cache/$REPO_NAME.git
+  say "cloning from the host-staged mirror ($CLONE_SRC)"
+fi
 if [ ! -d "$REPO_DIR/.git" ]; then
   tries=0 max=${GIT_CLONE_RETRIES:-5}
-  until git clone "$REPO_URL" "$REPO_DIR"; do
+  until git clone "$CLONE_SRC" "$REPO_DIR"; do
     tries=$((tries + 1))
     [ "$tries" -lt "$max" ] || die "git clone failed $max times -- see the throttling note above"
     say "clone attempt $tries failed; retrying in $((tries * 20))s"
@@ -62,6 +72,10 @@ if [ ! -d "$REPO_DIR/.git" ]; then
   done
 fi
 cd "$REPO_DIR"
+# Point origin at the real remote even when we cloned from the local mirror --
+# the recording's checkout had it, and a /opt/repo-cache path left in
+# .git/config is a visible difference in the environment under trace.
+[ "$CLONE_SRC" = "$REPO_URL" ] || git remote set-url origin "$REPO_URL"
 git config --global --add safe.directory "$REPO_DIR"
 git fetch --all --tags --quiet || true
 git checkout --quiet --force "$BASE_COMMIT"

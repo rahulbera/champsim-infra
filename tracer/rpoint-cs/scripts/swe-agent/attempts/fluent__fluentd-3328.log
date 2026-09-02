@@ -1,1 +1,2 @@
 2026-09-02 12:41:42	infra	git clone throttled by GitHub (remote end hung up); added retry+backoff, protocol v1 already pinned
+2026-09-02 13:03:36	infra	in-guest clone failed 5/5 via QEMU SLIRP while the same clone worked from the host; added host-side bare mirror staged over the existing ssh channel

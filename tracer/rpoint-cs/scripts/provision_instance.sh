@@ -94,6 +94,40 @@ rsync -a -e "$rsh_opt" "$ROOT/scripts/swe-agent/problem_statements/" \
       "ubuntu@127.0.0.1:/opt/problem_statements/"
 echo "  staged"
 
+# The guest CANNOT clone from GitHub reliably. Two independent problems stack:
+# GitHub throttles git from this host, and the guest reaches the network through
+# QEMU's user-mode (SLIRP) stack, which drops larger clones outright -- fluentd
+# failed 5 of 5 attempts in-guest on 2026-09-02 while the identical clone
+# succeeded from the host. So the host clones ONCE into a bare mirror and every
+# guest clones from a local path. GitHub leaves the provisioning path entirely,
+# which also makes provisioning repeatable and much faster on re-runs.
+REPO_URL=$(grep -h '^REPO_URL=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
+           | tail -1 | cut -d= -f2-)
+REPO_NAME=$(grep -h '^REPO_NAME=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
+            | tail -1 | cut -d= -f2-)
+if [ -n "$REPO_URL" ] && [ -n "$REPO_NAME" ]; then
+  say "repo mirror for $REPO_NAME"
+  CACHE=$IMAGES/repo-cache
+  mkdir -p "$CACHE"
+  if [ ! -d "$CACHE/$REPO_NAME.git" ]; then
+    tries=0
+    # protocol v1: GitHub's v2 handshake fails from this host (see the note in
+    # provision_guest.sh). --mirror so every ref the agent might touch is here.
+    until git -c protocol.version=1 clone --mirror -q "$REPO_URL" "$CACHE/$REPO_NAME.git"; do
+      tries=$((tries + 1))
+      [ "$tries" -lt 5 ] || die "could not mirror $REPO_URL after 5 attempts"
+      echo "  mirror attempt $tries failed; retrying in $((tries * 20))s"
+      rm -rf "$CACHE/$REPO_NAME.git"; sleep $((tries * 20))
+    done
+    echo "  mirrored -> $CACHE/$REPO_NAME.git ($(du -sh "$CACHE/$REPO_NAME.git" | cut -f1))"
+  else
+    echo "  reusing $CACHE/$REPO_NAME.git ($(du -sh "$CACHE/$REPO_NAME.git" | cut -f1))"
+  fi
+  ssh_g 'sudo mkdir -p /opt/repo-cache && sudo chown -R ubuntu:ubuntu /opt/repo-cache'
+  rsync -a -e "$rsh_opt" "$CACHE/$REPO_NAME.git" "ubuntu@127.0.0.1:/opt/repo-cache/"
+  echo "  staged into the guest at /opt/repo-cache/$REPO_NAME.git"
+fi
+
 say "run provision_guest.sh"
 ssh_g "bash /opt/swe-agent-tools/provision_guest.sh $INSTANCE" 2>&1 | tail -40
 
