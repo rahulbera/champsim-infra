@@ -1,0 +1,1 @@
+2026-09-03 08:03:09	infra	composer install refused the lockfile: mpdf/mpdf 8.1.4 caps at PHP ~8.2.0, noble ships 8.3.6; added COMPOSER_INSTALL_FLAGS=--ignore-platform-req=php

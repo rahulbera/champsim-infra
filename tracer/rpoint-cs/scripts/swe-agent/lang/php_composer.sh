@@ -71,12 +71,27 @@ lang_deps() {
   # The determinism that matters is still preserved: whatever it resolves is
   # captured in the provisioned image, and every later pass restores that image.
   if [ -f composer.lock ]; then
-    composer install --no-interaction --no-progress >/tmp/provision_composer.log 2>&1 \
+    # COMPOSER_INSTALL_FLAGS exists for platform conflicts that are NOT this
+    # instance's problem. phpspreadsheet-3463's lockfile pins mpdf/mpdf 8.1.4,
+    # which caps at PHP ~8.2.0, and Ubuntu 24.04 ships 8.3.6 -- so a lockfile
+    # that is internally consistent still refuses to install.
+    #
+    # Passing --ignore-platform-req=php there is a deliberate, narrow choice:
+    # mpdf is a DEV dependency for the PDF writer, the instance's own work is in
+    # the Xlsx writer, and its gate is Shared/CodePageTest. If the agent did
+    # exercise mpdf the replay would diverge and the gate would refuse it, so
+    # this cannot quietly produce a wrong trace -- it can only fail loudly.
+    # shellcheck disable=SC2086
+    composer install --no-interaction --no-progress ${COMPOSER_INSTALL_FLAGS:-} \
+      >/tmp/provision_composer.log 2>&1 \
       || { tail -40 /tmp/provision_composer.log; die "composer install failed"; }
+    [ -n "${COMPOSER_INSTALL_FLAGS:-}" ] && echo "  (with $COMPOSER_INSTALL_FLAGS)"
     ok "vendor/ installed from the committed composer.lock"
   else
     echo "  no composer.lock (normal for a library); resolving once and freezing it in the image"
-    composer update --no-interaction --no-progress >/tmp/provision_composer.log 2>&1 \
+    # shellcheck disable=SC2086
+    composer update --no-interaction --no-progress ${COMPOSER_INSTALL_FLAGS:-} \
+      >/tmp/provision_composer.log 2>&1 \
       || { tail -40 /tmp/provision_composer.log; die "composer update failed"; }
     ok "vendor/ resolved; composer.lock written ($(grep -c '"name"' composer.lock 2>/dev/null || echo ?) packages)"
   fi
