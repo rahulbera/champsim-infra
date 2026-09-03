@@ -5,7 +5,14 @@ runner-up `preactjs__preact-4182` (same cell).
 **Instance:** `preactjs__preact-3763` — JavaScript, mechanism N, cell
 JavaScript×M (n=2, median fence 60), runner-up `preactjs-t4182`.
 
-**This is the SAME defect as `gin-gonic__gin-2121`** — see
+> **CORRECTION, 2026-09-03.** This file first attributed the failure to gin's
+> SWE-ReX PTY wedge. That was reasoning from a shared symptom — a pexpect
+> timeout waiting for `SHELLPS1PREFIX` — and it was wrong about the mechanism.
+> The full logs from `preactjs__preact-4182` identify the actual defect, which is
+> in SWE-agent, not SWE-ReX, and is described in §6. The pexpect traceback is how
+> the state command's timeout *surfaces*, not why the episode ends.
+
+**Related to `gin-gonic__gin-2121`** — see
 `known-issue-gin-2121-replay-wedge.md`. Read that first; this file records only
 what preact ADDS, which is a great deal, because preact is a far better
 reproducer than gin ever was.
@@ -142,3 +149,59 @@ Ordered by cost. **None has been attempted.** All are shared with gin.
 
 **Related:** `known-issue-gin-2121-replay-wedge.md`,
 `campaign-2026-09-plan.md`.
+
+
+## 6. The actual root cause (2026-09-03)
+
+Established from `images/replay_full-preactjs__preact-4182.log`, once the host
+started keeping that log at all.
+
+1. **Both instances die on SWE-agent's STATE command, not on an agent action:**
+
+   ```
+   swerex.exceptions.CommandTimeoutError: timeout after 25.0 seconds
+     while running command '_state_anthropic'
+   ```
+
+2. **The 25 s is a Python function-signature default and is unreachable from
+   configuration.** `sweagent/environment/swe_env.py:197` declares
+   `def communicate(self, input, timeout: int|float = 25, ...)`, and
+   `sweagent/tools/tools.py:345` calls it as
+   `env.communicate(state_command, check="warn")` — passing no timeout. There is
+   no config field, no environment variable and no CLI flag for it.
+   `--agent.tools.execution_timeout=1800` governs AGENT commands only.
+
+3. **`max_consecutive_execution_timeouts` does not apply, and the log message
+   says otherwise.** There are two exit paths in `agents.py`:
+   - line 969: increments `_n_consecutive_timeouts`, compares it against
+     `max_consecutive_execution_timeouts`, and logs *"Exiting agent due to too
+     many consecutive execution timeouts"*;
+   - line 1168: a bare `except CommandTimeoutError:` that exits on the FIRST
+     such exception to reach it, and logs *"Exiting due to multiple consecutive
+     command timeouts"*.
+
+   Our logs show the SECOND message. Raising the limit to 100 was tried on
+   preact-4182 and changed nothing — 71 of 122 actions both before and after —
+   because that path never consults it. **The message names a counter it does
+   not use.**
+
+4. **The two instances hit it for different reasons, and the distinction
+   matters:**
+
+   | instance | phase that fails | KVM result | reading |
+   |---|---|---|---|
+   | preact-3763 | verify (KVM) | 27/55 | the session really is stuck; 25 s is ample on KVM for a trivial state command |
+   | preact-4182 | profile (TCG) | **122/122 FAITHFUL** | not stuck — TCG is ~50x slower and the state command simply exceeds 25 s |
+
+   preact-4182 replaying perfectly under KVM and truncating only under TCG is
+   what separates the two. 3763 is a wedge; 4182 is a wall clock.
+
+5. **Consequence for the campaign.** Any instance whose state command takes more
+   than ~0.5 s of KVM time will fail under TCG, silently, as a truncated replay
+   the gate then refuses. Sixteen captures have passed, so it is not common —
+   but it is not preact-specific either, and it cannot be tuned around.
+
+6. **The only fixes left are code changes in the guest**, i.e. patching
+   SWE-agent to pass a timeout at tools.py:345. That changes the software under
+   trace, and the provenance gap in gin's §4.1.3 still applies: close it before
+   applying any patch.

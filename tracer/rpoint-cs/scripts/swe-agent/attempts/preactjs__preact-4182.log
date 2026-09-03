@@ -1,2 +1,4 @@
 2026-09-02 23:41:57	instance	chain: profile failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-4182/profile.log)
 2026-09-03 00:35:42	instance	chain: profile failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-4182/profile.log)
+2026-09-03 01:34:03	instance	chain: profile failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-4182/profile.log)
+2026-09-03 02:04:37	instance	DITCHED 3/3: SWE-agent exits on the FIRST state-command CommandTimeoutError (agents.py:1168, bare except); 25s is a function-default at swe_env.py:197 unreachable from config; TCG is too slow for it

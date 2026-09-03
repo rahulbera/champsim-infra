@@ -67,6 +67,17 @@ TOTAL_TIMEOUT=${TOTAL_TIMEOUT:-604800}   # 7 d per episode
 # Raising the consecutive limit therefore lets the replay finish without
 # changing which actions run -- and it is behaviour-neutral for every capture
 # that never times out, which is all of them so far.
+# TESTED AND IT DOES NOT HELP -- kept only because it is harmless and the next
+# person will otherwise try it too. agents.py has TWO exit paths: line 969
+# compares _n_consecutive_timeouts against this setting, but line 1168 is a bare
+# `except CommandTimeoutError:` that exits on the FIRST such exception and logs
+# "Exiting due to multiple consecutive command timeouts" -- naming a counter it
+# never consults. Our failures take that second path, so raising this to 100
+# changed preact-4182 not at all: 71 of 122 actions before and after.
+#
+# The real limit is swe_env.py:197 `def communicate(..., timeout=25, ...)`, a
+# function-signature default that tools.py:345 does not override. It has no
+# config field, no env var and no CLI flag. Only a code patch reaches it.
 MAX_CONSEC_TIMEOUTS=${MAX_CONSEC_TIMEOUTS:-100}
 
 [ "$(id -u)" -eq 0 ] || die "must run as root (SWE-agent writes /root/tools)"
