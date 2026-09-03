@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, the test file is back to its original state (no matches). Now let me rebuild and run the full test suite one more time to confirm everything still works with the reverted test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make -j$(nproc) format-test 2>&1 | tail -5 && ./bin/format-test 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366704988153700718\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000104, \"id\": \"synthesized-00104\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00104\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f67b096acda37bb536dcc3c3c5d8e2b479bc63f71f66c508b7ac86c0f3583823",
+ "status": 200
+}

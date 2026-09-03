@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The reproduction script confirms the fix works. Now let me remove the reproduction scripts:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro.cpp /tmp/repro2.cpp /tmp/repro3.cpp /tmp/repro4.cpp /tmp/repro_header.cpp /tmp/repro_wchar.cpp /tmp/repro_compile.cpp /tmp/repro_pr.cpp /tmp/repro /tmp/repro2 /tmp/repro3 /tmp/repro4 /tmp/repro_header /tmp/repro_wchar /tmp/repro_compile /tmp/repro_pr\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366715261715474345\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000096, \"id\": \"synthesized-00096\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00096\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a7e36be0209260f87232ceddb80cb6529b65684b1231c9b60d00b454762d3c02",
+ "status": 200
+}

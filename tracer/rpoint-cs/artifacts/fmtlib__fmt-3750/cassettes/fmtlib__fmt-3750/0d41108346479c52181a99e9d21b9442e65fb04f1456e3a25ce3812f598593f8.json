@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the std-test.cc for any localized formatting tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"LX\\\\\\\\|Lx\\\\\\\\|Lb\\\\\\\\|Lo\\\\\\\\|localized\\\\\\\\|grouping\\\\\\\\|thousands\\\\\\\\|locale\\\\\\\" /testbed/test/std-test.cc | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366711138546872097\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0d41108346479c52181a99e9d21b9442e65fb04f1456e3a25ce3812f598593f8",
+ "status": 200
+}

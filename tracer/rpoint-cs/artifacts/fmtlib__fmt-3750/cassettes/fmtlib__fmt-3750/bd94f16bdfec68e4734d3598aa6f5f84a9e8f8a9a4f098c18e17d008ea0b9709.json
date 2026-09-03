@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now only `include/fmt/format.h` is modified (staged). The test file has been reverted to its original state. Let me verify the test file is back to original:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"format_locale\\\\\\\\|7,5bc,d15\\\\\\\" test/format-test.cc; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366685334383361554\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000103, \"id\": \"synthesized-00103\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00103\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bd94f16bdfec68e4734d3598aa6f5f84a9e8f8a9a4f098c18e17d008ea0b9709",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 120 tests pass (one more than before, which is the new test). Now let me think about edge cases.\\n\\nLet me consider the edge cases:\\n1. The `prefix` size calculation. In the original code, it was `(prefix != 0 ? 1 : 0)`, but the new code uses `(prefix != 0 ? prefix >> 24 : 0)`. The `prefix >> 24` contains the size of the prefix (number of bytes), which is set by `prefix_append`. Let me verify this is correct.\\n\\nLet me look at how `prefix_append` works and how the prefix is structured:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/format.h\\\",\\\"view_range\\\":[2116, 2120]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366698631602105255\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "21f58539ed86817ed8eccf6b25244679888189535489d2a5355ff855d40eb672",
+ "status": 200
+}

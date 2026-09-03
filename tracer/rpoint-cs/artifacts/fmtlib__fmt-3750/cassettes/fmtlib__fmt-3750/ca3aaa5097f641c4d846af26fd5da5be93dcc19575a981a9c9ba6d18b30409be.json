@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The localized versions match the non-localized versions (just with separators added). \\n\\nNow let me run the full test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make -j$(nproc) 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366687705205305708\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000077, \"id\": \"synthesized-00077\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00077\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ca3aaa5097f641c4d846af26fd5da5be93dcc19575a981a9c9ba6d18b30409be",
+ "status": 200
+}

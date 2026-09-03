@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the issue. When using `{:Lx}`, `{:LX}`, `{:Lb}`, `{:Lo}`, the output is always decimal. The issue is in the `loc_writer::operator()` which always calls `write_int` with `digit_grouping`, but the `write_int` function with `digit_grouping` always uses `format_decimal`.\\n\\nLet me look at the `write_int` function with `digit_grouping` again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/format.h\\\",\\\"view_range\\\":[2116, 2136]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366709042602829814\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2d840c522b35ee0609757b00cce17b77753b407c032e588bd1a685c3ccfb6b6d",
+ "status": 200
+}

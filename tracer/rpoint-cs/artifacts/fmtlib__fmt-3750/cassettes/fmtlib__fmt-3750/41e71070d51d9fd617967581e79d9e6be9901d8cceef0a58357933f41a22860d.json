@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"It seems the test file change is still staged (the `git checkout --` only reverted the working tree, but the staged version still has the change). Let me unstage and revert the test file properly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git reset HEAD test/format-test.cc && git checkout -- test/format-test.cc && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366714711959660357\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000101, \"id\": \"synthesized-00101\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00101\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "41e71070d51d9fd617967581e79d9e6be9901d8cceef0a58357933f41a22860d",
+ "status": 200
+}

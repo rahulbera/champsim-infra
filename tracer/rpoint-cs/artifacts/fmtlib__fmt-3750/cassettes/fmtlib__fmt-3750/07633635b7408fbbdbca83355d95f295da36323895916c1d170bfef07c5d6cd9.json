@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The compile-time version works too. Note that the compile-time version doesn't use `write_loc` (it returns false for non-appender iterators), so it falls back to the regular `write_int` which already handles the type specifier correctly.\\n\\nLet me verify this understanding by looking at the compile-time `write` function:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/format.h\\\",\\\"view_range\\\":[2300, 2320]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366719487963295840\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "07633635b7408fbbdbca83355d95f295da36323895916c1d170bfef07c5d6cd9",
+ "status": 200
+}

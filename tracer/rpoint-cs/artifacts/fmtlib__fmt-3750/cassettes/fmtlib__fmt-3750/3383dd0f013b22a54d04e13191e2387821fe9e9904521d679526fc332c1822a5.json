@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `memory_buffer` has an inline buffer of 500 bytes, which is more than enough for any integer digits (max ~39 digits for uint128). So `to_pointer` will succeed (capacity >= size + n), and the digits get written directly into the buffer. Good.\\n\\nNow let me run the format-impl-test which might test the `digit_grouping` directly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && ./bin/format-impl-test 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366684647188588606\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000091, \"id\": \"synthesized-00091\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00091\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3383dd0f013b22a54d04e13191e2387821fe9e9904521d679526fc332c1822a5",
+ "status": 200
+}

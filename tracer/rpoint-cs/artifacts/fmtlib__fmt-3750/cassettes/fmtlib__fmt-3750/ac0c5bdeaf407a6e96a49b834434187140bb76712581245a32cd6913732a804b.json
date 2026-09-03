@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me rebuild and run the format test to verify:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make -j$(nproc) format-test 2>&1 | tail -5 && ./bin/format-test --gtest_filter=\\\\\\\"*format_locale*\\\\\\\" 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366727528142075259\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ac0c5bdeaf407a6e96a49b834434187140bb76712581245a32cd6913732a804b",
+ "status": 200
+}

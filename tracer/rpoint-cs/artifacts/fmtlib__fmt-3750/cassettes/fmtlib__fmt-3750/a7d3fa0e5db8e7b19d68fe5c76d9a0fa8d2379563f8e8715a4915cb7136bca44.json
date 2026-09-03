@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the `format_uint` function and the `write_int` that handles the type switch:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"format_uint\\\\\\\\|format_decimal\\\\\\\" /testbed/include/fmt/format.h | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366716017629720360\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a7d3fa0e5db8e7b19d68fe5c76d9a0fa8d2379563f8e8715a4915cb7136bca44",
+ "status": 200
+}

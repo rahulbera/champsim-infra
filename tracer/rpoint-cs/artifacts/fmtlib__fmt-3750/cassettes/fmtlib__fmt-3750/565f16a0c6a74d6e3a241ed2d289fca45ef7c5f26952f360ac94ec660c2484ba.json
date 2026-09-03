@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the issue. Now let me understand the expected behavior. Let me check what `std::format` does and look at the test files more carefully:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"Lx\\\\\\\\|LX\\\\\\\\|Lb\\\\\\\\|Lo\\\\\\\\|Ld\\\\\\\\|Lo\\\\\\\\\\\\\\\"\\\\\\\\|format_int_locale\\\\\\\\|localized\\\\\\\" /testbed/test/format-test.cc /testbed/test/xchar-test.cc /testbed/test/format-impl-test.cc 2>/dev/null | grep -v gtest\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366716429946580197\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000037, \"id\": \"synthesized-00037\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00037\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "565f16a0c6a74d6e3a241ed2d289fca45ef7c5f26952f360ac94ec660c2484ba",
+ "status": 200
+}

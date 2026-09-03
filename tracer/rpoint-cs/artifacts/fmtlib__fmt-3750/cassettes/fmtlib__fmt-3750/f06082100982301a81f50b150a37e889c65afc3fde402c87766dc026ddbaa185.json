@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me create a reproduction script:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro.cpp << 'EOF'\\\\n#include <fmt/format.h>\\\\n#include <iostream>\\\\n\\\\nint main() {\\\\n    const auto x = 123456789;\\\\n    std::clog << \\\\\\\"Hex: \\\\\\\" << fmt::format(\\\\\\\"{:Lx}\\\\\\\", x) << '\\\\\\\\n';\\\\n    std::clog << \\\\\\\"Hex upper: \\\\\\\" << fmt::format(\\\\\\\"{:LX}\\\\\\\", x) << '\\\\\\\\n';\\\\n    std::clog << \\\\\\\"Bin: \\\\\\\" << fmt::format(\\\\\\\"{:Lb}\\\\\\\", x) << '\\\\\\\\n';\\\\n    std::clog << \\\\\\\"Oct: \\\\\\\" << fmt::format(\\\\\\\"{:Lo}\\\\\\\", x) << '\\\\\\\\n';\\\\n    std::clog << \\\\\\\"Dec: \\\\\\\" << fmt::format(\\\\\\\"{:Ld}\\\\\\\", x) << '\\\\\\\\n';\\\\n    std::clog << \\\\\\\"Default: \\\\\\\" << fmt::format(\\\\\\\"{:L}\\\\\\\", x) << '\\\\\\\\n';\\\\n    return 0;\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/repro.cpp -L/testbed/build -lfmt -o /tmp/repro && LD_LIBRARY_PATH=/testbed/build /tmp/repro\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366851429358629075\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f06082100982301a81f50b150a37e889c65afc3fde402c87766dc026ddbaa185",
+ "status": 200
+}

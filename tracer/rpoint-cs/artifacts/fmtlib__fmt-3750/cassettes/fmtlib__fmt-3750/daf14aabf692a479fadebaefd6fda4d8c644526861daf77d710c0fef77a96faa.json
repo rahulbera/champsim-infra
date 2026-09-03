@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the `presentation_type` enum:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"presentation_type\\\\\\\\|enum.*type\\\\\\\\|hex_lower\\\\\\\\|hex_upper\\\\\\\\|bin_lower\\\\\\\\|bin_upper\\\\\\\\|chr\\\\\\\\|oct\\\\\\\\|dec\\\\\\\" /testbed/include/fmt/core.h | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366717426378995270\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "daf14aabf692a479fadebaefd6fda4d8c644526861daf77d710c0fef77a96faa",
+ "status": 200
+}

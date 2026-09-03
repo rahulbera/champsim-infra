@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the test files more carefully to understand expected behavior:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"format_int_locale\\\\\\\\|Lx\\\\\\\\|LX\\\\\\\\|Lb\\\\\\\\|Lo\\\\\\\\|Ld\\\\\\\\|L o\\\\\\\\|L x\\\\\\\\|L b\\\\\\\\|L d\\\\\\\" /testbed/test/*.cc\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366744089535971295\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9dd9ff49f6bd130816fb45415ba310942dc7f129d7ec526c568969b7a075dba2",
+ "status": 200
+}

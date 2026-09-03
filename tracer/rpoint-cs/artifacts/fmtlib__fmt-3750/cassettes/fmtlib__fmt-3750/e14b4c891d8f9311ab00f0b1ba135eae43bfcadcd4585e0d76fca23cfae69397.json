@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This uses `to_pointer<Char>` which for `buffer_appender` (appender) returns a pointer if the buffer has enough capacity. Since `memory_buffer` starts with some capacity, this should work. But there's a subtle issue: `to_pointer` resizes the buffer to `size + n`, so the digits get written directly into the buffer. This is fine.\\n\\nWait, there's a potential issue. The `to_pointer` for `buffer_appender` resizes the buffer, but the `appender(buffer)` where `buffer` is a `memory_buffer` - let me verify `appender` is `buffer_appender<char>`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"using appender\\\\\\\\|using memory_buffer\\\\\\\\|buffer_appender\\\\\\\" /testbed/include/fmt/format.h | head -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366729383567944351\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000085, \"id\": \"synthesized-00085\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00085\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e14b4c891d8f9311ab00f0b1ba135eae43bfcadcd4585e0d76fca23cfae69397",
+ "status": 200
+}

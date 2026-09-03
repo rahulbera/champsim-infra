@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the `memory_buffer` and `appender` types and `to_pointer` to make sure the `format_uint` with appender works correctly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"to_pointer\\\\\\\" /testbed/include/fmt/format.h | head -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366714127844114061\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "defc84b8aa1f7b85185a5d76159d5fa4ff423d4155a30921399fb97396012bd4",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The tests haven't been modified yet. Let me check the test files for any tests related to this issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"Lx\\\\\\\\|LX\\\\\\\\|Lb\\\\\\\\|Lo\\\\\\\\|format_int_locale\\\\\\\\|format_facet\\\\\\\" /testbed/test/ | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366731376432767598\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ed510085fd1e8ef8a0a6923c80642c5353670476750c2b4a2221517571512b6",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me rebuild the library and test the fix. First, let me check the build directory:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && ls && cat CMakeCache.txt | grep -i \\\\\\\"CMAKE_CXX_COMPILER\\\\\\\\|FMT_TEST\\\\\\\\|FMT_OS\\\\\\\" | head -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366694680232197946\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "698426f714a718c9e79b55edc2d866855eb9c1481877e55b728a3cd1b620026b",
+ "status": 200
+}
