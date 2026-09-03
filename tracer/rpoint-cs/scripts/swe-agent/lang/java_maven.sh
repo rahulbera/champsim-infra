@@ -12,8 +12,15 @@
 # maven went looking for its sibling in the repository:
 #     Could not find artifact com.github.javaparser:javaparser-core:jar:3.26.2-SNAPSHOT
 # A SNAPSHOT of the module you are sitting in is never there. Pair -am with -pl
-# on BOTH commands, and use -DfailIfNoTests=false so the sibling modules -- which
-# match no -Dtest filter -- pass rather than error.
+# on BOTH commands.
+#
+# Then pass BOTH no-tests properties, because the sibling modules -am drags in
+# match no -Dtest filter and surefire treats that as an error:
+#     -DfailIfNoTests=false                  (surefire < 3)
+#     -Dsurefire.failIfNoSpecifiedTests=false (surefire >= 3, e.g. 3.4.0)
+# With only the old name javaparser-4538 failed inside javaparser-core with
+# `No tests matching pattern "NodePositionTest" were executed!`. Single-module
+# reactors like gson's never see this, so it is specifically a -am hazard.
 #
 # The JVM arm. HotSpot JITs hot methods and resolves invokevirtual /
 # invokeinterface through inline caches that fall back to vtable dispatch --
