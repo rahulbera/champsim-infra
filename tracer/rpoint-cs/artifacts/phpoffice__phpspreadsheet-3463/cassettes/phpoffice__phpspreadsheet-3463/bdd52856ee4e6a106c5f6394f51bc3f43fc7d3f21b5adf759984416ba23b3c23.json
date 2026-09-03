@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The PR description says the test files have already been modified, but git status shows clean. Let me search for any NETWORKDAYS related tests.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"NETWORKDAYS\\\\\\\\|networkdays\\\\\\\" tests/ src/ --include=\\\\\\\"*.php\\\\\\\" | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350091985933302107\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bdd52856ee4e6a106c5f6394f51bc3f43fc7d3f21b5adf759984416ba23b3c23",
+ "status": 200
+}

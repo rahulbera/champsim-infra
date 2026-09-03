@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `\\\\b` works correctly after `_xlws.`. Now let me run a broader test suite to make sure I haven't broken anything with the writer. Let me run the full Writer/Xlsx tests.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/Xlsx/ 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350079375909315846\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3324f00b529427dbfad210be2da263322a94b9743b934e8b14ae69549638354b",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `!` in the pattern is causing history expansion issues in bash. Let me use a different approach with single quotes and a heredoc.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && set +H && sed -i 's|const XLWSREGEXP = ./(?<!_xlws\\\\\\\\\\\\\\\\.)(.|const XLWSREGEXP = '\\\\\\\"'\\\\\\\"'/(?<!_xlws\\\\\\\\\\\\\\\\.)\\\\\\\\\\\\\\\\b(|'\\\\\\\"'\\\\\\\"'|' src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\\ngrep -n \\\\\\\"const XLWSREGEXP\\\\\\\" src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350090199226902164\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "841d6047ce868e810349172d52767fe235d4438f894efe91f824edec9a88dadd",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The exact PR scenario is now fixed. The formula `=NETWORKDAYS(A1,A2)` is correctly preserved in the XLSX output instead of being mangled to `=NETWORK_xlfn.DAYS(A1,A2)`.\\n\\nLet me also verify the bug existed before my fix by stashing and running.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && php /tmp/pr_repro.php; echo \\\\\\\"Exit code: $?\\\\\\\"; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350066009971091396\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2ccb43a0263b87ea3e1991170928269bbc95d72b3d0293e8707c76b7181f3960",
+ "status": 200
+}

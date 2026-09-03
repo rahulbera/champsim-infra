@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The errors are all related to image/JPEG support (`imagejpeg`, `imagecreatefromstring` no JPEG support) which are environment-related (GD library build issues), not related to my change. Let me confirm these are pre-existing.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/ 2>&1 | tail -6; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350083602157135392\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8ea17fde458efea62585b60288c75bd25d3e1b3d8a2b4c135b37261139476031",
+ "status": 200
+}

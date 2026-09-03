@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/analyze8.php << 'EOF'\\\\n<?php\\\\n// With gamma|days in alternation (order matters)\\\\n$pattern = '/(?:_xlfn\\\\\\\\.)?((?:_xlws\\\\\\\\.)?(gamma|days))\\\\\\\\s*\\\\\\\\(/Umi';\\\\n$tests = ['GAMMALN(', 'DAYS(', 'NETWORKDAYS('];\\\\nforeach ($tests as $test) {\\\\n    $matches = [];\\\\n    preg_match($pattern, $test, $matches, PREG_OFFSET_CAPTURE);\\\\n    echo $test . ' => matches: ' . json_encode($matches) . PHP_EOL;\\\\n    $result = preg_replace($pattern, '_xlfn.$1(', $test);\\\\n    echo '  result: ' . $result . PHP_EOL;\\\\n}\\\\nEOF\\\\nphp /tmp/analyze8.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355013434338961788\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "18abaa166becd7f1addc60b5afcf1c872c49aa803e9358a35d4118ef32efb85a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me analyze the regex behavior more carefully to understand all the edge cases.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/analyze2.php << 'EOF'\\\\n<?php\\\\n$pattern = '/(?:_xlfn\\\\\\\\.)?((?:_xlws\\\\\\\\.)?('\\\\n    . '|days'\\\\n    . '|networkdays[.]intl'\\\\n    . '|gamma'\\\\n    . '))\\\\\\\\s*\\\\\\\\(/Umi';\\\\n\\\\n$tests = ['GAMMALN(', 'GAMMA(', 'GAMMALN.PRECISE('];\\\\nforeach ($tests as $test) {\\\\n    $matches = [];\\\\n    preg_match($pattern, $test, $matches, PREG_OFFSET_CAPTURE);\\\\n    echo $test . ' => matches: ' . json_encode($matches) . PHP_EOL;\\\\n    $result = preg_replace($pattern, '_xlfn.$1(', $test);\\\\n    echo '   result: ' . $result . PHP_EOL;\\\\n}\\\\nEOF\\\\nphp /tmp/analyze2.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350074702984904466\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "09a42886d19e403d51b4a47b9d0c7b0e815d5e22cfffe47d966eb21028cc21d0",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me view the modified file to confirm both changes are correct.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1,10p' src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php; echo \\\\\\\"...\\\\\\\"; sed -n '156,162p' src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350098754801760937\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "087b9998e5fe7085595ce17b4932fcfef705558adb4ba457cf4dc050e9224bfa",
+ "status": 200
+}

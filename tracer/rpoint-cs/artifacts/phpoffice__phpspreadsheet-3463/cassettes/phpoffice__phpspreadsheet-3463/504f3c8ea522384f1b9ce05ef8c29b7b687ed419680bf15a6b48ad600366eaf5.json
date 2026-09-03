@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The 5 failures are pre-existing and identical before and after my change (same 5 failures, same 15442 tests). They are unrelated to my change (they're about `RowOnSpreadsheetTest` and `INDIRECTLocalDefinedName` returning string `'5'` vs int `5`).\\n\\nNow let me also run the broader Writer tests to make sure nothing else is broken.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/ 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350083121120804036\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "504f3c8ea522384f1b9ce05ef8c29b7b687ed419680bf15a6b48ad600366eaf5",
+ "status": 200
+}

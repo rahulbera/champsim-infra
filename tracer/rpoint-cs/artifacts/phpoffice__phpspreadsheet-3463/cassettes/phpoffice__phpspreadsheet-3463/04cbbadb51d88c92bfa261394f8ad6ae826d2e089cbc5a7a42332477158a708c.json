@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/analyze10.php << 'EOF'\\\\n<?php\\\\n// Full pattern from the file\\\\n$pattern = '/(?:_xlfn\\\\\\\\.)?((?:_xlws\\\\\\\\.)?('\\\\n    . 'beta[.]dist'\\\\n    . '|gamma'\\\\n    . '|gammaln[.]precise'\\\\n    . '))\\\\\\\\s*\\\\\\\\(/Umi';\\\\n$tests = ['GAMMALN('];\\\\nforeach ($tests as $test) {\\\\n    $matches = [];\\\\n    preg_match($pattern, $test, $matches, PREG_OFFSET_CAPTURE);\\\\n    echo $test . ' => matches: ' . json_encode($matches) . PHP_EOL;\\\\n    $result = preg_replace($pattern, '_xlfn.$1(', $test);\\\\n    echo '  result: ' . $result . PHP_EOL;\\\\n}\\\\nEOF\\\\nphp /tmp/analyze10.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350091504896961019\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "04cbbadb51d88c92bfa261394f8ad6ae826d2e089cbc5a7a42332477158a708c",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The only error is unrelated to my change \\u00e2\\u0080\\u0094 it's a `imagejpeg` function not found error (GD library issue) in `DrawingsTest::testMemoryDrawingDuplicateResource`. Let me verify this error exists on the original code too by stashing my changes.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/Xlsx/DrawingsTest.php::testMemoryDrawingDuplicateResource 2>&1 | tail -15; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350079719506703155\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000054, \"id\": \"synthesized-00054\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00054\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b6905810b8469d7be4684950d68c466f1b7a6bed6c33042422d1415808831919",
+ "status": 200
+}

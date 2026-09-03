@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && vendor/bin/phpunit --filter testMemoryDrawingDuplicateResource tests/PhpSpreadsheetTests/Writer/Xlsx/DrawingsTest.php 2>&1 | tail -15; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350060684211643103\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000055, \"id\": \"synthesized-00055\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00055\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "963e6a0b210d8b03e0fe209df3c1674dd56ea7534ac3694607f7cf669dc89014",
+ "status": 200
+}

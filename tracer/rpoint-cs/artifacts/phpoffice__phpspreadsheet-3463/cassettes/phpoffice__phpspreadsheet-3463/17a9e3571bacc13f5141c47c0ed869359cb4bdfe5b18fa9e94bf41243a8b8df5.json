@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There are 5 failures. Let me check if these are pre-existing failures unrelated to my change.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && vendor/bin/phpunit tests/PhpSpreadsheetTests/Calculation/ 2>&1 | tail -8; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350061989881705472\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "17a9e3571bacc13f5141c47c0ed869359cb4bdfe5b18fa9e94bf41243a8b8df5",
+ "status": 200
+}

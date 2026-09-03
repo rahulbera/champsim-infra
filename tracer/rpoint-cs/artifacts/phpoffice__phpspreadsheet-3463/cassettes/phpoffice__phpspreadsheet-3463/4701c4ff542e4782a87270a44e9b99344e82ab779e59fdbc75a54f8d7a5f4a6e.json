@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool has a dependency issue with python3. Let me verify my final changes are in place and provide a summary.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff && echo \\\\\\\"=== Verifying file is valid PHP ===\\\\\\\" && php -l src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350067968476180603\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4701c4ff542e4782a87270a44e9b99344e82ab779e59fdbc75a54f8d7a5f4a6e",
+ "status": 200
+}

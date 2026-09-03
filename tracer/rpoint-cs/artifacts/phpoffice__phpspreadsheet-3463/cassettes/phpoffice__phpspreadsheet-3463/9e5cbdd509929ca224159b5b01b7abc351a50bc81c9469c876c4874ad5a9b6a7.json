@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -i \\\\\\\"s|const XLFNREGEXP = '/(?:_xlfn\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.)?((?:_xlws\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.)?('|const XLFNREGEXP = '/(?:_xlfn\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.)?((?:_xlws\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.)?\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\b('|\\\\\\\" src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\\ngrep -n \\\\\\\"const XLFNREGEXP\\\\\\\" src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350074531186209531\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9e5cbdd509929ca224159b5b01b7abc351a50bc81c9469c876c4874ad5a9b6a7",
+ "status": 200
+}

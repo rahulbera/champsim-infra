@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the specific FunctionPrefix test one final time to confirm everything is good.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/Xlsx/FunctionPrefixTest.php tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php tests/PhpSpreadsheetTests/Writer/Xlsx/ArrayFormulaPrefixTest.php tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NetworkDaysTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350099819953645805\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ab73b9a99feccc34cb0d091dfdb6ff050976000d1874e22fdd5153cee42cae2e",
+ "status": 200
+}

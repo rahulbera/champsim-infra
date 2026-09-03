@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me clean up the temporary test files.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro.php /tmp/analyze*.php /tmp/comprehensive*.php /tmp/edge*.php /tmp/final_test.php /tmp/fix.php /tmp/pr_repro.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350069136707282368\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a12652ddaebcc24665db011a58456033f70ec4bd7c13c3a12aa9bc9d99239122",
+ "status": 200
+}

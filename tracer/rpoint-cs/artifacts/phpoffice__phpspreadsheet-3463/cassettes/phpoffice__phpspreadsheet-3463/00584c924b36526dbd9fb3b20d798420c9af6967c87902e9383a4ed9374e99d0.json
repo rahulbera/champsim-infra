@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool now works. Let me follow the instructions:\\n\\n1. My reproduction scripts have already been removed.\\n2. I haven't modified any test files (only `src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php`).\\n\\nLet me confirm the test files are unchanged and re-verify the fix works one final time.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== Test files unchanged? ===\\\\\\\" && git diff --stat -- tests/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350078619995077897\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000084, \"id\": \"synthesized-00084\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00084\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "00584c924b36526dbd9fb3b20d798420c9af6967c87902e9383a4ed9374e99d0",
+ "status": 200
+}

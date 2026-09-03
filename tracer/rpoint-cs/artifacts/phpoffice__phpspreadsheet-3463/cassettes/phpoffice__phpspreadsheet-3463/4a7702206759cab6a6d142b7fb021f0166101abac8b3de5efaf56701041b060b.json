@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The existing tests pass. Now let me check if there are any other tests that might be affected by this change. Let me search for tests related to the writer and function prefixes.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rln \\\\\\\"addFunctionPrefix\\\\\\\\|FunctionPrefix\\\\\\\\|_xlfn\\\\\\\\|_xlws\\\\\\\" tests/ --include=\\\\\\\"*.php\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350103496445654162\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4a7702206759cab6a6d142b7fb021f0166101abac8b3de5efaf56701041b060b",
+ "status": 200
+}

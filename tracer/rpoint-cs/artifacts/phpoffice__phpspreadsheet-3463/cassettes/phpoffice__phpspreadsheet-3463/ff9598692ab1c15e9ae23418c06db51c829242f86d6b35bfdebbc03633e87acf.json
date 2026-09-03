@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run all the related tests to make sure nothing is broken.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/Xlsx/ArrayFormulaPrefixTest.php tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php tests/PhpSpreadsheetTests/Writer/Xlsx/FunctionPrefixTest.php 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350089821269785090\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ff9598692ab1c15e9ae23418c06db51c829242f86d6b35bfdebbc03633e87acf",
+ "status": 200
+}

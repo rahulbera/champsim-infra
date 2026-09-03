@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All the XLWS edge cases are now handled correctly too. The `SOMEFILTER` and `SOMESORT` cases (which were broken before, becoming `SOME_xlws.FILTER`) now stay unchanged.\\n\\nNow let me run the existing test suite to make sure nothing is broken.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/Xlsx/FunctionPrefixTest.php 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350074943503072778\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000043, \"id\": \"synthesized-00043\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00043\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d7cbe416ad17334713a2ca5d41c17c652fa1ea035892d4b5dd1ac154f89aa836",
+ "status": 200
+}

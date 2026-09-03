@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/analyze3.php << 'EOF'\\\\n<?php\\\\n// Test what happens with the whole formula\\\\n$pattern = '/(?:_xlfn\\\\\\\\.)?((?:_xlws\\\\\\\\.)?('\\\\n    . '|days'\\\\n    . '|networkdays[.]intl'\\\\n    . '|gamma'\\\\n    . '))\\\\\\\\s*\\\\\\\\(/Umi';\\\\n\\\\n$tests = ['=GAMMALN.PRECISE(A1)', '=GAMMA(A1)', '=GAMMALN(A1)'];\\\\nforeach ($tests as $test) {\\\\n    $result = preg_replace($pattern, '_xlfn.$1(', $test);\\\\n    echo $test . ' => ' . $result . PHP_EOL;\\\\n}\\\\nEOF\\\\nphp /tmp/analyze3.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350080956457279955\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6db80cb12243a50eeed1f98dd4f91bc98fe0072a43394081d30c8c14d9e5c7a8",
+ "status": 200
+}

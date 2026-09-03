@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is a PHP project (PhpSpreadsheet). Let me look at the file mentioned in the PR description.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -path ./vendor -prune -o -name \\\\\\\"FunctionPrefix.php\\\\\\\" -print\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350262135357696287\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f2461996e04e1c42409f74c4b7ffa0cd84734cb476aff513c598f52ad6d9a2b6",
+ "status": 200
+}

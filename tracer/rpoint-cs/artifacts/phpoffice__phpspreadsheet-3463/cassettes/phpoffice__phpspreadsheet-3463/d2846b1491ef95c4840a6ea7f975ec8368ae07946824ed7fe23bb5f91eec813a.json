@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor tool seems to have an issue with python3. Let me use sed instead.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"const XLFNREGEXP\\\\\\\" src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350061886802488313\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d2846b1491ef95c4840a6ea7f975ec8368ae07946824ed7fe23bb5f91eec813a",
+ "status": 200
+}

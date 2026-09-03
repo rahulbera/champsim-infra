@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The sed approach is getting complicated with all the special characters. Let me use a Python script via a file to do the replacement reliably.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python python2 python3 2>/dev/null; ls /usr/bin/python* 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350074118869346054\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4a0e4526b0fa46798c0289d6b72691f4e484e7bb7f252d1a46339a3ff6e7ce61",
+ "status": 200
+}

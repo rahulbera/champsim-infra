@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat tests/PhpSpreadsheetTests/Writer/Xlsx/ArrayFormulaPrefixTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350067212561939761\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9a1c609d2e3bfbde1fc695915fb12ce978381340f48467ecb85213174354c7bf",
+ "status": 200
+}

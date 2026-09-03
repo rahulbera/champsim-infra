@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me write a PHP script to do the replacement reliably, since PHP is available and handles strings well.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/fix.php << 'PHPEOF'\\\\n<?php\\\\n$file = '/testbed/src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php';\\\\n$content = file_get_contents($file);\\\\n\\\\n// Fix XLWSREGEXP: add \\\\\\\\b word boundary before the function name\\\\n$old = \\\\\\\"const XLWSREGEXP = '/(?<!_xlws\\\\\\\\\\\\\\\\.)('\\\\\\\";\\\\n$new = \\\\\\\"const XLWSREGEXP = '/(?<!_xlws\\\\\\\\\\\\\\\\.)\\\\\\\\\\\\\\\\b('\\\\\\\";\\\\n\\\\nif (strpos($content, $old) === false) {\\\\n    echo \\\\\\\"OLD string not found!\\\\\\\\n\\\\\\\";\\\\n    exit(1);\\\\n}\\\\n$content = str_replace($old, $new, $content);\\\\nfile_put_contents($file, $content);\\\\necho \\\\\\\"Done.\\\\\\\\n\\\\\\\";\\\\nPHPEOF\\\\nphp /tmp/fix.php\\\\ngrep -n \\\\\\\"const XLWSREGEXP\\\\\\\" src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350098995319928860\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "33d6363c0a533b8ec0f46c12eb26578449709e912a9930a83d4c6fc9e7eebf64",
+ "status": 200
+}

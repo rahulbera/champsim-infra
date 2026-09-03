@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/analyze6.php << 'EOF'\\\\n<?php\\\\n// Test the actual full pattern to understand how GAMMALN.PRECISE is handled\\\\n// Note: gammaln[.]precise IS in the list\\\\n$pattern = '/(?:_xlfn\\\\\\\\.)?((?:_xlws\\\\\\\\.)?('\\\\n    . '|gammaln[.]precise'\\\\n    . '|gamma'\\\\n    . '))\\\\\\\\s*\\\\\\\\(/Umi';\\\\n\\\\n$tests = ['=GAMMALN.PRECISE(A1)', '=GAMMA(A1)', '=GAMMALN(A1)'];\\\\nforeach ($tests as $test) {\\\\n    $matches = [];\\\\n    preg_match($pattern, $test, $matches, PREG_OFFSET_CAPTURE);\\\\n    echo $test . ' => matches: ' . json_encode($matches) . PHP_EOL;\\\\n    $result = preg_replace($pattern, '_xlfn.$1(', $test);\\\\n    echo '  result: ' . $result . PHP_EOL;\\\\n}\\\\nEOF\\\\nphp /tmp/analyze6.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7354995223677628502\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a6153825f8b25796e2e8864f1db8240d7c5bd8288809724503c5df68c9917b30",
+ "status": 200
+}

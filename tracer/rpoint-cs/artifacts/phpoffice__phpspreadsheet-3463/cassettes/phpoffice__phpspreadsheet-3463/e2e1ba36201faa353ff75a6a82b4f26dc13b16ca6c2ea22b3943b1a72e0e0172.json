@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool requires python3 which isn't available. Let me check if I can install or symlink it.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python python3 python3.11 python3.10 2>/dev/null; ls /usr/bin/python* /usr/local/bin/python* 2>/dev/null; echo \\\\\\\"---\\\\\\\"; apt list --installed 2>/dev/null | grep -i python | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350074256308301807\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000078, \"id\": \"synthesized-00078\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00078\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e2e1ba36201faa353ff75a6a82b4f26dc13b16ca6c2ea22b3943b1a72e0e0172",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. The regex pattern matches `days` inside `NETWORKDAYS` because there's no word boundary at the beginning of the function name. Let me look at the test files to understand the expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -path ./vendor -prune -o -name \\\\\\\"*FunctionPrefix*\\\\\\\" -print -o -name \\\\\\\"*functionprefix*\\\\\\\" -print\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350091539256697079\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000004, \"id\": \"synthesized-00004\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00004\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9f856bb191e7c1e2f9ff2513da71b1625446310617cb4934bfa963ab3446819e",
+ "status": 200
+}

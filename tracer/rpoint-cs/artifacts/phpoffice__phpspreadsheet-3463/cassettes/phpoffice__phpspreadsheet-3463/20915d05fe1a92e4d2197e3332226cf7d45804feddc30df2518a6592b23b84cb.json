@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No Python available, but Perl is. Let me use Perl to do the replacement reliably.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && perl -i -pe 's{const XLWSREGEXP = ./(?<!_xlws\\\\\\\\\\\\\\\\\\\\\\\\.)(\\\\\\\\(}{const XLWSREGEXP = '\\\\\\\"'\\\\\\\"'/(?<!_xlws\\\\\\\\\\\\\\\\\\\\\\\\.)\\\\\\\\\\\\\\\\b(}g' src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\\ngrep -n \\\\\\\"const XLWSREGEXP\\\\\\\" src/PhpSpreadsheet/Writer/Xlsx/FunctionPrefix.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350087519167314749\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "20915d05fe1a92e4d2197e3332226cf7d45804feddc30df2518a6592b23b84cb",
+ "status": 200
+}

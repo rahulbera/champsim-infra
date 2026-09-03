@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I have a clear understanding of the bug. The `NETWORKDAYS` function gets incorrectly converted to `NETWORK_xlfn.DAYS` because the regex matches `DAYS` as a substring of `NETWORKDAYS`. The fix is to add a word boundary `\\\\b` before the function name in the regex pattern.\\n\\nLet me run the existing tests first to establish a baseline.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/PhpSpreadsheetTests/Writer/Xlsx/FunctionPrefixTest.php 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350076627130245478\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7a761c8bc696a99f14775991aad911d0e694e9afb8b3e1e885d3855b54afeffe",
+ "status": 200
+}
