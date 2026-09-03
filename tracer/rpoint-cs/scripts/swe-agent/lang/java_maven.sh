@@ -5,6 +5,16 @@
 # Instance env must supply: JDK_PACKAGE, GATE_BUILD_CMD, GATE_TEST_CMD,
 # GATE_MIN_TESTS.
 #
+# MULTI-MODULE REACTORS: if the tested module depends on a SIBLING module, every
+# maven command that resolves dependencies needs `-am` (also-make), not just the
+# build. javaparser-4538 had -am on MVN_SCOPE and GATE_BUILD_CMD but not on
+# GATE_TEST_CMD, so the test run's reactor held only javaparser-core-testing and
+# maven went looking for its sibling in the repository:
+#     Could not find artifact com.github.javaparser:javaparser-core:jar:3.26.2-SNAPSHOT
+# A SNAPSHOT of the module you are sitting in is never there. Pair -am with -pl
+# on BOTH commands, and use -DfailIfNoTests=false so the sibling modules -- which
+# match no -Dtest filter -- pass rather than error.
+#
 # The JVM arm. HotSpot JITs hot methods and resolves invokevirtual /
 # invokeinterface through inline caches that fall back to vtable dispatch --
 # a different mechanism again from V8's inline caches, MRI's computed goto, or

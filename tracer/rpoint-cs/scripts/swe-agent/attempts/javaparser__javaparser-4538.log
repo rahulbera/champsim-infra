@@ -1,0 +1,1 @@
+2026-09-03 14:03:13	infra	my descriptor put -am on MVN_SCOPE and the build but not the test command, so javaparser-core:SNAPSHOT could not resolve
