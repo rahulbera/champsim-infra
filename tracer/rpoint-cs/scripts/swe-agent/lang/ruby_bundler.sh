@@ -125,26 +125,27 @@ lang_offline_gate() {
   # Zero tests is a PASS as far as the exit code is concerned, and is exactly
   # what a mistyped test path produces -- so the count is the real gate.
   #
-  # BOTH Ruby test frameworks in this campaign must be recognised. RSpec prints
-  # "N examples, M failures" (rubocop, fastlane); MINITEST prints "N runs, M
-  # assertions, ..." (jekyll). Matching only the rspec form made the gate reject
-  # a perfectly good minitest run with "no rspec example count" -- a failure of
-  # the gate, indistinguishable in the log from a failure of the instance.
-  local n unit
-  n=$(grep -oE '^[0-9]+ examples?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
-  unit=examples
-  if [ -z "$n" ]; then
-    n=$(grep -oE '^[0-9]+ runs?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
-    unit=runs
-  fi
-  if [ -z "$n" ]; then
-    # TEST-UNIT (fluentd): "N tests, M assertions, X failures, ...". A third
-    # distinct summary line -- the campaign's Ruby picks use all three
-    # frameworks, so recognising two of them is not enough.
-    n=$(grep -oE '^[0-9]+ tests?,' "$log" | tail -1 | grep -oE '^[0-9]+' || true)
-    unit=tests
-  fi
-  [ -n "$n" ] || { tail -30 "$log"; die "no rspec/minitest/test-unit count in the gate output"; }
+  # TAKE THE MAXIMUM ACROSS ALL THREE FRAMEWORKS, not the first one that matches.
+  # A single file can produce TWO summary lines: faker-2705's test_avatar.rb runs
+  # under test-unit and prints
+  #     8 tests, 8 assertions, 0 failures, 0 errors, 0 pendings, ...
+  # and then minitest's autorun fires at exit with nothing registered and prints
+  #     0 runs, 0 assertions, 0 failures, 0 errors, 0 skips
+  # Fixed precedence (rspec, then runs, then tests) picked minitest's ZERO and
+  # rejected a gate in which 8 tests had demonstrably passed -- the coverage
+  # report in the same log proves they ran.
+  #
+  # The honest question is "how many tests actually ran", so take the largest
+  # count any recognised framework reported.
+  local n=0 unit=tests c
+  c=$(grep -oE '^[0-9]+ examples?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1)
+  [ -n "$c" ] && [ "$c" -gt "$n" ] && { n=$c; unit=examples; }
+  c=$(grep -oE '^[0-9]+ runs?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1)
+  [ -n "$c" ] && [ "$c" -gt "$n" ] && { n=$c; unit=runs; }
+  c=$(grep -oE '^[0-9]+ tests?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1)
+  [ -n "$c" ] && [ "$c" -gt "$n" ] && { n=$c; unit=tests; }
+  grep -qE '^[0-9]+ (examples?|runs?|tests?),' "$log" \
+    || { tail -30 "$log"; die "no rspec/minitest/test-unit count in the gate output"; }
   [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
     || { tail -30 "$log"; die "offline gate ran only $n $unit, expected >= ${GATE_MIN_TESTS:-1}"; }
   ok "offline gate: ran $n $unit with NO network"
