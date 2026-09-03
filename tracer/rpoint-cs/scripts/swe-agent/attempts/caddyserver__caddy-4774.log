@@ -1,0 +1,1 @@
+2026-09-03 12:02:50	infra	GO_VERSION=1.19.13 was my choice, not the repo's: quic-go v0.26.0 has a build guard refusing Go 1.19 and caddy's CI matrix is 1.17/1.18; corrected to 1.18.10
