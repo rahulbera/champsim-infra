@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No specific tests there. Let me now verify the final state of all the modified Go files by viewing them:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '1034,1048p' promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350034055414414786\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000148, \"id\": \"synthesized-00148\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00148\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ad0c7d790cf97c85fb874ed95c994177b6adc8271db534196fc57c8c5c4d84f5",
+ "status": 200
+}

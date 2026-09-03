@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The change wasn't applied. The tool requires python3 which isn't available. Let me use sed or another method to make the changes. Let me use a different approach with bash:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"python --version 2>&1; python2 --version 2>&1; which python python2 python3 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350019830482725113\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "32f58e5e01ace86190d966087321b6476af1c3cbbdf2bd16ab858388babc6754",
+ "status": 200
+}

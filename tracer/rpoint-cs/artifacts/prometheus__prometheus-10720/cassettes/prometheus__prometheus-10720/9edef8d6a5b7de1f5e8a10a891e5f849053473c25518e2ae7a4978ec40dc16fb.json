@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the docs and UI files that need updating:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"day_of_month\\\\\\\\|day_of_week\\\\\\\\|days_in_month\\\\\\\\|day_of_year\\\\\\\" docs/querying/functions.md\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350051304003074819\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9edef8d6a5b7de1f5e8a10a891e5f849053473c25518e2ae7a4978ec40dc16fb",
+ "status": 200
+}

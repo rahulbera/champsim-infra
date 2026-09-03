@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '1098a\\\\\\\\\\\\n\\\\\\\\t\\\\\\\"day_of_year\\\\\\\":        funcDayOfYear,' promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350010141036507926\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2a9c9ea76052d6b2053b84fc2d2537dda0c8d23a4f91c2a67a7a415676f1e0b9",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the structure. The terms come from the lezer-promql grammar. Let me look at the grammar file's generated output to understand the full picture. First, let me update the grammar file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '135,148p' web/ui/module/lezer-promql/src/promql.grammar\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350038728338832075\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000108, \"id\": \"synthesized-00108\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00108\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ce9e512007066cfda38e703816b96cfc5f40fca1ad4bb77900dbf5d905cdd564",
+ "status": 200
+}

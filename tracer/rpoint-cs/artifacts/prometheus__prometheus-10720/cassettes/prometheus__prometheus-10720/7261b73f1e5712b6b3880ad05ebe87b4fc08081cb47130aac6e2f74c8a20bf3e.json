@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '746a\\\\\\\\\\\\n\\\\\\\\\\\\n# 2016-02-29 23:59:59 February 29th in leap year.\\\\\\\\\\\\neval instant at 0m day_of_year(vector(1456790399))\\\\\\\\\\\\n  {} 60\\\\\\\\\\\\n\\\\\\\\\\\\n# 2016-03-01 00:00:00 March 1st in leap year.\\\\\\\\\\\\neval instant at 0m day_of_year(vector(1456790400))\\\\\\\\\\\\n  {} 61' promql/testdata/functions.test\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350019280726914741\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7261b73f1e5712b6b3880ad05ebe87b4fc08081cb47130aac6e2f74c8a20bf3e",
+ "status": 200
+}

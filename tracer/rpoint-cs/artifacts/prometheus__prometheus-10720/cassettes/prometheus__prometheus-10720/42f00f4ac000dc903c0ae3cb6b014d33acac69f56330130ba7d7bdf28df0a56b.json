@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me think about edge cases. The `day_of_year` function uses `t.YearDay()` which returns 1-366. Let me verify the behavior for various edge cases:\\n\\n1. January 1st - should return 1\\n2. December 31st in a leap year - should return 366\\n3. December 31st in a non-leap year - should return 365\\n4. February 29th in a leap year - should return 60\\n\\nLet me verify these with a quick test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"echo \\\\\\\"Jan 1 2006 (non-leap): $(date -u -d '2006-01-01' +%j)\\\\\\\"\\\\necho \\\\\\\"Dec 31 2006 (non-leap): $(date -u -d '2006-12-31' +%j)\\\\\\\"\\\\necho \\\\\\\"Dec 31 2008 (leap): $(date -u -d '2008-12-31' +%j)\\\\\\\"\\\\necho \\\\\\\"Feb 29 2016 (leap): $(date -u -d '2016-02-29' +%j)\\\\\\\"\\\\necho \\\\\\\"Mar 1 2016 (leap): $(date -u -d '2016-03-01' +%j)\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350022785420226622\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000143, \"id\": \"synthesized-00143\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00143\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "42f00f4ac000dc903c0ae3cb6b014d33acac69f56330130ba7d7bdf28df0a56b",
+ "status": 200
+}

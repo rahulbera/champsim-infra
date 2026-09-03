@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me build and run the tests to verify the changes work:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go build ./promql/... 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350008972805400537\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000073, \"id\": \"synthesized-00073\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00073\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7a65e06253140fc4d0c3ad6a6a39dc9a32e33cb5d1beaa5d634d37f316b4b75f",
+ "status": 200
+}

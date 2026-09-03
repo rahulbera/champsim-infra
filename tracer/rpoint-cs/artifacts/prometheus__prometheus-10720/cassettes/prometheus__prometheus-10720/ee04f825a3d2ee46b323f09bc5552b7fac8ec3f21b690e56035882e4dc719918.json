@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No tests directly referencing those. Let me also check the `at_modifier.test` more thoroughly to ensure my addition to `AtModifierUnsafeFunctions` doesn't break anything:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/ -run \\\\\\\"TestEvaluations/testdata/at_modifier.test\\\\\\\" -v 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350039278094645093\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000158, \"id\": \"synthesized-00158\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00158\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ee04f825a3d2ee46b323f09bc5552b7fac8ec3f21b690e56035882e4dc719918",
+ "status": 200
+}

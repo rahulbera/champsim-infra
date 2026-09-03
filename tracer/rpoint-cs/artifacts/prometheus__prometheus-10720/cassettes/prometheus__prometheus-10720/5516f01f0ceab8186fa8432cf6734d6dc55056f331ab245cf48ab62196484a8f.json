@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now add the `DayOfYear { condFn<\\\"day_of_year\\\"> }` line after line 380 (`DayOfWeek { condFn<\\\"day_of_week\\\"> }`):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n 'DayOfWeek { condFn<\\\\\\\"day_of_week\\\\\\\"> }' web/ui/module/lezer-promql/src/promql.grammar\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350039106295949543\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000113, \"id\": \"synthesized-00113\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00113\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5516f01f0ceab8186fa8432cf6734d6dc55056f331ab245cf48ab62196484a8f",
+ "status": 200
+}

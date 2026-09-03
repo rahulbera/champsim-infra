@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me add the `day_of_year` entry to the `FunctionCalls` map:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"day_of_week\\\\\\\\\\\\\\\":        funcDayOfWeek,\\\\\\\" promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350034811328654605\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d0c5cd4ee00078bf05b815d44fbd43307ed0403981df40c2cb544250153b3a57",
+ "status": 200
+}

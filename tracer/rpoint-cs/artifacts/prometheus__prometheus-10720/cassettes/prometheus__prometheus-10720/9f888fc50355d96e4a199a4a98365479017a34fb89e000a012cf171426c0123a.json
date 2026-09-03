@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the lex_test.go which might test function names:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"day_of_month\\\\\\\\|day_of_week\\\\\\\\|days_in_month\\\\\\\\|day_of_year\\\\\\\" promql/parser/*.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350013130333749192\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9f888fc50355d96e4a199a4a98365479017a34fb89e000a012cf171426c0123a",
+ "status": 200
+}

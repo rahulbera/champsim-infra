@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Line 104 is the blank line after \\\"Sunday etc.\\\" and line 105 is blank, line 106 is `## days_in_month()`. Let me insert the day_of_year section after line 104 (the blank line after \\\"Sunday etc.\\\"). Actually, to be safe, let me insert before line 106 (`## days_in_month()`). The line before it (105) is blank. I'll insert after line 104:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '104a\\\\\\\\\\\\n## `day_of_year()`\\\\\\\\\\\\n\\\\\\\\\\\\n`day_of_year(v=vector(time()) instant-vector)` returns the day of the year for\\\\\\\\\\\\neach of the given times in UTC. Returned values are from 1 to 365 for non-leap\\\\\\\\\\\\nyears, and 1 to 366 in leap years.\\\\\\\\\\\\n' docs/querying/functions.md\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350048280346097524\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000085, \"id\": \"synthesized-00085\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00085\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d1430a727bb12b0619808fc1063c1b433d2bba4a0428b88eefcb29c5e4e5290f",
+ "status": 200
+}

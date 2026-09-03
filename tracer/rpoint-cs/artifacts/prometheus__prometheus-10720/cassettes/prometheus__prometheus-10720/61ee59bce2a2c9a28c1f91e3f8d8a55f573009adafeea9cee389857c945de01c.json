@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The blank line between \\\"Sunday etc.\\\" and \\\"## day_of_year()\\\" got lost. Let me fix the spacing. The issue is the original line 104 was a blank line, and after inserting, the blank line was consumed. Let me fix it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '103,107p' docs/querying/functions.md | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350045565926767112\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000087, \"id\": \"synthesized-00087\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00087\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "61ee59bce2a2c9a28c1f91e3f8d8a55f573009adafeea9cee389857c945de01c",
+ "status": 200
+}

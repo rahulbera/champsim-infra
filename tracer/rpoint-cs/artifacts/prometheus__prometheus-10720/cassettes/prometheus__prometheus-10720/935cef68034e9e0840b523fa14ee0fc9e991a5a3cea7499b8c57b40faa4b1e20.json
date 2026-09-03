@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the testdata functions.test more carefully and understand the test framework. Let me also look at the engine_test.go and functions_test.go to understand the test structure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"testdata\\\\\\\\|functions.test\\\\\\\" promql/*.go | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350012271340287935\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "935cef68034e9e0840b523fa14ee0fc9e991a5a3cea7499b8c57b40faa4b1e20",
+ "status": 200
+}

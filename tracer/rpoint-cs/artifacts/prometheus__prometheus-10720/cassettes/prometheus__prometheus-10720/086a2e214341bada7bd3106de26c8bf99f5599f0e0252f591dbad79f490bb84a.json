@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also verify the parser test that checks the function definitions are valid (the type checking that happens during parsing):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/parser/ -run \\\\\\\"TestParseExpressions|TestFunction\\\\\\\" -v 2>&1 | grep -E \\\\\\\"^(--- PASS|--- FAIL|PASS|FAIL|ok)\\\\\\\" | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350053915343188609\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000155, \"id\": \"synthesized-00155\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00155\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "086a2e214341bada7bd3106de26c8bf99f5599f0e0252f591dbad79f490bb84a",
+ "status": 200
+}

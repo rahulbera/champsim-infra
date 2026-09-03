@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `git checkout -- promql/testdata/functions.test` reverted the working tree, but the changes are staged. Let me reset the staged version too:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git reset HEAD promql/testdata/functions.test && git checkout -- promql/testdata/functions.test && grep -n \\\\\\\"day_of_year\\\\\\\" promql/testdata/functions.test; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350036632394792921\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000176, \"id\": \"synthesized-00176\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00176\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "26238da8dd0538ea1a97f0b029900e3ccfb4d6bb2530599ef34fe91a83e1e4ce",
+ "status": 200
+}

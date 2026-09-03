@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the test file no longer has `day_of_year` (grep exit code 1 means no match). Let me verify the test file is back to original:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff promql/testdata/functions.test; echo \\\\\\\"=== status ===\\\\\\\"; git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350046940316296378\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000177, \"id\": \"synthesized-00177\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00177\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "891e477fd6df79ad04987a9b06236ed4d6154ed02fac2510a873607bb51a810e",
+ "status": 200
+}

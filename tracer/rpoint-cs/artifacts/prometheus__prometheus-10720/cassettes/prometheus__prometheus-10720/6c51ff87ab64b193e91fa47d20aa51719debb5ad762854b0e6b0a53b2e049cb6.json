@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No count-based tests. Let me also double-check there isn't a test in the engine_test.go that uses a fixed set of function names:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"AtModifierUnsafeFunctions\\\\\\\\|stepInvariant\\\\\\\\|step_invariant\\\\\\\" --include=\\\\\\\"*_test.go\\\\\\\" .\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350021479750165897\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000157, \"id\": \"synthesized-00157\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00157\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6c51ff87ab64b193e91fa47d20aa51719debb5ad762854b0e6b0a53b2e049cb6",
+ "status": 200
+}

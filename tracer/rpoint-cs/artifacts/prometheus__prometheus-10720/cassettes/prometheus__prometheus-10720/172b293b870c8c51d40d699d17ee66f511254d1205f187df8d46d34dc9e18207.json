@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The closing `},` of day_of_week is at line 134. I want to insert after line 134. Let me use `134a`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '134a\\\\\\\\\\\\n\\\\\\\\t\\\\\\\"day_of_year\\\\\\\": {\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tName:       \\\\\\\"day_of_year\\\\\\\",\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tArgTypes:   []ValueType{ValueTypeVector},\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tVariadic:   1,\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tReturnType: ValueTypeVector,\\\\\\\\\\\\n\\\\\\\\t},' promql/parser/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350043332543774584\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "172b293b870c8c51d40d699d17ee66f511254d1205f187df8d46d34dc9e18207",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me update the grammar file. First add `DayOfYear` to the function name list (after line 142 `DayOfWeek |`):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '140,143p' web/ui/module/lezer-promql/src/promql.grammar | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350014264205109370\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000110, \"id\": \"synthesized-00110\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00110\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4be21e87c1e0903efbc189dddc93f4d650b183efa6707ec7550d69e479c62429",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the generated parser file for the grammar. Let me look at the lezer-promql directory structure to see if there's a generated file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls -la web/ui/module/lezer-promql/; echo \\\\\\\"---\\\\\\\"; find web/ui/module/lezer-promql/ -type f\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350042473550311009\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000116, \"id\": \"synthesized-00116\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00116\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f1e3756d24d056980a1ad7ce8b5a4ca007b1e71e51767133ea8e888ebe4874dc",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me update the `AtModifierUnsafeFunctions` map:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"days_in_month\\\\\\\\\\\\\\\": {}, \\\\\\\\\\\\\\\"day_of_month\\\\\\\\\\\\\\\": {}, \\\\\\\\\\\\\\\"day_of_week\\\\\\\\\\\\\\\": {}\\\\\\\" promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350055117934027063\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000049, \"id\": \"synthesized-00049\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00049\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5a48d07b3dd9d5d00bd60202a7f9f56375ab5bff300f7aac2c70e504b5768e0e",
+ "status": 200
+}

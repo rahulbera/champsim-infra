@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The Go `YearDay()` function returns the same values. Let me write a more comprehensive test to verify the edge cases including the variadic argument (the optional second argument for offset):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"dateWrapper\\\\\\\" promql/functions.go | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350050067052491767\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000144, \"id\": \"synthesized-00144\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00144\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a0b149ed4bc6b8861f4b97adee10352939814122c51a85f6575c39ab1bf89077",
+ "status": 200
+}

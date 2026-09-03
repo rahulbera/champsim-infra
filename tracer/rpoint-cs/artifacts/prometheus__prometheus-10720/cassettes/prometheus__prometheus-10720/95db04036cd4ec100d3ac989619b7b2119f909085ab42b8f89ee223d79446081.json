@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The docs are now properly formatted. Now let me update the UI files. First, the codemirror-promql function types:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"DayOfWeek\\\\\\\\|DayOfYear\\\\\\\\|day_of_week\\\\\\\\|day_of_year\\\\\\\" web/ui/module/codemirror-promql/src/types/function.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350024950083740046\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000096, \"id\": \"synthesized-00096\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00096\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "95db04036cd4ec100d3ac989619b7b2119f909085ab42b8f89ee223d79446081",
+ "status": 200
+}

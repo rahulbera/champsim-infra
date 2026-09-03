@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All the changes are in place. Now let me check if there are any other places that might reference the complete list of functions, like a CHANGELOG or feature flag. Let me check the engine.go for any function-related registration:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"day_of_month\\\\\\\\|dayOfWeek\\\\\\\\|daysInMonth\\\\\\\\|days_in_month\\\\\\\" --include=\\\\\\\"*.go\\\\\\\" cmd/ util/ rules/ web/api_v1* 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350048898821386651\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000135, \"id\": \"synthesized-00135\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00135\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "953aed04179b5b5fa68b6ecd2f7ac56f48ebef3e56e23bb5615c263f8ac1f8bb",
+ "status": 200
+}

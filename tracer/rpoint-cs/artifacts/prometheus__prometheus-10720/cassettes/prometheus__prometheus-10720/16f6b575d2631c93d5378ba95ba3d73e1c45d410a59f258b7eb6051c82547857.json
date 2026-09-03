@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the complete test suite for the promql package one more time, including the parser tests, to confirm everything works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/... -v 2>&1 | grep -E \\\\\\\"^(=== RUN|--- PASS|--- FAIL|PASS|FAIL|ok)\\\\\\\" | tail -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350048005468190087\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000150, \"id\": \"synthesized-00150\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00150\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16f6b575d2631c93d5378ba95ba3d73e1c45d410a59f258b7eb6051c82547857",
+ "status": 200
+}

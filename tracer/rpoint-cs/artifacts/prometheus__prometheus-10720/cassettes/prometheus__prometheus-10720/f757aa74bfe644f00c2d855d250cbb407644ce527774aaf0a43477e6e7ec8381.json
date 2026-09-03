@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean, so the test files haven't been modified yet. The statement is generic boilerplate. Let me look at the documentation and the UI files to understand all the places that need changes. Let me first verify the timestamps used in tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"date -u -d @1136239445; date -u -d @1456790399; date -u -d @1456790400; date -u -d @1454284800; date -u -d @1485907200\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350031272275605423\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f757aa74bfe644f00c2d855d250cbb407644ce527774aaf0a43477e6e7ec8381",
+ "status": 200
+}

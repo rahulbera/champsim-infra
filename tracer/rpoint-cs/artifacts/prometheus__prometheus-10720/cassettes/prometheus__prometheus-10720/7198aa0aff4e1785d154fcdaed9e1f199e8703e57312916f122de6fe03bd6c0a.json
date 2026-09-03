@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I need to add a blank line between \\\"Sunday etc.\\\" and \\\"## day_of_year()\\\". Let me fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '/^Sunday etc.$/{n;/^## `day_of_year()`$/i\\\\\\\\\\\\n}' docs/querying/functions.md\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350036151358452859\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000088, \"id\": \"synthesized-00088\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00088\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7198aa0aff4e1785d154fcdaed9e1f199e8703e57312916f122de6fe03bd6c0a",
+ "status": 200
+}

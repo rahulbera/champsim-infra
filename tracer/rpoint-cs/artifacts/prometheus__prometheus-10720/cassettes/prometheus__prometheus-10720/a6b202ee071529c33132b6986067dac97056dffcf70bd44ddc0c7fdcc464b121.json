@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me compute the day_of_year values for the test timestamps:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"echo \\\\\\\"1136239445 -> $(date -u -d @1136239445 +%j)\\\\\\\"\\\\necho \\\\\\\"1456790399 -> $(date -u -d @1456790399 +%j)\\\\\\\"\\\\necho \\\\\\\"1456790400 -> $(date -u -d @1456790400 +%j)\\\\\\\"\\\\necho \\\\\\\"1230767999 -> $(date -u -d @1230767999 +%j)\\\\\\\"\\\\necho \\\\\\\"1230768000 -> $(date -u -d @1230768000 +%j)\\\\\\\"\\\\necho \\\\\\\"0 -> $(date -u -d @0 +%j)\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350021342311212771\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a6b202ee071529c33132b6986067dac97056dffcf70bd44ddc0c7fdcc464b121",
+ "status": 200
+}

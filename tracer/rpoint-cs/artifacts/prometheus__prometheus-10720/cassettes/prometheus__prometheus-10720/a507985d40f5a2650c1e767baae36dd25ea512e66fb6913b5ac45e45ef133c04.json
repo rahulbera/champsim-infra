@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Now let me verify the build of the entire project compiles:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go build ./... 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350025018803224289\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000140, \"id\": \"synthesized-00140\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00140\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a507985d40f5a2650c1e767baae36dd25ea512e66fb6913b5ac45e45ef133c04",
+ "status": 200
+}

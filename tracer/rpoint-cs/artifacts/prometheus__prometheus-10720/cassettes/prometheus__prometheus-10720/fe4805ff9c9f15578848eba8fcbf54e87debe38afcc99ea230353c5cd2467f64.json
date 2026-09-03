@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"That's just a vendored JS file, not relevant. Now I have a good understanding of all the places that need changes. Let me first check the Go environment to be able to build/test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which go && go version\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350029726087374535\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fe4805ff9c9f15578848eba8fcbf54e87debe38afcc99ea230353c5cd2467f64",
+ "status": 200
+}

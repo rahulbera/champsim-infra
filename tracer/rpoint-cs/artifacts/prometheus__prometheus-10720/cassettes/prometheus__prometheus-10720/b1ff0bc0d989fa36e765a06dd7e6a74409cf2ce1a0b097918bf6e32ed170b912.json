@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor tool seems to have an issue with the python3 environment. Let me verify if the change was applied:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"day_of_year\\\\\\\\|funcDayOfYear\\\\\\\\|YearDay\\\\\\\" promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350045840804674578\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b1ff0bc0d989fa36e765a06dd7e6a74409cf2ce1a0b097918bf6e32ed170b912",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me find where these terms are defined (the imported `DayOfWeek` etc.). Let me look at the promql.terms.ts file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"DayOfWeek\\\\\\\\|DayOfMonth\\\\\\\\|DaysInMonth\\\\\\\\|DayOfYear\\\\\\\" web/ui/module/codemirror-promql/src/complete/promql.terms.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350055427171678043\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000101, \"id\": \"synthesized-00101\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00101\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cdeaf0de29bec9ef605e400a2a5bd7e6ce6c12c51b740096ece8af53c81307b9",
+ "status": 200
+}

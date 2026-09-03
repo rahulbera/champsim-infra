@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me update the promql.terms.ts file to add the `day_of_year` completion entry:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '168,180p' web/ui/module/codemirror-promql/src/complete/promql.terms.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350021788987810367\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000128, \"id\": \"synthesized-00128\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00128\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "94ad2adc7f5e07a39dc681728142763d00d52b6ffbf4b200ff31f52fd160321a",
+ "status": 200
+}

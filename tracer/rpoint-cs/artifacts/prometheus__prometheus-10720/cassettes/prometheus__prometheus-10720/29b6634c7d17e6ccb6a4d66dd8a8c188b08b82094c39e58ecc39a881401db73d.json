@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `dateWrapper` handles both the no-argument case (uses eval time) and the vector argument case. My `funcDayOfYear` uses this wrapper, consistent with the other date functions. \\n\\nLet me also check the `at_modifier.test` to see if there's a test that uses these step-invariant functions with the `@` modifier that I should be aware of:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"day_of\\\\\\\\|days_in_month\\\\\\\\|step_invariant\\\\\\\\|AtModifierUnsafe\\\\\\\" promql/testdata/at_modifier.test | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350030585080837802\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000146, \"id\": \"synthesized-00146\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00146\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "29b6634c7d17e6ccb6a4d66dd8a8c188b08b82094c39e58ecc39a881401db73d",
+ "status": 200
+}

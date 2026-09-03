@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run with no cache to be sure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/... 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350036735474002206\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000139, \"id\": \"synthesized-00139\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00139\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dd50e3ceb70731c5793e8b3e03bfc92decfe3830773ec1eee79d8cf40e7824f4",
+ "status": 200
+}

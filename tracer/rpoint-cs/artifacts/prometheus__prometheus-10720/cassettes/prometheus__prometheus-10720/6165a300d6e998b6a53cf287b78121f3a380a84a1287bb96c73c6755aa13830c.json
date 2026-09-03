@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The insertion happened at the wrong line. The `},` of day_of_week was at line 134, then `\\\"deg\\\": {` at line 135. The `135a` inserts after line 135 (after `\\\"deg\\\": {`). I need to fix this. Let me revert and redo properly. Let me restore the file from git:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git checkout promql/parser/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350036598035047924\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6165a300d6e998b6a53cf287b78121f3a380a84a1287bb96c73c6755aa13830c",
+ "status": 200
+}

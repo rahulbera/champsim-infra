@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test passes. The directory listing output is from the str_replace_editor tool's environment issue, but the actual test ran. Let me clean up the repro test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm /testbed/promql/repro_test.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350032577945664680\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4a64632106e0dc428cfc0b419f15a5a5d1adef1e9e08a25dfcd48aa973eb82e4",
+ "status": 200
+}

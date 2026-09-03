@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also verify the printer test which might list functions:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/parser/ -run TestExprString -v 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350027423984909773\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000152, \"id\": \"synthesized-00152\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00152\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "221c9202ecd3f003eb14657c3bc8796eece6233dc6702d663387b5a1fe7d5ca6",
+ "status": 200
+}

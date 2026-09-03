@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me verify all my day_of_year additions are present:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"day_of_year\\\\\\\\|DayOfYear\\\\\\\" --include=\\\\\\\"*.go\\\\\\\" --include=\\\\\\\"*.md\\\\\\\" --include=\\\\\\\"*.ts\\\\\\\" --include=\\\\\\\"*.js\\\\\\\" --include=\\\\\\\"*.grammar\\\\\\\" --include=\\\\\\\"*.test\\\\\\\" . | grep -v \\\\\\\"node_modules\\\\\\\\|vendor\\\\\\\\|d3.v3\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350024469047410095\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000134, \"id\": \"synthesized-00134\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00134\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "db8b093cf2586cca4011b6659b1e34031425e1acc2aee63663bdf316fbc79b0e",
+ "status": 200
+}

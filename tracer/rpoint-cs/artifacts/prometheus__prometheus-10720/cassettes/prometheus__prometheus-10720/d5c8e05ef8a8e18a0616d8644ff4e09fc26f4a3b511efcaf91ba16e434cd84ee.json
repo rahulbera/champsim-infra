@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me update the codemirror-promql function.ts file. First, add `DayOfYear` to the import:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '34a\\\\\\\\\\\\n  DayOfYear,' web/ui/module/codemirror-promql/src/types/function.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350014676521970435\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000119, \"id\": \"synthesized-00119\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00119\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d5c8e05ef8a8e18a0616d8644ff4e09fc26f4a3b511efcaf91ba16e434cd84ee",
+ "status": 200
+}

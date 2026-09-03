@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'll insert the `[DayOfYear]` entry after the `[DayOfWeek]` block (after line 227, the closing `},`):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '227a\\\\\\\\\\\\n  [DayOfYear]: {\\\\\\\\\\\\n    name: '\\\\\\\"'\\\\\\\"'day_of_year'\\\\\\\"'\\\\\\\"',\\\\\\\\\\\\n    argTypes: [ValueType.vector],\\\\\\\\\\\\n    variadic: 1,\\\\\\\\\\\\n    returnType: ValueType.vector,\\\\\\\\\\\\n  },' web/ui/module/codemirror-promql/src/types/function.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350038006784320011\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000123, \"id\": \"synthesized-00123\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00123\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8a79c8e4ff0dd3310d287a39690acee9521a607b100226dc35fb93bf7e9b6d4d",
+ "status": 200
+}

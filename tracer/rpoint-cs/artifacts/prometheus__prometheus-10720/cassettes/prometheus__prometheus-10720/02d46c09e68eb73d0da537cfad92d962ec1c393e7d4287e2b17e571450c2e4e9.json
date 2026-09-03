@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `src/parser.js` and `src/parser.terms.js` are generated files (gitignored). The generated terms file is what exports `DayOfWeek` etc. These are generated from the grammar. Since they are gitignored, they're not in the repo, so I don't need to update them - they'll be regenerated during build. \\n\\nLet me check the codemirror-promql module's generated files too:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat web/ui/module/codemirror-promql/.gitignore 2>/dev/null; echo \\\\\\\"---\\\\\\\"; find web/ui/module/codemirror-promql/ -name \\\\\\\"*.gitignore\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350042164312669396\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000118, \"id\": \"synthesized-00118\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00118\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "02d46c09e68eb73d0da537cfad92d962ec1c393e7d4287e2b17e571450c2e4e9",
+ "status": 200
+}

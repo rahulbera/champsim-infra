@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"That's just the call lookup, no list to update. Now let me run the full promql test suite again to make sure everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test ./promql/... 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350049517296676326\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000138, \"id\": \"synthesized-00138\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00138\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9ac6d8da026ac5769ac1dcf88634463349b6caa036c3eef37ab6c9492121d269",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'll insert the `day_of_year` definition after the `day_of_week` block (after line 135, the closing `},`):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '135a\\\\\\\\\\\\n\\\\\\\\t\\\\\\\"day_of_year\\\\\\\": {\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tName:       \\\\\\\"day_of_year\\\\\\\",\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tArgTypes:   []ValueType{ValueTypeVector},\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tVariadic:   1,\\\\\\\\\\\\n\\\\\\\\t\\\\\\\\tReturnType: ValueTypeVector,\\\\\\\\\\\\n\\\\\\\\t},' promql/parser/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350036357516884936\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000054, \"id\": \"synthesized-00054\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00054\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "08b698b446bd37d703e604df75c7b1fa7dfe97976c1ee2bc8618667e5541cf99",
+ "status": 200
+}

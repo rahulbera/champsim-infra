@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the test files to understand what's expected for `day_of_year`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"day_of_month\\\\\\\\|day_of_week\\\\\\\\|days_in_month\\\\\\\" --include=\\\\\\\"*_test.go\\\\\\\" promql/ | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350051338362809502\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "180d36413e61c221360560cd648ffd51ec1d7344cc0f8097a2d01c26e7b9dcb3",
+ "status": 200
+}

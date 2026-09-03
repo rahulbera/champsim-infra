@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"DaysInMonth DayOfMonth DayOfWeek\\\\\\\" web/ui/module/codemirror-promql/src/promql.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350028798374443399\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000127, \"id\": \"synthesized-00127\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00127\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9db3f23d6baa0b945e9961105060cade2e008d5660856102f6094ba5c536a199",
+ "status": 200
+}

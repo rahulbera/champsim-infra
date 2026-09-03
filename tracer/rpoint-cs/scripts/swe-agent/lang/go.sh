@@ -81,7 +81,28 @@ lang_deps() {
 lang_offline_gate() {
   OFFLINE_ENV=(GOENV=/etc/go/env GOPROXY=off GOFLAGS='-mod=readonly -buildvcs=false')
   export PATH=/usr/local/go/bin:$PATH
-  run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD"
+  local log=/tmp/offline_gate.log
+  run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD" >"$log" 2>&1 \
+    || { tail -40 "$log"; die "OFFLINE GATE FAILED -- the traced pass would die"; }
+
+  # COUNT THE TESTS, like every other language module does. This one used to
+  # trust the exit code alone, and `go test` on a package selector that matches
+  # nothing exits 0 having run nothing -- the same "structurally perfect,
+  # completely empty" gate the other modules were built to reject. A mistyped
+  # ./path/... is silent otherwise.
+  #
+  # Two shapes are accepted: `go test -v` prints "--- PASS: TestX" per test, and
+  # plain `go test` prints one "ok <pkg>" per package. Prefer the former count
+  # when present because it is per-test rather than per-package.
+  local n
+  n=$(grep -cE '^--- PASS' "$log" || true)
+  local unit="tests"
+  if [ "$n" -eq 0 ]; then
+    n=$(grep -cE '^ok[[:space:]]' "$log" || true); unit="packages"
+  fi
+  [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
+    || { tail -30 "$log"; die "offline gate ran only $n $unit, expected >= ${GATE_MIN_TESTS:-1} -- exited 0 but did nothing"; }
+  ok "offline gate: ran $n $unit with NO network"
 }
 
 lang_clean_check() {

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Hmm, the import order has `DayOfYear` after `DayOfWeek` but before `DaysInMonth`. Let me check the original ordering convention - it seems alphabetical. Actually the original was `DayOfMonth, DayOfWeek, DaysInMonth`. Let me keep it consistent - actually it doesn't matter much for imports. But to be clean, let me reorder to be alphabetical: `DayOfMonth, DayOfWeek, DayOfYear, DaysInMonth`. That's what we have now. Good.\\n\\nNow let me add the `[DayOfYear]` entry to the function map. Let me find the DayOfWeek entry:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"\\\\\\\\[DayOfWeek\\\\\\\\]:\\\\\\\\|\\\\\\\\[DayOfYear\\\\\\\\]:\\\\\\\\|\\\\\\\\[DaysInMonth\\\\\\\\]:\\\\\\\\|\\\\\\\\[DayOfMonth\\\\\\\\]:\\\\\\\" web/ui/module/codemirror-promql/src/types/function.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350018627891880559\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000121, \"id\": \"synthesized-00121\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00121\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cc78b7362ef47fdf336ea12b4cc8d017e9ea65af5e3bac3a3572845921c3e42f",
+ "status": 200
+}

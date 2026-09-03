@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check if there are tests in the parser test files that reference the function list:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"day_of_month\\\\\\\\|day_of_week\\\\\\\\|days_in_month\\\\\\\\|day_of_year\\\\\\\" promql/parser/parse_test.go promql/engine_test.go promql/functions_test.go promql/promql_test.go 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350016325789417354\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "24f312cd79fa8b95990dad730e1a4d0059f5363d0f9638956fe11123a5990361",
+ "status": 200
+}

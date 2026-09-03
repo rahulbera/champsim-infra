@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `day_of_week` block ends at line 179 (`},`). I'll insert the `day_of_year` block after line 179:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '179a\\\\\\\\\\\\n  {\\\\\\\\\\\\n    label: '\\\\\\\"'\\\\\\\"'day_of_year'\\\\\\\"'\\\\\\\"',\\\\\\\\\\\\n    detail: '\\\\\\\"'\\\\\\\"'function'\\\\\\\"'\\\\\\\"',\\\\\\\\\\\\n    info: '\\\\\\\"'\\\\\\\"'Return the day of the year for provided timestamps'\\\\\\\"'\\\\\\\"',\\\\\\\\\\\\n    type: '\\\\\\\"'\\\\\\\"'function'\\\\\\\"'\\\\\\\"',\\\\\\\\\\\\n  },' web/ui/module/codemirror-promql/src/complete/promql.terms.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350021445390428541\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000131, \"id\": \"synthesized-00131\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00131\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ee4da1f034dea45c30da7d27de5f95e9c45fd53b75400316d419bc08cbd90c1",
+ "status": 200
+}

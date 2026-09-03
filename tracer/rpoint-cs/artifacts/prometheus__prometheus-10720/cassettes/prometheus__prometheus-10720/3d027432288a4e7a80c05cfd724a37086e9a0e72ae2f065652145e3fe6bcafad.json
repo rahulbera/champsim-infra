@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the parse_test.go for any list of all functions that might need updating:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"TestFunctions\\\\\\\\|fnName\\\\\\\\|funcName\\\\\\\\|allFunctions\\\\\\\\|Functions\\\\\\\\b\\\\\\\" promql/parser/parse_test.go | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350031615872989190\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000034, \"id\": \"synthesized-00034\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00034\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3d027432288a4e7a80c05cfd724a37086e9a0e72ae2f065652145e3fe6bcafad",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also confirm there are no other test files that reference a count of functions or anything similar that I might have missed:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"len(FunctionCalls)\\\\\\\\|len(parser.Functions)\\\\\\\\|len(Functions)\\\\\\\" --include=\\\\\\\"*.go\\\\\\\" .\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350011412346826095\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000156, \"id\": \"synthesized-00156\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00156\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5818298fc0c854d7f5d29bd5b97920af20e0c8ea599079b421cdb1ec6c4bdc0a",
+ "status": 200
+}

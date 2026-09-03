@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'll insert after line 712 (the `{} 1` line). Let me use the line number of the closing value. Actually, let me insert after line 712 which is `  {} 1`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '712a\\\\\\\\\\\\n\\\\\\\\\\\\neval instant at 0m day_of_year()\\\\\\\\\\\\n  {} 1\\\\\\\\\\\\n\\\\\\\\\\\\neval instant at 0m day_of_year(vector(1136239445))\\\\\\\\\\\\n  {} 2' promql/testdata/functions.test\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350012168261071799\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "349fcb8f40ec807bf5c136fbce6a386cfb2c670c0664aa9074e7a241a71a0dad",
+ "status": 200
+}

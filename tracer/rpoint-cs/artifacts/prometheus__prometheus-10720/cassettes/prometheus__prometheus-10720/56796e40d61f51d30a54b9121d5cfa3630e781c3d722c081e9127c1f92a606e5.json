@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me do a final review of the complete diff of my non-test changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff HEAD -- docs/ promql/functions.go promql/parser/functions.go web/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350017322221823134\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000187, \"id\": \"synthesized-00187\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00187\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "56796e40d61f51d30a54b9121d5cfa3630e781c3d722c081e9127c1f92a606e5",
+ "status": 200
+}

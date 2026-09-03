@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"That's a pre-existing vet warning unrelated to my change (it's about the `Seek` method in value.go). Let me confirm it's pre-existing by checking it's not related to my changes - it's in value.go which I didn't touch.\\n\\nNow let me double-check the test data file is well-formed by running the functions test specifically:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/ -run \\\\\\\"TestEvaluations/testdata/functions.test\\\\\\\" -v 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350009934878073874\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000142, \"id\": \"synthesized-00142\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00142\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8260acb2aaa2fce3739ecd3fd4c7973b26e45d304b5045a364b9c153121b3a77",
+ "status": 200
+}

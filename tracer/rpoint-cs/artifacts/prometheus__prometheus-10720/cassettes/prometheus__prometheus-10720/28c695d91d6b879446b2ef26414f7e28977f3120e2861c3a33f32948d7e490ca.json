@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No python available. Let me use sed to make the changes. First, let me add the `funcDayOfYear` function after `funcDayOfWeek`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"funcDayOfWeek\\\\\\\\|funcHour\\\\\\\\|day_of_week\\\\\\\" promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350014195485632865\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "28c695d91d6b879446b2ef26414f7e28977f3120e2861c3a33f32948d7e490ca",
+ "status": 200
+}

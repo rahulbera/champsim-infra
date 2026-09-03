@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The git status shows \\\"Changes to be committed\\\" which is odd. Let me check the actual state of the test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --cached --stat; echo \\\\\\\"=== unstaged ===\\\\\\\"; git diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350018146855549267\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000174, \"id\": \"synthesized-00174\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00174\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5cd8c5205ac918b230e1edacd95e87476b4058c7d4520e7352991b1f033d3093",
+ "status": 200
+}

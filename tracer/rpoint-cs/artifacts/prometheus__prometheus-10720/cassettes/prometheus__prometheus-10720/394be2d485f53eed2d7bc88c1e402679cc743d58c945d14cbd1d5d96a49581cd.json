@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the generated parser files to understand if there's anything that needs updating there:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"day_of_month\\\\\\\\|day_of_week\\\\\\\\|days_in_month\\\\\\\\|day_of_year\\\\\\\\|DayOfMonth\\\\\\\\|DayOfWeek\\\\\\\\|DaysInMonth\\\\\\\\|DayOfYear\\\\\\\" web/ui/module/lezer-promql/src/*.ts web/ui/module/lezer-promql/*.js 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350050788606999370\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "394be2d485f53eed2d7bc88c1e402679cc743d58c945d14cbd1d5d96a49581cd",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a `TestFunctionList` test that ensures both `FunctionCalls` and `parser.Functions` lists are consistent. Since I've added `day_of_year` to both, this test should pass. Let me run it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test ./promql/ -run TestFunctionList -v 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350035773401332964\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "99837fd12e1ae4e50b77565236fc58469abc8d4da5b880721dff4383404bd7bb",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the parser functions.go is correct. Now let me add test cases to the testdata file. Let me look at the testdata again and add `day_of_year` tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '700,750p' promql/testdata/functions.test\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350011859023428492\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "43f1be352db5a9f79e10927febf8dd2767c235840f9f4e81f6719f1e67563890",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i 's/\\\\\\\"days_in_month\\\\\\\": {}, \\\\\\\"day_of_month\\\\\\\": {}, \\\\\\\"day_of_week\\\\\\\": {},/\\\\\\\"days_in_month\\\\\\\": {}, \\\\\\\"day_of_month\\\\\\\": {}, \\\\\\\"day_of_week\\\\\\\": {}, \\\\\\\"day_of_year\\\\\\\": {},/' promql/functions.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350030241483455479\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b57cb44c00cc659aef1278bc6143451244bf0f134d23d81576d8aa14eee8b011",
+ "status": 200
+}

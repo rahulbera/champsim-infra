@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me add day_of_year tests for the leap year cases. I'll insert after line 746 (the `{} 3.01` of the March 1st test):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '744,748p' promql/testdata/functions.test\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350012305700023298\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "259d1b7f1606011efb9de38332ca982913f7c462f16a92775ccb433fbee04eb1",
+ "status": 200
+}

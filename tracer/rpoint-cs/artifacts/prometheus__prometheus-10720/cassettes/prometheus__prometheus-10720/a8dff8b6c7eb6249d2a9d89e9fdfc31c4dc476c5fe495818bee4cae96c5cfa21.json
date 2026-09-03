@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file is back to original (no `day_of_year` entries, no diff). Now let me run the full test suite one more time to confirm everything still passes with the original test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && go test -count=1 ./promql/... 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350027320905687272\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000186, \"id\": \"synthesized-00186\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00186\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a8dff8b6c7eb6249d2a9d89e9fdfc31c4dc476c5fe495818bee4cae96c5cfa21",
+ "status": 200
+}

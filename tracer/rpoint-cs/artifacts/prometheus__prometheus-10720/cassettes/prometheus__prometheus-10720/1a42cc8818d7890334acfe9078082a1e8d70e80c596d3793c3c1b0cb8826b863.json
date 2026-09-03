@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there are any tests in the engine_test.go that check the number of functions or list all functions:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"FunctionCalls\\\\\\\\|len(Functions)\\\\\\\\|Functions)\\\\\\\" promql/*.go promql/parser/*.go | grep -i test\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7350021823347554623\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000077, \"id\": \"synthesized-00077\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00077\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1a42cc8818d7890334acfe9078082a1e8d70e80c596d3793c3c1b0cb8826b863",
+ "status": 200
+}
