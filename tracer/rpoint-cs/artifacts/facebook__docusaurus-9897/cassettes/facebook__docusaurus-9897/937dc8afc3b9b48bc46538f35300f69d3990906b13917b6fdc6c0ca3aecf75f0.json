@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the CHANGELOG and look at the actual fix approach used by docusaurus:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"CRLF\\\\\\\\|crlf\\\\\\\\|line ending\\\\\\\\|TabItem\\\\\\\" CHANGELOG.md | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366913826643508698\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "937dc8afc3b9b48bc46538f35300f69d3990906b13917b6fdc6c0ca3aecf75f0",
+ "status": 200
+}

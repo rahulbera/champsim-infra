@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The snapshot failure exists without my change too - confirming it's a pre-existing environment issue (running as root user means `/root/` becomes `<HOME_DIR>`). It's unrelated to my fix. Let me restore my change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout package.json 2>/dev/null; git stash pop 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366939252849901411\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000083, \"id\": \"synthesized-00083\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00083\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "721a2e39146c4c58faf79d6552acaebe0899947eb0297ada68a6ab7cbd7ccfce",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls packages/docusaurus-mdx-loader/src/__tests__\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366895581622435140\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f46f6fe465a19bd1212948cc1ea15c15e457c86e1b2e732c277f5b21676fc538",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/faker/default/lorem.rb\\\",\\\"view_range\\\":[40, 130]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367070644489415085\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5ab6fbc6bd5a63efcd70d0096781c4757efebaa05e6aed9066e7f9cea22f595a",
+ "status": 200
+}

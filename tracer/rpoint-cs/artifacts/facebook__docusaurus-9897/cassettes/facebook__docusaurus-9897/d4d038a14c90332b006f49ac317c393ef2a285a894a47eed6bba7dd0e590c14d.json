@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me also check that the package.json wasn't modified again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout package.json 2>/dev/null; git diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366907195213996436\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000076, \"id\": \"synthesized-00076\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00076\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d4d038a14c90332b006f49ac317c393ef2a285a894a47eed6bba7dd0e590c14d",
+ "status": 200
+}

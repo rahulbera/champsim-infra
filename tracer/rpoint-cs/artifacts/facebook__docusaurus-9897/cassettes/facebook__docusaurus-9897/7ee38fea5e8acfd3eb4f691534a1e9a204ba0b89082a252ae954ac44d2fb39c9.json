@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a snapshot failure. Let me investigate:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && yarn jest packages/docusaurus-utils 2>&1 | grep -A 30 \\\\\\\"snapshot failed\\\\\\\\|FAIL\\\\\\\\|\\u00e2\\u0097\\u008f\\\\\\\" | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366913517405857943\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7ee38fea5e8acfd3eb4f691534a1e9a204ba0b89082a252ae954ac44d2fb39c9",
+ "status": 200
+}

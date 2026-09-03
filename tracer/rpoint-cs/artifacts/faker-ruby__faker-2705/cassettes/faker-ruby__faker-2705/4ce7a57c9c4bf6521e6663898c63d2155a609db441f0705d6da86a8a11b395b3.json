@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good. Let me run the omniauth tests just to be safe since they might use internet:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -Ilib -Itest test/faker/default/test_faker_omniauth.rb 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367071709641306597\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ce7a57c9c4bf6521e6663898c63d2155a609db441f0705d6da86a8a11b395b3",
+ "status": 200
+}

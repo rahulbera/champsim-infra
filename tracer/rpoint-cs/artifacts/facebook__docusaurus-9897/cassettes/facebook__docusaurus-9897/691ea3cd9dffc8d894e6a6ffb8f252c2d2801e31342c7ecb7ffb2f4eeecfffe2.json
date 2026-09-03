@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the markdown-features-tabs.mdx to understand the typical usage pattern with mdx-code-block and TabItem:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat website/docs/guides/markdown-features/markdown-features-tabs.mdx | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366916987739436473\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "691ea3cd9dffc8d894e6a6ffb8f252c2d2801e31342c7ecb7ffb2f4eeecfffe2",
+ "status": 200
+}

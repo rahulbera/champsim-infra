@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the test files to understand what tests exist for CRLF behavior:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"CRLF\\\\\\\\|crlf\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\r\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\r\\\\\\\" packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366902762807753640\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000015, \"id\": \"synthesized-00015\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00015\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "35a23b13146f495cd11ebc267d63c42ec657f64fa4ff544707fb8aa6c00861ba",
+ "status": 200
+}

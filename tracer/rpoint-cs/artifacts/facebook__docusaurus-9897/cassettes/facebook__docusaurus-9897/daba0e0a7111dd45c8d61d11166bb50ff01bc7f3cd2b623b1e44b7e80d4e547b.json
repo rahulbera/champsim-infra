@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me also check if there are e2e tests for the mdx-loader that test CRLF behavior, to make sure the full pipeline works. Let me look at the e2e tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find . -path ./node_modules -prune -o -name \\\\\\\"*.md\\\\\\\" -print 2>/dev/null | xargs grep -l \\\\\\\"mdx-code-block\\\\\\\" 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366943891414573152\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "daba0e0a7111dd45c8d61d11166bb50ff01bc7f3cd2b623b1e44b7e80d4e547b",
+ "status": 200
+}

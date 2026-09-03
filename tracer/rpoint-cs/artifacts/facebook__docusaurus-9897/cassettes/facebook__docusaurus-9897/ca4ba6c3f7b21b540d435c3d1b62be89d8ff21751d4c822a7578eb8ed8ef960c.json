@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"My change is in place. Now let me verify the lib is still up to date with my fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"regexp3\\\\\\\\|regexp4\\\\\\\" packages/docusaurus-utils/lib/markdownUtils.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366879329466187262\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000085, \"id\": \"synthesized-00085\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00085\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ca4ba6c3f7b21b540d435c3d1b62be89d8ff21751d4c822a7578eb8ed8ef960c",
+ "status": 200
+}

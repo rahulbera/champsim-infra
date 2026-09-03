@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me view the full updated password method:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/faker/default/internet.rb\\\",\\\"view_range\\\":[127, 200]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367063222785931974\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000034, \"id\": \"synthesized-00034\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00034\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "270bf6bde780d32e0b46be75a8ff7c43ca8ac8638b7ab57852e60ca1c742579c",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've confirmed the root cause. When the content has CRLF line endings, the `unwrapMdxCodeBlocks` function fails to unwrap the `mdx-code-block` because its regex uses `\\\\n` to match line endings. As a result, the imports (`Tabs`, `TabItem`) remain inside a code block, and MDX treats `TabItem` as an undefined component, causing the \\\"Expected component `TabItem` to be defined\\\" error.\\n\\nLet me look more closely at the regex implementation:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '60,95p' packages/docusaurus-utils/src/markdownUtils.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366923206852080962\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000034, \"id\": \"synthesized-00034\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00034\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fd47390e98a6579d006ee39157af9a532339e8893e5e7bba5c521ae203d30f4e",
+ "status": 200
+}

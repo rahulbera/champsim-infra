@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the test files for markdownUtils to understand what tests exist for the unwrapMdxCodeBlocks and admonitionTitleToDirectiveLabel functions:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1130,1280p' packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366913139448738520\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "84e5009a7bab8a0579de0b0a62957d8ba64388aac5243d50e0b4e77d16e8468f",
+ "status": 200
+}

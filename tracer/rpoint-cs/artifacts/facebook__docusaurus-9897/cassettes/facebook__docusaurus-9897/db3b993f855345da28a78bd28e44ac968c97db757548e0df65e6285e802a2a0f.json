@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"CRLF\\\\\\\\|crlf\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\r\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\r\\\\\\\" packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366893107721271495\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "db3b993f855345da28a78bd28e44ac968c97db757548e0df65e6285e802a2a0f",
+ "status": 200
+}

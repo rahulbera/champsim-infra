@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the test file for the internet password method to understand what's expected.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"password\\\\\\\" /testbed/test/faker/ | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367093356276480165\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000003, \"id\": \"synthesized-00003\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00003\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bf027127b69c37bf50d6e0806ef9472c04a1e250ad47c3c78f49320898032022",
+ "status": 200
+}

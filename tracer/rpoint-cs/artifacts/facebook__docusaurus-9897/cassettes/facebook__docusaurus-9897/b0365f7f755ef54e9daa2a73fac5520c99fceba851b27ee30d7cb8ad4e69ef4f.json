@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me reproduce the issue with a simple MDX processing test. Let me write a script that processes MDX content with CRLF line endings and see what happens:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat packages/docusaurus-mdx-loader/src/loader.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366901972533764519\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b0365f7f755ef54e9daa2a73fac5520c99fceba851b27ee30d7cb8ad4e69ef4f",
+ "status": 200
+}

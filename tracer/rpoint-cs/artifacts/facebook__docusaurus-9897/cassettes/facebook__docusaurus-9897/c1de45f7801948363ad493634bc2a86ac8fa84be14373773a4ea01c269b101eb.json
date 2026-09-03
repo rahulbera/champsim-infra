@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test isn't present yet. Wait, the task says \\\"I've already taken care of all changes to any of the test files described in the PR description.\\\" Let me re-read - it says they've taken care of test files. Let me check the current state of the test file more carefully:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1136,1180p' packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366923035053389462\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c1de45f7801948363ad493634bc2a86ac8fa84be14373773a4ea01c269b101eb",
+ "status": 200
+}

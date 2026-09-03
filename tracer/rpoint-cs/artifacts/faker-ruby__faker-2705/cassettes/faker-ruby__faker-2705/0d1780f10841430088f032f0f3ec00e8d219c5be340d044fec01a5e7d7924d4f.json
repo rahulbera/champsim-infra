@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've confirmed the bug. Now let me look at the git history of the password method to understand what changed.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline -10 -- lib/faker/default/internet.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367081227288835353\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0d1780f10841430088f032f0f3ec00e8d219c5be340d044fec01a5e7d7924d4f",
+ "status": 200
+}

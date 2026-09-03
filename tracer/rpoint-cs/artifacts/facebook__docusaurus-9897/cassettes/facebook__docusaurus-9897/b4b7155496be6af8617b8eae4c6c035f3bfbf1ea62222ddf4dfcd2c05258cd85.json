@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix didn't take effect because `@docusaurus/utils` is being resolved from the built version. Let me check how it's resolved:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat packages/docusaurus-utils/package.json | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366928601331004323\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000049, \"id\": \"synthesized-00049\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00049\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b4b7155496be6af8617b8eae4c6c035f3bfbf1ea62222ddf4dfcd2c05258cd85",
+ "status": 200
+}

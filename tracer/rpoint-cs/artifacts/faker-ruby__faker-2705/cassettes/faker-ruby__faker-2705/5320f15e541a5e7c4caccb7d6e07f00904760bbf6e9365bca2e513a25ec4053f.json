@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The change is minimal and matches the canonical fix from the faker-ruby repository. Let me clean up the temporary files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/reproduce.rb /tmp/reproduce_pr.rb /tmp/edge_cases.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367052983583896910\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5320f15e541a5e7c4caccb7d6e07f00904760bbf6e9365bca2e513a25ec4053f",
+ "status": 200
+}

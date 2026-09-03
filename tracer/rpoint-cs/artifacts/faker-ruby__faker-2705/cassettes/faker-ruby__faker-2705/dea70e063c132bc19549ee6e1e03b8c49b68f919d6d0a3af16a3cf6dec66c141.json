@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the doc file for internet and look at the actual password method more closely.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls doc/internet/ && cat doc/internet/*.md 2>/dev/null | head -100\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367062879188547323\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dea70e063c132bc19549ee6e1e03b8c49b68f919d6d0a3af16a3cf6dec66c141",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I found the exact fix. The task says the test files have already been updated. Let me verify whether the test is already present:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"can unwrap a simple mdx code block with CRLF\\\\\\\" packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366880600776501857\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3d170207308520da934ccfed3b8d8633c117cd04d5a9b2473750059901710b6c",
+ "status": 200
+}

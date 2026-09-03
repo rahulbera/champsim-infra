@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The reproduction scripts have already been removed, and I haven't modified any test files. Let me confirm the state of the repository is clean regarding test files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"---TEST FILE DIFF---\\\\\\\" && git diff -- test/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367077035400750485\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2c4ce9bf37a786b58e96e6fa77b81b60586317ded464ceed4f6ff08c6e7d8268",
+ "status": 200
+}

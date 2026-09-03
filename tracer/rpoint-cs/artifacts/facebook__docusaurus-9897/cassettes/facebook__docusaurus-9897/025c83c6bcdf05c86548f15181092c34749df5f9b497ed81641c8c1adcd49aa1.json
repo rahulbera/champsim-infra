@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both source and built lib are updated. Let me run the markdownUtils test suite one final time to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && yarn jest packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts 2>&1 | tail -10; git checkout package.json 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366940627239434566\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "025c83c6bcdf05c86548f15181092c34749df5f9b497ed81641c8c1adcd49aa1",
+ "status": 200
+}

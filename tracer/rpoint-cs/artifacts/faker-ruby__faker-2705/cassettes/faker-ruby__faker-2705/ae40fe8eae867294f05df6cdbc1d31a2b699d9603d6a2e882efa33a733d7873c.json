@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the Lorem.characters method to understand how it generates characters.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"def characters\\\\\\\\|def character\\\\\\\" lib/faker/default/lorem.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367073633786651730\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ae40fe8eae867294f05df6cdbc1d31a2b699d9603d6a2e882efa33a733d7873c",
+ "status": 200
+}

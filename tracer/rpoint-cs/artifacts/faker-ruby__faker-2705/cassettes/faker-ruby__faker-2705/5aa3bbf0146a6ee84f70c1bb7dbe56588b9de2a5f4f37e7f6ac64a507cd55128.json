@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the user test too:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -Ilib -Itest test/faker/default/test_faker_internet.rb -n \\\\\\\"/test_user/\\\\\\\" 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367087789998860132\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5aa3bbf0146a6ee84f70c1bb7dbe56588b9de2a5f4f37e7f6ac64a507cd55128",
+ "status": 200
+}

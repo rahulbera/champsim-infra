@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both LF and CRLF scenarios pass. Let me do a final review of the changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366924546881877361\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000088, \"id\": \"synthesized-00088\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00088\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d67283fa0993703199b2109f67ed5dacc0b2dace83c0b12ffae3da2cb4b9dfcb",
+ "status": 200
+}

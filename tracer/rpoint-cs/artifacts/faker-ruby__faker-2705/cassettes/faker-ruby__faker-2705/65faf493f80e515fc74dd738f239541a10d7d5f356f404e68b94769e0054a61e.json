@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All checks pass. Now let me also think about the edge case where `min_length: 1, mix_case: false`. With my change, the password will always be at least 2 chars (lower + digit). Let me verify this doesn't break the `test_password_with_min_length_eq_1_without_mix_case` test which only checks `/\\\\w+/`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -Ilib -Itest test/faker/default/test_faker_internet.rb -n \\\\\\\"/test_password_with_min_length_eq_1_without_mix_case/\\\\\\\" 2>&1 | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367072018878949653\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "65faf493f80e515fc74dd738f239541a10d7d5f356f404e68b94769e0054a61e",
+ "status": 200
+}

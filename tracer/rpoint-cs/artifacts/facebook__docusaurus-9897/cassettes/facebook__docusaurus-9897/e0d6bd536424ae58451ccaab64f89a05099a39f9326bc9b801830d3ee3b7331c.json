@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the full docusaurus-utils test suite to make sure everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && yarn jest packages/docusaurus-utils 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366879673063570302\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000080, \"id\": \"synthesized-00080\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00080\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e0d6bd536424ae58451ccaab64f89a05099a39f9326bc9b801830d3ee3b7331c",
+ "status": 200
+}

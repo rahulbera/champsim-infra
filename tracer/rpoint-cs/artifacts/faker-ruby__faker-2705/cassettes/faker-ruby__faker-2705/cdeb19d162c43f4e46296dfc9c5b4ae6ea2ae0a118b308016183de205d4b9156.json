@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there are any tests related to numbers in password that might have been added.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"number\\\\\\\\|digit\\\\\\\\|[0-9]\\\\\\\\|0-9\\\\\\\\|include_numbers\\\\\\\\|numbers\\\\\\\" /testbed/test/faker/default/test_faker_internet.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367064391017037035\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000005, \"id\": \"synthesized-00005\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00005\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cdeb19d162c43f4e46296dfc9c5b4ae6ea2ae0a118b308016183de205d4b9156",
+ "status": 200
+}

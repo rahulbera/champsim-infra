@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This test only checks that nothing is raised, so it's fine.\\n\\nNow let me run all the password tests to make sure they pass:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -Ilib -Itest test/faker/default/test_faker_internet.rb -n \\\\\\\"/password/\\\\\\\" 2>&1 | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367081364727790990\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0a5035f7ededacea97eeefa378f3e822c2e02812a52edcf40f02fd79eac23db3",
+ "status": 200
+}

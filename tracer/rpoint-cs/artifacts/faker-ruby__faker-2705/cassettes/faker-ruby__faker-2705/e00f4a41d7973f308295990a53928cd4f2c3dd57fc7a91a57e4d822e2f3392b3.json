@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me also run the determinism tests and the faker test to make sure nothing broke:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby -Ilib -Itest test/test_determinism.rb 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367103664197987798\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e00f4a41d7973f308295990a53928cd4f2c3dd57fc7a91a57e4d822e2f3392b3",
+ "status": 200
+}

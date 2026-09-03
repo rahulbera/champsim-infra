@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find . -name \\\\\\\"*.md\\\\\\\" | xargs grep -ln \\\\\\\"password\\\\\\\" 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367110192548275198\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000008, \"id\": \"synthesized-00008\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00008\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "983f3ee80a2ef6a100d93f5ae801de4ef732e056a68c7d51ad09f65a5c957888",
+ "status": 200
+}

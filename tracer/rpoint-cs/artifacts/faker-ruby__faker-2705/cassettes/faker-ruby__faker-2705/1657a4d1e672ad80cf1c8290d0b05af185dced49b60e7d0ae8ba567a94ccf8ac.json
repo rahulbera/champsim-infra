@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the current state of the test file to understand which version of the tests are present:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/test/faker/default/test_faker_internet.rb\\\",\\\"view_range\\\":[119, 245]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367094043471242633\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1657a4d1e672ad80cf1c8290d0b05af185dced49b60e7d0ae8ba567a94ccf8ac",
+ "status": 200
+}

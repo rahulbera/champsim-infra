@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Only the internet test file references password. Let me also run the omniauth test which might use password:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rln \\\\\\\"Internet.password\\\\\\\\|\\\\\\\\.password\\\\\\\" test/ lib/ | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367080299575898295\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "de74e97f36b7779ea2bbae7caccab1bf0c3d2c586423ed46a3369bb8c6748181",
+ "status": 200
+}

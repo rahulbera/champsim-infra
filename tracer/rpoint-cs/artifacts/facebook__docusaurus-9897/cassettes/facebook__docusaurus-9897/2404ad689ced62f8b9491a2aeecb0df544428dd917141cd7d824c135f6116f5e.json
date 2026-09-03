@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The package.json change was from corepack when I ran yarn build. Let me revert that since it's not part of the fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout package.json\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366902556649316950\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2404ad689ced62f8b9491a2aeecb0df544428dd917141cd7d824c135f6116f5e",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The encoding got mangled. Given the instructions explicitly say I should NOT modify test files (\\\"you DON'T have to modify the testing logic or any of the tests in any way!\\\"), let me revert the test file change entirely. The grader will apply their own test files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366908363445100556\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "786e5037e9721b6a27006150939124d544bf22d6116c8bcd657ac7733ab3ae50",
+ "status": 200
+}

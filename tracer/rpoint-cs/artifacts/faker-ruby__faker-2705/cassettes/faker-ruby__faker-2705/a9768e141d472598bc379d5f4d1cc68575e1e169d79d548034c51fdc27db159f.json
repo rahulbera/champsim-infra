@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The only change is to `lib/faker/default/internet.rb` (the source code), and no test files were modified. The reproduction scripts have been removed. Let me run the submit command again to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7367052777425462970\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a9768e141d472598bc379d5f4d1cc68575e1e169d79d548034c51fdc27db159f",
+ "status": 200
+}

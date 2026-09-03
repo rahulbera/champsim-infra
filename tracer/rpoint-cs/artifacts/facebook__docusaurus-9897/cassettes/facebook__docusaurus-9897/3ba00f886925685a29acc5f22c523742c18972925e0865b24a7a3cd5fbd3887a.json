@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The simple case works. The error \\\"Expected component TabItem to be defined\\\" suggests the import isn't being recognized. This is likely related to `mdx-code-block` unwrapping. Let me test the `unwrapMdxCodeBlocks` function with CRLF:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /testbed/repro2.mjs << 'EOF'\\\\nimport {unwrapMdxCodeBlocks} from '@docusaurus/utils';\\\\n\\\\nconst lfContent = `# Title\\\\n\\\\n\\\\\\\\`\\\\\\\\`\\\\\\\\`mdx-code-block\\\\nimport Tabs from '@theme/Tabs';\\\\nimport TabItem from '@theme/TabItem';\\\\n\\\\n<Tabs>\\\\n<TabItem value=\\\\\\\"apple\\\\\\\" label=\\\\\\\"Apple\\\\\\\">This is an apple</TabItem>\\\\n</Tabs>\\\\n\\\\\\\\`\\\\\\\\`\\\\\\\\`\\\\n\\\\ntext\\\\n`;\\\\n\\\\nconst crlfContent = lfContent.replace(/\\\\\\\\n/g, '\\\\\\\\r\\\\\\\\n');\\\\n\\\\nconsole.log('=== LF content ===');\\\\nconsole.log(JSON.stringify(unwrapMdxCodeBlocks(lfContent)));\\\\nconsole.log('=== CRLF content ===');\\\\nconsole.log(JSON.stringify(unwrapMdxCodeBlocks(crlfContent)));\\\\nEOF\\\\nnode /testbed/repro2.mjs 2>&1 | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366923413010511466\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3ba00f886925685a29acc5f22c523742c18972925e0865b24a7a3cd5fbd3887a",
+ "status": 200
+}

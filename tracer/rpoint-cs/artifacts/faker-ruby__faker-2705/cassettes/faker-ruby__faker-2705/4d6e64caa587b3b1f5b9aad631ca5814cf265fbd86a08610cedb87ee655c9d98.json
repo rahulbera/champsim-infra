@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the reproduction script to confirm the fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ruby /tmp/reproduce.rb\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367079234424011015\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4d6e64caa587b3b1f5b9aad631ca5814cf265fbd86a08610cedb87ee655c9d98",
+ "status": 200
+}

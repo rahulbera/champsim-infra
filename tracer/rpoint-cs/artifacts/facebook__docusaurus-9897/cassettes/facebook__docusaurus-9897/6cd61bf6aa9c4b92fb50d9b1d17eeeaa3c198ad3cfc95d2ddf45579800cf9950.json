@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This confirms the typical usage pattern that triggers the bug - `mdx-code-block` containing `import TabItem from '@theme/TabItem';`. With CRLF line endings, the `unwrapMdxCodeBlocks` failed to unwrap these blocks, leaving the imports inside code blocks and causing the \\\"Expected component TabItem to be defined\\\" error.\\n\\nMy fix is complete. Let me view the final state of the fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367054529772121462\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000072, \"id\": \"synthesized-00072\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00072\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6cd61bf6aa9c4b92fb50d9b1d17eeeaa3c198ad3cfc95d2ddf45579800cf9950",
+ "status": 200
+}

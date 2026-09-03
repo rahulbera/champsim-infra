@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The build needs to be regenerated. Let me build the docusaurus-utils package:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/packages/docusaurus-utils && yarn build 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366892420526503268\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f1c3be78abce3941fd9c1d7808716bf00d3ca4cad9743481e2fd31b53010e414",
+ "status": 200
+}

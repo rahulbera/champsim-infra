@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the internet.rb file which should contain the password method.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/faker/default/internet.rb\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367084869421104299\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000002, \"id\": \"synthesized-00002\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00002\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "100d4ff21e6a185a4671f1532931833d1d9a99827a37e539a6283aea54ae5ed2",
+ "status": 200
+}

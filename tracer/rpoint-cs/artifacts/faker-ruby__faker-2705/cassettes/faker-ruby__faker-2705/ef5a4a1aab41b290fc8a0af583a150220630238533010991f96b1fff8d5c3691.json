@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the version and look at the actual password method in detail.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat lib/faker/version.rb && grep -rn \\\\\\\"password\\\\\\\" lib/ \\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367074561499587842\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ef5a4a1aab41b290fc8a0af583a150220630238533010991f96b1fff8d5c3691",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"CRLF\\\\\\\\|crlf\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\r\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\|line ending\\\\\\\" packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts | grep -i \\\\\\\"unwrap\\\\\\\\|admonition\\\\\\\\|code\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366924753040304241\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "66f25a5c38ee3c28a7f9af018799d4f26d88d65449351a5df096b75f7a00c062",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the full commit to understand all changes including tests and docs:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 36cd3825\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082945275756113\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "416d985e74bd61745619bf29bc7f629178f8c2fed5174ddf9f80b6b5fed59199",
+ "status": 200
+}

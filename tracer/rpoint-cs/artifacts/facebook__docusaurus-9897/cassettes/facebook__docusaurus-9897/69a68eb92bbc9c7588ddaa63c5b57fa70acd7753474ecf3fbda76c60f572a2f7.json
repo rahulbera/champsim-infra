@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the actual bytes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '1169,1198p' packages/docusaurus-utils/src/__tests__/markdownUtils.test.ts | cat -A | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366919186762688742\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "69a68eb92bbc9c7588ddaa63c5b57fa70acd7753474ecf3fbda76c60f572a2f7",
+ "status": 200
+}

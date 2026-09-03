@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This snapshot failure is unrelated to my change - it's about `<HOME_DIR>` being substituted for `/root/` (an environment-specific path issue, likely because the test runs as root user). Let me verify this failure exists without my change by stashing:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && yarn jest packages/docusaurus-utils/src/__tests__/globUtils.test.ts 2>&1 | tail -15; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366911043504694437\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "644f85abaff55a72485bf75c037b57e9e0a5b4db1f6217d29d1facacc70b19b3",
+ "status": 200
+}

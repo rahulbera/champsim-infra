@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is a Ruby project (Faker gem). Let me look at the internet faker code.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/lib/faker\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367080574453803146\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8bc56f3cf63defa98f3405ee20ddcbba249a3bf4aec6bc381dbad3788160a543",
+ "status": 200
+}
