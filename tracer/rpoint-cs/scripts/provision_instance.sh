@@ -101,12 +101,17 @@ echo "  staged"
 # succeeded from the host. So the host clones ONCE into a bare mirror and every
 # guest clones from a local path. GitHub leaves the provisioning path entirely,
 # which also makes provisioning repeatable and much faster on re-runs.
-REPO_URL=$(grep -h '^REPO_URL=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
-           | tail -1 | cut -d= -f2-)
-REPO_NAME=$(grep -h '^REPO_NAME=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
-            | tail -1 | cut -d= -f2-)
-EXTRA_MIRRORS=$(grep -h '^EXTRA_MIRRORS=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
-                | tail -1 | cut -d= -f2- | tr -d '"'"'"'"')
+# `|| true` on EVERY one of these. This script runs `set -euo pipefail`, and a
+# grep that matches nothing exits 1 -- which kills the script inside a command
+# substitution, before the `if [ -n ... ]` guard below can ever run.
+# EXTRA_MIRRORS is OPTIONAL and only jq-2598 sets it, so axum-1730 and
+# carbon-2752 both died here with no error message at all, immediately after
+# "stage guest tools". The other two always match today, but a descriptor that
+# omitted one would fail the same silent way.
+_env=$ROOT/scripts/swe-agent/instances/$INSTANCE.env
+REPO_URL=$(grep -h '^REPO_URL=' "$_env" | tail -1 | cut -d= -f2- || true)
+REPO_NAME=$(grep -h '^REPO_NAME=' "$_env" | tail -1 | cut -d= -f2- || true)
+EXTRA_MIRRORS=$(grep -h '^EXTRA_MIRRORS=' "$_env" | tail -1 | cut -d= -f2- | tr -d '"'"'"'"' || true)
 # SWE-agent is cloned into every guest too, and fails exactly the same way --
 # fluentd-3328 got all the way through its offline gate and then died on
 # `Cloning into '/opt/swe-agent'`. Mirroring only the instance repo fixes half

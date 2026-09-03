@@ -1,0 +1,1 @@
+2026-09-04 01:03:07	infra	provision_instance.sh read the optional EXTRA_MIRRORS with grep under set -e; no match exits 1 and killed the script silently after 'stage guest tools'
