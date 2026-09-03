@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat packages/babel-traverse/package.json | grep -E '\\\\\\\"main\\\\\\\"|\\\\\\\"name\\\\\\\"|\\\\\\\"module\\\\\\\"'; echo \\\\\\\"---\\\\\\\"; ls packages/babel-traverse/lib 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355846554915174103\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000015, \"id\": \"synthesized-00015\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00015\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "18f3c92412cd5ae2356ec0dec02ad784b38078e39651e0686ba33b4ba6dcc97a",
+ "status": 200
+}

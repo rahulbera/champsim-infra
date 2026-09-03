@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fixtures are run via the plugin test runner. Let me run the babel-traverse fixtures test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx jest packages/babel-traverse/test/index.js 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355845146165902224\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6e5d5d68bcadc5b30a09a59905344082561ada04455d1fd562cd7b7d61ea82f7",
+ "status": 200
+}

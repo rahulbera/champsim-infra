@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"---input---\\\\\\\" && cat packages/babel-traverse/test/fixtures/rename/parameter-default-1/input.js && echo \\\\\\\"---options---\\\\\\\" && cat packages/babel-traverse/test/fixtures/rename/parameter-default-1/options.json && echo \\\\\\\"---output---\\\\\\\" && cat packages/babel-traverse/test/fixtures/rename/parameter-default-1/output.js && echo \\\\\\\"---plugin---\\\\\\\" && cat packages/babel-traverse/test/fixtures/rename/parameter-default-1/plugin.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355847242109940919\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000010, \"id\": \"synthesized-00010\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00010\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cbb620d8de49505ed1eea171e75bbbd9b6e6d70f5a0a8a0feb6df07d2f29c370",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All fixture tests pass too. Let me also run the generator tests to ensure the generator behavior is consistent:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx jest packages/babel-generator 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355856931556161033\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "323931ffd4541d0b797492fe1356be88d09c18e478767c32ea5b14f8b0910baa",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also run the rename fixture tests to make sure those pass:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find . -path ./node_modules -prune -o -name \\\\\\\"*.js\\\\\\\" -print | xargs grep -l \\\\\\\"rename.*fixture\\\\\\\\|fixtures/rename\\\\\\\" 2>/dev/null | head; echo \\\\\\\"---\\\\\\\"; ls packages/babel-traverse/test/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355839408089592789\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7ffa9617c8e47b9b56e8193612bd8f16e44c39068d97e33adcd3ceca89240125",
+ "status": 200
+}

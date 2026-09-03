@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"getOuterBindingIdentifiers\\\\\\\\|getBindingIdentifiers\\\\\\\\|shorthand\\\\\\\" packages/babel-types/src/retrievers/ 2>/dev/null; find packages/babel-types/src -name \\\\\\\"retriever*\\\\\\\" -o -name \\\\\\\"*retriev*\\\\\\\" 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355862703992209087\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e4a5ea1da074bfdc0df27f95d6eb3626fe9a310f219e27209dd3e5829a06c802",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find packages/babel-traverse -name \\\\\\\"*.js\\\\\\\" -path \\\\\\\"*test*\\\\\\\" | xargs grep -l \\\\\\\"rename\\\\\\\" 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355852670948605873\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000005, \"id\": \"synthesized-00005\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00005\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7e69216274a50d55dd7cc2f41e43ffb320ac64da53869ff4525c7b3baffbd2a1",
+ "status": 200
+}

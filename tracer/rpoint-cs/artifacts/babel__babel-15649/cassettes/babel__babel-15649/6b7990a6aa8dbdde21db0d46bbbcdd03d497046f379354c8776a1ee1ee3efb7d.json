@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me clean up the temporary repro files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro.js /tmp/repro2.js /tmp/repro3.js /tmp/repro_upstream.js /tmp/ast.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355840232723314713\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6b7990a6aa8dbdde21db0d46bbbcdd03d497046f379354c8776a1ee1ee3efb7d",
+ "status": 200
+}

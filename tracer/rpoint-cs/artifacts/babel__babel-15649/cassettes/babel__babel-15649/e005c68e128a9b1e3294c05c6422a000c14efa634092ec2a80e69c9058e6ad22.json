@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/ast.js << 'EOF'\\\\nconst parser = require('/testbed/packages/babel-parser/lib/index.js');\\\\nconst code = `const {a} = b;`;\\\\nconst ast = parser.parse(code);\\\\nconsole.log(JSON.stringify(ast.program.body[0].declarations[0].id, null, 2));\\\\nEOF\\\\nnode /tmp/ast.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355846108238569836\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e005c68e128a9b1e3294c05c6422a000c14efa634092ec2a80e69c9058e6ad22",
+ "status": 200
+}

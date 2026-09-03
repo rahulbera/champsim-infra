@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro.js << 'EOF'\\\\nconst traverse = require('/testbed/packages/babel-traverse/lib/index.js').default;\\\\nconst parser = require('/testbed/packages/babel-parser/lib/index.js');\\\\nconst generate = require('/testbed/packages/babel-generator/lib/index.js').default;\\\\n\\\\nconst code = `\\\\n    const {a} = b;\\\\n    const {c: d} = b;\\\\n    console.log(a);\\\\n`\\\\n\\\\nconst ast = parser.parse(code);\\\\n\\\\ntraverse(ast, {\\\\n    Identifier(path) {\\\\n        path.scope.rename('a', 'zzz');\\\\n    }\\\\n});\\\\n\\\\nconsole.log('a shorthand =', ast.program.body[0].declarations[0].id.properties[0].shorthand);\\\\nconsole.log('c shorthand =', ast.program.body[1].declarations[0].id.properties[0].shorthand);\\\\nconsole.log(generate(ast).code);\\\\nEOF\\\\nnode /tmp/repro.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355843050221861213\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fbe096bf2c7476dfa5b398b193f8cd04555eb6ea9e86553e834a47b9759f43af",
+ "status": 200
+}

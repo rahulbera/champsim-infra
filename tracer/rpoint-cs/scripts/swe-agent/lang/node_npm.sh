@@ -77,7 +77,34 @@ lang_deps() {
       || { tail -40 /tmp/provision_npm.log; die "npm ci failed"; }
     ok "node_modules installed from package-lock.json (npm ci)"
   elif [ -f yarn.lock ]; then
-    command -v yarn >/dev/null || sudo npm install -g yarn >/dev/null 2>&1
+    # USE THE YARN THE REPO VENDORS, if it vendors one. Yarn Berry projects set
+    # `yarnPath: .yarn/releases/yarn-X.Y.Z.cjs` in .yarnrc.yml and ship that file
+    # in the tree. babel does exactly this (yarn 3.5.0).
+    #
+    # `npm install -g yarn` gives yarn 1.x CLASSIC, which reads .yarnrc (not
+    # .yarnrc.yml), ignores yarnPath, and cannot parse a Berry lockfile at all --
+    # so the install fails for a reason that looks like a corrupt lockfile.
+    # Corepack would fetch the right version, but it fetches over the NETWORK,
+    # which the gate and the traced run do not have. The vendored release is
+    # already on disk and is exactly the version the lockfile was written by.
+    #
+    # It is installed as a PATH shim rather than just used here, because the
+    # project's own build invokes `yarn` internally (babel's Makefile does), and
+    # those calls must resolve to the same binary.
+    local yp=""
+    [ -f .yarnrc.yml ] && yp=$(sed -n 's/^yarnPath:[[:space:]]*//p' .yarnrc.yml | tr -d '"'"'"'"' | head -1)
+    if [ -n "$yp" ] && [ -f "$REPO_DIR/$yp" ]; then
+      say "yarn vendored by the repo: $yp"
+      sudo tee /usr/local/bin/yarn >/dev/null <<SHIM
+#!/bin/sh
+exec node "$REPO_DIR/$yp" "\$@"
+SHIM
+      sudo chmod +x /usr/local/bin/yarn
+      hash -r
+      ok "yarn shim -> $(yarn --version 2>/dev/null || echo '?')"
+    else
+      command -v yarn >/dev/null || sudo npm install -g yarn >/dev/null 2>&1
+    fi
     # --immutable is yarn 2+; --frozen-lockfile is yarn 1. Try the modern flag
     # and fall back rather than guessing the major version from the lockfile.
     yarn install --immutable >/tmp/provision_npm.log 2>&1 \
@@ -114,7 +141,12 @@ $(echo "$dirty" | head -10)"
 lang_offline_gate() {
   # npm_config_offline stops any stray `npm` call in the test script from
   # reaching the registry and hanging on DNS inside the capture window.
-  OFFLINE_ENV=(npm_config_offline=true npm_config_audit=false npm_config_fund=false CI=true)
+  # HOME is passed explicitly: run_offline builds a clean environment with
+  # `env -i`, and yarn Berry (enableGlobalCache) and make both need a home
+  # directory. The php module learned this the same way -- its gate died three
+  # times with no output because TZ was stripped.
+  OFFLINE_ENV=(npm_config_offline=true npm_config_audit=false npm_config_fund=false
+               CI=true HOME=/home/ubuntu)
   local log=/tmp/offline_gate.log
   run_offline "cd $REPO_DIR && $GATE_BUILD_CMD && $GATE_TEST_CMD" >"$log" 2>&1 \
     || { tail -40 "$log"; die "OFFLINE GATE FAILED -- the traced pass would die"; }
