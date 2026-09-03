@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The original parser.c was also generated with bison 3.8.2. The large diff is likely due to different formatting/line-wrapping in the generated tables. Let me investigate the actual differences more carefully:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && cp src/parser.c /tmp/parser_orig.c && git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367081467806999740\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000084, \"id\": \"synthesized-00084\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00084\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6c1d6966ed3d135f6eb4fd224e2ce32e9c709f51230c6dbb4860bdfd542632a2",
+ "status": 200
+}

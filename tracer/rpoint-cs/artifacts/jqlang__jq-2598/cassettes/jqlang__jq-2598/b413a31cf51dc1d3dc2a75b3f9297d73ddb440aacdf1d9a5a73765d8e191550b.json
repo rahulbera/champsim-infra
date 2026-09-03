@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The parser has `%expect 0`, meaning no conflicts are allowed. My change keeps it at 0 conflicts. Now I need to regenerate the parser.c properly and rebuild. Let me check how the Makefile invokes bison to ensure I use the same flags:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"YACC\\\\\\\\|AM_V_YACC\\\\\\\\|ylwrap\\\\\\\\|\\\\\\\\.y\\\\\\\\.c\\\\\\\" Makefile | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367074080463251044\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b413a31cf51dc1d3dc2a75b3f9297d73ddb440aacdf1d9a5a73765d8e191550b",
+ "status": 200
+}

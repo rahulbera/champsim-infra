@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"That's correct - the values are `\\\"a\\\"`, `\\\"b\\\"`, `\\\"c\\\"`, and `4` (the input passes through when no condition matches and there's no else). My test script's expected string was just wrong due to `-c` formatting. All behavior is correct.\\n\\nLet me run the final test suite one more time to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && NO_VALGRIND=1 ./tests/jqtest 2>&1 | tail -1 && NO_VALGRIND=1 ./tests/mantest 2>&1 | tail -1 && NO_VALGRIND=1 ./tests/shtest 2>&1 | grep -E \\\\\\\"^[0-9]+ tests|exit\\\\\\\" | tail -3; echo \\\\\\\"shtest exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367062604310639591\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000110, \"id\": \"synthesized-00110\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00110\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "47d23085cd38071f8fe602ea5e7e98b00f16bf2ed5e8fd8edcb42c515eeacad3",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Everything works. Now, let me think about whether I should try to make the parser.c match the original style to minimize the diff. The large diff in parser.c could be a concern for review, but it's a generated file. \\n\\nLet me check if I can get bison to inline the header to match the original. Let me look at the bison 3.8.2 changelog behavior. Actually, let me try generating with `--defines` explicitly and see:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bison -y --warnings=all -Wno-yacc --defines=src/parser.h -o src/parser.c src/parser.y 2>&1 | grep -i conflict; sed -n '100,108p' src/parser.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367075661011215183\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000097, \"id\": \"synthesized-00097\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00097\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4793eab659afa2aaf6ac3686f3b817165341a60248d435194d0012874ac8fc91",
+ "status": 200
+}

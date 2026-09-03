@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Still uses `#include`. Let me check if there's a way to disable `api.header.include`. Let me try setting it to empty:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bison -y --warnings=all -Wno-yacc -Dapi.header.include= -o src/parser.c src/parser.y 2>&1 | grep -i \\\\\\\"conflict\\\\\\\\|error\\\\\\\" | head; sed -n '100,108p' src/parser.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367054495412382145\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b02c0007d4f9bf14360fd6e8eba5b98f2e385016a1d33e6e81eb2a85f43c3826",
+ "status": 200
+}

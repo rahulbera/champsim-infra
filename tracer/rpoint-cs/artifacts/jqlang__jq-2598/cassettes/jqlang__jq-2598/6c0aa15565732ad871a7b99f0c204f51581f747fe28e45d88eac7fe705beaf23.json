@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I see - the difference is that the original parser.c includes the header inline (duplicating it), while my regenerated version uses `api.header.include`. This is a bison configuration difference. Let me check the parser.y for the header configuration:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"api.header\\\\\\\\|%code\\\\\\\\|header\\\\\\\" src/parser.y | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367085900213252956\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000087, \"id\": \"synthesized-00087\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00087\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6c0aa15565732ad871a7b99f0c204f51581f747fe28e45d88eac7fe705beaf23",
+ "status": 200
+}

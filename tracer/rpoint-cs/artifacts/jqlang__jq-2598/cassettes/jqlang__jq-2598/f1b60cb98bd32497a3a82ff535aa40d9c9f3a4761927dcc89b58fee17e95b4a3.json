@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The Makefile uses automake's default ylwrap rules. Let me try regenerating the parser using bison directly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bison -y -d -o src/parser.c src/parser.y 2>&1 | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367089954662377946\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f1b60cb98bd32497a3a82ff535aa40d9c9f3a4761927dcc89b58fee17e95b4a3",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The original also produces `null` for `if false then 1 end` with `-n`. So my behavior is consistent with the original for the `if then end` case.\\n\\nNow let me verify the fix is in place after the rebuild:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./jq -n '1,2,3 | if . == 1 then 1 elif . == 2 then 2 end'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367084697622410126\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000080, \"id\": \"synthesized-00080\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00080\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "81855d2c8127b373922774671a92ae2065ba696e76624ca7d5ebcce93b72480a",
+ "status": 200
+}

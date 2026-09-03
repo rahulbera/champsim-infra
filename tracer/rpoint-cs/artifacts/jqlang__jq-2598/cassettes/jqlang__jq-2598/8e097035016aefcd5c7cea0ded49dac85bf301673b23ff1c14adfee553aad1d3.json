@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also verify the PR example one final time:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && echo \\\\\\\"=== PR Example ===\\\\\\\" && ./jq -n '1,2,3 | if . == 1 then 1 elif . == 2 then 2 end' && echo \\\\\\\"=== Expected: 1, 2, 3 ===\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367053052303372658\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000117, \"id\": \"synthesized-00117\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00117\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8e097035016aefcd5c7cea0ded49dac85bf301673b23ff1c14adfee553aad1d3",
+ "status": 200
+}

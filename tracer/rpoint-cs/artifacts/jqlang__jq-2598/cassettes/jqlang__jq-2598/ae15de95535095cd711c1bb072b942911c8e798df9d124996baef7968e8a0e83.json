@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, no conflicts in the original either (the parser.y has `%expect 0` or similar). Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"expect\\\\\\\\|%error\\\\\\\\|precedence\\\\\\\\|left\\\\\\\\|right\\\\\\\\|nonassoc\\\\\\\" src/parser.y | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367088786431274853\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ae15de95535095cd711c1bb072b942911c8e798df9d124996baef7968e8a0e83",
+ "status": 200
+}

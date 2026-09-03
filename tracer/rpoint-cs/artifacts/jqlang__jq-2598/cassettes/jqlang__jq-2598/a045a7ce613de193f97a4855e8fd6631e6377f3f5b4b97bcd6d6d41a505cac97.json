@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me follow the steps. First, let me run the reproduction script again to confirm the fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bash /tmp/reproduce.sh\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367065799766304868\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000112, \"id\": \"synthesized-00112\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00112\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a045a7ce613de193f97a4855e8fd6631e6377f3f5b4b97bcd6d6d41a505cac97",
+ "status": 200
+}

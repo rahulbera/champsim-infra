@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Test 10 failed but that's because I used `<<<` with `-n` (null input). Let me fix the test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./jq '[.[]|try if . == 0 then error(\\\\\\\"foo\\\\\\\") elif . == 1 then .a elif . == 2 then empty end catch .]' <<< '[0,1,2,3]'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366999313672564301\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000077, \"id\": \"synthesized-00077\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00077\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8fa96002308460a3dd7f3002cc8853b0b56b5e55d6142c3ea7deb3f11c7a7997",
+ "status": 200
+}

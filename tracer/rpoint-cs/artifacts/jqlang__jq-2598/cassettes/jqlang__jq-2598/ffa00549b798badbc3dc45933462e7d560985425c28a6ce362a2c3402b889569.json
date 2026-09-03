@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No conflicts now. Let me verify the warnings are just the POSIX warnings (which are expected):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bison -y -d -o src/parser.c src/parser.y 2>&1 | grep -i \\\\\\\"conflict\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367047623464711073\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ffa00549b798badbc3dc45933462e7d560985425c28a6ce362a2c3402b889569",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So the build uses ylwrap with `bison -y --warnings=all -Wno-yacc -d`. This is exactly what I used. So my regenerated parser.c is what the build would produce. \\n\\nThe difference from the committed version is just due to bison version differences in how the header is included. Since the build regenerates it anyway, this is fine.\\n\\nLet me now do a final clean rebuild and full test run to confirm everything works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && make clean 2>&1 | tail -1 && make 2>&1 | tail -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367070507050459826\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000102, \"id\": \"synthesized-00102\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00102\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fbecedf06ea78b7ac9be6c5c5085882878702b9e38c7629ee784239375ec759d",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the bug. Now let me fix the grammar. I'll add a production to `ElseBody` that allows it to terminate with just `end`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/testbed/src/parser.y\\\",\\\"old_str\\\":\\\"ElseBody:\\\\n\\\\\\\"elif\\\\\\\" Exp \\\\\\\"then\\\\\\\" Exp ElseBody {\\\\n  $$ = gen_cond($2, $4, $5);\\\\n} |\\\\n\\\\\\\"else\\\\\\\" Exp \\\\\\\"end\\\\\\\" {\\\\n  $$ = $2;\\\\n}\\\",\\\"new_str\\\":\\\"ElseBody:\\\\n\\\\\\\"elif\\\\\\\" Exp \\\\\\\"then\\\\\\\" Exp ElseBody {\\\\n  $$ = gen_cond($2, $4, $5);\\\\n} |\\\\n\\\\\\\"else\\\\\\\" Exp \\\\\\\"end\\\\\\\" {\\\\n  $$ = $2;\\\\n} |\\\\n\\\\\\\"end\\\\\\\" {\\\\n  $$ = gen_noop();\\\\n}\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367046798830987070\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9a1d9ee22527a121b0b97b63016ac2cdf246c49da26c2d16b9df9de27454304a",
+ "status": 200
+}

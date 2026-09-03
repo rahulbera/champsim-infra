@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases work correctly. Let me verify the expected behavior matches gojq's behavior. The PR description says:\\n\\n```\\n$ jq -n '1,2,3 | if . == 1 then 1 elif . == 2 then 2 end'\\n1\\n2\\n3\\n```\\n\\nSo when no condition matches and there's no `else`, the input value `.` should be passed through (like `gen_noop()` does, which is `.`). Let me verify that `gen_noop()` indeed passes through the input:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"gen_noop\\\\\\\\|gen_cond\\\\\\\" src/compile.c | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367066864918199900\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ba91ad26fd86808cfc01bb59f90bd59728d2cb6b5d8256e9c285cb192bc53e8a",
+ "status": 200
+}

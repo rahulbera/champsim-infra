@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The behavior is identical to the original for the error case. The `git stash` reverted my parser.y changes but the parser.c was already regenerated... wait, let me make sure the build is using my new parser. Let me rebuild cleanly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && make 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367058274983600587\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5b2e35d8ec894d3376f0ef9b5bfd285ae158b9706fc862fa1a002428a9e236fe",
+ "status": 200
+}

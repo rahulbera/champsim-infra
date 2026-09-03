@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && make -j4 2>&1 | tail -2 && echo \\\\\\\"=== ORIGINAL ===\\\\\\\" && ./jq -n 'if false then 1 end'; git stash pop && make -j4 2>&1 | tail -2\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367043603375317275\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d2794fdb31d98bba6fdd69bc12d61314f57c359fdab1a0e81914e112276f4fae",
+ "status": 200
+}

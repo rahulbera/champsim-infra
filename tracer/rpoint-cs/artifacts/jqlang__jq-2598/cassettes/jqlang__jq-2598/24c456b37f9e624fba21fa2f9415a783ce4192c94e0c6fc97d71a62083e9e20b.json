@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the manual (docs) to see if there's documentation about `if`/`elif`/`else` that should be updated:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"elif\\\\\\\\|else\\\\\\\" docs/content/manual* 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367083013995233012\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "24c456b37f9e624fba21fa2f9415a783ce4192c94e0c6fc97d71a62083e9e20b",
+ "status": 200
+}

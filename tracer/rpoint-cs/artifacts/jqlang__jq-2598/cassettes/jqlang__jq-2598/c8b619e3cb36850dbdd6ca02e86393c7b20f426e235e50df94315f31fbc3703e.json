@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the original parser.c to compare the conflict count. Let me first verify that the original parser.c was generated with these same flags:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && head -50 src/parser.c | grep -i \\\\\\\"bison\\\\\\\\|version\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367104248313542099\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000043, \"id\": \"synthesized-00043\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00043\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c8b619e3cb36850dbdd6ca02e86393c7b20f426e235e50df94315f31fbc3703e",
+ "status": 200
+}

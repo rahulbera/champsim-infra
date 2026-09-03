@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Clean build works. Let me verify the fix once more and run all tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./jq -n '1,2,3 | if . == 1 then 1 elif . == 2 then 2 end' && echo \\\\\\\"===\\\\\\\" && NO_VALGRIND=1 ./tests/jqtest 2>&1 | tail -2 && echo \\\\\\\"===\\\\\\\" && NO_VALGRIND=1 ./tests/mantest 2>&1 | tail -2\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367103354960342466\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000096, \"id\": \"synthesized-00096\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00096\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a1a2970115ccafbb828540f02192590e3cea0d8b06f212f934458d92de243e63",
+ "status": 200
+}

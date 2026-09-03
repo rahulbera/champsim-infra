@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me also run the optional tests and onig tests to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && NO_VALGRIND=1 ./tests/optionaltest 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367073015311365482\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000105, \"id\": \"synthesized-00105\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00105\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2cb5876ed0880763504fd9815cecd80d3ed2ec75a196d1c9a70c636b757d5106",
+ "status": 200
+}

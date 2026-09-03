@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The YACC flags are `--warnings=all -Wno-yacc -d`. Let me regenerate with the proper flags. The ylwrap uses `y.tab.c` and renames it. Let me just use bison directly with the right flags:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && bison -y --warnings=all -Wno-yacc -d -o src/parser.c src/parser.y 2>&1 | grep -i \\\\\\\"conflict\\\\\\\\|error\\\\\\\" | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367075557932000335\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2f5e20badc1a50dc611781f995dc3f8db7732ea72684adde2074899971a374ad",
+ "status": 200
+}

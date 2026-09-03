@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '260,266p' Makefile\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367099369230690136\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000100, \"id\": \"synthesized-00100\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00100\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5451cf9fb5f50470a2c379adb101c1b33b65f60a621a66047213701f7995dc95",
+ "status": 200
+}

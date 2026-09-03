@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"bison\\\\\\\\|flex\\\\\\\\|parser.c\\\\\\\\|lexer.c\\\\\\\" Makefile | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367066040284471519\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "71d83671a047fc0ac5ccfaf4a2487daa5240c3016407864a8f91b3a9fba7a353",
+ "status": 200
+}
