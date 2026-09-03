@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The issue is that the error is thrown during `format` (not `parse`), so it should be catchable. Wait, let me check - the error happens during `format` because the spec `:x` is parsed for the string formatter which throws \\\"invalid type specifier\\\". Let me check why it's not being caught. \\n\\nActually, looking more carefully - the issue is that when I call `f.parse(parse_ctx)` in the `format_each` operator, the string formatter's parse throws. But wait, the error message is \\\"invalid type specifier\\\" which is thrown during parsing. Let me check the string formatter's parse:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"invalid type specifier\\\\\\\\|on_type\\\\\\\\|parse\\\\\\\" include/fmt/format.h | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367035013440731074\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "051a64fdb556e27fc450f601132e9c182800cb744bbcc068c732337cc353e4c6",
+ "status": 200
+}

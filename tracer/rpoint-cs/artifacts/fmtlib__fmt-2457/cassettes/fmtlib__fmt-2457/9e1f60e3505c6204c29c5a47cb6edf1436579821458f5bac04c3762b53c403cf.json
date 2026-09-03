@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro.cpp << 'EOF'\\\\n#include <tuple>\\\\n#include <vector>\\\\n#include <fmt/format.h>\\\\n#include <fmt/ranges.h>\\\\n\\\\nint main() {\\\\n  std::vector<int> a = { 1, 2, 3 };\\\\n  fmt::print(\\\\\\\"{:02}\\\\\\\\n\\\\\\\", fmt::join(a, \\\\\\\", \\\\\\\"));\\\\n\\\\n  std::tuple<int,int,int> b = std::make_tuple(1, 2, 3);\\\\n  fmt::print(\\\\\\\"{:02}\\\\\\\\n\\\\\\\", fmt::join(b, \\\\\\\", \\\\\\\"));\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/repro.cpp -o /tmp/repro && /tmp/repro\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367049925567179459\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000025, \"id\": \"synthesized-00025\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00025\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9e1f60e3505c6204c29c5a47cb6edf1436579821458f5bac04c3762b53c403cf",
+ "status": 200
+}

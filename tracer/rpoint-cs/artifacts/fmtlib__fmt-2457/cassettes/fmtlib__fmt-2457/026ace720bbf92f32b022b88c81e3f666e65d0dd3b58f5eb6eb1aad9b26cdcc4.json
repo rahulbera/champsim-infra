@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The FMT_COMPILE case fails with non-const `format`! The `spec_field::format` in compile.h calls `fmt.format(...)` where `fmt` is const. So `format` must be const for FMT_COMPILE to work.\\n\\nLet me look at compile.h:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/compile.h\\\",\\\"view_range\\\":[300, 320]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367049856847701049\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000180, \"id\": \"synthesized-00180\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00180\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "026ace720bbf92f32b022b88c81e3f666e65d0dd3b58f5eb6eb1aad9b26cdcc4",
+ "status": 200
+}

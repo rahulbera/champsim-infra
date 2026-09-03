@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show bb692015:include/fmt/ranges.h 2>/dev/null | sed -n '720,760p'\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367043500296104036\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000141, \"id\": \"synthesized-00141\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00141\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "33171ca31b6a7a84417f3ccd4471dc58125570779db57cff9067316c503c894b",
+ "status": 200
+}

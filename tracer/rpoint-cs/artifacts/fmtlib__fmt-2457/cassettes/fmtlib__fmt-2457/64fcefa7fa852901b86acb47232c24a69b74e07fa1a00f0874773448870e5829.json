@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"With C++20, the consteval format string check fails at compile time because the dynamic width parsing during the check throws. This is the dynamic width/precision issue. The actual fmt library made it opt-in to avoid this.\\n\\nBut wait - this is a compile error with C++20. Let me check if this is a problem. The original code (before my fix) - did it have this issue with C++20? Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && g++ -std=c++20 -I/testbed/include /tmp/repro11.cpp /testbed/build/libfmt.a -o /tmp/repro11_20_orig 2>&1 | tail -5; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367050097365876132\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000117, \"id\": \"synthesized-00117\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00117\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "64fcefa7fa852901b86acb47232c24a69b74e07fa1a00f0874773448870e5829",
+ "status": 200
+}

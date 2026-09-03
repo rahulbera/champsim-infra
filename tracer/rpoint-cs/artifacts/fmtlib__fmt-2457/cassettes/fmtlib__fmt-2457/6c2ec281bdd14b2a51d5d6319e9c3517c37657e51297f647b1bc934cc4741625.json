@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check `arg_data`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"struct arg_data\\\\\\\\|class arg_data\\\\\\\\|arg_data\\\\\\\" include/fmt/core.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367050063006137226\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000154, \"id\": \"synthesized-00154\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00154\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6c2ec281bdd14b2a51d5d6319e9c3517c37657e51297f647b1bc934cc4741625",
+ "status": 200
+}

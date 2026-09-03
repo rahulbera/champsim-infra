@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So `FMT_THROW` does throw. The issue is the error is thrown during `format`, but somehow it's not being caught in my repro3. Let me check - actually the output shows \\\"terminate called\\\" which means the exception propagated out of main without being caught. Wait, that doesn't make sense since I have a try/catch. Let me re-examine.\\n\\nOh wait, the issue is that the error happens during `parse`, not `format`. The string formatter's `parse` method with `:x` spec... let me check the string formatter parse:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/format.h\\\",\\\"view_range\\\":[2500, 2530]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367053052303373337\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3b136aea801a821a30f1a8c0575bd538d9927b1035d8322a9c4e782efc1d30e4",
+ "status": 200
+}

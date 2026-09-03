@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `format_error` is `FMT_API` which means it's in the compiled library. The destructor is defined in the library. The issue might be that the exception is thrown from the header-only code but the `format_error` class has its vtable/destructor in the library. This shouldn't cause catching issues though.\\n\\nWait, let me check if maybe the issue is that the catch is for `const fmt::format_error&` but the actual thrown type... no, the message clearly says it's `fmt::v8::format_error`.\\n\\nLet me check if maybe there's an issue with the exception being thrown from a noexcept context. Let me look at the `format_each` and `for_each`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/ranges.h\\\",\\\"view_range\\\":[201, 219]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367026732743784759\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "77d58f5f97e660a492276687af6c8f354b19419be64afdd06e7228dbe9697279",
+ "status": 200
+}

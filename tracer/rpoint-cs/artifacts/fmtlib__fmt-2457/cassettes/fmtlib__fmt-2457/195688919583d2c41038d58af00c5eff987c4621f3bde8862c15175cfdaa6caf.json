@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Wait, there's an issue. The `basic_format_parse_context` constructor requires an error handler, and the `parse` method needs to be `FMT_CONSTEXPR`. Also, the `parse_ctx` member reference in `format_each` needs to be careful. Let me first try to compile and test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/include /tmp/repro.cpp /testbed/build/libfmt.a -o /tmp/repro 2>&1 | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367035597556277698\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "195688919583d2c41038d58af00c5eff987c4621f3bde8862c15175cfdaa6caf",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Even with `fmt::runtime`, the exception is not caught. This means the exception is thrown during the format string check (`basic_format_string` constructor), not during `vformat`. \\n\\nWait, but with `fmt::runtime`, the `basic_string_view` constructor path is `basic_format_string(basic_runtime<Char> r)` which doesn't do the check. So the exception must be thrown during `vformat`.\\n\\nHmm, let me check if maybe the issue is the `FMT_CONSTEVAL`. Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"FMT_HAS_CONSTEVAL\\\\\\\\|FMT_CONSTEVAL\\\\\\\" include/fmt/core.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367030787192911764\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000077, \"id\": \"synthesized-00077\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00077\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "391114261b42172da499b2c8bb9d0b7b89881ac8b24b0ab2b6c6f53c079667de",
+ "status": 200
+}

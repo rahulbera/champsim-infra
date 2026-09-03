@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The new tests pass. Now let me revert the test file change (since I shouldn't modify tests):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cp /tmp/ranges-test.cc.bak test/ranges-test.cc && git diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367044015692178685\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000204, \"id\": \"synthesized-00204\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00204\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0a2456aa776093f3b8059f79f93e7056b60ded7031e9ccef83d63cc98a8610d2",
+ "status": 200
+}

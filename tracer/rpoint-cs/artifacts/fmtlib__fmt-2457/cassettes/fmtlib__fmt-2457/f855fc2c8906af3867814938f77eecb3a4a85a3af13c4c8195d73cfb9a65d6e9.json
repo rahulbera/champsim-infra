@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So the actual fmt library's bb692015 version has `format` and `do_format` as const, with the `FMT_TUPLE_JOIN_SPECIFIERS` macro. This means the actual fmt library also has the issue with non-const element formatters. But since `FMT_TUPLE_JOIN_SPECIFIERS` is 0 by default, the `do_format` calls `std::get<...>(formatters_).format(...)` on a const formatter, which requires const `format`. \\n\\nWait, but with `FMT_TUPLE_JOIN_SPECIFIERS` 0, the `do_format` still calls `.format(...)` on the const `formatters_`. So the const issue exists regardless of the macro. So the actual fmt library requires element formatters to have const `format`. This is a known requirement.\\n\\nHmm, but my custom type test failed. Let me check if the actual fmt library tests have custom types in tuple join. Let me check the existing test - the `format_struct` test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"format_struct\\\\\\\\|struct test_struct\\\\\\\\|FMT_STRUCT\\\\\\\" test/ranges-test.cc | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367066830558461521\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000142, \"id\": \"synthesized-00142\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00142\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f855fc2c8906af3867814938f77eecb3a4a85a3af13c4c8195d73cfb9a65d6e9",
+ "status": 200
+}

@@ -254,6 +254,30 @@ descriptor is our bug, and under the house rule the task keeps all three tries.
    simulator binary so a mid-sweep rebuild cannot change what queued jobs run.
    Apply it the next time no chain is running.
 
+## GitHub now refuses git-upload-pack entirely (2026-09-03 04:00)
+
+1. The throttling described below has escalated from "large clones drop
+   part-way" to **no clone succeeds at all**, regardless of size.
+2. Measured at 04:05:
+   1. `git ls-remote` (a GET of `info/refs`) still works;
+   2. a **depth-1 clone of octocat/Hello-World** — a few KB — fails with
+      `could not read Username` / `the remote end hung up unexpectedly`;
+   3. `babel/babel` failed 13 times and `axios/axios`, a small repo, 3 times;
+   4. the REST quota is 60/60 and unrelated — it is a different bucket.
+3. So the refusal is on the `git-upload-pack` POST from this IP, not on repo
+   size and not on quota. It appeared after roughly eight full mirror clones in
+   one session.
+4. **Cached mirrors are unaffected**, which is why the host-side repo cache
+   matters more than it first appeared: it is now the only way to start an
+   instance. Seven repos are cached (fmt, gson, core, framework, fluentd,
+   preact, SWE-agent).
+5. **Working policy while it lasts:** start instances whose repo is ALREADY
+   cached rather than waiting. fmt-2457 was started out of trajectory-cost order
+   for exactly this reason — it is the most expensive trajectory of the 36, and
+   also the only remaining pick that needs no network.
+6. A retry loop re-attempts babel and axios every 30 minutes for 12 hours. The
+   block is time-based, so this needs patience rather than intervention.
+
 ## GitHub is throttling git from this host (2026-09-02)
 
 1. Two distinct failures, both reported as `could not read Username for

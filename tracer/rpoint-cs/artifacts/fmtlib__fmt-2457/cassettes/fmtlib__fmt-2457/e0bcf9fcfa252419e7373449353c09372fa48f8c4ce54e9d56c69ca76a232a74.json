@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I can see relevant commits: \\\"Make specifiers support in tuple_join an opt-in\\\" (2fe94ad7), \\\"reimplement `formatter<tuple_join_view>` (#2457)\\\" (a44c8f65), \\\"Fix tuple join\\\" (bb692015). Let me look at these:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show a44c8f65 --stat 2>/dev/null | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367040133041749940\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000096, \"id\": \"synthesized-00096\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00096\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e0bcf9fcfa252419e7373449353c09372fa48f8c4ce54e9d56c69ca76a232a74",
+ "status": 200
+}

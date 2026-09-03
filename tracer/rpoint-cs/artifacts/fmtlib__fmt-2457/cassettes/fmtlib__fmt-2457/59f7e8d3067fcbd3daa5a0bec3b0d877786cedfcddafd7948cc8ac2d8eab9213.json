@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/test/core-test.cc\\\",\\\"view_range\\\":[848, 890]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367069304459616623\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000164, \"id\": \"synthesized-00164\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00164\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "59f7e8d3067fcbd3daa5a0bec3b0d877786cedfcddafd7948cc8ac2d8eab9213",
+ "status": 200
+}

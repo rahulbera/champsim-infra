@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file is reverted, and only `include/fmt/ranges.h` is modified. Let me verify the test file is back to original:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff test/ranges-test.cc\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367061951475605829\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000205, \"id\": \"synthesized-00205\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00205\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "43c934f4851420d0d45bc1f7d5706bdec266d83fb389ddea2a860a97e3baae82",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/edge2.cpp << 'EOF'\\\\n#include <tuple>\\\\n#include <fmt/format.h>\\\\n#include <fmt/ranges.h>\\\\n\\\\nint main() {\\\\n  // Empty tuple with spec\\\\n  std::tuple<> e;\\\\n  fmt::print(\\\\\\\"[{}]\\\\\\\\n\\\\\\\", fmt::format(\\\\\\\"{:02}\\\\\\\", fmt::join(e, \\\\\\\", \\\\\\\")));\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/edge2.cpp /testbed/build/libfmt.a -o /tmp/edge2 && /tmp/edge2\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367033810849883648\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000195, \"id\": \"synthesized-00195\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00195\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1c60f38e5726e765ffa4b4ac0415cd263d9b1355553acbbf0ebfc6abec7b56ac",
+ "status": 200
+}

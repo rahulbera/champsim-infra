@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So `value(T& val)` stores `const_cast<value_type*>(&val)`. The `val` is a reference to the actual stored argument. For a view passed as rvalue, the `format_arg_store` stores it by value. Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"format_arg_store\\\\\\\\|class format_arg_store\\\\\\\\|data_\\\\\\\\[\\\\\\\" include/fmt/core.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367073118390579094\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000151, \"id\": \"synthesized-00151\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00151\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5cd90c1407798c62087e37ca2a92a9a49dec3a5cbbe813d1c66d5c4688f020d8",
+ "status": 200
+}

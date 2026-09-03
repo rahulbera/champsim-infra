@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the string formatter parse:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"struct formatter<.*string\\\\\\\\|formatter<std::basic_string\\\\\\\\|formatter<basic_string_view\\\\\\\\|formatter<Char \\\\\\\\*>\\\\\\\\|formatter<const Char\\\\\\\" include/fmt/format.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367030340516307414\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "20be8baa850fd1af6df982ac1a6aedfc21ae4fa8f1f144fde7d169c04f18cbb2",
+ "status": 200
+}

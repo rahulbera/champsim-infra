@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases work. Now let me consider the case where the format spec doesn't make sense for one of the tuple's types. According to the PR, an exception should be thrown in that case:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro3.cpp << 'EOF'\\\\n#include <tuple>\\\\n#include <string>\\\\n#include <fmt/format.h>\\\\n#include <fmt/ranges.h>\\\\n\\\\nint main() {\\\\n  // Format spec that doesn't make sense for one of the types\\\\n  std::tuple<int, std::string> t = std::make_tuple(42, std::string(\\\\\\\"hello\\\\\\\"));\\\\n  try {\\\\n    fmt::print(\\\\\\\"{:x}\\\\\\\\n\\\\\\\", fmt::join(t, \\\\\\\", \\\\\\\"));\\\\n  } catch (const fmt::format_error& e) {\\\\n    fmt::print(\\\\\\\"Caught error: {}\\\\\\\\n\\\\\\\", e.what());\\\\n  }\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/repro3.cpp /testbed/build/libfmt.a -o /tmp/repro3 && /tmp/repro3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367073599426918281\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d7cb271d9ad3f4576d2a579d379d4fbfee5ae83827c22460f2c580ab6a72662f",
+ "status": 200
+}

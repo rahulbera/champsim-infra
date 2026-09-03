@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So the exception IS thrown inside the try block (after \\\"inside try before format\\\"). But it's not caught! This means the exception type doesn't match `fmt::format_error`, OR there's a different exception handling issue.\\n\\nWait, the message says \\\"terminate called after throwing an instance of 'fmt::v8::format_error'\\\". So it IS a `fmt::format_error`. But it's not caught. This is strange.\\n\\nLet me check - maybe the issue is that `fmt::format_error` is defined differently in the header vs the compiled library. Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"class format_error\\\\\\\\|struct format_error\\\\\\\\|format_error :\\\\\\\" include/fmt/core.h include/fmt/format.h\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367048551177645171\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000080, \"id\": \"synthesized-00080\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00080\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7fbd6bc97fd0cf6c8a4e1d0e8fa1a5c932cbca797b5dcf4086c49a57776d3790",
+ "status": 200
+}

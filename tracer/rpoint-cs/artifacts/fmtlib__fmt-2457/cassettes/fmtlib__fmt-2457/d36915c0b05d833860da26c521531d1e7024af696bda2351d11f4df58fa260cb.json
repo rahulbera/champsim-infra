@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the custom type with non-const `format` works. Let me verify the basic cases still work:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/include /tmp/repro.cpp /testbed/build/libfmt.a -o /tmp/repro && /tmp/repro && echo \\\\\\\"---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_fix.cpp /testbed/build/libfmt.a -o /tmp/repro_fix && /tmp/repro_fix\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367059615013403361\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000146, \"id\": \"synthesized-00146\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00146\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d36915c0b05d833860da26c521531d1e7024af696bda2351d11f4df58fa260cb",
+ "status": 200
+}

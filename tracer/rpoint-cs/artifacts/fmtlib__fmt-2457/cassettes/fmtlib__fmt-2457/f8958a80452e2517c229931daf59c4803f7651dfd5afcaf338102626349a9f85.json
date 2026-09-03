@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me rebuild and test everything:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/include /tmp/repro.cpp /testbed/build/libfmt.a -o /tmp/repro && /tmp/repro && echo \\\\\\\"---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_fix.cpp /testbed/build/libfmt.a -o /tmp/repro_fix && /tmp/repro_fix && echo \\\\\\\"---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_custom.cpp /testbed/build/libfmt.a -o /tmp/repro_custom && /tmp/repro_custom\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367064562815728738\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000173, \"id\": \"synthesized-00173\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00173\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f8958a80452e2517c229931daf59c4803f7651dfd5afcaf338102626349a9f85",
+ "status": 200
+}

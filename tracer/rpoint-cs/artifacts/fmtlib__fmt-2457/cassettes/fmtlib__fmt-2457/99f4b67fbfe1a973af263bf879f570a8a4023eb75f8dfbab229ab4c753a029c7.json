@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the core.h to understand how parse and format specs work:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"parse_format_specs\\\\\\\\|basic_format_parse_context\\\\\\\\|class parse_context\\\\\\\\|check_dynamic_specs\\\\\\\\|unknown format specifier\\\\\\\\|on_format_specs\\\\\\\" /testbed/include/fmt/core.h | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367051574834622424\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "99f4b67fbfe1a973af263bf879f570a8a4023eb75f8dfbab229ab4c753a029c7",
+ "status": 200
+}

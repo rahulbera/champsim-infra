@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean except for the `include/fmt/ranges.h` change. Let me verify the test file is unchanged:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff HEAD -- test/ && echo \\\\\\\"=== test file unchanged ===\\\\\\\" && git diff --cached --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367035150879678970\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000211, \"id\": \"synthesized-00211\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00211\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e65b55d074619378564b7bfc4e90ba2c7728b7a70653999dce299dab53b36b7d",
+ "status": 200
+}

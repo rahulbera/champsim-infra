@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The strings are identical. Let me view the current state and then write the proper fix. Let me think about the design more carefully.\\n\\nThe proper approach (used in the actual fmt library fix for this issue, PR #2469) was to store the format spec string and re-parse it for each element's formatter. Let me implement this:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/ranges.h\\\",\\\"view_range\\\":[625, 685]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367042813101338160\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "86b52601c1f0b3f1cc4099893e6ff119a137995e605fde00574cac06922c8f86",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The dynamic width still fails. Let me think about why. The issue is that the spec `{}` for dynamic width is parsed against the parse context. When parsing the spec for each formatter, the parse context advances. The dynamic width `{}` consumes an argument id from the parse context. But the parse context's `next_arg_id` is shared, so the first formatter's parse would consume arg id 1 (the width), but then the second formatter's parse would try to consume the next arg id...\\n\\nActually, the issue is more subtle. The dynamic width `{}` in `{:{}}` - the `{}` after `:` is the dynamic width. When parsed, it stores an `arg_ref` with the auto-indexed arg id. But the auto-indexing happens during parse, and the parse context's `next_arg_id` is incremented.\\n\\nWait, but actually, the issue is that the `dynamic_specs_handler::on_dynamic_width` calls `context_.check_arg_id` or `next_arg_id`. Let me look:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/core.h\\\",\\\"view_range\\\":[2055, 2090]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366971585363703812\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000106, \"id\": \"synthesized-00106\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00106\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e6c2c5c3f1ff4ae9cacadf840cd348aad23bddf3f19f6190bae9a3e1f880f738",
+ "status": 200
+}

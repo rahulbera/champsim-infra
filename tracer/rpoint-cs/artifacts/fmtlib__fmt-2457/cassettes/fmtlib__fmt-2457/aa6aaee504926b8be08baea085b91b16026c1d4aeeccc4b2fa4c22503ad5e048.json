@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The wchar_t format needs the xchar header. Let me include it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro_wchar.cpp << 'EOF'\\\\n#include <tuple>\\\\n#include <fmt/format.h>\\\\n#include <fmt/ranges.h>\\\\n#include <fmt/xchar.h>\\\\n\\\\nint main() {\\\\n  std::tuple<int,int,int> b = std::make_tuple(1, 2, 3);\\\\n  std::wstring s = fmt::format(L\\\\\\\"{:02}\\\\\\\", fmt::join(b, L\\\\\\\", \\\\\\\"));\\\\n  fmt::print(\\\\\\\"wchar: \\\\\\\");\\\\n  for (wchar_t c : s) printf(\\\\\\\"%c\\\\\\\", (char)c);\\\\n  printf(\\\\\\\"\\\\\\\\n\\\\\\\");\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/repro_wchar.cpp /testbed/build/libfmt.a -o /tmp/repro_wchar 2>&1 | head -20 && /tmp/repro_wchar\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367049307091886462\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000126, \"id\": \"synthesized-00126\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00126\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "aa6aaee504926b8be08baea085b91b16026c1d4aeeccc4b2fa4c22503ad5e048",
+ "status": 200
+}

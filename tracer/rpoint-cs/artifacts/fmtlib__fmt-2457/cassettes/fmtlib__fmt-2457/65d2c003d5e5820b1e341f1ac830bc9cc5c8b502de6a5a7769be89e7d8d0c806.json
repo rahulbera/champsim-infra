@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me test all scenarios:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/include /tmp/repro.cpp /testbed/build/libfmt.a -o /tmp/repro && /tmp/repro && echo \\\\\\\"---fix---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_fix.cpp /testbed/build/libfmt.a -o /tmp/repro_fix && /tmp/repro_fix && echo \\\\\\\"---custom---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_custom.cpp /testbed/build/libfmt.a -o /tmp/repro_custom && /tmp/repro_custom && echo \\\\\\\"---wchar---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_wchar.cpp /testbed/build/libfmt.a -o /tmp/repro_wchar && /tmp/repro_wchar && echo \\\\\\\"---compile---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro_compile.cpp /testbed/build/libfmt.a -o /tmp/repro_compile && /tmp/repro_compile\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367035700635492802\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000179, \"id\": \"synthesized-00179\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00179\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "65d2c003d5e5820b1e341f1ac830bc9cc5c8b502de6a5a7769be89e7d8d0c806",
+ "status": 200
+}

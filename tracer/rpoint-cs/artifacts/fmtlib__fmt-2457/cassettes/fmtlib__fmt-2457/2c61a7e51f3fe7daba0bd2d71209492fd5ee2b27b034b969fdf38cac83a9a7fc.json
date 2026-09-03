@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a static_assert: `is_const_formattable<U, Context>() || !std::is_const<remove_reference_t<T>>() || has_fallback_formatter<U, char_type>()`. \\n\\nIf `is_const_formattable` is false (because `format` is non-const), then the assert requires `!std::is_const<remove_reference_t<T>>()` (i.e., the argument is non-const) OR has_fallback_formatter.\\n\\nFor `fmt::join(t, ...)` where `t` is a non-const tuple, the `tuple_join_view` holds a `const std::tuple<T...>&`. The `tuple_join_view` object itself is created as a temporary (rvalue) from `fmt::join`. When passed to `fmt::format`, it's passed as `T&&` (forwarding ref). \\n\\nLet me check - the `tuple_join_view` is a `detail::view`. Let me check how views are handled:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"struct view\\\\\\\\|class view\\\\\\\\|is_view\\\\\\\\|detail::view\\\\\\\" include/fmt/core.h include/fmt/format.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367057175471973266\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000148, \"id\": \"synthesized-00148\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00148\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2c61a7e51f3fe7daba0bd2d71209492fd5ee2b27b034b969fdf38cac83a9a7fc",
+ "status": 200
+}

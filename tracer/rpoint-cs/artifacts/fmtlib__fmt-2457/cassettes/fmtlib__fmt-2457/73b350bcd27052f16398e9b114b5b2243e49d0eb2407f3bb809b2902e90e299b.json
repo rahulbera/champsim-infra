@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Works. Now let me also test format_to:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro_to.cpp << 'EOF'\\\\n#include <tuple>\\\\n#include <string>\\\\n#include <fmt/format.h>\\\\n#include <fmt/ranges.h>\\\\n\\\\nint main() {\\\\n  std::tuple<int,int,int> b = std::make_tuple(1, 2, 3);\\\\n  char buf[100];\\\\n  auto end = fmt::format_to(buf, \\\\\\\"{:02}\\\\\\\", fmt::join(b, \\\\\\\", \\\\\\\"));\\\\n  *end = '\\\\\\\\0';\\\\n  fmt::print(\\\\\\\"{}\\\\\\\\n\\\\\\\", buf);\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/repro_to.cpp /testbed/build/libfmt.a -o /tmp/repro_to 2>&1 | head && /tmp/repro_to\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367044359289569271\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000161, \"id\": \"synthesized-00161\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00161\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "73b350bcd27052f16398e9b114b5b2243e49d0eb2407f3bb809b2902e90e299b",
+ "status": 200
+}

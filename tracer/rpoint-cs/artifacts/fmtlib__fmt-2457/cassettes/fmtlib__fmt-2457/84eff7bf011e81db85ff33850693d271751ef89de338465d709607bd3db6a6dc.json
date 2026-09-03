@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me test the dynamic width case (which should now work since the formatters are parsed with the original context):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/include /tmp/repro9.cpp /testbed/build/libfmt.a -o /tmp/repro9 2>&1 | head -20 && /tmp/repro9\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367053945656571579\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000105, \"id\": \"synthesized-00105\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00105\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "84eff7bf011e81db85ff33850693d271751ef89de338465d709607bd3db6a6dc",
+ "status": 200
+}

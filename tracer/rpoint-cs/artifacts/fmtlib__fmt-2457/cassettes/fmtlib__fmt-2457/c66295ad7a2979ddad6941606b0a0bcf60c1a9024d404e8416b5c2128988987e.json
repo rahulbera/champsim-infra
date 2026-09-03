@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The generic formatter's `format` is const. Good. Let me check the string formatter:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"auto format\\\\\\\" include/fmt/format.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367049788128224061\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000136, \"id\": \"synthesized-00136\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00136\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c66295ad7a2979ddad6941606b0a0bcf60c1a9024d404e8416b5c2128988987e",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. The reproduction script has been removed, the test files are unchanged, and only the source file `include/fmt/ranges.h` is modified.\\n\\nLet me run the submit command again to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7367058996538112333\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000213, \"id\": \"synthesized-00213\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00213\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "916dcf8534dfda7f59940657df4a45ac619e40df6655067f417c7b78ce150225",
+ "status": 200
+}

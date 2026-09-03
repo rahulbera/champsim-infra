@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the exception is properly caught. Let me run all the repro tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/include /tmp/repro.cpp /testbed/build/libfmt.a -o /tmp/repro && /tmp/repro && echo \\\\\\\"---\\\\\\\" && g++ -std=c++17 -I/testbed/include /tmp/repro2.cpp /testbed/build/libfmt.a -o /tmp/repro2 && /tmp/repro2\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367065662327352358\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000085, \"id\": \"synthesized-00085\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00085\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e8e5e6df8f20f8f17e1f165c22387c7ec1932eb9516148e3687aedc1d7be9f7a",
+ "status": 200
+}

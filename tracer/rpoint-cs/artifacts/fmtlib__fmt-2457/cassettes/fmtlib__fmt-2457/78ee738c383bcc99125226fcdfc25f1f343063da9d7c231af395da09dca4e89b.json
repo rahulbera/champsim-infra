@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All ranges tests pass. Let me also run the format tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make format-test 2>&1 | tail -10 && ./bin/format-test 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367043672094798536\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000088, \"id\": \"synthesized-00088\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00088\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "78ee738c383bcc99125226fcdfc25f1f343063da9d7c231af395da09dca4e89b",
+ "status": 200
+}

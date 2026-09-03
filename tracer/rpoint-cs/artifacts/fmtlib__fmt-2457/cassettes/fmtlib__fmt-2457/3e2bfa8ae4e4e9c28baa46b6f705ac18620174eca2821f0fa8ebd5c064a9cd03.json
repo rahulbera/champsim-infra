@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"wchar_t works. Let me also run the xchar-test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make xchar-test 2>&1 | tail -3 && ./bin/xchar-test 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367073496347702541\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000127, \"id\": \"synthesized-00127\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00127\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3e2bfa8ae4e4e9c28baa46b6f705ac18620174eca2821f0fa8ebd5c064a9cd03",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All cases work. Now let me run the existing test suite to make sure I didn't break anything. Let me build and run the ranges test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make ranges-test 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082223721248200\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "abb2a0c13b453f67a41daa7f48393ce9c632bcbd24c07e8526d80f47beb822a6",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me rebuild the relevant tests and run them:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make ranges-test format-test core-test args-test ostream-test compile-test 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367043294137677668\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000120, \"id\": \"synthesized-00120\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00120\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "22f8b5976231499f3e694e46cff8dc17af9a37fe54419af4af0aed916075f3ac",
+ "status": 200
+}

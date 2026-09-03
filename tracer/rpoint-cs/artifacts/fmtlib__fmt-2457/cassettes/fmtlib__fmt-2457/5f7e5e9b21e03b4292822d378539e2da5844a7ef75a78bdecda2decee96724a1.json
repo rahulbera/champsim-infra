@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"With C++17, the format string check is deferred (since `FMT_HAS_CONSTEVAL` is not defined), so the error is thrown at runtime and caught. Good.\\n\\nLet me check with C++20:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++20 -I/testbed/include /tmp/repro11.cpp /testbed/build/libfmt.a -o /tmp/repro11_20 2>&1 | head && /tmp/repro11_20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367013641683466993\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000116, \"id\": \"synthesized-00116\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00116\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5f7e5e9b21e03b4292822d378539e2da5844a7ef75a78bdecda2decee96724a1",
+ "status": 200
+}

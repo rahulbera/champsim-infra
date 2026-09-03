@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the compile-test actually tests compile-time format strings with join. Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"join\\\\\\\\|FMT_COMPILE\\\\\\\" test/compile-test.cc | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367067620832443762\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000123, \"id\": \"synthesized-00123\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00123\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a9bc416c50a2c2f6811760ddaf8f4b3b4204806abd782222703c59727ba38126",
+ "status": 200
+}

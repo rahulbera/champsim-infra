@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `is_const_formattable` check tests if the formatter's `format` can be called on a const value with a non-const formatter. Since I made `format` const, this should work. Let me verify the const-formattable test passes by checking the format-test which has `test_formatters_enabled`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"test_formatters_enabled\\\\\\\\|is_const_formattable\\\\\\\\|is_formattable\\\\\\\" test/format-test.cc | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367053224102067375\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000133, \"id\": \"synthesized-00133\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00133\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "14ce74be7cfd8810231f2361df467570b6481661dad9c56d47115a2dc5169856",
+ "status": 200
+}

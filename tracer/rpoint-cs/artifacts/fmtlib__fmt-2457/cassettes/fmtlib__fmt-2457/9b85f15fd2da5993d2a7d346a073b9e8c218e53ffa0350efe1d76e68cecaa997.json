@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, the test file is unchanged. Let me do a final rebuild and test to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make ranges-test 2>&1 | tail -2 && ./bin/ranges-test 2>&1 | tail -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367028759968346238\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000206, \"id\": \"synthesized-00206\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00206\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b85f15fd2da5993d2a7d346a073b9e8c218e53ffa0350efe1d76e68cecaa997",
+ "status": 200
+}

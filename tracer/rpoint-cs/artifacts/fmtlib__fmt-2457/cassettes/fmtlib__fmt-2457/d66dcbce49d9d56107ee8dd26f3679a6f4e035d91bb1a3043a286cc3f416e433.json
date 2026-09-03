@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The exception is thrown during the format string checking (compile-time check), which happens before the try/catch. This is the `format` function with compile-time format string checking. The check happens at the call site before the try block.\\n\\nThis is actually the expected behavior - the format string is checked at compile time / at the start of the `format` function. The PR says \\\"An exception would only be thrown if the format specifier didn't make sense for one of the tuple's types.\\\" So throwing an exception is the expected behavior here. The fact that it's thrown during the format string check (which happens before user code) is fine - it's still an exception being thrown.\\n\\nActually, the issue is that the format string check uses a `checker` that calls `parse` on the formatter. Let me look at how the checker works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/fmt/core.h\\\",\\\"view_range\\\":[2617, 2760]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367035116519947196\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000073, \"id\": \"synthesized-00073\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00073\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d66dcbce49d9d56107ee8dd26f3679a6f4e035d91bb1a3043a286cc3f416e433",
+ "status": 200
+}

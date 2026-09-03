@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No test for FMT_COMPILE with tuple join. But there's a commit \\\"fmt::join support FMT_COMPILE (#2720)\\\". Let me check it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show b02e5af5 --stat 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367054735930550801\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000183, \"id\": \"synthesized-00183\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00183\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9dc3f9d317b4cd952aff64b22b2ee86d74c4a56f4c6885fdfbc3b6f1098f3412",
+ "status": 200
+}

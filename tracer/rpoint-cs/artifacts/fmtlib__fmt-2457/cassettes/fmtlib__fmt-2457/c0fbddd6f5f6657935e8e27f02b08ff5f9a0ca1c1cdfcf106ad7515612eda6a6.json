@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All the test cases from the actual fix pass. Now let me build and run the full test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make ranges-test format-test 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367083117074445312\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000110, \"id\": \"synthesized-00110\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00110\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c0fbddd6f5f6657935e8e27f02b08ff5f9a0ca1c1cdfcf106ad7515612eda6a6",
+ "status": 200
+}

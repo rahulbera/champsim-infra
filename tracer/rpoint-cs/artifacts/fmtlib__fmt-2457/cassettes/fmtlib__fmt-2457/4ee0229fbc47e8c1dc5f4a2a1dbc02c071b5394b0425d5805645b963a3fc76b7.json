@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check \\\"Fix is_formattable for tuple-like types\\\" (#2940) which might be related to the const issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 56823388 --stat 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367038861731428000\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000175, \"id\": \"synthesized-00175\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00175\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ee0229fbc47e8c1dc5f4a2a1dbc02c071b5394b0425d5805645b963a3fc76b7",
+ "status": 200
+}

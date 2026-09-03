@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `arg_data` stores `value<Context>` (which is `detail::value`). For custom types, `value(T& val)` stores a pointer to the argument. The argument is passed by `T&&` (forwarding ref) to `make_format_args`, and `make_arg` is called with `std::forward<T>(args)`. \\n\\nLet me check `make_arg`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"FMT_CONSTEXPR auto make_arg\\\\\\\\|FMT_CONSTEXPR FMT_INLINE auto make_arg\\\\\\\\|make_arg(\\\\\\\" include/fmt/core.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367062157634039680\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000156, \"id\": \"synthesized-00156\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00156\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "85f505a3243cd258aed2a206a95ad702c9c5908d78b6190fc84e3a47230b149b",
+ "status": 200
+}

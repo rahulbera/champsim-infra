@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All scenarios work including FMT_COMPILE. Now let me run the full test suite:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make ranges-test format-test core-test args-test ostream-test compile-test xchar-test 2>&1 | tail -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367062398152208445\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000187, \"id\": \"synthesized-00187\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00187\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6182c7cf81e3c569077968031975f6799fc9fba3bcc89107286fd80a066f739a",
+ "status": 200
+}

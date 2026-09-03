@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The exception is thrown but not caught. Let me check the `FMT_THROW` macro and exception handling:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"FMT_THROW\\\\\\\\|FMT_EXCEPTIONS\\\\\\\\|throw_format_error\\\\\\\" include/fmt/core.h | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367045871118051716\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000054, \"id\": \"synthesized-00054\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00054\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0268e4b66538a53a240744390f2ff99e929407ac19922e288c363768e46d53c2",
+ "status": 200
+}

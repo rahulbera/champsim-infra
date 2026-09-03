@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the `join_view` (the iterator-based one) to understand how it handles format specifiers:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"join_view\\\\\\\\|format_dynamic_specs\\\\\\\\|dynamic_specs\\\\\\\\|basic_format_parse_context\\\\\\\\|parse_format_specs\\\\\\\" /testbed/include/fmt/ranges.h\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367036044232877079\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e994241bdcaf46a1481aaee72e0a28fd2d863685c04c325b8a8c72903114516b",
+ "status": 200
+}

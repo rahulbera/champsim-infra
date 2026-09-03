@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Hmm, there's an error. Let me find which case fails:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/edge1.cpp << 'EOF'\\\\n#include <tuple>\\\\n#include <fmt/format.h>\\\\n#include <fmt/ranges.h>\\\\n\\\\nint main() {\\\\n  // Empty spec (just colon)\\\\n  std::tuple<int,int> t{1,2};\\\\n  fmt::print(\\\\\\\"[{}]\\\\\\\\n\\\\\\\", fmt::format(\\\\\\\"{:}\\\\\\\", fmt::join(t, \\\\\\\", \\\\\\\")));\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -I/testbed/include /tmp/edge1.cpp /testbed/build/libfmt.a -o /tmp/edge1 && /tmp/edge1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367033673410933649\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000194, \"id\": \"synthesized-00194\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00194\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ed38bb1134493714960ca2f6bfdbf6ca19ef7325a1e4c382ef235803ab629d1c",
+ "status": 200
+}
