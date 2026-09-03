@@ -57,7 +57,21 @@ EOF
   # -buildvcs=false stops `go build` shelling out to git, which fails with
   # "error obtaining VCS status: exit status 128" on a dubious-ownership repo --
   # a message that reads like a network fault but is not.
-  [ "$(go env GOTOOLCHAIN)" = "local" ] || die "GOTOOLCHAIN is not local"
+  # GOTOOLCHAIN only EXISTS from Go 1.21. Writing it to /etc/go/env above is
+  # harmless on older toolchains (the key is ignored), but ASSERTING it is not:
+  # `go env GOTOOLCHAIN` on Go 1.19 prints an empty line for the unknown key, so
+  # this check failed prometheus-10720's provisioning with "GOTOOLCHAIN is not
+  # local" on a guest that was configured exactly right. There is simply nothing
+  # to pin before 1.21 -- the auto-download behaviour it guards against does not
+  # exist yet.
+  _gotc=$(go env GOTOOLCHAIN 2>/dev/null || true)
+  _gominor=$(go env GOVERSION 2>/dev/null | sed -n 's/^go1\.\([0-9]*\).*/\1/p')
+  if [ -n "$_gotc" ] || { [ -n "$_gominor" ] && [ "$_gominor" -ge 21 ]; }; then
+    [ "$_gotc" = "local" ] || die "GOTOOLCHAIN is '$_gotc', expected local"
+    ok "GOTOOLCHAIN pinned to local"
+  else
+    ok "Go ${GO_VERSION} predates GOTOOLCHAIN (added in 1.21) -- nothing to pin"
+  fi
   [ "$(go env CC)" = "gcc" ] || die "go env CC is $(go env CC), expected gcc"
   ok "go env pinned"
 }

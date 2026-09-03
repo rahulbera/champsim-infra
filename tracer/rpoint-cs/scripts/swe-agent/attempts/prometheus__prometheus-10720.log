@@ -1,0 +1,1 @@
+2026-09-03 10:03:02	infra	go.sh asserted GOTOOLCHAIN=local, but that key only exists from Go 1.21; on 1.19.13 go env prints empty and the correctly-configured guest was rejected
