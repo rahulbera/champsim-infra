@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify I haven't modified any test files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378540918859183\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000090, \"id\": \"synthesized-00090\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00090\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4b227586f10255d4aff8eef57589346fc0aadeb1470c0e011a46699f9158ed68",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `submit` tool requires `python3` which isn't installed in this environment. Let me check if there's a way to make it available, or verify the change is complete regardless:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python python3 python3.10 python3.11 2>/dev/null; ls -la /usr/bin/python* 2>/dev/null; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367014878634046803\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000090, \"id\": \"synthesized-00090\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00090\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "04f78dc1cb7e9ed4269e94bd122cf11b4a3edd8384b02acd0a4181282aa21c1c",
+ "status": 200
+}

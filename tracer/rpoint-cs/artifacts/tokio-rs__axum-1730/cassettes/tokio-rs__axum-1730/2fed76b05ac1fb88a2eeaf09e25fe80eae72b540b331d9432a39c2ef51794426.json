@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro_test && cargo run 2>&1 | grep -A3 \\\\\\\"error\\\\\\\\[\\\\\\\" | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355372905921765390\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2fed76b05ac1fb88a2eeaf09e25fe80eae72b540b331d9432a39c2ef51794426",
+ "status": 200
+}

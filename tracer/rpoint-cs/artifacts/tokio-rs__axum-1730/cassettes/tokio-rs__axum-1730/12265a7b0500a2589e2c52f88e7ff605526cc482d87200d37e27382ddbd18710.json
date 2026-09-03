@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the fix. The PR implements `Handler` for `MethodRouter` so that a `MethodRouter` can be passed directly to `Router::fallback` (and `Router::fallback_service`). This allows the state to be propagated through `with_state` automatically.\\n\\nLet me look at the current state of the future.rs file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/axum/src/routing/future.rs\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355394861794588192\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "12265a7b0500a2589e2c52f88e7ff605526cc482d87200d37e27382ddbd18710",
+ "status": 200
+}

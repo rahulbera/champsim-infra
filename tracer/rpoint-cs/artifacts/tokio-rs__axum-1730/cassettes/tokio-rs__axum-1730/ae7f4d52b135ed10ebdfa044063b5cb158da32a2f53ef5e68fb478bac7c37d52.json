@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show 0ecf5eeb -- axum/src/routing/method_routing.rs axum/src/routing/route.rs axum/src/routing/tests/mod.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355375139304764530\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ae7f4d52b135ed10ebdfa044063b5cb158da32a2f53ef5e68fb478bac7c37d52",
+ "status": 200
+}

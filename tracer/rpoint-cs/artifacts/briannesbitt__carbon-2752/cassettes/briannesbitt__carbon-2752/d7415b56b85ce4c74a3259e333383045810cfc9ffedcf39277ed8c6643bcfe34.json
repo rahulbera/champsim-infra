@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All full names and abbreviations now work correctly for all months and all days, including the day-1 bug scenario. Let me re-run the edge cases to make sure nothing broke:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php /tmp/repro_edge.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367057519069357661\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d7415b56b85ce4c74a3259e333383045810cfc9ffedcf39277ed8c6643bcfe34",
+ "status": 200
+}

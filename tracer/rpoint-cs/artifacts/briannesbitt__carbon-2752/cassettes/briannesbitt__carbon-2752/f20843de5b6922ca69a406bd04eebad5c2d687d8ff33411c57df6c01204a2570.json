@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There are failures and errors. Let me check if these are pre-existing (unrelated to my change) by stashing my change and running the same tests. First, let me see the specific failures:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -d memory_limit=512M ./vendor/bin/phpunit 2>&1 | grep -E \\\\\\\"FAILURES|ERRORS|Tests:|There were|^[0-9]+\\\\\\\\)\\\\\\\" | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367061298640580180\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f20843de5b6922ca69a406bd04eebad5c2d687d8ff33411c57df6c01204a2570",
+ "status": 200
+}

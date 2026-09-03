@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Only the source file `src/Carbon/Traits/Comparison.php` is modified - no test files were touched. Let me run a final reproduction to confirm the fix works, then clean up:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro_final.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\Carbon;\\\\n\\\\n$today = Carbon::create(2023, 10, 01);\\\\nvar_dump($today->is('January')); // expected: false\\\\nvar_dump($today->toString()); // Sun Oct 01 2023 00:00:00 GMT+0000\\\\nEOF\\\\nphp /tmp/repro_final.php && rm -f /tmp/repro_final.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367077619516305279\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000099, \"id\": \"synthesized-00099\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00099\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e4be5b5c90459ccb1292012b19d8bde4a7b4d1f848a767a5d672bed71a29822b",
+ "status": 200
+}

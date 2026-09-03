@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the current state of the tests/mod.rs to see if the test has been added:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"method_router_fallback_with_state\\\\\\\" /testbed/axum/src/routing/tests/mod.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355399603438481549\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6b4e57890f2ca46259bf49886f810a5f1fe0fd2002d04bb8d1fe222b27d03f5d",
+ "status": 200
+}

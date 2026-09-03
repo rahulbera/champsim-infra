@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The bug is fixed. Now `Carbon::create(2023, 10, 1)->is('January')` returns `false`. Let me run the more comprehensive tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php /tmp/repro3.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367083632470519296\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a841cb5cd8754f00a76feec3b3f59a20223ccebcfce1042b201edc48103f669d",
+ "status": 200
+}

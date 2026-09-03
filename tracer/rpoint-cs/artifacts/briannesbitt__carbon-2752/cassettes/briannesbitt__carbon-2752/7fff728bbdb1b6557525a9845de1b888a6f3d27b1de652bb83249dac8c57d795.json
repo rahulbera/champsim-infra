@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a python3.11 installation at `/root/python3.11/`. Let me make it available on PATH so the `submit` tool (and `str_replace_editor`) can use it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls /root/python3.11/bin/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367060851963983195\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000092, \"id\": \"synthesized-00092\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00092\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7fff728bbdb1b6557525a9845de1b888a6f3d27b1de652bb83249dac8c57d795",
+ "status": 200
+}

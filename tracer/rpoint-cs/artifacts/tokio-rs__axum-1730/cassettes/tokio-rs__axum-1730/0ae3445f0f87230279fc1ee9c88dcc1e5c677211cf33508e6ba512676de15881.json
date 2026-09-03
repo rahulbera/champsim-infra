@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me create a test crate to reproduce the issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && mkdir -p /tmp/repro_test/src && cat > /tmp/repro_test/Cargo.toml << 'EOF'\\\\n[package]\\\\nname = \\\\\\\"repro_test\\\\\\\"\\\\nversion = \\\\\\\"0.1.0\\\\\\\"\\\\nedition = \\\\\\\"2021\\\\\\\"\\\\n\\\\n[dependencies]\\\\naxum = { path = \\\\\\\"/testbed/axum\\\\\\\" }\\\\ntokio = { version = \\\\\\\"1.0\\\\\\\", features = [\\\\\\\"full\\\\\\\"] }\\\\nEOF\\\\ncp /tmp/reproduce.rs /tmp/repro_test/src/main.rs\\\\ncat /tmp/repro_test/Cargo.toml\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355374074152869966\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0ae3445f0f87230279fc1ee9c88dcc1e5c677211cf33508e6ba512676de15881",
+ "status": 200
+}

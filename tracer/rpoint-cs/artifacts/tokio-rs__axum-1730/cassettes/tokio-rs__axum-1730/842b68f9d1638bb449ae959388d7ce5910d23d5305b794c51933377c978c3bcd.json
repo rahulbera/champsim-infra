@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"So the `E` parameter existed. The original PR used `MethodRouter<S, B>` which defaults `E` to `Infallible`. So my implementation `MethodRouter<S, B, Infallible>` is equivalent. Let me verify this is correct by checking the `call_with_state` signature - it returns `RouteFuture<B, E>`, so for the `InfallibleRouteFuture` to work, `E` must be `Infallible`.\\n\\nLet me check the `call_with_state` signature:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"fn call_with_state\\\\\\\" /testbed/axum/src/routing/method_routing.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355357718917414504\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "842b68f9d1638bb449ae959388d7ce5910d23d5305b794c51933377c978c3bcd",
+ "status": 200
+}

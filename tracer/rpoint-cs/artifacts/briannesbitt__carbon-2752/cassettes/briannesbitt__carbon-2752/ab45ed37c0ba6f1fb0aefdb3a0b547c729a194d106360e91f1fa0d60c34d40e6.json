@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the bug. Now let me understand the logic. Let me test more cases to understand the full scope of the bug:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro2.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\Carbon;\\\\n\\\\n// Test all months against 'January'\\\\nforeach (range(1, 12) as $m) {\\\\n    $d = Carbon::create(2023, $m, 15);\\\\n    echo \\\\\\\"Month $m is('January'): \\\\\\\" . var_export($d->is('January'), true) . \\\\\\\" (expected: \\\\\\\" . var_export($m === 1, true) . \\\\\\\")\\\\\\\\n\\\\\\\";\\\\n}\\\\nEOF\\\\nphp /tmp/repro2.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367080608813545148\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ab45ed37c0ba6f1fb0aefdb3a0b547c729a194d106360e91f1fa0d60c34d40e6",
+ "status": 200
+}

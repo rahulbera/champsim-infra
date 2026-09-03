@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The perl substitution broke the first regex - it's now `'/^\\\\d+'` instead of `'/^\\\\d+$/'`. Let me revert this file and use a cleaner approach:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout src/Carbon/Traits/Comparison.php && sed -n '993,999p' src/Carbon/Traits/Comparison.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367084560183458880\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bd192ef0940936788b6bfdf57176807bbcdc0f6af6ae443896f60daf0332aa84",
+ "status": 200
+}

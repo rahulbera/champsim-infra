@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -d memory_limit=512M ./vendor/bin/phpunit 2>&1 | grep -A 30 \\\\\\\"There were\\\\\\\\|FAILURES\\\\\\\\|ERRORS\\\\\\\\|^OK\\\\\\\\|Tests:\\\\\\\" | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367090023381856903\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ccf0c0f89893c91df797fd3bf08efe243f319a5c4a670711498a948c83c75a7f",
+ "status": 200
+}

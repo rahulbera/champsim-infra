@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now `/usr/bin/env python3` works. Let me verify my change is still in place and then submit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367065421809187609\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000096, \"id\": \"synthesized-00096\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00096\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5a2d551005980ec7df986cd74b5f8e157ae0b640bfae9c53ebfadc25fa49f14a",
+ "status": 200
+}

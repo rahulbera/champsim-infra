@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"January\\\\\\\\|October\\\\\\\\|october\\\\\\\\|january\\\\\\\" tests/Carbon/IsTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367056316478514197\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0d7de5b4ee07eca9d6b1354d3b77cee4a68fbe384b65d8fcb52b5dbe88016c6c",
+ "status": 200
+}

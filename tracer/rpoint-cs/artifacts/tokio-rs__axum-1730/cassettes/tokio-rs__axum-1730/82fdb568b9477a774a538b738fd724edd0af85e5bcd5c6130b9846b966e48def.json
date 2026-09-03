@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The doc test failures are pre-existing and not related to my change. Let me restore my changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355386546737900516\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "82fdb568b9477a774a538b738fd724edd0af85e5bcd5c6130b9846b966e48def",
+ "status": 200
+}

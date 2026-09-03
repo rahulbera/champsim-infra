@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the build still works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro_test && cargo run 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355396717220457286\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000076, \"id\": \"synthesized-00076\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00076\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2fa0e4e57e9eb204face74ab5196e84eb3435f7d9dd03e17b5d29240f07a3cda",
+ "status": 200
+}

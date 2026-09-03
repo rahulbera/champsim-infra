@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Wait, it only ran 151 tests - it seems only one file was picked up. Let me check the test directory structure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls tests/Carbon/ | grep -i \\\\\\\"comp\\\\\\\\|is\\\\\\\" ; echo \\\\\\\"---\\\\\\\"; ls tests/CarbonImmutable/ | grep -i \\\\\\\"comp\\\\\\\\|is\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367086346889849088\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c49a6e7502640c3c26653b70dc7c37043fc8e41bd21983a96ea8cc2da2020289",
+ "status": 200
+}

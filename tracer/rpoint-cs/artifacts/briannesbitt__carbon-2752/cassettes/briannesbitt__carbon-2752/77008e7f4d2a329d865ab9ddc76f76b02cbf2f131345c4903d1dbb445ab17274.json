@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both Carbon and CarbonImmutable work correctly. \\n\\nNow let me think about one more edge case: what about a localized month name? The `is()` method's existing month+year regex only handles English month names, so my addition is consistent with that. Let me verify localized month names aren't expected to work via this path (they weren't before either):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/verify_locale.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\Carbon;\\\\n\\\\n// Set French locale\\\\nCarbon::setLocale('fr');\\\\n$d = Carbon::create(2023, 10, 1);\\\\necho \\\\\\\"FR locale: is('janvier') => \\\\\\\" . var_export($d->is('janvier'), true) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\necho \\\\\\\"FR locale: is('October') => \\\\\\\" . var_export($d->is('October'), true) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\necho \\\\\\\"FR locale: is('octobre') => \\\\\\\" . var_export($d->is('octobre'), true) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\nCarbon::setLocale('en');\\\\nEOF\\\\nphp /tmp/verify_locale.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367098682035929045\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000080, \"id\": \"synthesized-00080\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00080\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "77008e7f4d2a329d865ab9ddc76f76b02cbf2f131345c4903d1dbb445ab17274",
+ "status": 200
+}

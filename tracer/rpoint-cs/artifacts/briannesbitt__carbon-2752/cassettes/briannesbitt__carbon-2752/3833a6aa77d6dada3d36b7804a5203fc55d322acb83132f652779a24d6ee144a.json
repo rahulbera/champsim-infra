@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All comparison and is-related tests pass. Let me also run the Factory tests since `is()` uses `static::parse()` which can be affected by factory settings, and the CommonTraits tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && for f in tests/Carbon/FactoryTest.php tests/CommonTraits; do echo \\\\\\\"=== $f ===\\\\\\\"; ./vendor/bin/phpunit \\\\\\\"$f\\\\\\\" 2>&1 | tail -3; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367094387068629243\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000075, \"id\": \"synthesized-00075\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00075\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3833a6aa77d6dada3d36b7804a5203fc55d322acb83132f652779a24d6ee144a",
+ "status": 200
+}

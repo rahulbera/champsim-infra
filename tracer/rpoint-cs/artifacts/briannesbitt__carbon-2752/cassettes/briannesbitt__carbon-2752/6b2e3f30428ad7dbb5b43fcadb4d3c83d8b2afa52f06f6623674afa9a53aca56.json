@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a memory issue and a failure. Let me check what failed - it might be unrelated to my change. Let me run with more memory and see the specific failure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -d memory_limit=512M ./vendor/bin/phpunit 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367085350457442180\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6b2e3f30428ad7dbb5b43fcadb4d3c83d8b2afa52f06f6623674afa9a53aca56",
+ "status": 200
+}

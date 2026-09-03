@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is the Carbon PHP library. Let me explore the source structure.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find src -type f -name \\\\\\\"*.php\\\\\\\" | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367053430260494406\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000001, \"id\": \"synthesized-00001\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00001\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ce9315de7a4d8a3d546449fe448042d596995bf4bfb6230a6f88f60d5a8b4feb",
+ "status": 200
+}

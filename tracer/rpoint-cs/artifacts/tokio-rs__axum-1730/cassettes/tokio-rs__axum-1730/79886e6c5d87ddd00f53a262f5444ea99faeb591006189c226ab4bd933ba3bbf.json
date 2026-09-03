@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 268 tests pass. Let me also run the doc tests to make sure the documentation still compiles:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/axum && cargo test --doc 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355370603819295802\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000068, \"id\": \"synthesized-00068\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00068\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "79886e6c5d87ddd00f53a262f5444ea99faeb591006189c226ab4bd933ba3bbf",
+ "status": 200
+}

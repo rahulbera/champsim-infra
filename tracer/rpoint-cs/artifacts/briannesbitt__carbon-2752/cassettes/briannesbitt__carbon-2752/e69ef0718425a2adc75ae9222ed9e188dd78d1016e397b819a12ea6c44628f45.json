@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All assertions pass. Now let me also verify the CarbonImmutable variant works (since `is()` is a shared trait):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/verify_immutable.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\CarbonImmutable;\\\\n\\\\nassert(CarbonImmutable::create(2023, 10, 1)->is('January') === false);\\\\nassert(CarbonImmutable::create(2023, 1, 1)->is('January') === true);\\\\nassert(CarbonImmutable::create(2023, 10, 1)->is('October') === true);\\\\nassert(CarbonImmutable::parse('2019-05-31 12:23:45')->is('May') === true);\\\\nassert(CarbonImmutable::parse('2019-05-31 12:23:45')->is('mAy') === true);\\\\nassert(CarbonImmutable::parse('2019-05-31 12:23:45')->is('April') === false);\\\\nassert(CarbonImmutable::parse('2019-06-02 12:23:45')->is('June 2019') === true);\\\\necho \\\\\\\"All CarbonImmutable assertions passed!\\\\\\\\n\\\\\\\";\\\\nEOF\\\\nphp /tmp/verify_immutable.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367091913167464432\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e69ef0718425a2adc75ae9222ed9e188dd78d1016e397b819a12ea6c44628f45",
+ "status": 200
+}

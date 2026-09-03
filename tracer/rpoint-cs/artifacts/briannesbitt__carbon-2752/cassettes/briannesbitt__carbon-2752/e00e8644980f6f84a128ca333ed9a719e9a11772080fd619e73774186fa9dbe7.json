@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Carbon/IsTest.php tests/Carbon/ComparisonTest.php tests/Carbon/ExpressiveComparisonTest.php tests/CarbonImmutable/IsTest.php tests/CarbonImmutable/ComparisonTest.php tests/CarbonImmutable/ExpressiveComparisonTest.php 2>&1 | tail -12\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367049650689273057\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000072, \"id\": \"synthesized-00072\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00072\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e00e8644980f6f84a128ca333ed9a719e9a11772080fd619e73774186fa9dbe7",
+ "status": 200
+}

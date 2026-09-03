@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The original PR added a test to `tests/mod.rs`. Since the instructions say tests have been taken care of, but the test isn't there, let me double-check by looking at the current tests/mod.rs end:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && wc -l /testbed/axum/src/routing/tests/mod.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355376444974819456\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8d7f654b46d2e766953090363206fd6d714fd0007819a5f7f7b4a6e06bdfcc52",
+ "status": 200
+}

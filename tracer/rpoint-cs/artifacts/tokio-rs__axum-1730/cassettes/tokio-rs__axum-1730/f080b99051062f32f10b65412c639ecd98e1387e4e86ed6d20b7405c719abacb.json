@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I need to add the dependencies. Let me update the Cargo.toml:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat > /tmp/repro_test/Cargo.toml << 'EOF'\\\\n[package]\\\\nname = \\\\\\\"repro_test\\\\\\\"\\\\nversion = \\\\\\\"0.1.0\\\\\\\"\\\\nedition = \\\\\\\"2021\\\\\\\"\\\\n\\\\n[dependencies]\\\\naxum = { path = \\\\\\\"/testbed/axum\\\\\\\" }\\\\ntokio = { version = \\\\\\\"1.0\\\\\\\", features = [\\\\\\\"full\\\\\\\"] }\\\\ntower = { version = \\\\\\\"0.4\\\\\\\", features = [\\\\\\\"util\\\\\\\"] }\\\\nhyper = \\\\\\\"0.14\\\\\\\"\\\\nEOF\\\\ncd /tmp/repro_test && cargo run 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355368336076569202\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f080b99051062f32f10b65412c639ecd98e1387e4e86ed6d20b7405c719abacb",
+ "status": 200
+}

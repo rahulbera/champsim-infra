@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is the Carbon PHP library. Let me look at the `is()` method and understand the bug. Let me also look at the test files.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rln \\\\\\\"->is(\\\\\\\" tests/ | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367072396836074712\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000005, \"id\": \"synthesized-00005\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00005\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5612e415c5c48c9f3c51860ee15caee5b4a98b6fd3c06bb205837c78d67cec66",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"My change is in place. The full test suite crashes at 74% due to a pre-existing test that calls `exit()` (the `int(43)`/`int(19)` output suggests a signal/exit test), which is unrelated to my change.\\n\\nLet me run the test suites that are most relevant and complete successfully. Let me run the Comparison-related tests and the Is tests, plus a broader set excluding the crashing test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Carbon/IsTest.php tests/CarbonImmutable/IsTest.php tests/Carbon/ComparisonTest.php tests/CarbonImmutable/ComparisonTest.php 2>&1 | tail -12\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367037762219801974\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "944d00e6230dfbf3b3abdc740845ab6741d11e76521caa37110533127044a55f",
+ "status": 200
+}

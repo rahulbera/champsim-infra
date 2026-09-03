@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 271 tests pass with all features. Let me clean up my test directory:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -rf /tmp/repro_test /tmp/reproduce.rs /tmp/verify_test.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355372974641248261\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000084, \"id\": \"synthesized-00084\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00084\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7145a8723b6ca18529e3c1edc0f520de01c732ab5053491431fb79eab7613696",
+ "status": 200
+}

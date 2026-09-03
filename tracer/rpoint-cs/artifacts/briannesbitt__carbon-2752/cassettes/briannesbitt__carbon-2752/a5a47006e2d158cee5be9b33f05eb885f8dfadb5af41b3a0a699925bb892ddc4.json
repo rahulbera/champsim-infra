@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is the official fix from a later Carbon version. Let me check the current code structure to adapt it properly. Let me check if `transmitFactory` exists in this version:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"function transmitFactory\\\\\\\\|transmitFactory\\\\\\\" src/Carbon/Traits/ | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367087927437816527\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a5a47006e2d158cee5be9b33f05eb885f8dfadb5af41b3a0a699925bb892ddc4",
+ "status": 200
+}

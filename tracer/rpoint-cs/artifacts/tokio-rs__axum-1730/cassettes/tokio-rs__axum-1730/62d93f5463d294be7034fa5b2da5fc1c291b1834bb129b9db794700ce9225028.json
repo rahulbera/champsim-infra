@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I have not modified any test files. All my changes are to non-test files:\\n- `axum/CHANGELOG.md` (documentation)\\n- `axum/src/routing/future.rs` (re-export)\\n- `axum/src/routing/method_routing.rs` (Handler impl)\\n- `axum/src/routing/route.rs` (InfallibleRouteFuture type)\\n\\nLet me run the full test suite one final time to confirm everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/axum && cargo test --lib --all-features 2>&1 | tail -5\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378678357818693\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000092, \"id\": \"synthesized-00092\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00092\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "62d93f5463d294be7034fa5b2da5fc1c291b1834bb129b9db794700ce9225028",
+ "status": 200
+}

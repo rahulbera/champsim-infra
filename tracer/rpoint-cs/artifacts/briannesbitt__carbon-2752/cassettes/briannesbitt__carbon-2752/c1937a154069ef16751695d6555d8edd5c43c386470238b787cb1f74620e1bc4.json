@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting - abbreviations like 'Jan' work via the `modify()` path. Let me check whether abbreviations have the same bug when the day is 1:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro_abbr2.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\Carbon;\\\\n\\\\n// Test abbreviations with day 1 (the bug scenario)\\\\nforeach (range(1, 12) as $m) {\\\\n    $d = Carbon::create(2023, $m, 1);\\\\n    echo \\\\\\\"2023-$m-01 is('Jan'): \\\\\\\" . var_export($d->is('Jan'), true) . \\\\\\\" (expected: \\\\\\\" . var_export($m === 1, true) . \\\\\\\")\\\\\\\\n\\\\\\\";\\\\n}\\\\nEOF\\\\nphp /tmp/repro_abbr2.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367054048735784337\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c1937a154069ef16751695d6555d8edd5c43c386470238b787cb1f74620e1bc4",
+ "status": 200
+}

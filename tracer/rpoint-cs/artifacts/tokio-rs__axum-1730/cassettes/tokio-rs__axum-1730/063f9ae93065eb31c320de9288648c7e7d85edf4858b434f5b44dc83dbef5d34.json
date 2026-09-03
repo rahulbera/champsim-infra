@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works correctly. The GET request hits the `fallback` handler (200 OK) and the POST request hits the `not_found` handler (404 Not Found), both with the state propagated correctly.\\n\\nNow let me run the existing tests to make sure nothing is broken. Let me first run the method_routing tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/axum && cargo test --lib routing::method_routing 2>&1 | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355379159394149715\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "063f9ae93065eb31c320de9288648c7e7d85edf4858b434f5b44dc83dbef5d34",
+ "status": 200
+}

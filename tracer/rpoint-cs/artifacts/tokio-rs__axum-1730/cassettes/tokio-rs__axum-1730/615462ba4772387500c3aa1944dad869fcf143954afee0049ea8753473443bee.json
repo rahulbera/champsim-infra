@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me understand the issue better. The PR is about `MethodRouter` fallbacks that require `State`. Let me re-read the PR description:\\n\\nThe issue is that when you want to use a `MethodRouter` as a fallback service in a `Router`, and the `MethodRouter` itself has a fallback that requires state, you have to call `with_state` both on the `MethodRouter`'s fallback and on the `Router`. The desired behavior is to be able to do:\\n\\n```rust\\nrouter\\n    .fallback_service(get(fallback).fallback(not_found))\\n    .with_state(state);\\n```\\n\\nThis means that when the `Router` calls `with_state`, it should propagate the state to the fallback service if the fallback service is a `MethodRouter` (or something that requires state).\\n\\nLet me look at how `fallback_service` works and how the state is propagated:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"fallback_service\\\\\\\" /testbed/axum/src/routing/mod.rs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355377922443570479\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "615462ba4772387500c3aa1944dad869fcf143954afee0049ea8753473443bee",
+ "status": 200
+}

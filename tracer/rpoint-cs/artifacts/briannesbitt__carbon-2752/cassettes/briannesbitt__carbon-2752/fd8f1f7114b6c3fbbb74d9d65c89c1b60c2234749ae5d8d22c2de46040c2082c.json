@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Localized month names like 'janvier' cause an error, but this is pre-existing behavior (the `modify()` path throws for unparseable strings). This is not related to my change - it would have thrown before too. Let me verify this is pre-existing by checking with the original code:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && cat > /tmp/verify_locale_orig.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\Carbon;\\\\nCarbon::setLocale('fr');\\\\n$d = Carbon::create(2023, 10, 1);\\\\ntry {\\\\n    echo \\\\\\\"FR locale (orig code): is('janvier') => \\\\\\\" . var_export($d->is('janvier'), true) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n} catch (\\\\\\\\Throwable $e) {\\\\n    echo \\\\\\\"FR locale (orig code): is('janvier') threw: \\\\\\\" . get_class($e) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n}\\\\nCarbon::setLocale('en');\\\\nEOF\\\\nphp /tmp/verify_locale_orig.php; git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367052983583892039\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fd8f1f7114b6c3fbbb74d9d65c89c1b60c2234749ae5d8d22c2de46040c2082c",
+ "status": 200
+}

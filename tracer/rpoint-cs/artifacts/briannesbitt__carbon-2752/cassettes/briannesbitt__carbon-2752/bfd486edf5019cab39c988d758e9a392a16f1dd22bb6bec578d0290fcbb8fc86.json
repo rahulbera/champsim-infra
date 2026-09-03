@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I see - when passing multiple file paths, phpunit with this config might only use the first. Let me run each file separately:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && for f in tests/Carbon/IsTest.php tests/Carbon/ComparisonTest.php tests/Carbon/ExpressiveComparisonTest.php tests/CarbonImmutable/IsTest.php tests/CarbonImmutable/ComparisonTest.php tests/CarbonImmutable/ExpressiveComparisonTest.php; do echo \\\\\\\"=== $f ===\\\\\\\"; ./vendor/bin/phpunit \\\\\\\"$f\\\\\\\" 2>&1 | tail -3; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367098304078802985\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000074, \"id\": \"synthesized-00074\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00074\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bfd486edf5019cab39c988d758e9a392a16f1dd22bb6bec578d0290fcbb8fc86",
+ "status": 200
+}

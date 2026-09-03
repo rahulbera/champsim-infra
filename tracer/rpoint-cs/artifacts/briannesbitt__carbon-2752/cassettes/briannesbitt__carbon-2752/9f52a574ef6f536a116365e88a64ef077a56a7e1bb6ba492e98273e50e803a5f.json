@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"`transmitFactory` doesn't exist in this version (2.65.0). Let me check how `static::parse` is used in the existing `is()` method and what's available:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"static::parse\\\\\\\\|->parse\\\\\\\\|transmitFactory\\\\\\\\|avoidMutation\\\\\\\" src/Carbon/Traits/Comparison.php | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367072087598429926\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9f52a574ef6f536a116365e88a64ef077a56a7e1bb6ba492e98273e50e803a5f",
+ "status": 200
+}

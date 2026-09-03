@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the test file for any new test about January/October that may have been added:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"January\\\\\\\\|january\\\\\\\\|October\\\\\\\\|october\\\\\\\\|2023, 10\\\\\\\\|2023-10\\\\\\\" tests/Carbon/IsTest.php tests/CarbonImmutable/IsTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367067208515577799\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2bf1ca580c1fe4809af317035ad78a7b40e4f2625faca9fade187dad4d3fbb7c",
+ "status": 200
+}

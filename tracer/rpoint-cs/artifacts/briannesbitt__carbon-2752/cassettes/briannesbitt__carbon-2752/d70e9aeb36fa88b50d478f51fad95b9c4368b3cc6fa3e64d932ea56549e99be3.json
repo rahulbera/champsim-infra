@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me consider whether to match the official fix exactly (which includes abbreviations). First, let me verify that `static::parse()` handles abbreviations correctly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test_parse.php << 'EOF'\\\\n<?php\\\\nrequire 'vendor/autoload.php';\\\\nuse Carbon\\\\\\\\Carbon;\\\\n\\\\n// Test if parse handles abbreviations\\\\nforeach (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'] as $abbr) {\\\\n    $p = Carbon::parse($abbr);\\\\n    echo \\\\\\\"parse('$abbr') => month=\\\\\\\" . $p->month . \\\\\\\" ($p)\\\\\\\\n\\\\\\\";\\\\n}\\\\necho \\\\\\\"---full---\\\\\\\\n\\\\\\\";\\\\nforeach (['January','February','March','April','May','June','July','August','September','October','November','December'] as $name) {\\\\n    $p = Carbon::parse($name);\\\\n    echo \\\\\\\"parse('$name') => month=\\\\\\\" . $p->month . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n}\\\\nEOF\\\\nphp /tmp/test_parse.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367085213018483364\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d70e9aeb36fa88b50d478f51fad95b9c4368b3cc6fa3e64d932ea56549e99be3",
+ "status": 200
+}
