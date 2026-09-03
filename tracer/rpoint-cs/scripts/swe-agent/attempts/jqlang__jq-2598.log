@@ -1,2 +1,3 @@
 2026-09-03 21:03:39	infra	my descriptor omitted POST_CHECKOUT_CMD, so jq's oniguruma submodule was never initialised and the build died on an empty modules/oniguruma
 2026-09-03 22:02:54	infra	submodule clone from the staged mirror hit git 2.38's CVE-2022-39253 block: transport 'file' not allowed; needs -c protocol.file.allow=always
+2026-09-03 23:03:30	infra	make check is recursive and propagated TESTS into the oniguruma submodule's test dir; switched to the non-recursive check-TESTS target
