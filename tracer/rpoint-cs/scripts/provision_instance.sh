@@ -147,7 +147,7 @@ if [ -n "$REPO_URL" ] && [ -n "$REPO_NAME" ]; then
   # shellcheck disable=SC2086
   rsync -a -e "$rsh_opt" "$CACHE/$REPO_NAME.git" "$CACHE/SWE-agent.git" $_extra \
         "ubuntu@127.0.0.1:/opt/repo-cache/"
-  echo "  staged $REPO_NAME.git + SWE-agent.git into the guest at /opt/repo-cache/"
+  echo "  staged into /opt/repo-cache/: $REPO_NAME.git SWE-agent.git$(for _m in ${EXTRA_MIRRORS:-}; do printf ' %s.git' "${_m%%|*}"; done)"
 fi
 
 say "run provision_guest.sh"
