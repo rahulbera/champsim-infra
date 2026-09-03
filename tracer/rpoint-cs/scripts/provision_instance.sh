@@ -105,6 +105,8 @@ REPO_URL=$(grep -h '^REPO_URL=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env
            | tail -1 | cut -d= -f2-)
 REPO_NAME=$(grep -h '^REPO_NAME=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
             | tail -1 | cut -d= -f2-)
+EXTRA_MIRRORS=$(grep -h '^EXTRA_MIRRORS=' "$ROOT/scripts/swe-agent/instances/$INSTANCE.env" \
+                | tail -1 | cut -d= -f2- | tr -d '"'"'"'"')
 # SWE-agent is cloned into every guest too, and fails exactly the same way --
 # fluentd-3328 got all the way through its offline gate and then died on
 # `Cloning into '/opt/swe-agent'`. Mirroring only the instance repo fixes half
@@ -128,8 +130,22 @@ if [ -n "$REPO_URL" ] && [ -n "$REPO_NAME" ]; then
   mkdir -p "$CACHE"
   mirror_repo "$REPO_NAME" "$REPO_URL"
   mirror_repo SWE-agent https://github.com/SWE-agent/SWE-agent.git
+  # EXTRA_MIRRORS: submodules and other repos an instance needs on disk.
+  # Format: "name|url name|url". jq vendors oniguruma as a git submodule, and a
+  # MIRROR CLONE CARRIES NO SUBMODULE CONTENT -- the build then fails at
+  # `Making all in modules/oniguruma` with an empty directory, which reads like
+  # a missing system library. `git submodule update --init` cannot rescue it
+  # either: that fetches over the network, and in-guest clones do not work
+  # through QEMU's SLIRP stack.
+  # shellcheck disable=SC2086
+  for _m in ${EXTRA_MIRRORS:-}; do
+    mirror_repo "${_m%%|*}" "${_m#*|}"
+  done
   ssh_g 'sudo mkdir -p /opt/repo-cache && sudo chown -R ubuntu:ubuntu /opt/repo-cache'
-  rsync -a -e "$rsh_opt" "$CACHE/$REPO_NAME.git" "$CACHE/SWE-agent.git" \
+  _extra=""
+  for _m in ${EXTRA_MIRRORS:-}; do _extra="$_extra $CACHE/${_m%%|*}.git"; done
+  # shellcheck disable=SC2086
+  rsync -a -e "$rsh_opt" "$CACHE/$REPO_NAME.git" "$CACHE/SWE-agent.git" $_extra \
         "ubuntu@127.0.0.1:/opt/repo-cache/"
   echo "  staged $REPO_NAME.git + SWE-agent.git into the guest at /opt/repo-cache/"
 fi

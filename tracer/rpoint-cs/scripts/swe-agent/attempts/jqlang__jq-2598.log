@@ -1,0 +1,1 @@
+2026-09-03 21:03:39	infra	my descriptor omitted POST_CHECKOUT_CMD, so jq's oniguruma submodule was never initialised and the build died on an empty modules/oniguruma
