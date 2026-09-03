@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Interesting - now it passes when run alone. The previous failure may have been due to caching or a race. Let me run both together again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddyconfig/httpcaddyfile/... ./caddytest/integration/ -run 'TestCaddyfileAdaptToJSON|TestCaddyfile' -count=1 > /tmp/test8.txt 2>&1; tail -15 /tmp/test8.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367112357211792749\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "28edfbed625dc2785d17d30048f6084997f049c57b88e0fd3c91ac0e8acde921",
+ "status": 200
+}

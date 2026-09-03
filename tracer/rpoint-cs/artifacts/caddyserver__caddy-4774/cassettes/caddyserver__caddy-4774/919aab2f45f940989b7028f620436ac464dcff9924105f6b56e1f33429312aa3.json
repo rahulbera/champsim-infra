@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The directory listing noise is interfering. Let me verify the test file content with a targeted approach:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"head -5 /testbed/caddytest/integration/caddyfile_adapt/global_options_default_bind.txt 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367054839009766014\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "919aab2f45f940989b7028f620436ac464dcff9924105f6b56e1f33429312aa3",
+ "status": 200
+}

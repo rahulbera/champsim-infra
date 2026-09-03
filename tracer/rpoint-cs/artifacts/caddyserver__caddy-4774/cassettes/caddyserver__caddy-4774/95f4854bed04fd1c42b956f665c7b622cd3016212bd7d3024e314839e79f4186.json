@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the spacing is correct. Let me verify the options.go diff is clean now:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed diff caddyconfig/httpcaddyfile/options.go > /tmp/optdiff.txt 2>&1; cat /tmp/optdiff.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367102667765572564\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000157, \"id\": \"synthesized-00157\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00157\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "95f4854bed04fd1c42b956f665c7b622cd3016212bd7d3024e314839e79f4186",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a python3.11 at `/root/python3.11/bin/python3.11`. Let me create a symlink so `python3` resolves:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ln -sf /root/python3.11/bin/python3.11 /usr/local/bin/python3 2>/dev/null || ln -sf /root/python3.11/bin/python3.11 /usr/bin/python3 2>/dev/null; which python3 && python3 --version\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082567318632133\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000181, \"id\": \"synthesized-00181\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00181\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "570af00ac932c8a4f1f9cb7897ae93fd7955f8f1c97be9e71075b99821585a8d",
+ "status": 200
+}

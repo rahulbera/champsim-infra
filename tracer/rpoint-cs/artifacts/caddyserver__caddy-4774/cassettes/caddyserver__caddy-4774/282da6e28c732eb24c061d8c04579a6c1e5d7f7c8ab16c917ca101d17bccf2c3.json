@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both scenarios work now for the single `default_bind` with multiple addresses. The second scenario (two separate `default_bind` options) still only keeps the last one, but that's the standard behavior for global options (overwriting). The PR's main request is to support multiple addresses in a single `default_bind`, which is now fixed.\\n\\nLet me run the existing test to make sure it still passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -v 2>&1 | grep -i \\\\\\\"bind\\\\\\\\|FAIL\\\\\\\\|PASS\\\\\\\\|ok\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367090057741596255\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000053, \"id\": \"synthesized-00053\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00053\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "282da6e28c732eb24c061d8c04579a6c1e5d7f7c8ab16c917ca101d17bccf2c3",
+ "status": 200
+}

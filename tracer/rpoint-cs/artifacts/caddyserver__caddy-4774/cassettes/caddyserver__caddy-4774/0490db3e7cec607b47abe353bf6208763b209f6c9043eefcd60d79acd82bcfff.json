@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Hmm, the `git checkout` didn't revert it (the file still shows as modified). The diff --stat showed nothing but status shows it modified - that's odd. Let me check:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed diff caddytest/integration/caddyfile_adapt/global_options_default_bind.txt 2>&1 | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082292440727304\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000185, \"id\": \"synthesized-00185\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00185\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0490db3e7cec607b47abe353bf6208763b209f6c9043eefcd60d79acd82bcfff",
+ "status": 200
+}

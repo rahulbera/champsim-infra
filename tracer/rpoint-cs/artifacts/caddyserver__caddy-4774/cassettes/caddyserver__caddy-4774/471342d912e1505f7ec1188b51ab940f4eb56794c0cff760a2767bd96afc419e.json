@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the integration test runner to understand how tests are run:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls caddytest/integration/ && cat caddytest/integration/caddyfile_adapt_test.go 2>/dev/null | head -80\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367123214889121126\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "471342d912e1505f7ec1188b51ab940f4eb56794c0cff760a2767bd96afc419e",
+ "status": 200
+}

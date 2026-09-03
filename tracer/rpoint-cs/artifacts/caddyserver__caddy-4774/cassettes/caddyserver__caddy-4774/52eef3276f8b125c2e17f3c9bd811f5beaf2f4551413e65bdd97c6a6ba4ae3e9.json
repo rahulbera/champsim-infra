@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '/\\\\\\\\/\\\\\\\\/ sort the addresses to avoid problems with non-deterministic/d; /\\\\\\\\/\\\\\\\\/ ordering (makes tests flaky)/d' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\\nsed -n '168,176p' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367089473626043972\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000135, \"id\": \"synthesized-00135\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00135\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "52eef3276f8b125c2e17f3c9bd811f5beaf2f4551413e65bdd97c6a6ba4ae3e9",
+ "status": 200
+}

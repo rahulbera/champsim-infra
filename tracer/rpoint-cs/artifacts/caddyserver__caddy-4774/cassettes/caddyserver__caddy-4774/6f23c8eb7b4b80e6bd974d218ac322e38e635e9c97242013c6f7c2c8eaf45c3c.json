@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '270,282p' /testbed/caddyconfig/httpcaddyfile/options.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367072259397121323\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000150, \"id\": \"synthesized-00150\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00150\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6f23c8eb7b4b80e6bd974d218ac322e38e635e9c97242013c6f7c2c8eaf45c3c",
+ "status": 200
+}

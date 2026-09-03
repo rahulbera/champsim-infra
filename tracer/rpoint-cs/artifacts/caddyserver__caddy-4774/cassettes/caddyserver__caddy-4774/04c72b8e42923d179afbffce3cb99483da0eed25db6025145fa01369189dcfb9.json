@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the existing test file to ensure I update it to match the new behavior. The existing test `global_options_default_bind.txt` uses `default_bind tcp4/0.0.0.0` which is a single address. Let me check what the expected output should be now. Since the value is now a `[]string`, the behavior for a single address should be the same. Let me verify by running the reproduction script:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go run /tmp/repro.go 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367127234978509313\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000051, \"id\": \"synthesized-00051\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00051\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "04c72b8e42923d179afbffce3cb99483da0eed25db6025145fa01369189dcfb9",
+ "status": 200
+}

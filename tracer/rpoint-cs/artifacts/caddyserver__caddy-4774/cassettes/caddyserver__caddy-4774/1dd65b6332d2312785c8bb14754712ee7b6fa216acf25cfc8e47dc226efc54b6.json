@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the test file is reverted to its original state (`default_bind tcp4/0.0.0.0`). Let me verify the full status:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed status --short 2>&1; echo \\\\\\\"---DIFF STAT---\\\\\\\"; git -C /testbed diff HEAD --stat 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367075592291744578\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000189, \"id\": \"synthesized-00189\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00189\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1dd65b6332d2312785c8bb14754712ee7b6fa216acf25cfc8e47dc226efc54b6",
+ "status": 200
+}

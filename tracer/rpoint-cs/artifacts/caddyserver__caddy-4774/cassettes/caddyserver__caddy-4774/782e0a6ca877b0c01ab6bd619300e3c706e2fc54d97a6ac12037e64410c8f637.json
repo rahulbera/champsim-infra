@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The patch was applied (printed \\\"done\\\"). Let me verify:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '100,125p' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367077172839706712\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000128, \"id\": \"synthesized-00128\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00128\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "782e0a6ca877b0c01ab6bd619300e3c706e2fc54d97a6ac12037e64410c8f637",
+ "status": 200
+}

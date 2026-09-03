@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me run the adapt test multiple times to confirm determinism:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"for i in 1 2 3 4 5; do go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -count=1 >> /tmp/testfinal2.txt 2>&1; done; cat /tmp/testfinal2.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367086278170377670\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000164, \"id\": \"synthesized-00164\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00164\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "eff90573e237f3186b761a3b5499f5624d1393e9e6cd8a932ba553e683b1637d",
+ "status": 200
+}

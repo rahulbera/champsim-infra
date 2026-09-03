@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The first PR scenario (multiple addresses in one `default_bind`) now works - both IPs are bound, in sorted order. Let me verify the second scenario (two separate `default_bind` options) - this is expected to keep only the last (standard global option overwrite behavior):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go run /tmp/repro2.go 2>/dev/null | grep -E \\\\\\\"listen|ERROR\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367068685984327213\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000142, \"id\": \"synthesized-00142\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00142\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b161ce5df8b0b20aad50f6d6f7832e72376e00ac1757ab79d9b428e410266b27",
+ "status": 200
+}

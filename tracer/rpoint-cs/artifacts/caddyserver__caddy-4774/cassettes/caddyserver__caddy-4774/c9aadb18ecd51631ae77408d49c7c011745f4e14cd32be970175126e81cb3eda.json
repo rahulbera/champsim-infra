@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat > /tmp/repro.go << 'EOF'\\\\npackage main\\\\n\\\\nimport (\\\\n\\\\t\\\\\\\"fmt\\\\\\\"\\\\n\\\\t\\\\\\\"os\\\\\\\"\\\\n\\\\n\\\\t\\\\\\\"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile\\\\\\\"\\\\n\\\\t\\\\\\\"github.com/caddyserver/caddy/v2/caddyconfig/httpcaddyfile\\\\\\\"\\\\n)\\\\n\\\\nfunc main() {\\\\n\\\\tcaddyfileText := `{\\\\n\\\\tdefault_bind [2001:db8:11:ad::80] 198.51.100.184\\\\n}\\\\n\\\\n:33441 {\\\\n\\\\trespond \\\\\\\"site 33441\\\\\\\"\\\\n}\\\\n`\\\\n\\\\tadapter := caddyfile.Adapter{ServerType: httpcaddyfile.ServerType{}}\\\\n\\\\tcfg, warnings, err := adapter.Adapt([]byte(caddyfileText), map[string]interface{}{\\\\\\\"filename\\\\\\\": \\\\\\\"Caddyfile\\\\\\\"})\\\\n\\\\tif err != nil {\\\\n\\\\t\\\\tfmt.Println(\\\\\\\"ERROR:\\\\\\\", err)\\\\n\\\\t\\\\tos.Exit(1)\\\\n\\\\t}\\\\n\\\\tfmt.Println(\\\\\\\"WARNINGS:\\\\\\\", warnings)\\\\n\\\\tfmt.Println(\\\\\\\"CONFIG:\\\\\\\")\\\\n\\\\tfmt.Println(string(cfg))\\\\n}\\\\nEOF\\\\ncd /testbed && go run /tmp/repro.go 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367096105055550664\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c9aadb18ecd51631ae77408d49c7c011745f4e14cd32be970175126e81cb3eda",
+ "status": 200
+}

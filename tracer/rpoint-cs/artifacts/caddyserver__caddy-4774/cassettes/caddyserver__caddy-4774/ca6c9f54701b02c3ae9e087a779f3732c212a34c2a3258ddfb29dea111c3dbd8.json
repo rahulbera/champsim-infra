@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me rebuild and rerun the tests to confirm everything still works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go build ./... > /tmp/build.txt 2>&1; cat /tmp/build.txt; echo \\\\\\\"build exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082361160201609\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ca6c9f54701b02c3ae9e087a779f3732c212a34c2a3258ddfb29dea111c3dbd8",
+ "status": 200
+}

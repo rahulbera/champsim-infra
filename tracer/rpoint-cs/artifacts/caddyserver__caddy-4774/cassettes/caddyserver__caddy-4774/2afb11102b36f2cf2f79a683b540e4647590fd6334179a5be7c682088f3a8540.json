@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool seems to have an environment issue (it tries to use python3 which isn't installed). Let me verify my changes are all in place and complete - the work is done regardless:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367077619516306959\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000172, \"id\": \"synthesized-00172\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00172\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2afb11102b36f2cf2f79a683b540e4647590fd6334179a5be7c682088f3a8540",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now with sorting, the order is `198.51.100.184` first, then `2001:db8:11:ad::80`. But my test file has `2001` first. Let me check the actual diff:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -count=1 -v 2>/dev/null | grep -E \\\\\\\"^[-+]\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367105072947258484\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4218c21e2e48f9cea20c6a8dff8aa0af03e9e3de77930879156645545ab16fe1",
+ "status": 200
+}

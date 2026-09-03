@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand. Let me write the reproduction script properly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat > /tmp/repro.go << 'EOF'\\\\npackage main\\\\n\\\\nimport (\\\\n\\\\t\\\\\\\"fmt\\\\\\\"\\\\n\\\\t\\\\\\\"os\\\\\\\"\\\\n\\\\n\\\\t\\\\\\\"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile\\\\\\\"\\\\n)\\\\n\\\\nfunc main() {\\\\n\\\\tcaddyfileText := `{\\\\n\\\\tdefault_bind [2001:db8:11:ad::80] 198.51.100.184\\\\n}\\\\n\\\\n:33441 {\\\\n\\\\trespond \\\\\\\"site 33441\\\\\\\"\\\\n}\\\\n`\\\\n\\\\tadapter := caddyfile.Adapter{}\\\\n\\\\tcfg, warnings, err := adapter.Adapt([]byte(caddyfileText), map[string]interface{}{\\\\\\\"filename\\\\\\\": \\\\\\\"Caddyfile\\\\\\\"})\\\\n\\\\tif err != nil {\\\\n\\\\t\\\\tfmt.Println(\\\\\\\"ERROR:\\\\\\\", err)\\\\n\\\\t\\\\tos.Exit(1)\\\\n\\\\t}\\\\n\\\\tfmt.Println(\\\\\\\"WARNINGS:\\\\\\\", warnings)\\\\n\\\\tfmt.Println(\\\\\\\"CONFIG:\\\\\\\")\\\\n\\\\tfmt.Println(string(cfg))\\\\n}\\\\nEOF\\\\ncd /testbed && go run /tmp/repro.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367096551732150272\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d64907b0810a57c66f188ec1ec530ac9f328380f024847471bc7dad0a0d7bcd8",
+ "status": 200
+}

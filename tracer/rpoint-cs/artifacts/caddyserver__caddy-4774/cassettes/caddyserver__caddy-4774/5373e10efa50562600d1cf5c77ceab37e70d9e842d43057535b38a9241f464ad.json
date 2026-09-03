@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"`sort` is already imported. Let me add sorting to the listeners list:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '233,240p' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367121874859319956\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000094, \"id\": \"synthesized-00094\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00094\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5373e10efa50562600d1cf5c77ceab37e70d9e842d43057535b38a9241f464ad",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The no-args case correctly errors. The directory listing output is annoying but harmless - it appears to be triggered by `go run` building. Let me check what's causing it. Actually, it appears the listing is being printed to stdout by some mechanism. Let me check if it's a PROMPT_COMMAND or similar. Let me try running with stdout redirected to see:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"echo \\\\\\\"test command\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367059855531569376\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1b91ab38b5b5b80517d83e5e5e439f49b9f9af3e09a62290185071e618caa581",
+ "status": 200
+}

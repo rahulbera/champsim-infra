@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run it multiple times to ensure no flakiness:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"for i in 1 2 3 4 5; do go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -count=1 >> /tmp/testmulti.txt 2>&1; done; cat /tmp/testmulti.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367088271035196896\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000118, \"id\": \"synthesized-00118\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00118\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "63164e04f244d4e55a08e654dda86a329ffb387a6c41cf9d8e06c53b7a979ec1",
+ "status": 200
+}

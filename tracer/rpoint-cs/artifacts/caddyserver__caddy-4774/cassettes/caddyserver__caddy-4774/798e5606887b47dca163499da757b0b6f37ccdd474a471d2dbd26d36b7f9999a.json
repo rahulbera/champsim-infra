@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test failed now. Let me see the full diff to understand what's different:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -v > /tmp/test7.txt 2>&1; grep -A 80 \\\\\\\"global_options_default_bind\\\\\\\" /tmp/test7.txt | head -90\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367113456723421490\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000084, \"id\": \"synthesized-00084\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00084\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "798e5606887b47dca163499da757b0b6f37ccdd474a471d2dbd26d36b7f9999a",
+ "status": 200
+}

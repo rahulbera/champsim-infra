@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor tool seems to have an issue with python3. Let me use sed instead:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -i 's|RegisterGlobalOption(\\\\\\\"default_bind\\\\\\\", parseOptSingleString)|RegisterGlobalOption(\\\\\\\"default_bind\\\\\\\", parseOptStringList)|' caddyconfig/httpcaddyfile/options.go && grep -n \\\\\\\"default_bind\\\\\\\" caddyconfig/httpcaddyfile/options.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367079749820080224\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000036, \"id\": \"synthesized-00036\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00036\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d804dea8f21207123161c3e829d01d37e0223b742be25a1e474112a996ebb3e3",
+ "status": 200
+}

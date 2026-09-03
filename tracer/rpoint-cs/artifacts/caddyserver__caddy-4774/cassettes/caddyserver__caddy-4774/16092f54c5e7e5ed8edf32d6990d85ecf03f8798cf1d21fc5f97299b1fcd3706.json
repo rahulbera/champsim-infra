@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now add the `parseOptStringList` function after `parseOptSingleString`. Let me find the line:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"return val, nil\\\\\\\" /testbed/caddyconfig/httpcaddyfile/options.go | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367087102804096824\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000149, \"id\": \"synthesized-00149\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00149\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16092f54c5e7e5ed8edf32d6990d85ecf03f8798cf1d21fc5f97299b1fcd3706",
+ "status": 200
+}

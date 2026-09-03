@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The heredoc stripped the leading tab on the `default_bind` line. The Caddyfile formatter would re-add the tab. Let me check the formatting requirement - the adapt test appends a newline and compares. The test also warns about formatting differences. Let me check whether the test compares exactly. Looking back at the test, it uses `CompareAdapt`. Let me check that function:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"func CompareAdapt\\\\\\\" /testbed/caddytest/ 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367049100933459230\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "340ef4326efa60e67ae5adee40cb4c8f93d158b781e5c7247a22ab3f4bd8fb64",
+ "status": 200
+}

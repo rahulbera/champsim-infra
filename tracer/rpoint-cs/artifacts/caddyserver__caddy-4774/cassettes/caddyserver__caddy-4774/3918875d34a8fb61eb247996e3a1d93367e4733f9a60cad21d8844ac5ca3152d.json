@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This matches the PR's example exactly:\\n- Site 33441 binds to both default_bind addresses: `198.51.100.184:33441` and `[2001:db8:11:ad::80]:33441`\\n- Site 33442 overrides with its own `bind` directive: `[2001:db8:11:ad::2]:33442`\\n\\nThe PR's exact example now works correctly. Let me run `go vet` to make sure there are no issues:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go vet ./caddyconfig/httpcaddyfile/... > /tmp/vet2.txt 2>&1; cat /tmp/vet2.txt; echo \\\\\\\"vet done\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367074527139850305\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000145, \"id\": \"synthesized-00145\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00145\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3918875d34a8fb61eb247996e3a1d93367e4733f9a60cad21d8844ac5ca3152d",
+ "status": 200
+}

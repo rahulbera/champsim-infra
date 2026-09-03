@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me add the `sort.Strings(listenersList)` in `listenerAddrsForServerBlockKey`, and the `lnHosts` capacity optimization. Let me view that section:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '225,255p' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367244298607125115\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000129, \"id\": \"synthesized-00129\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00129\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a4e80bd88767c74e7d93a5f6f67cf1dc1527746da3e2e31f37583e9358869124",
+ "status": 200
+}

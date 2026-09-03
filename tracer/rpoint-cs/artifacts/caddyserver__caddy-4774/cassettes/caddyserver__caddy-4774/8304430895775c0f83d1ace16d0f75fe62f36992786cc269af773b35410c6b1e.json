@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the full test suite multiple times to ensure determinism and no regressions:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddyconfig/... ./caddytest/... -count=1 > /tmp/testfull2.txt 2>&1; tail -10 /tmp/testfull2.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367109161756131195\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000139, \"id\": \"synthesized-00139\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00139\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8304430895775c0f83d1ace16d0f75fe62f36992786cc269af773b35410c6b1e",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the file ends with `}` (no trailing newline), matching upstream. Let me rebuild and run all tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go build ./... > /tmp/build4.txt 2>&1; cat /tmp/build4.txt; echo \\\\\\\"build exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367082979635490934\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000162, \"id\": \"synthesized-00162\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00162\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f5d6779385d2fcf3c4724515edb1df46cda4043fe7ec4d72aefb94b498d6107a",
+ "status": 200
+}

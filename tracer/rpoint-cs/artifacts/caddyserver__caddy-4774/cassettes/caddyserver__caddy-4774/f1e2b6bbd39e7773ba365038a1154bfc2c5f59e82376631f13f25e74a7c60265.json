@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The new function is added. Now let me update the usage in `addresses.go` to handle the `[]string` type:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '210,222p' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367091844447988305\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f1e2b6bbd39e7773ba365038a1154bfc2c5f59e82376631f13f25e74a7c60265",
+ "status": 200
+}

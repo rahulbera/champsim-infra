@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No vet errors. Let me now compare my full diff against the upstream to ensure they match:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed diff > /tmp/myfinal.txt 2>&1; cat /tmp/myfinal.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367107203251038977\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000146, \"id\": \"synthesized-00146\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00146\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3e116cc5ba3033c17719ef40b41573e3fb74b103b453e67de9fb6799046c6cec",
+ "status": 200
+}

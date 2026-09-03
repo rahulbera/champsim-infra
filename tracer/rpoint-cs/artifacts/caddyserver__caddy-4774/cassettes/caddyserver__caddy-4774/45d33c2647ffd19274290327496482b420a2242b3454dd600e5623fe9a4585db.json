@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'll insert the sort line before `sbaddrs = append(sbaddrs, a)` at line 165. The line 164 is blank, line 165 is the append. Let me insert after line 164 (the blank line):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"printf '\\\\\\\\t\\\\\\\\t// sort the addresses to avoid problems with non-deterministic\\\\\\\\n\\\\\\\\t\\\\\\\\t// ordering (makes tests flaky)\\\\\\\\n\\\\\\\\t\\\\\\\\tsort.Strings(a.addresses)\\\\\\\\n' > /tmp/sortinsert.txt\\\\ncat -A /tmp/sortinsert.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367108989957433763\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000113, \"id\": \"synthesized-00113\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00113\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "45d33c2647ffd19274290327496482b420a2242b3454dd600e5623fe9a4585db",
+ "status": 200
+}

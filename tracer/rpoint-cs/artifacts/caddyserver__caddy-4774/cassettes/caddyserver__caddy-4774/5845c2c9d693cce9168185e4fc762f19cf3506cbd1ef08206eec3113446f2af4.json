@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Deterministic and passing. Now let me run the full test suite for the affected packages to make sure my sorting change didn't break anything:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddyconfig/... ./caddytest/... -count=1 > /tmp/testfull.txt 2>&1; tail -20 /tmp/testfull.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367097891761945450\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000119, \"id\": \"synthesized-00119\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00119\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5845c2c9d693cce9168185e4fc762f19cf3506cbd1ef08206eec3113446f2af4",
+ "status": 200
+}

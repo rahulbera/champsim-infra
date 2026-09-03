@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The diff stat matches the upstream commit exactly (29 insertions, 8 deletions, same 3 files). Let me do a final review of the complete diff:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed diff\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367076588724154097\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000167, \"id\": \"synthesized-00167\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00167\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "92c2f668225159879ceddaf34b1a121bfc714b402f2ee0681b92c923fb36e1e6",
+ "status": 200
+}

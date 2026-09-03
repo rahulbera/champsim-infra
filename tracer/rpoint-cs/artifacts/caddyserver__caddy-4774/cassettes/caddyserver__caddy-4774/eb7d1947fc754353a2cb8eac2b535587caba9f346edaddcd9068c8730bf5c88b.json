@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The files are staged (in the index). The `git checkout --` reverted the working tree but the staged version still has my changes. Let me check the actual content of the test file now:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"head -3 /testbed/caddytest/integration/caddyfile_adapt/global_options_default_bind.txt | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367067655192177670\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000187, \"id\": \"synthesized-00187\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00187\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "eb7d1947fc754353a2cb8eac2b535587caba9f346edaddcd9068c8730bf5c88b",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The directory listing output is an environment artifact. Let me work around it by redirecting to files. Let me clean up and verify my changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/newtest.txt; git -C /testbed diff > /tmp/mydiff.txt 2>&1; cat /tmp/mydiff.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367098647676185274\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5af882f86a8b2f7e89cfdd2ae5b7503055457321061d113e4731e9a902f945f3",
+ "status": 200
+}

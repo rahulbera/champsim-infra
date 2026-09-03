@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The heredoc is converting tabs to nothing. The `cd /testbed` is also causing the directory listing output (it seems `cd` triggers something). Let me avoid `cd` and use absolute paths. The issue is the heredoc strips leading tabs. Let me use `printf` with explicit `\\\\t`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"printf '\\\\\\\\nfunc parseOptStringList(d *caddyfile.Dispenser, _ interface{}) (interface{}, error) {\\\\\\\\n\\\\\\\\td.Next() // consume parameter name\\\\\\\\n\\\\\\\\tvals := d.RemainingArgs()\\\\\\\\n\\\\\\\\tif len(vals) == 0 {\\\\\\\\n\\\\\\\\t\\\\\\\\treturn []string{}, d.ArgErr()\\\\\\\\n\\\\\\\\t}\\\\\\\\n\\\\\\\\treturn vals, nil\\\\\\\\n}\\\\\\\\n' > /tmp/newfunc.txt && cat -A /tmp/newfunc.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367123146169643766\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000045, \"id\": \"synthesized-00045\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00045\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "88bd84663c841120b8927caf7f3b64a40b1f439a3c46e2d673721a70674f1149",
+ "status": 200
+}

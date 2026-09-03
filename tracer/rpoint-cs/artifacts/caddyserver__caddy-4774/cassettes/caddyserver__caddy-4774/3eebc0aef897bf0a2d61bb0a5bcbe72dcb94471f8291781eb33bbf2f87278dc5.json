@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now only the two source files are modified, and the test file is reverted to its original state. \\n\\nWait - but the original test file uses `default_bind tcp4/0.0.0.0` (single address). With my code changes, a single address still works (it becomes a `[]string` with one element). Let me verify the original test still passes with my code changes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -count=1 2>&1 | tail -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367093115758311028\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000190, \"id\": \"synthesized-00190\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00190\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3eebc0aef897bf0a2d61bb0a5bcbe72dcb94471f8291781eb33bbf2f87278dc5",
+ "status": 200
+}

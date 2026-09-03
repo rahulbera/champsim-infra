@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's the exact commit: `b687d7b9 httpcaddyfile: Support multiple values for default_bind (#4774)`. Let me examine what it changed:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed show b687d7b9 --stat 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367105794501764234\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000122, \"id\": \"synthesized-00122\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00122\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cbba9376dbf1d48d33eb1954c28ae12e49be35e811f9612f3bf6cc42f2d7e183",
+ "status": 200
+}

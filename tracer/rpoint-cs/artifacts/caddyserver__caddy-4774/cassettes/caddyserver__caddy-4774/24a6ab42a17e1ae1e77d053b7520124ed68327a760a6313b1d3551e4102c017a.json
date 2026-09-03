@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"It fails when run with `-count=1` (no cache). Let me see the full diff output:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -B2 -A 100 \\\\\\\"global_options_default_bind\\\\\\\" /tmp/test8.txt | head -120\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367111566937808965\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000087, \"id\": \"synthesized-00087\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00087\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "24a6ab42a17e1ae1e77d053b7520124ed68327a760a6313b1d3551e4102c017a",
+ "status": 200
+}

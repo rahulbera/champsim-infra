@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the output is deterministic: `198.51.100.184` first (sorted alphabetically), then `2001:db8:11:ad::80`. My test file already has this order. Let me run the integration test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -count=1 > /tmp/test10.txt 2>&1; tail -6 /tmp/test10.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367078169272115460\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000117, \"id\": \"synthesized-00117\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00117\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d6770b4e2d39c220a0fe0059b7eaa1221f4ba6e9727ac2ac3bebee9c530c14a5",
+ "status": 200
+}

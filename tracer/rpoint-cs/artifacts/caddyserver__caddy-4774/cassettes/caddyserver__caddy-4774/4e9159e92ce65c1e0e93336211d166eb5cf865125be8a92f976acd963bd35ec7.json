@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"My changes look good. Now let me verify the reproduction scripts work and run the tests, redirecting output to files to avoid the listing noise:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go run /tmp/repro.go > /tmp/out1.txt 2>&1; cat /tmp/out1.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367085178658743631\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4e9159e92ce65c1e0e93336211d166eb5cf865125be8a92f976acd963bd35ec7",
+ "status": 200
+}

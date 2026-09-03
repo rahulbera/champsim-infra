@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me make the changes. First, update the registration:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/testbed/caddyconfig/httpcaddyfile/options.go\\\",\\\"old_str\\\":\\\"\\\\tRegisterGlobalOption(\\\\\\\"default_bind\\\\\\\", parseOptSingleString)\\\",\\\"new_str\\\":\\\"\\\\tRegisterGlobalOption(\\\\\\\"default_bind\\\\\\\", parseOptStringList)\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7367119675836069445\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000035, \"id\": \"synthesized-00035\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00035\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "12c059895389e070be9cbe434759c2c5753d28f533286d9c947efd360ac7ac6a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No vet errors. Let me clean up the temporary repro files and verify the final state of all changes one more time:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro*.go /tmp/patch*.go /tmp/sortpatch*.go /tmp/newfunc*.txt /tmp/sortinsert.txt /tmp/*.txt 2>/dev/null; git -C /testbed diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367094009111505057\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000166, \"id\": \"synthesized-00166\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00166\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fd0af6850264839cd6d7f922e72314168933d06ee1e9123e74188166c497640d",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me change `[]string{}` to `nil` for the error case, which is cleaner:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i 's|\\\\t\\\\treturn \\\\\\\\[\\\\\\\\]string{}, d.ArgErr()|\\\\t\\\\treturn nil, d.ArgErr()|' /testbed/caddyconfig/httpcaddyfile/options.go\\\\nsed -n '282,290p' /testbed/caddyconfig/httpcaddyfile/options.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367097926121681500\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "156c30df8400959b5f2e0a192b04092e83feff6945342361dc9240909e23428a",
+ "status": 200
+}

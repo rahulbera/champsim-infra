@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me build and run the tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go build ./... > /tmp/build3.txt 2>&1; cat /tmp/build3.txt; echo \\\\\\\"build exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367093974751765837\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000137, \"id\": \"synthesized-00137\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00137\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8f52a2a755f6ff955d9e85644fc71e06134627ec82eb2a79a8ec8e253659025a",
+ "status": 200
+}

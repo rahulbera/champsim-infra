@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test passes. The only warning is from an unrelated pre-existing test file (`map_and_vars_with_raw_types.txt`).\\n\\nNow let me run a broader set of tests to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddyconfig/... > /tmp/test4.txt 2>&1; tail -20 /tmp/test4.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367024293202361709\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000076, \"id\": \"synthesized-00076\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00076\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b190ffdd95a3764c31d881190fb69bff58a6ed42967bb6270c6f5d88ccde70dc",
+ "status": 200
+}

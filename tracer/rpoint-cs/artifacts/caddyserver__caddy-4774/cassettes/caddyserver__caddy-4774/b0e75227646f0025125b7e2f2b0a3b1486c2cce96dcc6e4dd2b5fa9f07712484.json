@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The diff is printed via `fmt.Printf` to stdout, not `t.Logf`. So it goes to stdout. Let me run the test capturing stdout properly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddytest/integration/ -run TestCaddyfileAdaptToJSON -count=1 -v 2>/dev/null | grep -E \\\\\\\"^[-+ ]\\\\\\\" | grep -i \\\\\\\"default_bind\\\\\\\\|2001\\\\\\\\|198.51\\\\\\\\|tcp4\\\\\\\\|srv0\\\\\\\\|srv1\\\\\\\\|listen\\\\\\\\|example\\\\\\\" | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367098716395666336\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000089, \"id\": \"synthesized-00089\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00089\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b0e75227646f0025125b7e2f2b0a3b1486c2cce96dcc6e4dd2b5fa9f07712484",
+ "status": 200
+}

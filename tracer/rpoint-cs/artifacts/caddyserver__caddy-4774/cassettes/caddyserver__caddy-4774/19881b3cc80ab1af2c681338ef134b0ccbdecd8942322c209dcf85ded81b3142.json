@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The order of listeners matters for the final output. The non-determinism comes from the map. To make the test deterministic and reliable, I should sort the `listenersList`. This is a reasonable improvement that makes output deterministic.\\n\\nHowever, I'm cautious about changing behavior broadly. Let me reconsider: the simplest, most-targeted fix for the test flakiness is to sort the listeners list. Let me check if sorting would break any existing tests. The existing tests with single addresses won't be affected. Let me add sorting:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"^import\\\\\\\\|\\\\\\\\\\\\\\\"sort\\\\\\\\\\\\\\\"\\\\\\\\|\\\\\\\\\\\\\\\"strings\\\\\\\\\\\\\\\"\\\\\\\" /testbed/caddyconfig/httpcaddyfile/addresses.go | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367090470058455427\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000093, \"id\": \"synthesized-00093\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00093\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "19881b3cc80ab1af2c681338ef134b0ccbdecd8942322c209dcf85ded81b3142",
+ "status": 200
+}

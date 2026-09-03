@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The file uses tabs. Let me use sed to do this replacement directly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i 's|if defaultBind, ok := options\\\\\\\\[\\\\\\\"default_bind\\\\\\\"\\\\\\\\].(string); ok {|if defaultBind, ok := options[\\\\\\\"default_bind\\\\\\\"].([]string); ok {|' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\\nsed -i 's|lnHosts = \\\\\\\\[\\\\\\\\]string{defaultBind}|lnHosts = defaultBind|' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\\nsed -n '210,222p' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367115518307724577\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "11d315fa1589debf9e1c76f8089b0cdd444b57d773d8a3a5a0700edf4211f8ab",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at how the adapt function is called properly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"func.*Adapt\\\\\\\\|caddyfile.Adapt\\\\\\\\|httpcaddyfile\\\\\\\" caddyconfig/httpcaddyfile/server.go 2>/dev/null; grep -rn \\\\\\\"func.*ServerType.*Adapt\\\\\\\\|func.*Adapt\\\\\\\" caddyconfig/httpcaddyfile/*.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367072190677645197\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000025, \"id\": \"synthesized-00025\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00025\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2367fe5404181b90c278d571533db64e62575a06ad2727692b69039b37789e3a",
+ "status": 200
+}

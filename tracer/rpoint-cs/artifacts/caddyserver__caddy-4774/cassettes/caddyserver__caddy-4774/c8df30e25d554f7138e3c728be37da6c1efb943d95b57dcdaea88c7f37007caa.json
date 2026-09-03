@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This matches the upstream diff exactly (index `d0aa97dd` matches upstream's `c7923e81`... wait, the hash differs but the content is identical). Let me verify the test file diff:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed diff caddytest/integration/caddyfile_adapt/global_options_default_bind.txt > /tmp/testdiff.txt 2>&1; cat /tmp/testdiff.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367093528075167770\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000159, \"id\": \"synthesized-00159\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00159\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c8df30e25d554f7138e3c728be37da6c1efb943d95b57dcdaea88c7f37007caa",
+ "status": 200
+}

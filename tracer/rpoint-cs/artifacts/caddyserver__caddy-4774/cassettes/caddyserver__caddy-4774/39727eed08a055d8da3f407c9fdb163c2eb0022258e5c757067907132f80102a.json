@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The second scenario (two separate `default_bind` options) keeps only the last one, which is the standard global option behavior (the PR's main ask was multiple addresses in a single `default_bind`, which is now fixed).\\n\\nLet me also test the no-args error case:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go run /tmp/repro3.go 2>/dev/null | grep -E \\\\\\\"ERROR|CONFIG\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367072396836074638\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000143, \"id\": \"synthesized-00143\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00143\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "39727eed08a055d8da3f407c9fdb163c2eb0022258e5c757067907132f80102a",
+ "status": 200
+}

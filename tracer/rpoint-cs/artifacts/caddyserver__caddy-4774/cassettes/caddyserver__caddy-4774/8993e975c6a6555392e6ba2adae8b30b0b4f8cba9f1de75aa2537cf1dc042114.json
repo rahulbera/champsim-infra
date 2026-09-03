@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the structure. Let me check the `tlsapp.go` to see how `bind` is used there:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '140,165p' caddyconfig/httpcaddyfile/tlsapp.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367057209831713528\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8993e975c6a6555392e6ba2adae8b30b0b4f8cba9f1de75aa2537cf1dc042114",
+ "status": 200
+}

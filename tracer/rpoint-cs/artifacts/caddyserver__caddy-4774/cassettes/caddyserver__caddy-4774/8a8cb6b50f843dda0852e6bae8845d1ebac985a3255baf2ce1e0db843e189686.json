@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me apply the capacity optimization and the listenersList sort. First the capacity:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i 's|\\\\tlnHosts := make(\\\\\\\\[\\\\\\\\]string, 0, len(sblock.pile))|\\\\tlnHosts := make([]string, 0, len(sblock.pile[\\\\\\\"bind\\\\\\\"]))|' /testbed/caddyconfig/httpcaddyfile/addresses.go\\\\ngrep -n \\\\\\\"lnHosts := make\\\\\\\" /testbed/caddyconfig/httpcaddyfile/addresses.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367121325103507294\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000131, \"id\": \"synthesized-00131\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00131\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8a8cb6b50f843dda0852e6bae8845d1ebac985a3255baf2ce1e0db843e189686",
+ "status": 200
+}

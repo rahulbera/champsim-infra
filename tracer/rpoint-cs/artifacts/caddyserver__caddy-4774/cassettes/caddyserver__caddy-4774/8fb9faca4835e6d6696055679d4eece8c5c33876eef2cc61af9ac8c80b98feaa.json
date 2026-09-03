@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The file uses tabs. The heredoc with single quotes preserves the content but my Go script's raw string uses tabs that I typed... Actually the issue is the heredoc may have converted tabs to spaces. Let me check what the patch.go file contains:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"d.Next() // consume\\\\\\\" /tmp/patch.go | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367098647676188159\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8fb9faca4835e6d6696055679d4eece8c5c33876eef2cc61af9ac8c80b98feaa",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The OLD NOT FOUND suggests the file content differs. Let me check the actual content:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '270,282p' caddyconfig/httpcaddyfile/options.go | cat -A | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367096998408744753\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0fb0a082b566e3a0765f8d2e552b61b76b05f28603a1bbe56c3c63f2cc98fd91",
+ "status": 200
+}

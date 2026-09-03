@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All deterministic and passing. Now let me run the original reproduction scripts to confirm the PR scenarios work:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go run /tmp/repro.go 2>/dev/null | grep -v \\\\\\\"^[.a-zA-Z]\\\\\\\" | grep -E \\\\\\\"CONFIG|listen|ERROR\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367102599046100006\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000141, \"id\": \"synthesized-00141\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00141\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "aecd9d8affef3622a6fdb39ebd9b3a520098df21faca0a93564da251ffdf954d",
+ "status": 200
+}

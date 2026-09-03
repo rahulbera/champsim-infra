@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, the listenersList sort is reverted. Now let me test determinism without any new sort - run the adapt test 5 times and check if the order is stable:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"for i in 1 2 3 4 5; do go run /tmp/repro4.go 2>/dev/null | grep -E \\\\\\\"2001|198.51\\\\\\\" | tr '\\\\\\\\n' ' '; echo \\\\\\\" [run $i]\\\\\\\"; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367113353644204986\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000110, \"id\": \"synthesized-00110\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00110\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b1fe3360f33eacce1771cb2bb5edf6dded565b8498bc78352aae223a6e8fb3a1",
+ "status": 200
+}

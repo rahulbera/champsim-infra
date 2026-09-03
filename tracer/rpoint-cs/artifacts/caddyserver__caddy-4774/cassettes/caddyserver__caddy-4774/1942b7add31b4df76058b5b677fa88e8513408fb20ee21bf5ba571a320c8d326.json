@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now the tabs are preserved. The `cd /testbed` was causing the directory listing. Let me figure out why - it seems there's a shell hook. Let me just use absolute paths. Now let me insert this content after line 280 (the blank line after parseOptSingleString's closing brace):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i '280r /tmp/newfunc.txt' /testbed/caddyconfig/httpcaddyfile/options.go && sed -n '268,296p' /testbed/caddyconfig/httpcaddyfile/options.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367105725782291094\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000046, \"id\": \"synthesized-00046\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00046\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1942b7add31b4df76058b5b677fa88e8513408fb20ee21bf5ba571a320c8d326",
+ "status": 200
+}

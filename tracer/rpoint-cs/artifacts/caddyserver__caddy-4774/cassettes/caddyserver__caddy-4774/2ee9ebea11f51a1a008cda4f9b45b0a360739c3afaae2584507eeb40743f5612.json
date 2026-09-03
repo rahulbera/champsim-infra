@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree still has my modified version (the `git checkout --` didn't take effect because the changes were staged). Let me restore it from HEAD properly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"git -C /testbed checkout HEAD -- caddytest/integration/caddyfile_adapt/global_options_default_bind.txt 2>&1; head -3 /testbed/caddytest/integration/caddyfile_adapt/global_options_default_bind.txt | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367101087217611022\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000188, \"id\": \"synthesized-00188\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00188\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2ee9ebea11f51a1a008cda4f9b45b0a360739c3afaae2584507eeb40743f5612",
+ "status": 200
+}

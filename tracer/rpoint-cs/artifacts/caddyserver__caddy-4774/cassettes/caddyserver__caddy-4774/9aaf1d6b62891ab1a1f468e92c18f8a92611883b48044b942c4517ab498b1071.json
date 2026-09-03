@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Wait, upstream uses `val` not `vals`. Let me match exactly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -i 's|\\\\tvals := d.RemainingArgs()|\\\\tval := d.RemainingArgs()|; s|\\\\tif len(vals) == 0 {|\\\\tif len(val) == 0 {|; s|\\\\treturn vals, nil|\\\\treturn val, nil|' /testbed/caddyconfig/httpcaddyfile/options.go\\\\nsed -n '282,290p' /testbed/caddyconfig/httpcaddyfile/options.go\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367104042155111296\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000125, \"id\": \"synthesized-00125\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00125\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9aaf1d6b62891ab1a1f468e92c18f8a92611883b48044b942c4517ab498b1071",
+ "status": 200
+}

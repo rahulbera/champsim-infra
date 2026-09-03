@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works. The reproduction script has been removed. Let me do a final confirmation of the state and run the full test suite once more:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"go test ./caddyconfig/... ./caddytest/... -count=1 2>&1 | tail -6\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7367093562434910938\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000192, \"id\": \"synthesized-00192\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00192\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bae30ae8d6ebeda8125172a165cda069eb6e71b525d48477ba79018033a04382",
+ "status": 200
+}
