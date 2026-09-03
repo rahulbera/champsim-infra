@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls -la src/redis-server && stat -c '%Y' src/redis-server && stat -c '%Y' src/t_stream.c\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355701591179001226\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2aacfffaa36d5276d67a2cba975aa46831063a8405c40779c0fb1ea6b0a788dc",
+ "status": 200
+}

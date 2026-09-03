@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now python3 is available. Let me try the submit again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355383935397782609\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4254ed43e7c5dc78972042ddfc61898e0bb98936068ad27f4b4e4fb2fe69bd0e",
+ "status": 200
+}

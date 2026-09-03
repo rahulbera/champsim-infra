@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me verify the existing test would catch this bug. The existing `XTRIM with MINID option` test uses small IDs (1-0 through 5-0) where deltas are tiny and don't overflow, so it wouldn't catch this bug. The bug only manifests when the delta between the master ID and entry IDs exceeds 32-bit range (which happens with auto-generated timestamp-based IDs when the master entry has a small manually-specified ID).\\n\\nLet me make sure my fix compiles cleanly without warnings:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/src && make clean 2>&1 | tail -3 && make 2>&1 | grep -i \\\\\\\"warning\\\\\\\\|error\\\\\\\" | grep -i \\\\\\\"t_stream\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355694169475510256\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bca97862d19ad2e413b9a944889b05230c377f0f3ebf6fc214412da078077b45",
+ "status": 200
+}

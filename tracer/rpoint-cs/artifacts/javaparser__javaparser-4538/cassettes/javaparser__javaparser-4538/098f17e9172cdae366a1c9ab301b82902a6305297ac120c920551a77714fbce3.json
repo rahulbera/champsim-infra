@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify with the jar:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro && CP=/testbed/javaparser-core/target/javaparser-core-3.26.2-SNAPSHOT.jar && java -cp \\\\\\\".:$CP\\\\\\\" PostorderTest\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355375448542409820\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "098f17e9172cdae366a1c9ab301b82902a6305297ac120c920551a77714fbce3",
+ "status": 200
+}

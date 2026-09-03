@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The file compiled. Now let me update the jar with the new class file and rerun the reproduction. Actually, let me just run against the target/classes directly:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro && CP=/testbed/javaparser-core/target/classes && java -cp \\\\\\\".:$CP\\\\\\\" PostorderTest\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355403932765513270\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000039, \"id\": \"synthesized-00039\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00039\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0e77ec6cee417ddfb38c9f2574de34a6c8e959f4daa4bf48e5e1a91d6d050b23",
+ "status": 200
+}

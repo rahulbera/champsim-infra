@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the `streamAppendItem` function and how IDs are stored in the listpack:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"streamAppendItem\\\\\\\\|lpGetEdgeStreamID\\\\\\\\|streamDecodeID\\\\\\\\|ms_delta\\\\\\\\|seq_delta\\\\\\\\|master_id\\\\\\\" /testbed/src/t_stream.c | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355694375633940508\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000003, \"id\": \"synthesized-00003\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00003\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "699760312866aa7de172113cc8f1d9965a4400d4f2ed369ad475597722565fa5",
+ "status": 200
+}

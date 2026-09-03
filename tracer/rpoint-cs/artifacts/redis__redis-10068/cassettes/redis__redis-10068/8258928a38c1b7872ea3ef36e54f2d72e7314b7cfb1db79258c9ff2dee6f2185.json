@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me build Redis first, then run the test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && make -j4 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355700044990771599\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8258928a38c1b7872ea3ef36e54f2d72e7314b7cfb1db79258c9ff2dee6f2185",
+ "status": 200
+}

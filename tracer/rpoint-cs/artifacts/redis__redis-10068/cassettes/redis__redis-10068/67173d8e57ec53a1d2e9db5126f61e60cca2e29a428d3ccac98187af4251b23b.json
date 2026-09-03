@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the `lpGetInteger` function signature:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"lpGetIntegerIfValid\\\\\\\\|int64_t lpGetInteger\\\\\\\\|lpGetInteger(\\\\\\\" /testbed/src/listpack.c /testbed/src/listpack.h | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355703755842517959\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000010, \"id\": \"synthesized-00010\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00010\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "67173d8e57ec53a1d2e9db5126f61e60cca2e29a428d3ccac98187af4251b23b",
+ "status": 200
+}

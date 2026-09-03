@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there are any test files already modified for this issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rln \\\\\\\"PostOrder\\\\\\\\|POSTORDER\\\\\\\\|postOrder\\\\\\\" ./javaparser-core-testing/src/test/ 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355376548054032474\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000015, \"id\": \"synthesized-00015\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00015\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "16c2f53bb6c838f5d9ca27c892e74268d6fefe964897fc41e61f988b48f2a668",
+ "status": 200
+}

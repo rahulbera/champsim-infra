@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a python3.11 available. Let me add it to PATH so the submit tool can find python3:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"export PATH=\\\\\\\"/root/python3.11/bin:$PATH\\\\\\\" && python3 --version 2>&1; ln -sf /root/python3.11/bin/python3.11 /usr/local/bin/python3 2>/dev/null; ls -la /usr/local/bin/python3 2>&1; python3 --version 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355389192437758713\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "392a75df668b9391d23b30de961449e36762510a32e99edab88005b6334775f3",
+ "status": 200
+}

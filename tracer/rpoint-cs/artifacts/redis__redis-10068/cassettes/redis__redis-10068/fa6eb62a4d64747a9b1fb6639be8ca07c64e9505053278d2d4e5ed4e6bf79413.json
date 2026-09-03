@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I found the relevant code. Now let me look at the test file to understand what's expected:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"MINID\\\\\\\\|minid\\\\\\\\|trim\\\\\\\" tests/unit/type/stream.tcl | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355721348028556320\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fa6eb62a4d64747a9b1fb6639be8ca07c64e9505053278d2d4e5ed4e6bf79413",
+ "status": 200
+}

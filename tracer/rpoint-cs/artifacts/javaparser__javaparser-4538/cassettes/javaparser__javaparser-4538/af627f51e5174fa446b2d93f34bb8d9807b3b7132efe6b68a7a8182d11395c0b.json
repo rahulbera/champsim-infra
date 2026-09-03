@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'll start by exploring the repository structure to understand the codebase.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find . -type f -name \\\\\\\"*.java\\\\\\\" | head -20 && echo \\\\\\\"---\\\\\\\" && ls\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355388367804031628\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000000, \"id\": \"synthesized-00000\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00000\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "af627f51e5174fa446b2d93f34bb8d9807b3b7132efe6b68a7a8182d11395c0b",
+ "status": 200
+}

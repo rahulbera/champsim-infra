@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at `streamNextID` and the streamID structure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"streamNextID\\\\\\\\|typedef struct streamID\\\\\\\\|} streamID\\\\\\\" /testbed/src/t_stream.c /testbed/src/stream.h\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355720385955882643\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f682dbabdfbd01c24907b5023b6ffa66a8f676f6b2157bac6e547301c623e945",
+ "status": 200
+}

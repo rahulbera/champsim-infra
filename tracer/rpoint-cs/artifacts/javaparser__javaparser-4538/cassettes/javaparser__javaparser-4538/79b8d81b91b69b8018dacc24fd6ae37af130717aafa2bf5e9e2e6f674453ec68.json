@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. Let me analyze the bug:\\n\\nWhen the root has no children:\\n1. The constructor calls `fillStackToLeaf(root)` which doesn't push anything onto the stacks (since root has no children)\\n2. `nodesStack` is empty, but `hasNext = true`\\n3. When `next()` is called, it does `nodesStack.peek()` which throws `EmptyStackException`\\n\\nLet me first create a reproduction script. Let me check the build setup:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd . && ls javaparser-core && which java mvn 2>/dev/null; java -version 2>&1 | head -3\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355365415498801356\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "79b8d81b91b69b8018dacc24fd6ae37af130717aafa2bf5e9e2e6f674453ec68",
+ "status": 200
+}

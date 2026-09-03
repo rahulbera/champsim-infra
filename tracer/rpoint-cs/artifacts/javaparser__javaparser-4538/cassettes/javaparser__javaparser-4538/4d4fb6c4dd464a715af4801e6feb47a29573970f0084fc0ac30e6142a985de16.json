@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Everything works as expected:\\n- The original bug (EmptyStackException) is fixed - now returns the CompilationUnit.\\n- POSTORDER with children works correctly (leaves-first order).\\n- POSTORDER with no children returns the single root node (the `[]` is just the empty toString of CompilationUnit, size is 1).\\n- POSTORDER on a leaf node returns the leaf.\\n- Stream-based POSTORDER on no-children root returns count 1.\\n\\nLet me also run the broader test suite for the core-testing module to make sure I haven't broken anything else:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && mvn -pl javaparser-core-testing -am test -Dtest='*Node*Test,*Walk*Test,*Tree*Test,*Visitor*Test' -Dsurefire.failIfNoSpecifiedTests=false 2>&1 | tail -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378987595458545\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000057, \"id\": \"synthesized-00057\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00057\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4d4fb6c4dd464a715af4801e6feb47a29573970f0084fc0ac30e6142a985de16",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look for tests related to Node iteration/walk:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find ./javaparser-core-testing/src/test/java/ -name \\\\\\\"NodeTest.java\\\\\\\" -o -name \\\\\\\"*Walk*Test*\\\\\\\" -o -name \\\\\\\"*Traversal*Test*\\\\\\\" 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355375620341098692\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000012, \"id\": \"synthesized-00012\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00012\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "79f0a2d4c253abd797d191e0fe5e6e4246a674dda178e02de08a995c5261eabc",
+ "status": 200
+}

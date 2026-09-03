@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd . && ls javaparser-core/target/*.jar 2>/dev/null; ls javaparser-core/target/classes/com/github/javaparser/ast/Node.class 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355387233932665199\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "550468a29920097bf5d447e5689c8fd5b90d55fc9d8606d2766f00c1b115cc24",
+ "status": 200
+}

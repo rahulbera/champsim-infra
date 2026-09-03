@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Only the source file `Node.java` was modified - no test files were touched.\\n\\n4. Run the submit command again to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355372562324389755\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c18c1b069a1d0ac22ba7d62dac924f352c450d865cd683a812566daba2fcc456",
+ "status": 200
+}

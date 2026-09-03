@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"This is very strange. `size()` is 1, `get(0)` returns an empty string (the CompilationUnit's toString is empty), but `toString()` of the list shows `[]`. \\n\\nWait, `get(0)` returns empty string because CompilationUnit with no content prints as empty. And `ArrayList.toString()` calls `toString()` on each element. So `[<empty>]` should show as `[]`... no wait, it would show `[]` only if empty. Let me think.\\n\\nActually `ArrayList.toString()` produces `[element1, element2]`. With one element whose toString is `\\\"\\\"`, it would be `[]`... no. Let me test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro && cat > ListTest.java << 'EOF'\\\\nimport java.util.ArrayList;\\\\nimport java.util.List;\\\\npublic class ListTest {\\\\n    public static void main(String[] args) {\\\\n        List<String> l = new ArrayList<>();\\\\n        l.add(\\\\\\\"\\\\\\\");\\\\n        System.out.println(\\\\\\\"size: \\\\\\\" + l.size());\\\\n        System.out.println(\\\\\\\"toString: [\\\\\\\" + l.toString() + \\\\\\\"]\\\\\\\");\\\\n    }\\\\n}\\\\nEOF\\\\njavac ListTest.java && java ListTest\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355392113015521103\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000049, \"id\": \"synthesized-00049\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00049\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b41407ffc0d6ac9ffefd5a7f3d702528011251966b054a8a9cc0c4edfab44ab6",
+ "status": 200
+}

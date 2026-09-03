@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"lpGetInteger\\\\\\\\b\\\\\\\" src/t_stream.c | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355696883894842028\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ac16932f60c70ba82c30a10cf5e6fafdcfafa5d868896240937cac1a77251169",
+ "status": 200
+}

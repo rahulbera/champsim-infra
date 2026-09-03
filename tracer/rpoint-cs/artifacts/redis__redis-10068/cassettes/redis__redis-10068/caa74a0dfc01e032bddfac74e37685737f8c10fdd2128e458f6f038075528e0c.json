@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The existing tests pass. Now let me create a reproduction test to confirm the bug. Let me write a standalone test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > tests/unit/type/stream-repro.tcl << 'EOF'\\\\nstart_server {tags {\\\\\\\"stream\\\\\\\"}} {\\\\n    test {XTRIM with MINID bug reproduction} {\\\\n        r DEL mystream\\\\n        r XADD mystream 10-1 key value\\\\n        set id1 [r XADD mystream * key value]\\\\n        set id2 [r XADD mystream * key value]\\\\n        set id3 [r XADD mystream * key value]\\\\n        set id4 [r XADD mystream * key value]\\\\n        puts \\\\\\\"IDs: $id1 $id2 $id3 $id4\\\\\\\"\\\\n        set res_before [r XRANGE mystream - +]\\\\n        puts \\\\\\\"Before trim: $res_before\\\\\\\"\\\\n        set deleted [r XTRIM mystream MINID $id2]\\\\n        puts \\\\\\\"Deleted: $deleted\\\\\\\"\\\\n        set res_after [r XRANGE mystream - +]\\\\n        puts \\\\\\\"After trim: $res_after\\\\\\\"\\\\n        assert_equal [llength $res_after] 3\\\\n    }\\\\n}\\\\nEOF\\\\necho \\\\\\\"Created repro test\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355696196700071950\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000034, \"id\": \"synthesized-00034\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00034\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "caa74a0dfc01e032bddfac74e37685737f8c10fdd2128e458f6f038075528e0c",
+ "status": 200
+}

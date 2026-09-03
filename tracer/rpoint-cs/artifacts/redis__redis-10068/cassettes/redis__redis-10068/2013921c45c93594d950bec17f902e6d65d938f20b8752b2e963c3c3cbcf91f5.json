@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the code structure. Let me analyze the bug carefully. Looking at the `streamTrim` function, I notice that `ms_delta` and `seq_delta` are declared as `int` (32-bit) but `lpGetInteger` returns `int64_t`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/t_stream.c\\\",\\\"view_range\\\":[796, 810]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355699048558361820\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2013921c45c93594d950bec17f902e6d65d938f20b8752b2e963c3c3cbcf91f5",
+ "status": 200
+}

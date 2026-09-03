@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit command is now working. Let me follow the instructions:\\n\\n1. Run the reproduction script again to confirm the fix works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /tmp/repro && CP=/testbed/javaparser-core/target/classes && java -cp \\\\\\\".:$CP\\\\\\\" PostorderTest && echo \\\\\\\"===== Test2 =====\\\\\\\" && java -cp \\\\\\\".:$CP\\\\\\\" PostorderTest2\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355386134421041822\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "057be9a65c0d453a328d11f5cfe710d02c188e22929cc6e6ef7bbfbd964139c6",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The state is clean:\\n- My reproduction script has been removed.\\n- No test files were modified.\\n- The only change is the minimal fix to `src/t_stream.c`.\\n\\nThe change is staged. Let me confirm the reproduction script is gone:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls tests/unit/type/stream-repro.tcl 2>&1; echo \\\\\\\"---\\\\\\\"; ls tests/unit/type/ | grep stream\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355690011947170502\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000059, \"id\": \"synthesized-00059\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00059\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0e3bc1daceacb7d822c45e2d77dd1505032960e8148e5f0a4a4fb62fd8203085",
+ "status": 200
+}

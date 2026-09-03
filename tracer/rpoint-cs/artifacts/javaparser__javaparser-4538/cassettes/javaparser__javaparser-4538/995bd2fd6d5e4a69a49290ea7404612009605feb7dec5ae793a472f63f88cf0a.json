@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I'm in /tmp/repro. Let me use the absolute path:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '1158,1188p' /testbed/javaparser-core/src/main/java/com/github/javaparser/ast/Node.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355398091609995926\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "995bd2fd6d5e4a69a49290ea7404612009605feb7dec5ae793a472f63f88cf0a",
+ "status": 200
+}

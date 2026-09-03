@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me analyze the bug carefully. The `ms_delta` and `seq_delta` are declared as `int` (32-bit signed), but `lpGetInteger` returns `int64_t`. The deltas stored in the listpack are differences between the entry ID and the master ID.\\n\\nIn the reproduction scenario:\\n- First entry `10-1` is the master entry, so `master_id = 10-1`\\n- The auto-generated IDs are like `1786507363459-0`, `1786507363459-1`, etc.\\n- The `ms_delta` for `1786507363459-0` would be `1786507363459 - 10 = 1786507363449`\\n\\nThis value `1786507363449` exceeds the maximum value of a 32-bit signed integer (`2147483647`). So when stored in an `int`, it overflows and becomes a negative number!\\n\\nLet me verify this:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"python3 -c \\\\\\\"\\\\nv = 1786507363449\\\\n# int32 overflow\\\\nimport ctypes\\\\nprint('int32:', ctypes.c_int(v).value)\\\\nprint('max int32:', 2**31 - 1)\\\\nprint('value exceeds max int32:', v > 2**31 - 1)\\\\n\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355695268987141194\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000037, \"id\": \"synthesized-00037\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00037\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "316d74f8e3fca4d2ff9f89d60a530eeffd38fb9bb8b8ad12eae69ca3b1bdcc07",
+ "status": 200
+}

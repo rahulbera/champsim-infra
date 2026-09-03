@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's already a built jar. Let me create a reproduction Java program. First, let me find the dependencies needed:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd . && find ~ -name \\\\\\\"javaparser-core*.jar\\\\\\\" 2>/dev/null | head; find / -name \\\\\\\"javaparser-core*.jar\\\\\\\" 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355385103628888284\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "03f4e4e6d9b385026e4f18990735c37b4ff631551a9a7fd8a0e388d58c5e337b",
+ "status": 200
+}

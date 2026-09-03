@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat ./javaparser-core-testing/src/test/java/com/github/javaparser/ast/visitor/TreeVisitorTest.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355383729239355247\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "799ad4e0a7b24ed88e36e23e6efd0b50f10944348e2dc7f7b8a50deef749bfa0",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The change is minimal and correct. Let me verify the test that was mentioned in the PR description is actually present in the test file (the task says they've already taken care of test files). Let me check if there's a test that specifically tests this scenario:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"10-1\\\\\\\\|MINID.*\\\\\\\\*\\\\\\\\|XTRIM.*MINID\\\\\\\" tests/unit/type/stream.tcl\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355685751339609293\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000050, \"id\": \"synthesized-00050\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00050\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a453d576f8ef5a703eb239dcc1de9817c981847407e9190fddb5e6e40e885d6c",
+ "status": 200
+}

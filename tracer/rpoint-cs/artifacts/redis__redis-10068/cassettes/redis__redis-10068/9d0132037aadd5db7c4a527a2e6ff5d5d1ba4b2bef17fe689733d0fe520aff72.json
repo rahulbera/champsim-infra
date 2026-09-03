@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the reproduction test first to confirm the bug:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./runtest --single unit/type/stream 2>&1 | tail -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355698361363592795\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9d0132037aadd5db7c4a527a2e6ff5d5d1ba4b2bef17fe689733d0fe520aff72",
+ "status": 200
+}

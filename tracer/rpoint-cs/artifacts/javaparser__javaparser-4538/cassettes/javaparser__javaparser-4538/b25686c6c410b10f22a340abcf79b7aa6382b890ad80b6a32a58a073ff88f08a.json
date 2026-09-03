@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there's a git status to see what test files may have been modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd . && git status && echo \\\\\\\"---DIFF---\\\\\\\" && git diff HEAD --stat 2>/dev/null | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355398916243711960\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b25686c6c410b10f22a340abcf79b7aa6382b890ad80b6a32a58a073ff88f08a",
+ "status": 200
+}

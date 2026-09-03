@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there are tests related to this specific bug scenario - the user said they've already taken care of test files. Let me look at the git diff to see what tests were already modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff HEAD -- tests/unit/type/stream.tcl | head -100\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355709390839606244\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9c6c321b9e0dd41c72a49829eddac386976cfe8f869276e0ae2aef5d6bf80598",
+ "status": 200
+}

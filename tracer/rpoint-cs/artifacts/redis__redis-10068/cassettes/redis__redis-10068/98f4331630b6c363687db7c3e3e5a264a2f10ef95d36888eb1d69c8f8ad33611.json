@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the `streamIterator` to understand the ID handling during iteration:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/t_stream.c\\\",\\\"view_range\\\":[1080, 1200]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355699838832341936\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000019, \"id\": \"synthesized-00019\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00019\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "98f4331630b6c363687db7c3e3e5a264a2f10ef95d36888eb1d69c8f8ad33611",
+ "status": 200
+}

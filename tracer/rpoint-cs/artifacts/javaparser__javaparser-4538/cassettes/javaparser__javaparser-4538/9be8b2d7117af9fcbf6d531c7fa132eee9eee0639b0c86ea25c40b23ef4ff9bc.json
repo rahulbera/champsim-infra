@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. Let me look at the full `PostOrderIterator` and analyze the bug:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '1130,1190p' ./javaparser-core/src/main/java/com/github/javaparser/ast/Node.java\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355363834950841807\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9be8b2d7117af9fcbf6d531c7fa132eee9eee0639b0c86ea25c40b23ef4ff9bc",
+ "status": 200
+}

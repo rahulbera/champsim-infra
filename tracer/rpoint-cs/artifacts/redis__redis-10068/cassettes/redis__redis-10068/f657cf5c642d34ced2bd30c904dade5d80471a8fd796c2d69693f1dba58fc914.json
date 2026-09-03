@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Everything is clean. The reproduction script is removed, no test files were modified, and the only change is the minimal fix to `src/t_stream.c` that resolves the XTRIM MINID bug by changing the `ms_delta` and `seq_delta` variables from 32-bit `int` to 64-bit `int64_t` to prevent integer overflow when computing entry IDs during trimming.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355691764293821378\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000060, \"id\": \"synthesized-00060\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00060\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f657cf5c642d34ced2bd30c904dade5d80471a8fd796c2d69693f1dba58fc914",
+ "status": 200
+}

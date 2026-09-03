@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All stream tests pass. Let me also run the stream-cgroups tests to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./runtest --single unit/type/stream-cgroups 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355697571089604752\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "decfcc686692e9860d929f917affe8c01f90d686672c28d1258ee67752938ca2",
+ "status": 200
+}
