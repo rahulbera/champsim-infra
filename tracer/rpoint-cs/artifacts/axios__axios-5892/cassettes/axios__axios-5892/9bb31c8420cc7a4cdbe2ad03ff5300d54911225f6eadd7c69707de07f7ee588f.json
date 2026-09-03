@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The 'Gzip' now passes but 'GZIP' and 'gZIP' still fail with 'socket hang up'. This is suspicious. Let me check what `index.js` imports:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/index.js\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366967908871694662\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9bb31c8420cc7a4cdbe2ad03ff5300d54911225f6eadd7c69707de07f7ee588f",
+ "status": 200
+}

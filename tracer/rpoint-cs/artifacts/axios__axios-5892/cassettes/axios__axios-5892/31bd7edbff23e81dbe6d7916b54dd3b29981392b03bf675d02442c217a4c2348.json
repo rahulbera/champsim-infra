@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me try to rebuild the dist files using the build command. First let me check if gulp/rollup is available:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ls node_modules/.bin/ | grep -E \\\\\\\"rollup|gulp\\\\\\\" | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366938359496703040\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "31bd7edbff23e81dbe6d7916b54dd3b29981392b03bf675d02442c217a4c2348",
+ "status": 200
+}

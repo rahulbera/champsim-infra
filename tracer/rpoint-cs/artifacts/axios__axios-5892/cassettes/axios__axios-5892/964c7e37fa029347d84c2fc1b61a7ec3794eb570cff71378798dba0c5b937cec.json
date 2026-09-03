@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"These DNS lookup tests use a fake hostname `fake-name.axios` and rely on the custom lookup function being called. The error `Invalid IP address: undefined` suggests the lookup function isn't being invoked as expected, which is likely an environment issue with the `follow-redirects` library version, not related to my change. Let me verify by stashing my change and running these specific tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash && (npx mocha test/unit/adapters/http.js --timeout 30000 --exit --grep \\\\\\\"DNS lookup\\\\\\\" > /tmp/test_dns_before.log 2>&1 &) && echo \\\\\\\"started\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366880154099908024\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000041, \"id\": \"synthesized-00041\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00041\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "964c7e37fa029347d84c2fc1b61a7ec3794eb570cff71378798dba0c5b937cec",
+ "status": 200
+}

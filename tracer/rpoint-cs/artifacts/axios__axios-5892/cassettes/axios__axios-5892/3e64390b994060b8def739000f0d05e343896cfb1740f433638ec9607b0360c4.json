@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The max content length tests pass in isolation, so the failure in the full suite is due to port 4444 conflicts/timing, not my change. These are pre-existing flaky/environment issues.\\n\\nNow let me also check the dist files, since axios ships built files. Let me check if the dist files contain the same code that needs updating:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"content-encoding\\\\\\\" dist/node/axios.cjs dist/axios.js dist/esm/axios.js 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366945334523589624\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3e64390b994060b8def739000f0d05e343896cfb1740f433638ec9607b0360c4",
+ "status": 200
+}

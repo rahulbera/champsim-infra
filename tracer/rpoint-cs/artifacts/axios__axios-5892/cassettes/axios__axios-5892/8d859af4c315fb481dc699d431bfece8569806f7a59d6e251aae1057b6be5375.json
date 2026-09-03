@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good. Let me also check the \\\"max content length\\\" test to confirm it's also environment-related:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/test/unit/adapters/http.js\\\",\\\"view_range\\\":[668, 720]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7366959834333177968\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8d859af4c315fb481dc699d431bfece8569806f7a59d6e251aae1057b6be5375",
+ "status": 200
+}

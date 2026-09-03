@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No lint errors. Let me run the reproduction script one more time to confirm everything works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && node reproduce_issue.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366964472897856976\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d333d600133f1b9f2d38f84e198f51fdd1462656237ea32a6f71132f85e0c5e5",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Now let me run the compression tests again to make sure they still pass:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx mocha test/unit/adapters/http.js --timeout 30000 --exit --grep \\\\\\\"compression\\\\\\\" 2>&1 | tail -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366897643206731116\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "725dec9505f608a41edc51e406b4ac93d6b5339227feacf000b4854d1b4af3f1",
+ "status": 200
+}

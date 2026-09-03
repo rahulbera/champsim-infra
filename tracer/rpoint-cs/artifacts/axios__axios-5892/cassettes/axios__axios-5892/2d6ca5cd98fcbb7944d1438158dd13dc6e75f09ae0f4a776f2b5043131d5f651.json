@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The full test suite takes too long. Let me run with a longer timeout in the background, or just run a subset. Let me check what tests exist and run them with a higher bash timeout:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 120 npx mocha test/unit/adapters/http.js --timeout 30000 --exit 2>&1 | tail -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366947121229985667\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000031, \"id\": \"synthesized-00031\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00031\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2d6ca5cd98fcbb7944d1438158dd13dc6e75f09ae0f4a776f2b5043131d5f651",
+ "status": 200
+}

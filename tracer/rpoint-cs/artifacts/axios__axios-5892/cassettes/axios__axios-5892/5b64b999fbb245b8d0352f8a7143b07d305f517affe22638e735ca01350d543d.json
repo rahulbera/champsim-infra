@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The reproduction script has been removed, no test files were modified, and the changes are clean and minimal. Let me run the submit command again to confirm:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7366894653909493243\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5b64b999fbb245b8d0352f8a7143b07d305f517affe22638e735ca01350d543d",
+ "status": 200
+}

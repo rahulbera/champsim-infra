@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sleep 15 && grep -E \\\\\\\"passing|failing|pending\\\\\\\" /tmp/test_dns_before.log | tail -5; echo \\\\\\\"---\\\\\\\"; cat /tmp/test_dns_before.log | grep -E \\\\\\\"\\u00e2\\u009c\\u0094|\\u00e2\\u009c\\u0097|failing|passing|\\u00e2\\u009c\\u0093\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366946605833909220\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d827cc95ac353b8a2f859d22b1593f3463ab8ec71afa6182e4bbfd6372b74442",
+ "status": 200
+}

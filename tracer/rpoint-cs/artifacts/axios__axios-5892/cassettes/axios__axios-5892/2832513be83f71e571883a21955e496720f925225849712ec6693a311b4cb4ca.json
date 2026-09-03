@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The bash tool has a 30s limit. Let me run the tests in the background and redirect to a file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && (npx mocha test/unit/adapters/http.js --timeout 30000 --exit > /tmp/test_output.log 2>&1 &) && echo \\\\\\\"started\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366919530360072599\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2832513be83f71e571883a21955e496720f925225849712ec6693a311b4cb4ca",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The 4 failing tests are related to DNS lookup and max content length, which are environment/network-related issues (sandboxed environment without network access), not related to my change. Let me verify these failures exist before my change by stashing my change and re-running just those tests. Actually, let me first verify by checking if these tests are network-dependent. Let me look at the DNS test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"should support custom DNS lookup function\\\\\\\\|should support max content length\\\\\\\" test/unit/adapters/http.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366962720551205286\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b040ab2d145b0954dd5bdf02968d8abc8ff5a86417727cc872e1f0e941f11796",
+ "status": 200
+}

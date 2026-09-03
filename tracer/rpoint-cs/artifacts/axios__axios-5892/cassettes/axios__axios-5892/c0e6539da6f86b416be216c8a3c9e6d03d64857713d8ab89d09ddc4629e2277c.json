@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me review the diff of the source change to confirm it's correct:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff lib/adapters/http.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366935816876064086\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c0e6539da6f86b416be216c8a3c9e6d03d64857713d8ab89d09ddc4629e2277c",
+ "status": 200
+}

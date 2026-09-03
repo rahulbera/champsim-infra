@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The build completed. Let me verify the dist files now contain the fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"content-encoding').toLowerCase\\\\\\\\|content-encoding'])\\\\\\\" dist/node/axios.cjs dist/axios.js dist/esm/axios.js 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366970795089720948\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000055, \"id\": \"synthesized-00055\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00055\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "41e995a44cba914c4814a8b0b9cb13ef17ab95fcfe36346ccf5678401d056039",
+ "status": 200
+}

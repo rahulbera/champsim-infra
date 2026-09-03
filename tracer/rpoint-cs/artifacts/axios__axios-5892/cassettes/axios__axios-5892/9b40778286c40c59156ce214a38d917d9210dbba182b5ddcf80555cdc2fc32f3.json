@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The xhr adapter doesn't handle decompression (browsers do it automatically), so no changes needed there.\\n\\nNow let me clean up the reproduction script since it's not part of the actual fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm reproduce_issue.js && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366926230509057013\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b40778286c40c59156ce214a38d917d9210dbba182b5ddcf80555cdc2fc32f3",
+ "status": 200
+}

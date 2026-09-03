@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The DNS tests fail even before my change, confirming they are environment-related failures unrelated to my fix. Let me restore my change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git stash pop\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366930662915304507\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000043, \"id\": \"synthesized-00043\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00043\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c13c1512a07545a793b74dad6e45cbf63337f7772bf2b797030c741b8c703c6d",
+ "status": 200
+}

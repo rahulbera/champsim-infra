@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The output was clipped due to the source map content. Let me verify the dist files contain the fix more concisely:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -l \\\\\\\"toLowerCase())\\\\\\\" dist/node/axios.cjs dist/axios.js dist/esm/axios.js dist/browser/axios.cjs 2>/dev/null; echo \\\\\\\"---checking switch lines---\\\\\\\"; grep -n \\\\\\\"switch (res.headers\\\\\\\\['content-encoding'\\\\\\\\]\\\\\\\" dist/node/axios.cjs dist/axios.js dist/esm/axios.js dist/browser/axios.cjs 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366968355548292409\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8062a0655dd56f84b8e6cf9fcca9c70b71d39589fd8a53f50e89ccd4b4ccda59",
+ "status": 200
+}

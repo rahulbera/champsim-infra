@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The rebuild introduced unrelated cosmetic changes (copyright year 2023\\u00e2\\u0086\\u00922026 and terser minification differences) due to different build tooling versions in the sandbox. These aren't part of my fix. The tests use the `lib` source (not dist), so the dist files aren't strictly needed for tests. \\n\\nTo keep changes minimal and clean, let me revert all the dist rebuild changes and manually apply just the `toLowerCase` fix to `dist/node/axios.cjs` (the only dist file containing the http adapter code):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout dist/\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366913826643505696\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000075, \"id\": \"synthesized-00075\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00075\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dc7d957c8ded7831ee62d645973ea505171dd91fd9ca7af5556e1d81437e4880",
+ "status": 200
+}

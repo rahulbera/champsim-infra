@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The 'socket hang up' error is suspicious since my fix should handle all cases. Let me re-run to check if it's a flaky port reuse issue:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && node reproduce_issue.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366946915071551031\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06e14ec3c3b8b08c5e1ad6c0cbbb371addae70b61b958dfd74650b8dcb28716f",
+ "status": 200
+}

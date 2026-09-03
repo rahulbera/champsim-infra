@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Only the node cjs build contains the http adapter code (the esm build and the main axios.js bundle the xhr adapter for the browser field). Let me verify the esm build does not include the http adapter:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"createBrotliDecompress\\\\\\\" dist/ | grep -v \\\\\\\".map\\\\\\\" | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366954920890591146\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "05c420ff8091048bc931c2884fbb0aacbd58f3b22c62ea3169d57e360bc31099",
+ "status": 200
+}

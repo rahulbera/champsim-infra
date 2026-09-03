@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The diff is now minimal and clean. Let me verify the build version check still passes (it only checks versions, not the source map content):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && node ./bin/check-build-version.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366854418655863137\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000078, \"id\": \"synthesized-00078\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00078\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "15071c5120640ef01908a0542b2caee89eea534476d27cd75b64b19e54e250a1",
+ "status": 200
+}

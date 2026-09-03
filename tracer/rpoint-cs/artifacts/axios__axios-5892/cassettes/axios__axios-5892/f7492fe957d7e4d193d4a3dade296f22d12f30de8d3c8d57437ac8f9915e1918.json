@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All compression tests pass. Let me also run the eslint check one final time to confirm no lint issues:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx eslint lib/adapters/http.js 2>&1 | head; echo \\\\\\\"exit code: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366977254720532664\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000083, \"id\": \"synthesized-00083\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00083\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f7492fe957d7e4d193d4a3dade296f22d12f30de8d3c8d57437ac8f9915e1918",
+ "status": 200
+}

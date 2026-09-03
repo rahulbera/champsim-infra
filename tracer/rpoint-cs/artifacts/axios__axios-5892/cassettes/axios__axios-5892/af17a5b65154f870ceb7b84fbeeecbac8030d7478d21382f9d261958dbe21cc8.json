@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me run the existing test suite for the http adapter to make sure my change doesn't break anything. Let me run just the compression-related tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && node bin/ssl_hotfix.js mocha test/unit/adapters/http.js --timeout 30000 --exit --grep \\\\\\\"compression\\\\\\\" 2>&1 | tail -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366938806173299935\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "af17a5b65154f870ceb7b84fbeeecbac8030d7478d21382f9d261958dbe21cc8",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. The `switch` statement compares `res.headers['content-encoding']` directly without lowercasing it, so values like 'GZIP', 'Gzip', etc. won't match the lowercase cases. Let me look at the test files to understand what's expected.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"content-encoding\\\\\\\" /testbed/test/ | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366974918258324475\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000004, \"id\": \"synthesized-00004\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00004\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0a8516a1152c6b1a8e042774e3600eed4bb9573aebd74ba0a5ade5d18ddc3169",
+ "status": 200
+}

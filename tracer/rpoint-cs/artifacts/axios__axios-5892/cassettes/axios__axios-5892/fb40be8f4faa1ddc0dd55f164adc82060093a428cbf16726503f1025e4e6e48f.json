@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All compression tests pass. Now let me run the full http adapter test suite to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx mocha test/unit/adapters/http.js --timeout 30000 --exit 2>&1 | tail -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366958081986524395\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fb40be8f4faa1ddc0dd55f164adc82060093a428cbf16726503f1025e4e6e48f",
+ "status": 200
+}

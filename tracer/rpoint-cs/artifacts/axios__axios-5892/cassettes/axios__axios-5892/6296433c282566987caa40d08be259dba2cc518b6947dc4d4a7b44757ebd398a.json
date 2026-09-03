@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The only place that compares the content-encoding value is the switch statement, which I've fixed. Let me also check the xhr adapter to see if it handles decompression (browsers do it automatically, so it likely doesn't):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"encoding\\\\\\\\|decompress\\\\\\\\|zlib\\\\\\\" lib/adapters/xhr.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366954061897137286\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000069, \"id\": \"synthesized-00069\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00069\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6296433c282566987caa40d08be259dba2cc518b6947dc4d4a7b44757ebd398a",
+ "status": 200
+}

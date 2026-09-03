@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check if there are any tests related to case-insensitivity that have already been added:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rni \\\\\\\"GZIP\\\\\\\\|Gzip\\\\\\\\|toLowerCase\\\\\\\\|lowercase\\\\\\\\|case-insensitiv\\\\\\\" /testbed/test/unit/adapters/http.js | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366979934780125091\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c3f684490e478121635a8a2c316df06f353486607515f8e82c7dc8aa8cc612cd",
+ "status": 200
+}

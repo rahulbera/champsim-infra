@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Now let me clean up the reproduction script:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm reproduce_issue.js && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366953099824461559\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000081, \"id\": \"synthesized-00081\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00081\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "041e68590edf8aeb982a09f417f5aa0e2d87ab003dd624236f073c7a1f878621",
+ "status": 200
+}
