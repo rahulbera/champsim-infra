@@ -1,2 +1,4 @@
 2026-09-03 14:03:13	infra	my descriptor put -am on MVN_SCOPE and the build but not the test command, so javaparser-core:SNAPSHOT could not resolve
 2026-09-03 15:03:07	infra	-DfailIfNoTests is the pre-3.x surefire name; surefire 3.4.0 needs -Dsurefire.failIfNoSpecifiedTests, so the -am sibling javaparser-core errored on zero matches
+2026-09-03 18:12:37	instance	chain: trace failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-javaparser__javaparser-4538/trace.log)
+2026-09-03 19:03:43	infra	trace hit OUR EXEC_TIMEOUT=1800 on a maven command; 1800s of TCG is ~36s of real work. Raised default to 7200

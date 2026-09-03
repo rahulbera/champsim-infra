@@ -1,1 +1,2 @@
 2026-09-03 18:03:50	infra	ruby gate took the FIRST matching framework summary; faker prints test-unit's '8 tests' then minitest's autorun '0 runs', so it counted 0 and rejected a passing gate
+2026-09-03 19:03:43	infra	my counter used [ ] && [ ] && { } under set -e; a false chain returned 1 and killed provision_guest.sh with no output at all

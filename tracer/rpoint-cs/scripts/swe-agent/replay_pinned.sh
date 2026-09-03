@@ -45,7 +45,19 @@ PIN_CPU=${PIN_CPU:-1}
 # workload command is a redis test suite in minutes; immutable-js's full jest
 # run is 15 s) while still being finite. If a command legitimately needs longer,
 # raise it per instance rather than disabling it again.
-EXEC_TIMEOUT=${EXEC_TIMEOUT:-1800}       # 30 min per command
+# 1800 was calibrated against KVM-speed commands. Under TCG the machine is ~50x
+# slower, so 1800 s of TCG is roughly 36 SECONDS of real work -- far too tight
+# for a maven or cmake build. javaparser-4538 proved it: its profile pass
+# completed in 90 min, and its TRACE pass (same trajectory, plus tracing
+# instrumentation on top of TCG) died on
+#     CommandTimeoutError: timeout after 1800.0 seconds
+# followed by "Failed to interrupt session" and a truncated autosubmit.
+#
+# 7200 keeps the bound FINITE, which is the point -- gin-2121 showed what an
+# unbounded replay costs -- while leaving room for a real build. A genuine hang
+# now holds a TCG slot for 2 h instead of 30 min, which campaign_watch.sh
+# detects long before that from the guest's CPU accrual.
+EXEC_TIMEOUT=${EXEC_TIMEOUT:-7200}       # 2 h per command; see the note above
 TOTAL_TIMEOUT=${TOTAL_TIMEOUT:-604800}   # 7 d per episode
 
 # NEITHER of the above governs SWE-agent's STATE command, and that is what ends

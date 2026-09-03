@@ -137,13 +137,19 @@ lang_offline_gate() {
   #
   # The honest question is "how many tests actually ran", so take the largest
   # count any recognised framework reported.
+  # IF-BLOCKS, NOT `[ ] && [ ] && { }`. This module runs under `set -euo
+  # pipefail`, where a false `&&` chain evaluates to 1 and kills the script --
+  # silently, before any [FAIL] line is printed. The first version of this
+  # counter did exactly that and faker-2705's gate produced NO output at all,
+  # which is strictly worse than the wrong count it replaced. attempts.sh
+  # carries a comment about this same trap; I walked into it anyway.
   local n=0 unit=tests c
-  c=$(grep -oE '^[0-9]+ examples?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1)
-  [ -n "$c" ] && [ "$c" -gt "$n" ] && { n=$c; unit=examples; }
-  c=$(grep -oE '^[0-9]+ runs?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1)
-  [ -n "$c" ] && [ "$c" -gt "$n" ] && { n=$c; unit=runs; }
-  c=$(grep -oE '^[0-9]+ tests?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1)
-  [ -n "$c" ] && [ "$c" -gt "$n" ] && { n=$c; unit=tests; }
+  c=$(grep -oE '^[0-9]+ examples?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1 || true)
+  if [ -n "$c" ] && [ "$c" -gt "$n" ]; then n=$c; unit=examples; fi
+  c=$(grep -oE '^[0-9]+ runs?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1 || true)
+  if [ -n "$c" ] && [ "$c" -gt "$n" ]; then n=$c; unit=runs; fi
+  c=$(grep -oE '^[0-9]+ tests?,' "$log" | grep -oE '^[0-9]+' | sort -n | tail -1 || true)
+  if [ -n "$c" ] && [ "$c" -gt "$n" ]; then n=$c; unit=tests; fi
   grep -qE '^[0-9]+ (examples?|runs?|tests?),' "$log" \
     || { tail -30 "$log"; die "no rspec/minitest/test-unit count in the gate output"; }
   [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
