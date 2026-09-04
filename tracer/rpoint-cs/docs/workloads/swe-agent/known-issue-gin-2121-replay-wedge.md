@@ -240,6 +240,38 @@ Ordered by cost. **None has been attempted.**
    are distinguishable after the fact, which they would not have been before
    2026-09-04.
 
+## 5b. It GENERALISES: gin clears too (2026-09-04)
+
+One instance recovering is a mechanism; two in different languages is a fix.
+gin-2121 -- this document's own instance, the original reproducer -- was re-run
+with `--noediting`:
+
+    replay misses    : 0
+    fed actions      : 39      submits at [28, 30, 31, 36, 38]
+    replayed actions : 31, ending ON the submit at index 30
+    identical actions: 31 / 31, no cancelled steps
+    replay patch     : 1750 bytes
+    VERDICT          : FAITHFUL
+
+**Read the action count carefully, because it is a trap.** §3.1 attempt 3 also
+reached "31 of 39". That run was TRUNCATED -- it stopped mid-trajectory without
+reaching a submit and produced a 447-byte patch. This run reaches the same index
+and ENDS ON A SUBMIT with a 1750-byte patch, nearly four times larger. Same
+number, opposite meaning: one is a replay that died, the other is a replay that
+finished. The remaining 8 recorded actions are the original agent continuing
+past its own submit, which the foreign-replay gate treats as complete.
+
+So the wedge is fixed in both instances tested, across two languages, one of
+which never recovered in three prior attempts.
+
+**Recoverable cells:** Go×T (this instance), JavaScript×M (preact-3763, already
+captured under the patch) and JavaScript×T (three.js-26589/27395, untested but
+the same defect).
+
+**Not recoverable by this patch:** preact-4182 and php-cs-fixer-8064, which died
+on the 25-second `_state_anthropic` timeout. That is a wall clock and has
+nothing to do with readline; see §6 of the preact write-up.
+
 ## 5. If we resume
 
 1. **Cheapest first experiment, before any patching:** run gin's verify with
