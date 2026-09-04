@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. Let me create a reproduction script first. Let me check the build setup.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"ls /testbed/build/tests/src/ 2>/dev/null | head -20; echo \\\\\\\"---\\\\\\\"; ls /testbed/build/tests/ 2>/dev/null | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819273282904872\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000021, \"id\": \"synthesized-00021\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00021\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e86f62509a60cde73ecd6ff5a0de0ea24a16420c25517cf9978e22b349fb32b7",
+ "status": 200
+}

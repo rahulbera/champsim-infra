@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test mentioned in the PR description doesn't appear to be in the test files. Let me search more broadly.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"book_id\\\\\\\\|large_id\\\\\\\" /testbed/tests/ | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7366602218176246831\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000011, \"id\": \"synthesized-00011\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00011\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5fdb9c2f4c32add95ee0ceb508575fea08910b8204302ac3f05febb8b2288ef3",
+ "status": 200
+}

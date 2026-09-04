@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && ./tests/test-conversions_cpp11 2>&1 | tail -10 && echo \\\\\\\"=== CPP17 ===\\\\\\\" && ./tests/test-conversions_cpp17 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355817486576514632\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000075, \"id\": \"synthesized-00075\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00075\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "17b838d07b2f5cb6fbca991d637ae9b474059af41b6dd524f70a9b610f701ece",
+ "status": 200
+}

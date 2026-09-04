@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Now let me also verify the `JSON_DISABLE_ENUM_SERIALIZATION` path still compiles correctly. Let me check if there's a test for that:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rln \\\\\\\"JSON_DISABLE_ENUM_SERIALIZATION\\\\\\\" /testbed/tests/ | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820682032185293\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000084, \"id\": \"synthesized-00084\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00084\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "183edaae8a1a521e0c5ce078daf9dc02973731ff58c6285d5248fae86aee9320",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Yes, `is_number_integer()` returns true for both signed and unsigned, which is the existing documented behavior. So my fix is consistent.\\n\\nNow let me test with the single_include version too:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -I/testbed/single_include repro2.cpp -o repro2_single && ./repro2_single\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820853830876072\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f718bbb5cda30de6040226e6ea4759e86a957ade80b680be317d22360c029733",
+ "status": 200
+}

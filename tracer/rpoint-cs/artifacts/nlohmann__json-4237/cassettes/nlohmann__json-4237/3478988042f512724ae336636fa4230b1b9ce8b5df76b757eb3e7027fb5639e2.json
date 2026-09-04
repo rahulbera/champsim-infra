@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me run a few more relevant ones including the binary formats and items tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && for t in test-items_cpp11 test-items_cpp17 test-element_access1_cpp11 test-element_access2_cpp11 test-element_access2_cpp17 test-comparison_cpp11 test-operators_cpp11 test-reference_access_cpp11; do echo \\\\\\\"=== $t ===\\\\\\\"; ./tests/$t 2>&1 | tail -3; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355817246058345476\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000083, \"id\": \"synthesized-00083\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00083\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3478988042f512724ae336636fa4230b1b9ce8b5df76b757eb3e7027fb5639e2",
+ "status": 200
+}

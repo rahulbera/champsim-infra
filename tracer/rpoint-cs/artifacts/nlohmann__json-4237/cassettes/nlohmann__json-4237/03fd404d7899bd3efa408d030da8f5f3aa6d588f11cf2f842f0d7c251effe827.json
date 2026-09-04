@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Good, the file is restored. Now let me carefully implement the fix. I'll add a helper to dispatch based on signedness. Let me view the current state again:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/include/nlohmann/detail/conversions/to_json.hpp\\\",\\\"view_range\\\":[317, 332]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355820647672442452\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000042, \"id\": \"synthesized-00042\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00042\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "03fd404d7899bd3efa408d030da8f5f3aa6d588f11cf2f842f0d7c251effe827",
+ "status": 200
+}

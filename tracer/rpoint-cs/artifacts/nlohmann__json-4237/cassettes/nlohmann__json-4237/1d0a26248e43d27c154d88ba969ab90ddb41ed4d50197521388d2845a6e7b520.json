@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"JSON_DISABLE_ENUM_SERIALIZATION\\\\\\\\|DisableEnumSerialization\\\\\\\" /testbed/CMakeLists.txt /testbed/cmake/ci.cmake\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819479441334681\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000086, \"id\": \"synthesized-00086\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00086\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1d0a26248e43d27c154d88ba969ab90ddb41ed4d50197521388d2845a6e7b520",
+ "status": 200
+}

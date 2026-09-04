@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Compiles fine with `JSON_DISABLE_ENUM_SERIALIZATION`. Now let me also test the single_include with that flag and a quick enum test to confirm the disabled path works (it should just not provide the enum to_json, so user must provide their own):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test_disable.cpp << 'EOF'\\\\n#include <cstdint>\\\\n#include <nlohmann/json.hpp>\\\\nusing nlohmann::json;\\\\n\\\\nenum class book_id : std::uint64_t { val = 0 };\\\\n\\\\nnamespace ns {\\\\ntemplate<typename BasicJsonType>\\\\nvoid to_json(BasicJsonType& j, book_id e)\\\\n{\\\\n    j = static_cast<std::uint64_t>(e);\\\\n}\\\\n}\\\\n\\\\nint main()\\\\n{\\\\n    const book_id large_id{book_id(std::uint64_t(1) << 63)};\\\\n    json j = large_id;\\\\n    return 0;\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -DJSON_DISABLE_ENUM_SERIALIZATION -I/testbed/single_include /tmp/test_disable.cpp -o /tmp/test_disable 2>&1 | head; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355834941323601223\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000091, \"id\": \"synthesized-00091\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00091\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a17d73981e0bc9c01aa7bf428ee17687274b5551f0d8fef388e60a31fea55c7f",
+ "status": 200
+}

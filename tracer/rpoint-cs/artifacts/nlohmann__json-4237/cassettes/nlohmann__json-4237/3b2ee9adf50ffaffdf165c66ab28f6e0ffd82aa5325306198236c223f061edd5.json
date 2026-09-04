@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me compile my repro with strict warnings to ensure no warnings:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -Wall -Wextra -pedantic -Werror -I/testbed/include repro2.cpp -o /tmp/repro2_warn 2>&1 | head -20; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355817211698602228\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000096, \"id\": \"synthesized-00096\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00096\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3b2ee9adf50ffaffdf165c66ab28f6e0ffd82aa5325306198236c223f061edd5",
+ "status": 200
+}

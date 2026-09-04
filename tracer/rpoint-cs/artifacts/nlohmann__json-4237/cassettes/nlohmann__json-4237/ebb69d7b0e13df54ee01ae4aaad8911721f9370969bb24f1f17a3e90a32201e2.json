@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Yes, plain `uint64_t` of 5 is `number_unsigned`. So my enum fix is now consistent with how plain unsigned integers are handled. \\n\\nNow let me clean up the repro files I created (they're not part of the source):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f repro repro.cpp repro2 repro2.cpp repro3 repro3.cpp repro2_single repro2_cpp11 /tmp/test_disable.cpp /tmp/test_disable /tmp/test_plain.cpp /tmp/test_plain /tmp/repro2_warn /tmp/repro2_warn2; git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819548160813999\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000101, \"id\": \"synthesized-00101\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00101\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ebb69d7b0e13df54ee01ae4aaad8911721f9370969bb24f1f17a3e90a32201e2",
+ "status": 200
+}

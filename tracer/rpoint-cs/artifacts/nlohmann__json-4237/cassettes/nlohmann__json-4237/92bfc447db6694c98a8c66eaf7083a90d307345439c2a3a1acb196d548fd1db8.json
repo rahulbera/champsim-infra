@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've already removed my reproduction scripts and I did not modify any test files. Let me verify the working tree is clean of any stray files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355837105987122490\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000114, \"id\": \"synthesized-00114\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00114\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "92bfc447db6694c98a8c66eaf7083a90d307345439c2a3a1acb196d548fd1db8",
+ "status": 200
+}

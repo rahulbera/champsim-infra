@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Wait, that change isn't actually the right fix. Let me revert and think more carefully. The issue is that the enum always uses `number_integer` (signed). Let me first check if the test changes mentioned in the PR are actually present.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355827382181165323\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "3ba7a2ecd44d77d38c3ee9455e98867c59f7ab4de1ba0c9b2d9319c77a53d81d",
+ "status": 200
+}

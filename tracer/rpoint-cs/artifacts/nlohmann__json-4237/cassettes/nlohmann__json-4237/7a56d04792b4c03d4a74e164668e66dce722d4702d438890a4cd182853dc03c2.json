@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I accidentally removed the `std::vector<bool>` overload. Let me restore it. Let me check the original from git:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff include/nlohmann/detail/conversions/to_json.hpp\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355818895325788471\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000040, \"id\": \"synthesized-00040\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00040\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7a56d04792b4c03d4a74e164668e66dce722d4702d438890a4cd182853dc03c2",
+ "status": 200
+}

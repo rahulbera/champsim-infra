@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I found the relevant code. Let me look at the test file to understand the expected behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"book_id\\\\\\\\|large_id\\\\\\\\|uint64_t\\\\\\\" /testbed/tests/src/unit-udt.cpp | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820441514010110\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000005, \"id\": \"synthesized-00005\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00005\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7416a755d48914ab1a1e1602d96c154974297fb3a21fa51425e506667b69850e",
+ "status": 200
+}

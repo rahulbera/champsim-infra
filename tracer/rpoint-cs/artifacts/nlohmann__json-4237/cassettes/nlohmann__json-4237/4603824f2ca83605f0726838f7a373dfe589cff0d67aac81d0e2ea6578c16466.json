@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I keep accidentally removing the vector<bool> overload. The str_replace tool matches the first occurrence. Let me restore again and use a more targeted approach.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout include/nlohmann/detail/conversions/to_json.hpp\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355829100168079781\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4603824f2ca83605f0726838f7a373dfe589cff0d67aac81d0e2ea6578c16466",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test with a broader set of warnings to be safe:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -pedantic -Werror --all-warnings --extra-warnings -Wall -Wextra -Wsign-conversion -Wconversion -I/testbed/include -c /testbed/include/nlohmann/detail/conversions/to_json.hpp -o /dev/null 2>&1 | head -20; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820785111394025\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6e0d45d39bb1f2104370acf6ce534725bc4348f0963465d34a99b2c1bc584b1c",
+ "status": 200
+}

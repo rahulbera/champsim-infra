@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"These use `NLOHMANN_JSON_SERIALIZE_ENUM` macro which provides custom to_json/from_json, so they take precedence over the default enum to_json. Good, they pass.\\n\\nNow let me run a broader set of tests to make sure nothing broke. Let me build all tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make -j$(nproc) 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355841194795985674\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0c9aede44126f1ef6906e1e66072652771484a36b9d2238d4743a4ba6aa86527",
+ "status": 200
+}

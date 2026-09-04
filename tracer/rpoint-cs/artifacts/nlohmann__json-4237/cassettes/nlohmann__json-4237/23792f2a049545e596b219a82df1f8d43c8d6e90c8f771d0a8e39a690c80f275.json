@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the single_include version since that's typically what's used:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"is_enum<EnumType>\\\\\\\\|underlying_type<EnumType>\\\\\\\\|number_integer>::construct(j, static_cast<underlying_type>\\\\\\\" /testbed/single_include/nlohmann/json.hpp\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821334867208529\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000016, \"id\": \"synthesized-00016\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00016\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "23792f2a049545e596b219a82df1f8d43c8d6e90c8f771d0a8e39a690c80f275",
+ "status": 200
+}

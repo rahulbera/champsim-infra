@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"Werror\\\\\\\\|Wall\\\\\\\\|Wextra\\\\\\\\|pedantic\\\\\\\\|CXX_FLAGS\\\\\\\" /testbed/cmake/ci.cmake 2>/dev/null | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820682032180415\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000095, \"id\": \"synthesized-00095\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00095\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7f8ec3a38e3062a6c89d97af5539077e8e09f7db91338d420faca108fa87fe48",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me test compiling with `JSON_DISABLE_ENUM_SERIALIZATION` defined to make sure my change doesn't break that path:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++17 -DJSON_DISABLE_ENUM_SERIALIZATION -I/testbed/include -c /testbed/tests/src/unit-udt.cpp -o /dev/null 2>&1 | head -20; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820304075060673\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000087, \"id\": \"synthesized-00087\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00087\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0f036500851f950c60ec84ef43706e34e2dd76830dd76abc3e4bbadf5ef42ccd",
+ "status": 200
+}

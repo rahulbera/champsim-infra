@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I keep breaking the vector<bool> overload. The str_replace is matching too aggressively. Let me restore and use a different, cleaner approach with the `insert` command.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout include/nlohmann/detail/conversions/to_json.hpp\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821472306165056\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8f887bba170e3113df72876a9c5a86ca9c583782b217d5cdba942921faa1b7ba",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me think about the proper fix. The library supports older C++ standards, so I need to check if `if constexpr` is available. Let me check the macro setup.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"JSON_HAS_CPP_17\\\\\\\\|JSON_HAS_CPP_20\\\\\\\\|if constexpr\\\\\\\\|constexpr if\\\\\\\" /testbed/include/nlohmann/detail/macro_scope.hpp | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355817830173898206\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e870b2c51ac300b07cc7893d8d82926c88b614b2c857fffdce0e8d69a7016d17",
+ "status": 200
+}

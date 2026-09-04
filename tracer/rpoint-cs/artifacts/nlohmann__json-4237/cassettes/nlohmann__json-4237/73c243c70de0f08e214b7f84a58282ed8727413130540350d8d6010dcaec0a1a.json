@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"That's because the user-provided to_json is in a different namespace and ADL doesn't find it (book_id is in global namespace, not ns). That's expected behavior unrelated to my change. Let me put the to_json in the global namespace:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/test_disable.cpp << 'EOF'\\\\n#include <cstdint>\\\\n#include <nlohmann/json.hpp>\\\\nusing nlohmann::json;\\\\n\\\\nenum class book_id : std::uint64_t { val = 0 };\\\\n\\\\ntemplate<typename BasicJsonType>\\\\nvoid to_json(BasicJsonType& j, book_id e)\\\\n{\\\\n    j = static_cast<std::uint64_t>(e);\\\\n}\\\\n\\\\nint main()\\\\n{\\\\n    const book_id large_id{book_id(std::uint64_t(1) << 63)};\\\\n    json j = large_id;\\\\n    return 0;\\\\n}\\\\nEOF\\\\ng++ -std=c++17 -DJSON_DISABLE_ENUM_SERIALIZATION -I/testbed/single_include /tmp/test_disable.cpp -o /tmp/test_disable 2>&1 | head; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820063556892795\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000092, \"id\": \"synthesized-00092\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00092\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "73c243c70de0f08e214b7f84a58282ed8727413130540350d8d6010dcaec0a1a",
+ "status": 200
+}

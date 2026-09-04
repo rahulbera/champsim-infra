@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No warnings. Let me also check the clang-tidy / specific warning flags the CI uses. Let me check the ci.cmake flags for the relevant test build:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/cmake/ci.cmake\\\",\\\"view_range\\\":[120, 150]}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355834151049619209\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000097, \"id\": \"synthesized-00097\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00097\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "56dce45d68a78d98bd60b2b3f94d90125fc7ccf5ef5d11619d62313e5f6a023b",
+ "status": 200
+}

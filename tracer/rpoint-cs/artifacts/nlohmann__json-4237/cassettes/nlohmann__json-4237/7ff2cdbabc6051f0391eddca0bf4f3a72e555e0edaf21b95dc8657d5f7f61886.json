@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Both versions work. Now let me test with C++11 to make sure the fix is compatible:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && g++ -std=c++11 -I/testbed/include repro2.cpp -o repro2_cpp11 2>&1 | head -20 && ./repro2_cpp11\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819788678986847\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7ff2cdbabc6051f0391eddca0bf4f3a72e555e0edaf21b95dc8657d5f7f61886",
+ "status": 200
+}

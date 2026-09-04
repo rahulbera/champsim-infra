@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All edge cases pass, including INT64_MIN, INT64_MAX, and UINT64_MAX with correct round-trips.\\n\\nNow let me run the full unit-udt test once more along with a few other relevant tests to confirm everything is green:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && for t in test-udt_cpp11 test-conversions_cpp11 test-conversions_cpp17 test-constructor1_cpp11 test-items_cpp11 test-items_cpp17 test-comparison_cpp11 test-alt-string_cpp11 test-byte_container_with_subtype_cpp11; do echo \\\\\\\"=== $t ===\\\\\\\"; ./tests/$t 2>&1 | tail -2; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355838549096134689\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000109, \"id\": \"synthesized-00109\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00109\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a95b8f01fefc40f998581c7de1c494f26499a3a53491f1a2a5c213b62d7b6cb6",
+ "status": 200
+}

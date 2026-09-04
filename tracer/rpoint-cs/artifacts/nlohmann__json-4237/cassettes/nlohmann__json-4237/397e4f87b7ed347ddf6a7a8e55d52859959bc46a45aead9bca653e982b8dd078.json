@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The exact tests from the PR description pass with both the multi-file and single-include versions. Let me clean up:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/pr_test.cpp /tmp/pr_test /tmp/pr_test_single; cd /testbed && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355827622699331387\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000104, \"id\": \"synthesized-00104\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00104\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "397e4f87b7ed347ddf6a7a8e55d52859959bc46a45aead9bca653e982b8dd078",
+ "status": 200
+}

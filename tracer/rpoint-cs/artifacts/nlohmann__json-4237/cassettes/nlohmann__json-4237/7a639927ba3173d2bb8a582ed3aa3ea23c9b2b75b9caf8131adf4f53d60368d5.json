@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat /testbed/build/tests/CMakeFiles/test-udt_cpp11.dir/build.make 2>/dev/null | grep -i \\\\\\\"source\\\\\\\\|g++\\\\\\\\|c++\\\\\\\\|clang\\\\\\\" | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355821850263282805\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000022, \"id\": \"synthesized-00022\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00022\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7a639927ba3173d2bb8a582ed3aa3ea23c9b2b75b9caf8131adf4f53d60368d5",
+ "status": 200
+}

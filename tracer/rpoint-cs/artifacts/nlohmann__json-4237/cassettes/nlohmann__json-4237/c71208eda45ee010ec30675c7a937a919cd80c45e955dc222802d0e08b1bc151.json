@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"C++11 works too. Now let me build and run the existing test suite to make sure I haven't broken anything. Let me build the unit-udt test:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && make test-udt_cpp11 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820888190610840\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c71208eda45ee010ec30675c7a937a919cd80c45e955dc222802d0e08b1bc151",
+ "status": 200
+}

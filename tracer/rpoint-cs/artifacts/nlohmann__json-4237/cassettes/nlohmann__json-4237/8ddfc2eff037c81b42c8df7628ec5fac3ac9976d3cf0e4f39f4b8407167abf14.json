@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The working tree is clean \\u00e2\\u0080\\u0094 only the two intended source file changes are present. No reproduction scripts remain, and no test files were modified. Let me confirm the final state once more by verifying the changes are correct:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --cached\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355819823038721001\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000115, \"id\": \"synthesized-00115\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00115\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8ddfc2eff037c81b42c8df7628ec5fac3ac9976d3cf0e4f39f4b8407167abf14",
+ "status": 200
+}

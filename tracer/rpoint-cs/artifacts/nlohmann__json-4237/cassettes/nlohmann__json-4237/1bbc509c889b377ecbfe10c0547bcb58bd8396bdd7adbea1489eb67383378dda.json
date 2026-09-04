@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed/build && for t in test-udt_cpp11 test-conversions_cpp11 test-conversions_cpp17 test-constructor1_cpp11 test-constructor2_cpp11 test-deserialization_cpp11 test-regression1_cpp11 test-regression2_cpp11; do echo \\\\\\\"=== $t ===\\\\\\\"; ./tests/$t 2>&1 | tail -3; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355820132276365285\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000082, \"id\": \"synthesized-00082\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00082\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1bbc509c889b377ecbfe10c0547bcb58bd8396bdd7adbea1489eb67383378dda",
+ "status": 200
+}

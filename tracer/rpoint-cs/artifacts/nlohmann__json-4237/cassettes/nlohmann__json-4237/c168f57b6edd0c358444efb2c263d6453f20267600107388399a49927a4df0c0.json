@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the unit-conversions test to see if there are enum tests that might be affected:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"enum\\\\\\\\|is_number_unsigned\\\\\\\\|is_number_integer\\\\\\\" /testbed/tests/src/unit-conversions.cpp | head -40\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355834357208054834\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000076, \"id\": \"synthesized-00076\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00076\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c168f57b6edd0c358444efb2c263d6453f20267600107388399a49927a4df0c0",
+ "status": 200
+}

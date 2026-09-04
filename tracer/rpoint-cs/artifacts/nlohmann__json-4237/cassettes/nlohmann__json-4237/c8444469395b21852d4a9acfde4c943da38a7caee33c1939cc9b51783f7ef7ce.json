@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Everything is in order. The changes are minimal, correct, and consistent across both the multi-file and single-include versions of the library.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355818345569975863\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000116, \"id\": \"synthesized-00116\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00116\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c8444469395b21852d4a9acfde4c943da38a7caee33c1939cc9b51783f7ef7ce",
+ "status": 200
+}
