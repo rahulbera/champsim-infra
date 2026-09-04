@@ -7,8 +7,9 @@ pipeline lives here. Two flavors, split into subdirectories:
 
 - **`pipeline/`** — pipeline-wide references. These describe the tracing
   infrastructure itself: what QEMU flags to use, what the raw trace
-  format looks like, how to work around the kvmclock snapshot
-  incompatibility, and how to strip TCG idle-loop noise. If you are new
+  format looks like, the **two QEMU patches** the KVM-snapshot ->
+  TCG-restore path requires (kvmclock, AVX hflag), and how to strip TCG
+  idle-loop noise. If you are new
   to the project, start here.
 - **`workloads/`** — per-workload playbooks and design specs. Each
   document walks you through setting up one target workload (Memcached,

@@ -101,7 +101,7 @@ v2 fixes all three: one driver (memtier for both phases, matching `--key-prefix`
 
 | Thing | Path / value | State |
 |---|---|---|
-| Patched QEMU | `~/qemu-custom/bin/qemu-system-x86_64` | 9.2.4, **kvmclock patch present** (verified in `~/softwares/qemu-9.2.4/hw/i386/kvm/clock.c`) |
+| QEMU — **use `$QEMU_FIXED`, not this one** | `$MCROOT/qemu-avxfix/build/qemu-system-x86_64` | 9.2.4 + **both** required patches. `~/qemu-custom/bin/qemu-system-x86_64` has the kvmclock patch but **NOT** the AVX hflag fix, so a guest restored with it panics within ~12 s. See `docs/pipeline/avx-hflag-patch-details.md`. |
 | QEMU plugin header | `~/qemu-custom/include/qemu-plugin.h` | present — plugin Makefile's default `QEMU_PREFIX` resolves |
 | Guest image | `/mnt/sherlock/rahbera/qemu-tracing/images/ubuntu-guest-memcached.qcow2` | 15.66 GB, one snapshot: `memcached_rd95` (8.99 GiB state) |
 | Guest credentials | `/mnt/sherlock/rahbera/qemu-tracing/images/user-data.yaml` | user `researcher`, password **`safari123`**, `sudo` NOPASSWD |
@@ -138,6 +138,14 @@ sane before sizing anything from it.
 
 ### 0.3 Hard rules
 
+- **Every QEMU invocation uses `$QEMU_FIXED`.** `~/qemu-custom/bin/qemu-system-x86_64`
+  carries the kvmclock patch but **not** the AVX hflag fix, so a KVM-taken snapshot
+  restored under TCG with it resumes with AVX disabled and panics within ~12 s
+  ("Attempted to kill init"). Full analysis, and how the patched binary was built
+  and verified: **`docs/pipeline/avx-hflag-patch-details.md`**. The unpatched binary
+  is kept only so v1 artifacts stay reproducible — never use it for a new capture.
+  The failure is **intermittent** (v1 restored this way 24 times and never hit it),
+  so a single clean restore is not evidence you can skip this.
 - **`source ~/.mcrc` is the first line of every shell on rnadig** — every SSH
   session, every tmux pane, every retry. Nothing here works without it.
 - **Never write to `/`.** 25 GB free at 98 %. Everything goes under `$MCROOT`.
@@ -194,9 +202,10 @@ export PLUGINDIR=$REPO/tracer/rpoint-cs/plugin
 export CONVDIR=$REPO/tracer/rpoint-cs/converter
 export TOOLS=$REPO/tools/trace_sanity_check
 export PLUGIN=$PLUGINDIR/champsim_tracer.so
+export QEMU_FIXED=$MCROOT/qemu-avxfix/build/qemu-system-x86_64   # BOTH patches; see 0.3
 qemu_running() {   # match by EXECUTABLE — see the note in 0.3
   local QBIN p found=""
-  QBIN=$(readlink -f "$HOME/qemu-custom/bin/qemu-system-x86_64")
+  QBIN=$(readlink -f "$QEMU_FIXED")
   for p in /proc/[0-9]*; do
     [ "$(readlink -f "$p/exe" 2>/dev/null)" = "$QBIN" ] && found="$found ${p#/proc/}"
   done
@@ -449,7 +458,7 @@ process and its YCSB data.
 
 ```bash
 tmux new -d -s mcvm
-tmux send-keys -t mcvm 'source ~/.mcrc; ~/qemu-custom/bin/qemu-system-x86_64 \
+tmux send-keys -t mcvm 'source ~/.mcrc; "$QEMU_FIXED" \
   -accel kvm -cpu $CPUSTR \
   -smp 7 -m 12G \
   -drive file=$MCROOT/images/mc-v2.qcow2,format=qcow2,if=virtio \
@@ -692,7 +701,7 @@ case "$OUTDIR" in $MCROOT/*) ;; *) echo "OUTDIR escapes MCROOT — STOP"; exit 1
 mkdir -p "$OUTDIR" "$(dirname "$TRIGGER")"
 TAG=$(cat $MCROOT/logs/snapshot.tag)
 tmux new -d -s mcvm
-tmux send-keys -t mcvm "source ~/.mcrc; ~/qemu-custom/bin/qemu-system-x86_64 \
+tmux send-keys -t mcvm "source ~/.mcrc; \"\$QEMU_FIXED\" \
   -accel tcg,thread=multi -cpu \$CPUSTR \
   -smp 7 -m 12G \
   -drive file=\$MCROOT/images/mc-v2.qcow2,format=qcow2,if=virtio \

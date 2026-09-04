@@ -59,6 +59,26 @@ runtime initialization).
 Read this if you rebuild QEMU or if snapshot loading errors surprise
 you.
 
+### `avx-hflag-patch-details.md`
+
+**The second QEMU patch this pipeline needs, and it is not optional.**
+`kvmclock` makes a KVM snapshot *loadable* under TCG; this one makes the
+guest *survive* being loaded. `HF_AVX_EN_MASK` is only ever set by the
+TCG-side writers of `CR4` and `XCR0`, so a snapshot taken under KVM
+carries `hflags` without it — the guest resumes with AVX disabled and
+every VEX instruction raises `#UD`. glibc's AVX2 ifuncs, chosen at
+process start under KVM, then SIGILL until the 8 MB stack is gone and
+init dies.
+
+Documents the discovery path (five controls, three wrong hypotheses),
+the one-line fix in `cpu_post_load()`, how the patched QEMU is built in
+isolation, and how to verify it.
+
+**Read this before Stage 4, and read it if a restored guest panics
+within ~12 s.** The failure is intermittent — v1 restored the same way
+for 24 traces and never hit it — so "it worked last time" is not
+evidence the patch is unnecessary.
+
 ### `task-tcg-idle-loop-filtering.md`
 
 Design document for `plugin/trace_filter.c`. Explains why TCG traces

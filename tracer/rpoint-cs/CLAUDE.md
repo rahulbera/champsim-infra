@@ -233,6 +233,14 @@ Re-runnable in ~2 minutes: `scripts/smoke-trace/smoke_trace.sh`.
 
 > **Historical (x86/Memcached era).** This blocker was resolved (see
 > Stage 4) and the section is kept for the debugging pattern it records.
+>
+> **It is not the only QEMU patch this path needs.** kvmclock makes a
+> KVM snapshot *loadable* under TCG; a second bug makes the guest *die*
+> ~12 s after it loads — `HF_AVX_EN_MASK` is never reconstructed on
+> restore, so AVX is disabled and every VEX instruction raises `#UD`.
+> It is **intermittent**, which is why v1 never hit it. Full analysis
+> and the one-line fix: **`docs/pipeline/avx-hflag-patch-details.md`**.
+> A QEMU without *both* patches cannot run Stage 4 reliably.
 > The AArch64 collaborator captures under a different flow — see
 > `scripts/capture-kit/README.md`.
 

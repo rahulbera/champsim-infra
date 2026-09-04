@@ -53,6 +53,15 @@
 - `champsim_tracer.so` — the tracing plugin
 - `trace_inspector` — validates and inspects raw traces (supports .raw and .raw.zst)
 
+## Stage 4: TCG Tracing Run — needs TWO QEMU patches
+
+> **Updated 2026-09-04.** The kvmclock blocker below was resolved, but a
+> second QEMU bug was found during the Memcached v2 re-capture: a
+> KVM-taken snapshot restored under TCG resumes with **AVX disabled**
+> and the guest panics within ~12 s. Intermittent, so it can hide for a
+> whole campaign. See **`avx-hflag-patch-details.md`**. Stage 4 requires
+> a QEMU carrying *both* fixes.
+
 ## Stage 4: TCG Tracing Run 🚫 BLOCKED
 
 **Goal:** Load snapshot under TCG with plugin, generate traces.
