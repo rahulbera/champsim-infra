@@ -209,12 +209,18 @@ Ordered by cost. **None has been attempted.**
 1. Vehicle: `preactjs__preact-3763`, chosen because it wedges in 1-3 minutes.
 2. Change: SWE-ReX's session shell spawned as `bash --noediting`
    (`swerex/runtime/local.py:158`, opt-in via `SWEREX_PATCH=noediting`).
-3. Result:
+3. Result, through the WHOLE chain rather than just verify:
 
-   | | actions | verdict |
-   |---|---|---|
-   | before (x3 runs) | 27 of 55 | wedged, never reached the gate |
-   | with `--noediting` | **55 of 55** | **FAITHFUL**, 0 misses, no cancelled steps |
+   | phase | machine | before (x3 runs) | with `--noediting` |
+   |---|---|---|---|
+   | verify | KVM | 27 of 55, wedged | **55 of 55 FAITHFUL**, 1 min |
+   | profile | TCG | never reached | **OK**, 56 min |
+   | trace | TCG | never reached | **55 of 55 FAITHFUL**, 58 min |
+   | convert | host | never reached | 4 of 5 windows, `actual_windows=4` |
+
+   So the fix holds under TCG as well as KVM, and an instance that had been
+   DITCHED as unreplayable produced a complete capture. That is a stronger
+   result than "the wedge went away in a short KVM run".
 
 4. So the mechanism is §2.4.1 -- **readline perturbing the line** -- not the
    exit-code handshake desync of §2.4.2. The measured tab-stripping was the real
