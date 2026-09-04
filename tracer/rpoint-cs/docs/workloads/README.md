@@ -54,6 +54,18 @@ stage 3 is the plugin implementation itself, covered by
 - **`memcached-stage4.md`** — restoring under TCG and starting the run,
   using the plugin's deferred-trigger mode so tracing begins when
   `touch /tmp/trace_start` is issued from the host.
+- **`memcached-recapture-runbook.md`** — **the v2 campaign, and the
+  current one.** Stages 1–2 above describe the v1 setup, whose traces
+  turned out not to exercise the memory system; read
+  `docs/verification/2026-09-04-memcached-rocksdb-capture-audit.md`
+  before either. The runbook is self-contained and targets `rnadig`
+  (the kvmclock-patched QEMU and the guest image live there): one
+  driver (memtier for both load and query, matching `--key-prefix`),
+  `--pipeline=16`, an explicit `--key-zipf-exp`, a single traced vCPU,
+  and the plugin's periodic sampling to drop 5 × 1 B-instruction
+  windows per θ instead of one contiguous capture.
+  **It needs the sampling plugin, which is on `origin/swe-agent-tracing`,
+  not on `main`** — see its §2.1.
 
 #### `scylladb/`
 
