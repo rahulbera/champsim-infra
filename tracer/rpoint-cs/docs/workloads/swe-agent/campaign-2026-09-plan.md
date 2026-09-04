@@ -266,6 +266,24 @@ patch: `preact-4182` and `php-cs-fixer-8064` died on the 25-second
 `_state_anthropic` timeout, a wall clock unrelated to readline. Both cells are
 nevertheless filled — JS×M is not, but PHP×T is, by 8064's runner-up.
 
+## Disk: what was reclaimed, and what is deliberately NOT (2026-09-04 22:00)
+
+1. Reclaimed 111 GB of scratch guest images with `reclaim_space.sh --apply`
+   (free: 234 GB → 345 GB). Safe by construction: every phase recreates the
+   working guest from the `.provisioned` image.
+2. **The 147 GB of `.provisioned` images are being KEPT, and the reason is the
+   pending decision.** If the PI chooses to re-run captures under the patched
+   SWE-ReX for a uniform generation, those images are exactly what a re-run
+   starts from. Deleting them would add a full re-provision (20-90 min each) to
+   all 32 instances and would make the uniform option substantially more
+   expensive than it currently is.
+3. **The 98 GB of converted traces are also being kept**, though every one is
+   archived on kratos2 with digests verified on both sides. There is no disk
+   pressure at 345 GB free, and deleting them would leave the cluster copy as
+   the only copy. That trade is worth making under pressure and not before.
+4. Repo mirrors (7 GB) stay: they are what makes a re-provision possible without
+   GitHub, whose clone window was unreliable for most of 2026-09-03/04.
+
 ## OPEN: lombok-3479 is blocked on tooling, and it is worse than first estimated
 
 **Revised 2026-09-04 after reading the build.** The earlier note here estimated
