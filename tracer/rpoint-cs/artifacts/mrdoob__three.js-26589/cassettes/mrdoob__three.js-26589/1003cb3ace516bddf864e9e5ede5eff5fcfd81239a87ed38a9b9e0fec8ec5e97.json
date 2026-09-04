@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search for any tests that might test the material array cloning behavior.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"slice\\\\\\\\|notStrictEqual.*material\\\\\\\\|material.*notStrictEqual\\\\\\\\|clone\\\\\\\" /testbed/test/unit/src/objects/*.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355818689167354337\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1003cb3ace516bddf864e9e5ede5eff5fcfd81239a87ed38a9b9e0fec8ec5e97",
+ "status": 200
+}

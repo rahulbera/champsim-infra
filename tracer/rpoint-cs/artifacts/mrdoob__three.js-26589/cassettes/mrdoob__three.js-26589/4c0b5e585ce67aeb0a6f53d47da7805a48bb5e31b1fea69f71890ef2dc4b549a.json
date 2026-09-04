@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/objects/InstancedMesh.js\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355799172835961503\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4c0b5e585ce67aeb0a6f53d47da7805a48bb5e31b1fea69f71890ef2dc4b549a",
+ "status": 200
+}

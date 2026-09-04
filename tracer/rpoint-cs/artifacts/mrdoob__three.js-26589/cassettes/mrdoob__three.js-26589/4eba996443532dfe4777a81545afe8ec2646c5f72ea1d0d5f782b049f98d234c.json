@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the `clone()` and `copy()` methods in Object3D.js.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"clone\\\\\\\\|copy\\\\\\\" /testbed/src/core/Object3D.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355799963109949106\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000007, \"id\": \"synthesized-00007\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00007\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4eba996443532dfe4777a81545afe8ec2646c5f72ea1d0d5f782b049f98d234c",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No lint errors. Let me also verify the git status is clean (only the source files are modified):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355804017559068675\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000124, \"id\": \"synthesized-00124\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00124\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "36f950f7c57d934e42cb3e0456f991188208ab2133cb31b40a486efeeb96409e",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace tool is having issues with the tabs. Let me check the current state of the file first.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '52,73p' src/objects/Mesh.js | cat -A\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355795633782912816\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000049, \"id\": \"synthesized-00049\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00049\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9f6808aece0dde77b0dc98e4a514bf9544bcba4ff1cf5acaf0861299110afe02",
+ "status": 200
+}

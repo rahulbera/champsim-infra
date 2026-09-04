@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search the test files for any tests related to cloning materials.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -rn \\\\\\\"clone\\\\\\\" /testbed/test/unit/src/objects/ | head -50\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355800134908637231\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4b6f2fe0ab07764c1e6feae06974b0ac06f78d0cb3071ba8dab6fb55512c14fe",
+ "status": 200
+}

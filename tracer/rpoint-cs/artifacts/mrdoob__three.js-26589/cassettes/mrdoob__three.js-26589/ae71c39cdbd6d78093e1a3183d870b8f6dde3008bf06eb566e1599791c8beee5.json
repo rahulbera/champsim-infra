@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No reproduction scripts are left, and no test files were modified. The only changes are to the source files (`src/objects/Line.js`, `src/objects/Mesh.js`, `src/objects/Points.js`, `src/objects/Sprite.js`).\\n\\nLet me run the unit tests one final time to confirm everything works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npm run test-unit 2>&1 | tail -8\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355811885939156201\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000127, \"id\": \"synthesized-00127\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00127\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "ae71c39cdbd6d78093e1a3183d870b8f6dde3008bf06eb566e1599791c8beee5",
+ "status": 200
+}

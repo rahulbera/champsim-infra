@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me search more broadly for any tests related to material cloning in the entire test directory.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -rn \\\\\\\"material\\\\\\\" /testbed/test/unit/src/objects/Mesh.tests.js /testbed/test/unit/src/objects/Points.tests.js /testbed/test/unit/src/objects/Sprite.tests.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355800753383929350\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "02516573929b0109bd85aa59cee9a270b7a18c3f513d6ab219c3f0afbd0ceb40",
+ "status": 200
+}

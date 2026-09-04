@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All recursive and non-recursive cases work correctly. The material array is cloned at every level, while material references are shared.\\n\\nNow let me clean up the temporary test files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f /testbed/reproduce_issue.mjs /testbed/edge_case.mjs /testbed/edge_case2.mjs /testbed/test_copy.mjs /testbed/test_recursive.mjs /tmp/new_material_code.txt /tmp/fix_mesh.py /tmp/newcode.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355807006856306879\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000108, \"id\": \"synthesized-00108\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00108\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b6cdc8df6822d6007fea5d373b126423edf3b8b30b8f0e7ccc4c97567729cd13",
+ "status": 200
+}

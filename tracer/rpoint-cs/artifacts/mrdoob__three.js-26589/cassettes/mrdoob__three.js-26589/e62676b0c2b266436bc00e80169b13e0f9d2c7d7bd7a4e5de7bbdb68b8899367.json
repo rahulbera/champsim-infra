@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me look at the other object types that have a `material` property and a `copy` method.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/objects/Line.js\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355800444146280039\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000003, \"id\": \"synthesized-00003\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00003\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e62676b0c2b266436bc00e80169b13e0f9d2c7d7bd7a4e5de7bbdb68b8899367",
+ "status": 200
+}

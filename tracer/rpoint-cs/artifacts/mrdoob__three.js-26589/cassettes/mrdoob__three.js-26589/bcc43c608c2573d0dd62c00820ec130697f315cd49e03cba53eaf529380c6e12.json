@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the SkinnedMesh.js and other related objects.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/src/objects/SkinnedMesh.js\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355799310274914585\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000029, \"id\": \"synthesized-00029\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00029\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bcc43c608c2573d0dd62c00820ec130697f315cd49e03cba53eaf529380c6e12",
+ "status": 200
+}

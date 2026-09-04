@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the Sprite.js change:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '140,160p' src/objects/Sprite.js\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355802677529277127\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000097, \"id\": \"synthesized-00097\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00097\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1780a243959eb1ca25dab39307811613588ec170e8d0d2fcc3c8abe284144639",
+ "status": 200
+}

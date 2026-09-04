@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I see, the file uses tabs. Let me check the actual whitespace characters.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '52,73p' src/objects/Mesh.js | cat -A | head -25\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355797901525647248\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000047, \"id\": \"synthesized-00047\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00047\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f571c324fd52d3b9026115629de6d3697833a0f4aa2ab715356fd1c6cc8f13f4",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me put the edge case test in the testbed directory:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /testbed/edge_case.mjs << 'EOF'\\\\nimport { Mesh } from './src/objects/Mesh.js';\\\\nimport { BoxGeometry } from './src/geometries/BoxGeometry.js';\\\\n\\\\n// Edge case: material is undefined\\\\nconst geometry = new BoxGeometry();\\\\nconst mesh = new Mesh( geometry, undefined );\\\\nconsole.log('mesh.material:', mesh.material);\\\\n\\\\nconst clone = mesh.clone();\\\\nconsole.log('clone.material:', clone.material);\\\\nconsole.log('Same reference:', mesh.material === clone.material);\\\\n\\\\n// Edge case: material is an empty array\\\\nconst mesh2 = new Mesh( geometry, [] );\\\\nconsole.log('\\\\\\\\nmesh2.material:', mesh2.material);\\\\nconst clone2 = mesh2.clone();\\\\nconsole.log('clone2.material:', clone2.material);\\\\nconsole.log('Same reference (expected false):', mesh2.material === clone2.material);\\\\nconsole.log('Lengths:', mesh2.material.length, clone2.material.length);\\\\nEOF\\\\ncd /testbed && node /testbed/edge_case.mjs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355796149178983324\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000102, \"id\": \"synthesized-00102\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00102\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dce93788665b60d40e9f477bfcbb908e506418fb287ca517631cad27e07aa4c3",
+ "status": 200
+}

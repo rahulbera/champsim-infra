@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me clean up the final verification file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && rm -f /testbed/final_verify.mjs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355799069756749928\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000115, \"id\": \"synthesized-00115\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00115\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e3317bd8f2debbd81c55a35a97b7bf34975d7108347beddd78c26d3e9aa9f687",
+ "status": 200
+}

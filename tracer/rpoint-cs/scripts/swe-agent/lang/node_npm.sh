@@ -153,9 +153,20 @@ lang_offline_gate() {
 
   # Jest/mocha print "Tests: N passed" or "N passing". Zero is a passing exit
   # code and is what an empty testPathPattern produces.
-  local n
-  n=$(grep -oE '([0-9]+) (passed|passing)' "$log" | grep -oE '^[0-9]+' \
-      | awk '{if($1>m) m=$1} END{print m+0}')
+  # THREE FORMATS, largest wins. jest prints "Tests: N passed", mocha "N
+  # passing", and QUNIT's TAP reporter neither -- it prints "# pass N", which
+  # three.js-26589 uses. Taking the max rather than the first match is the
+  # lesson from ruby_bundler, where fixed precedence picked a framework's ZERO
+  # over another's eight in the same log.
+  # if-blocks, not `[ ] && { }`: this runs under set -euo pipefail and a false
+  # && chain returns 1, which kills the script silently.
+  local n=0 c
+  c=$(grep -oE '([0-9]+) (passed|passing)' "$log" | grep -oE '^[0-9]+' \
+      | awk '{if($1>m) m=$1} END{print m+0}' || true)
+  if [ -n "$c" ] && [ "$c" -gt "$n" ]; then n=$c; fi
+  c=$(grep -oE '^# pass +[0-9]+' "$log" | grep -oE '[0-9]+' \
+      | awk '{if($1>m) m=$1} END{print m+0}' || true)
+  if [ -n "$c" ] && [ "$c" -gt "$n" ]; then n=$c; fi
   [ "$n" -ge "${GATE_MIN_TESTS:-1}" ] \
     || { tail -30 "$log"; die "offline gate ran only $n tests, expected >= ${GATE_MIN_TESTS:-1}"; }
   ok "offline gate: built and ran $n tests with NO network"

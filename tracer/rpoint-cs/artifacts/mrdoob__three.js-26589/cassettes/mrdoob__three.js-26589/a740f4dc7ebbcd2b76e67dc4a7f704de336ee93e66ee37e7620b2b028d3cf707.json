@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. Let me submit again to confirm.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{}\", \"name\": \"submit\"}, \"id\": \"call_-7355804876552531516\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000128, \"id\": \"synthesized-00128\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00128\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a740f4dc7ebbcd2b76e67dc4a7f704de336ee93e66ee37e7620b2b028d3cf707",
+ "status": 200
+}

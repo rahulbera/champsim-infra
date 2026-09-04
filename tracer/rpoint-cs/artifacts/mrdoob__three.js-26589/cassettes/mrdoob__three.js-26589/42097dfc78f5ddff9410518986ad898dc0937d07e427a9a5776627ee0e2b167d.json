@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"OK. I have a serious issue where I cannot type the different code. Let me write the new code to a file first, then read it.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && printf '\\\\\\\\t\\\\\\\\tif ( Array.isArray( source.material ) ) {\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t\\\\\\\\tthis.material = source.material.slice();\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t} else {\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t\\\\\\\\tthis.material = source.material;\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t}\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\tthis.geometry = source.geometry;\\\\\\\\n' > /tmp/new_material_code.txt\\\\ncat -A /tmp/new_material_code.txt\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355811198744390166\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000088, \"id\": \"synthesized-00088\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00088\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "42097dfc78f5ddff9410518986ad898dc0937d07e427a9a5776627ee0e2b167d",
+ "status": 200
+}

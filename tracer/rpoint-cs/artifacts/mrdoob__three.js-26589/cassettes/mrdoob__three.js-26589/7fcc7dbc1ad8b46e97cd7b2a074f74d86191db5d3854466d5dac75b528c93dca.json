@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test files don't seem to have specific tests for the materials array cloning. Let me check the e2e tests as well.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"view\\\",\\\"path\\\":\\\"/testbed/test/e2e\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355798142043810883\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7fcc7dbc1ad8b46e97cd7b2a074f74d86191db5d3854466d5dac75b528c93dca",
+ "status": 200
+}
