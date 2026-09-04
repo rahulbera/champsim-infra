@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat -n ./src/Fixer/Whitespace/StatementIndentationFixer.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378747077290902\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000003, \"id\": \"synthesized-00003\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00003\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2bdc32fdb185d2795877845ad3314386c2eb79ba989ddc7b17de252b3cec0041",
+ "status": 200
+}

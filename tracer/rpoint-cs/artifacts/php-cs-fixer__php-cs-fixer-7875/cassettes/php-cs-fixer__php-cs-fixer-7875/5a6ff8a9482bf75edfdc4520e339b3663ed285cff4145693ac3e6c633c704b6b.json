@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now there's an important consideration. The `blockFirstTokens` check at line 220 handles `(` when the previous token is NOT `T_ARRAY`. This means regular `(` (like in function calls) goes into the `block` scope. But the new array/parenthesis statement handling at line 284-301 handles `(` when the previous token IS `T_ARRAY`. \\n\\nWait, there's a subtle issue. The original code at line 220 checks `!$tokens[...]->isGivenKind(T_ARRAY)` which means array `(` (with `array(` syntax) was NOT handled by the blockFirstTokens. Now the new code handles it. But the order matters - the blockFirstTokens check comes first and only handles non-array `(`. So array `(` falls through to the new statement handling. Good.\\n\\nNow let me run the reproduction script to verify the fix:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php /tmp/repro.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355358680990081517\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000044, \"id\": \"synthesized-00044\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00044\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5a6ff8a9482bf75edfdc4520e339b3663ed285cff4145693ac3e6c633c704b6b",
+ "status": 200
+}

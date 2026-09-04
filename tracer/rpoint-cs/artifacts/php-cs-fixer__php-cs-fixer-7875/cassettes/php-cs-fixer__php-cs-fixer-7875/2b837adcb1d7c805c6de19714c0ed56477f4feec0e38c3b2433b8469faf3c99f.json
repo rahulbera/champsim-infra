@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"PHPStan reports no errors. Let me also run the project's own CS fixer check on the changed files to make sure they conform to the code style:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php php-cs-fixer fix --dry-run --diff src/Fixer/Whitespace/StatementIndentationFixer.php tests/Fixer/Whitespace/StatementIndentationFixerTest.php 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355362288762612691\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000075, \"id\": \"synthesized-00075\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00075\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2b837adcb1d7c805c6de19714c0ed56477f4feec0e38c3b2433b8469faf3c99f",
+ "status": 200
+}

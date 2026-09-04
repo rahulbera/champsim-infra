@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify the test file matches the commit's test file:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show ac2bbeafd:tests/Fixer/Whitespace/StatementIndentationFixerTest.php > /tmp/expected_test.php && diff /tmp/expected_test.php tests/Fixer/Whitespace/StatementIndentationFixerTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378953235725200\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000058, \"id\": \"synthesized-00058\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00058\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c1544ffc82ede0bd5ecbc39dd476d5a7758c355862e25d03004ef33d51312adf",
+ "status": 200
+}

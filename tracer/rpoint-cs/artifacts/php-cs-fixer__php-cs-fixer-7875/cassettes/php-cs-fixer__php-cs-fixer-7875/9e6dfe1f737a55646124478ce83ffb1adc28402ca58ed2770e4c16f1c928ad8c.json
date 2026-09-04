@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The \\\"function call with multiline array arg\\\" case was failing BEFORE my change too (it's pre-existing behavior unrelated to this PR). My change didn't introduce any regression - it actually fixed the const/property cases that were failing before.\\n\\nLet me confirm the 'array with static method call' test (which is part of the official commit and uses assignment, not function call) passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/Fixer/Whitespace/StatementIndentationFixerTest.php --filter \\\\\\\"testFix\\\\\\\" 2>&1 | tail -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355366996046773398\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9e6dfe1f737a55646124478ce83ffb1adc28402ca58ed2770e4c16f1c928ad8c",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No python installed. The str_replace_editor tool requires python3 it seems. Let me try using it anyway with a simple operation to see if it works:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"echo \\\\\\\"test\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355383591800403865\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "85a09cc9287f7f818b3948f5128f552603c75498b9ac187adfb32dbcbba01f92",
+ "status": 200
+}

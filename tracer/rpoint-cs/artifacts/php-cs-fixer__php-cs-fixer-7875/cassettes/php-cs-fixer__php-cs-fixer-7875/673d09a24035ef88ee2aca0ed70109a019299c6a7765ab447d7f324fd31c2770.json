@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the issue. Now let me understand the tokenization and the flow. Let me trace through the logic to understand where the bug is:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline --all | head -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355377922443574831\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "673d09a24035ef88ee2aca0ed70109a019299c6a7765ab447d7f324fd31c2770",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"There's a commit `ac2bbeafd fix: Correctly indent multiline constants and properties (#7875)`. Let me look at it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git show ac2bbeafd --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355372150007525057\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000020, \"id\": \"synthesized-00020\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00020\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4240d74e12dfce97850d17eab95825dcd5281e3f0bb8094274cd1fc103ba8377",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All 77 existing tests pass with just the source code change. Let me also re-verify the original PR reproduction case works with the final state:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat > /tmp/repro_final.php << 'EOF'\\\\n<?php\\\\n\\\\nrequire __DIR__ . '/../testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\nuse PhpCsFixer\\\\\\\\Fixer\\\\\\\\Whitespace\\\\\\\\StatementIndentationFixer;\\\\nuse PhpCsFixer\\\\\\\\WhitespacesFixerConfig;\\\\n\\\\n$code = '<?php\\\\n\\\\nclass Foo\\\\n{\\\\n    protected const\\\\n        FOO = \\\\\\\\'Bar\\\\\\\\',\\\\n        BAR = \\\\\\\\'Foo\\\\\\\\';\\\\n}\\\\n';\\\\n\\\\n$fixer = new StatementIndentationFixer();\\\\n$fixer->setWhitespacesConfig(new WhitespacesFixerConfig('    ', \\\\\\\"\\\\\\\\n\\\\\\\"));\\\\n\\\\n$tokens = Tokens::fromCode($code);\\\\n$fixer->fix(new \\\\\\\\SplFileInfo('test.php'), $tokens);\\\\necho $tokens->generateCode();\\\\nEOF\\\\ncd /testbed && php /tmp/repro_final.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355383351282230624\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000089, \"id\": \"synthesized-00089\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00089\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "90c378587835e4ec5f1f21b4fae5dd3c35bb7acf5eaef0565a8642eac9cf9eb1",
+ "status": 200
+}

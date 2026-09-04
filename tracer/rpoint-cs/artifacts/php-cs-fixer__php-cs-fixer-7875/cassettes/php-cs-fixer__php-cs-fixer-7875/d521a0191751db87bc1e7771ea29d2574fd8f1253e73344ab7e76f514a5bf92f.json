@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor tool requires python3 which isn't installed. Let me try to install it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"apt-get install -y python3 2>&1 | tail -5 || (which apk && apk add python3) || (which yum && yum install -y python3)\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355397919811299823\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000028, \"id\": \"synthesized-00028\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00028\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d521a0191751db87bc1e7771ea29d2574fd8f1253e73344ab7e76f514a5bf92f",
+ "status": 200
+}

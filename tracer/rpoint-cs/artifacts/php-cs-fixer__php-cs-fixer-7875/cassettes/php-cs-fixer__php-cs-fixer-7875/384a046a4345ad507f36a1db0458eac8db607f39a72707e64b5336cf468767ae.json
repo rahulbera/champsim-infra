@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me add the readonly property test case in the PHP 8.1 test section. Let me find it:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"provideFixPhp81Cases\\\\\\\\|provideFixPhp80Cases\\\\\\\\|enum Color\\\\\\\" tests/Fixer/Whitespace/StatementIndentationFixerTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355382492288774663\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000054, \"id\": \"synthesized-00054\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00054\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "384a046a4345ad507f36a1db0458eac8db607f39a72707e64b5336cf468767ae",
+ "status": 200
+}

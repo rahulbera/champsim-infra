@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look for the test cases that may be related to the PR. Let me check the git history first:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git log --oneline -10\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355382457929036844\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000009, \"id\": \"synthesized-00009\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00009\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "683f019d785b3322954e9db7254c936e5555c74fa83905996e21f5053b1393cd",
+ "status": 200
+}

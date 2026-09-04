@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works correctly. The multiline const is no longer erroneously \\\"fixed\\\" - `BAR = 'Foo';` keeps its proper indentation.\\n\\nLet me clean up the temporary files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro.php /tmp/tokens.php /tmp/verify.php /tmp/verify_readonly.php /tmp/edge_cases.php /tmp/expected_fixer.php /tmp/expected_test.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355338374384709129\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f251bc8fe2b6cb635688636e9b6b0d53ee6a3ea99352f3c80dc871dcdacca31a",
+ "status": 200
+}

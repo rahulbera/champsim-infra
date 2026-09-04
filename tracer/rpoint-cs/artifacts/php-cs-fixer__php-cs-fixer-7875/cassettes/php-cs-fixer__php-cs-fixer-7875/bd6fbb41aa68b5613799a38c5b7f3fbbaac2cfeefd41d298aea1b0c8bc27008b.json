@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The BracesFixer uses StatementIndentationFixer with `bracesFixerCompatibility = true`. Let me run the BracesFixer tests to make sure nothing is broken:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/Fixer/Basic/BracesFixerTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355355691692849245\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000061, \"id\": \"synthesized-00061\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00061\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "bd6fbb41aa68b5613799a38c5b7f3fbbaac2cfeefd41d298aea1b0c8bc27008b",
+ "status": 200
+}

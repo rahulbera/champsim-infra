@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file is clean (no diff). Now let me re-run the existing tests to make sure the source change alone doesn't break anything (without the new tests):\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/Fixer/Whitespace/StatementIndentationFixerTest.php 2>&1 | tail -12\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355364934462466867\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000088, \"id\": \"synthesized-00088\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00088\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7725deed0d2310727f3d535b20fbffc2818f269891bd87ebf47ae59b78936454",
+ "status": 200
+}

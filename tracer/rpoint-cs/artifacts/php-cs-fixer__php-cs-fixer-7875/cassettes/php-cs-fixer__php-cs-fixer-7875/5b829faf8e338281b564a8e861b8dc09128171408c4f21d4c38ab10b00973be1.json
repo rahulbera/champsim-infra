@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass. The function call case I tested is a pre-existing behavior (it's about statement-level array indentation which is handled by the `statement` scope logic, not the array-as-value logic that the new code handles). This is unrelated to the PR.\\n\\nLet me run the linter/PHPStan on the changed file to make sure the code quality is good:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -l src/Fixer/Whitespace/StatementIndentationFixer.php && php -l tests/Fixer/Whitespace/StatementIndentationFixerTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355378506559121665\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000071, \"id\": \"synthesized-00071\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00071\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5b829faf8e338281b564a8e861b8dc09128171408c4f21d4c38ab10b00973be1",
+ "status": 200
+}

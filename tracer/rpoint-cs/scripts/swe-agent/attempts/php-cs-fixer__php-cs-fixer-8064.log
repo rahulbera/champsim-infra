@@ -1,2 +1,3 @@
 2026-09-04 07:46:53	instance	chain: profile failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-php-cs-fixer__php-cs-fixer-8064/profile.log)
 2026-09-04 08:04:34	instance	profile DIVERGED 110/141 on the 25s _state_anthropic timeout under TCG (verify passed on KVM in 6 min) -- the preact-4182 class
+2026-09-04 10:38:17	instance	chain: profile failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-php-cs-fixer__php-cs-fixer-8064/profile.log)

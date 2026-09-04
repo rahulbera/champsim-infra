@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor seems to have issues. Let me use bash for viewing:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '1,80p' ./tests/Fixer/Whitespace/StatementIndentationFixerTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355381083539504534\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000013, \"id\": \"synthesized-00013\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00013\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cc5aedd2cb540855e5635ddfda90de9d707b9c0ba6b085d7a92508fcb7abc78f",
+ "status": 200
+}

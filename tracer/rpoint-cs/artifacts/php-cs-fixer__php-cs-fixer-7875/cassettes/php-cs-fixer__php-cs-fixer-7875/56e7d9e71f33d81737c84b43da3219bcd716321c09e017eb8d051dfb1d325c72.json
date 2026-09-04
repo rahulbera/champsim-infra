@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All pass. Let me also run the integration tests to make sure the fixer works well in combination with other fixers:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && find tests -path \\\\\\\"*Integration*\\\\\\\" -name \\\\\\\"*.php\\\\\\\" | head -5; ls tests/FixIntegrationTest.php 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355388677041683000\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000063, \"id\": \"synthesized-00063\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00063\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "56e7d9e71f33d81737c84b43da3219bcd716321c09e017eb8d051dfb1d325c72",
+ "status": 200
+}

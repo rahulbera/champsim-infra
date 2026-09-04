@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The fix works correctly. The multiline const is no longer erroneously \\\"fixed\\\". Let me clean up the reproduction script:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro_final.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355379228113628884\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000090, \"id\": \"synthesized-00090\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00090\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0f8f1e15e23652d81b1821df72773abf9c41b09100f5dddb9ae6ce7f8e27b40b",
+ "status": 200
+}

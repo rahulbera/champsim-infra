@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"It seems there are staged changes. Let me check the status more carefully:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"---DIFF STAT---\\\\\\\" && git diff --stat && echo \\\\\\\"---STAGED DIFF STAT---\\\\\\\" && git diff --cached --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355379262473365598\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000084, \"id\": \"synthesized-00084\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00084\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a94fc8eb800abe0eb37dde56fbd837600ddfd95f6d099b3eb1483d11702e3447",
+ "status": 200
+}

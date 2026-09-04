@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test file is reverted to its original state, and only the source file change remains. Let me verify the test file is unchanged from HEAD:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff HEAD -- tests/Fixer/Whitespace/StatementIndentationFixerTest.php | head -5; echo \\\\\\\"exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355338340024970109\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000087, \"id\": \"synthesized-00087\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00087\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6a7abb58a3b944619ab7774abd087fa4bf285cb3920650faef3f8b61fd68bb2a",
+ "status": 200
+}

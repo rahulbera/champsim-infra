@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The changes are staged. The test file revert didn't work because the changes were staged. Let me restore the test file from HEAD:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git restore --staged tests/Fixer/Whitespace/StatementIndentationFixerTest.php && git checkout HEAD -- tests/Fixer/Whitespace/StatementIndentationFixerTest.php && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355338340024974148\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000085, \"id\": \"synthesized-00085\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00085\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "aa09fe556fd41ab8dffbe857c3214af024a7b2fda1c123a88a9d242044736de7",
+ "status": 200
+}

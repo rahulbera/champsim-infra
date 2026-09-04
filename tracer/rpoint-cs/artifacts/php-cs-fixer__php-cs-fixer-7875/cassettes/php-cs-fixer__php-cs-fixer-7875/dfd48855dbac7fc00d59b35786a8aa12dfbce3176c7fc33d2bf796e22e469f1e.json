@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me apply the changes from the commit. First, add `T_CONST` to the `$blockSignatureFirstTokens` array:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/testbed/src/Fixer/Whitespace/StatementIndentationFixer.php\\\",\\\"old_str\\\":\\\"            T_TRAIT,\\\\n            T_EXTENDS,\\\\n            T_IMPLEMENTS,\\\\n        ];\\\\n        $controlStructurePossibiblyWithoutBracesTokens = [\\\",\\\"new_str\\\":\\\"            T_TRAIT,\\\\n            T_EXTENDS,\\\\n            T_IMPLEMENTS,\\\\n            T_CONST,\\\\n        ];\\\\n        $controlStructurePossibiblyWithoutBracesTokens = [\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355379228113630390\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000033, \"id\": \"synthesized-00033\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00033\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dfd48855dbac7fc00d59b35786a8aa12dfbce3176c7fc33d2bf796e22e469f1e",
+ "status": 200
+}

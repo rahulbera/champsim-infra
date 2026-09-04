@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/FixIntegrationTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355383626160138446\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000064, \"id\": \"synthesized-00064\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00064\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e39d1a4aa355319330f74ed90cfa19445790961aa451ef49dd6acca804e80768",
+ "status": 200
+}

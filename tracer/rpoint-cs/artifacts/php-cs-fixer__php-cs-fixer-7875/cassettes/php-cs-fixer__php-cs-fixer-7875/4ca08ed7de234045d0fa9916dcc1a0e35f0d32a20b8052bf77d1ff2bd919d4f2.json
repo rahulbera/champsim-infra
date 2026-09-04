@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look at the multiline class definition test case to understand the structure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"sed -n '845,980p' ./tests/Fixer/Whitespace/StatementIndentationFixerTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355389226797497388\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000014, \"id\": \"synthesized-00014\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00014\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4ca08ed7de234045d0fa9916dcc1a0e35f0d32a20b8052bf77d1ff2bd919d4f2",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All BracesFixer tests pass. Let me also run the ClassAttributesSeparationFixer tests since it relates to class properties/constants:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/Fixer/ClassNotation/ClassAttributesSeparationFixerTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355386718536594460\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000062, \"id\": \"synthesized-00062\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00062\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "dfea69285dc6b7e5424594b5dec3dc4fda2b186cc9a2843066139cf8c3ece5cd",
+ "status": 200
+}

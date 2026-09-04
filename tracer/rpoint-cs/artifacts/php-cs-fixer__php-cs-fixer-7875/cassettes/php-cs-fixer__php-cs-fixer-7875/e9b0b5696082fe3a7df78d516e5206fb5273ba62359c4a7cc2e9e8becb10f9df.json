@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test files don't have the multiline const tests yet. The task says the test files are already taken care of, so I'll focus on the source code fix. Let me check what tools are available for editing:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python python2 python3 2>/dev/null; ls /usr/bin/python* 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355376891651420391\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "e9b0b5696082fe3a7df78d516e5206fb5273ba62359c4a7cc2e9e8becb10f9df",
+ "status": 200
+}

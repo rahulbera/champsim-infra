@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All integration tests pass. Now let me run a broader test on the Whitespace fixer group to be thorough:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && vendor/bin/phpunit tests/Fixer/Whitespace/ 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355398950603448806\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000067, \"id\": \"synthesized-00067\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00067\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f0e217b0f738d4dd777ed012b7ffd71c1a90e55d18694ff06ee5c0e3ffb00388",
+ "status": 200
+}

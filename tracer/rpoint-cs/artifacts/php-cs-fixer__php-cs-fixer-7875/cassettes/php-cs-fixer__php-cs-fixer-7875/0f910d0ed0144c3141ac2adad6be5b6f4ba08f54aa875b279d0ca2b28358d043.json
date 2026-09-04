@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"I've reproduced the issue. The fixer changes `BAR = 'Foo';` from being indented with 8 spaces to 4 spaces. Let me understand the tokenization of this code:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cat > /tmp/tokens.php << 'EOF'\\\\n<?php\\\\n\\\\nrequire __DIR__ . '/../testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$code = '<?php\\\\n\\\\nclass Foo\\\\n{\\\\n    protected const\\\\n        FOO = \\\\\\\\'Bar\\\\\\\\',\\\\n        BAR = \\\\\\\\'Foo\\\\\\\\';\\\\n}\\\\n';\\\\n\\\\n$tokens = Tokens::fromCode($code);\\\\nforeach ($tokens as $index => $token) {\\\\n    echo $index . ': ' . str_replace([\\\\\\\"\\\\\\\\n\\\\\\\", \\\\\\\"\\\\\\\\t\\\\\\\"], ['\\\\\\\\n', '\\\\\\\\t'], $token->getContent()) . ' :: ' . $token->getName() . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n}\\\\nEOF\\\\ncd /testbed && php /tmp/tokens.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355372321806220847\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000017, \"id\": \"synthesized-00017\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00017\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "0f910d0ed0144c3141ac2adad6be5b6f4ba08f54aa875b279d0ca2b28358d043",
+ "status": 200
+}
