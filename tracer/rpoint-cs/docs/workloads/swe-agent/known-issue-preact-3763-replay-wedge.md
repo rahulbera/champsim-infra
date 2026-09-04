@@ -151,7 +151,18 @@ Ordered by cost. **None has been attempted.** All are shared with gin.
 `campaign-2026-09-plan.md`.
 
 
-## 6. The actual root cause (2026-09-03)
+## 5b. RESOLVED 2026-09-04 for the WEDGE half
+
+`bash --noediting` was applied to this instance's guest and its verify went from
+27 of 55 (wedged, three times) to **55 of 55, FAITHFUL, zero misses**. readline
+was the cause. See `known-issue-gin-2121-replay-wedge.md` §5a.
+
+Note carefully that this fixes preact-**3763** and NOT preact-**4182**: 3763
+wedged under KVM (readline), while 4182 truncated only under TCG on the 25 s
+state-command timeout (a wall clock). Same repo, same cell, two different
+defects -- which is exactly why §4 of this file insisted on separating them.
+
+## 6. The actual root cause of the TIMEOUT half (2026-09-03)
 
 Established from `images/replay_full-preactjs__preact-4182.log`, once the host
 started keeping that log at all.

@@ -202,6 +202,38 @@ Ordered by cost. **None has been attempted.**
    replay rather than producing a trace of a half-finished run.
 3. **This is what was chosen on 2026-09-01.**
 
+## 5a. RESOLVED 2026-09-04: readline was the cause
+
+**The experiment in §5.1 was run and it worked.**
+
+1. Vehicle: `preactjs__preact-3763`, chosen because it wedges in 1-3 minutes.
+2. Change: SWE-ReX's session shell spawned as `bash --noediting`
+   (`swerex/runtime/local.py:158`, opt-in via `SWEREX_PATCH=noediting`).
+3. Result:
+
+   | | actions | verdict |
+   |---|---|---|
+   | before (x3 runs) | 27 of 55 | wedged, never reached the gate |
+   | with `--noediting` | **55 of 55** | **FAITHFUL**, 0 misses, no cancelled steps |
+
+4. So the mechanism is §2.4.1 -- **readline perturbing the line** -- not the
+   exit-code handshake desync of §2.4.2. The measured tab-stripping was the real
+   signal after all.
+5. This does NOT explain the OTHER defect. preact-4182 and php-cs-fixer-8064
+   died on the 25-second `_state_anthropic` timeout, which is a wall clock and
+   has nothing to do with readline. `--noediting` will not help those.
+6. **What it could recover:** the three cells lost to the wedge -- Go x T
+   (gin-2121), JavaScript x M (preact-3763) and JavaScript x T
+   (three.js-26589/27395).
+7. **What it costs, and this is a PI decision, not an engineering one:** a
+   patched capture is a DIFFERENT SOFTWARE GENERATION from the 31 already
+   archived. Filling those three cells patched creates a two-generation dataset;
+   making it uniform means re-running 31 captures at roughly four hours each.
+   The captures are now self-describing either way -- `swerex_patch` and
+   `swerex_sha256` are recorded in `capture-<id>.meta` -- so the two generations
+   are distinguishable after the fact, which they would not have been before
+   2026-09-04.
+
 ## 5. If we resume
 
 1. **Cheapest first experiment, before any patching:** run gin's verify with

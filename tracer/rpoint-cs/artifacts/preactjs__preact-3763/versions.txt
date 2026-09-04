@@ -4,19 +4,23 @@ swe_agent_commit=3ea751c087f32b16e039a2233dd6eefecef325d5
 swe_agent_describe=v1.1.0-177-g3ea751c0
 python=Python 3.12.3
 kernel=6.8.0-136-generic
+swerex_version=1.4.0
+swerex_patch=noediting
+swerex_sha256=2a7b281c323f550b8632c6602fafb0c8a5d86d0825516ad26dfc9867f54930e5
+guest_tools_sha256=9c516d49e8316731895036b6ca70f26006166042e290bd79fc55f8a6183b286e
 # --- pip freeze ---
 aiohappyeyeballs==2.7.1
 aiohttp==3.14.3
 aiosignal==1.4.0
 annotated-doc==0.0.5
 annotated-types==0.8.0
-anyio==4.14.2
+anyio==4.15.0
 attrs==26.1.0
 bashlex==0.18
 bidict==0.24.1
 blinker==1.9.0
-boto3==1.43.86
-botocore==1.43.86
+boto3==1.43.88
+botocore==1.43.88
 certifi==2026.7.22
 charset-normalizer==3.5.1
 click==8.5.0
@@ -40,7 +44,7 @@ h11==0.16.0
 hf-xet==1.6.0
 httpcore==1.0.9
 httpx==0.28.1
-huggingface_hub==1.29.0
+huggingface_hub==1.30.0
 idna==3.19
 importlib_metadata==8.9.0
 itsdangerous==2.2.0
@@ -96,7 +100,7 @@ tabulate==0.10.0
 tenacity==9.1.4
 textual==8.2.8
 tiktoken==0.14.0
-tokenizers==0.23.1
+tokenizers==0.23.2
 tqdm==4.70.0
 typing-inspection==0.4.4
 typing_extensions==4.16.0
