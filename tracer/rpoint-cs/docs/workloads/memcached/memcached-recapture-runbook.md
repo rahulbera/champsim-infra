@@ -42,7 +42,8 @@ git show origin/swe-agent-tracing:tracer/rpoint-cs/plugin/champsim_tracer.c \
 git show origin/swe-agent-tracing:tracer/rpoint-cs/plugin/tests/sampling_test.sh \
     > tracer/rpoint-cs/plugin/tests/sampling_test.sh
 chmod +x tracer/rpoint-cs/plugin/tests/sampling_test.sh
-git status --short   # expect exactly these two files modified — do NOT commit them
+git status --short   # expect: champsim_tracer.c MODIFIED, sampling_test.sh UNTRACKED
+                     # (the test is new on main). Do NOT commit either.
 ```
 
 Then read, in this order, before touching anything else:
@@ -111,8 +112,29 @@ v2 fixes all three: one driver (memtier for both phases, matching `--key-prefix`
 | Toolchain | gcc 11.5, Python 3.12.3, glib 2.80, `zstd.h`, `capstone/capstone.h`, `cmake`, `sshpass` | **no conda** (`CC`/`CXX` empty) |
 | Network | github reachable | ✓ |
 
-**Not on rnadig:** the QEMU TCG plugin source, any built `champsim_tracer.so`, and
-any ChampSim checkout. `/mnt/sherlock/rahbera/qemu-tracing/` holds artifacts only.
+**Not on rnadig:** any ChampSim checkout. `/mnt/sherlock/rahbera/qemu-tracing/`
+holds artifacts only.
+
+### 0.2a Already done — §0.0 through §2 were executed on rnadig on 2026-09-04
+
+The bootstrap and the whole build phase have been run and passed. `$MCROOT` exists,
+the repo is cloned with the sampling plugin in place, and every binary is built:
+
+| Gate | Result |
+|---|---|
+| §0.0 bootstrap | clone + both `git show` redirections applied; `sample_len=` ×4 present |
+| build (plugin, inspector, filter, converter, trace_sanity_check, trace_cutter) | all clean; capstone is packaged, so the audit's no-root workaround is **not** needed here |
+| **2.a** converter golden | `ALL PASS (30/30)` + `PASS 14/14` |
+| **2.b** `sampling_test.sh` | **ALL PASS — 10 pass, 0 fail, 1 skip.** Exactly 3 chunks, every window exactly 20,000 instructions, window starts `len+gap` apart, profile mode reports counts and writes nothing, and `gap=0` sampling is **byte-identical to `rotate=`** |
+| **2.c** binaries present | clean |
+
+The one skip is Task 3, the `sample_clock=user` test, which needs a guest kernel
+and initrd the BIOS harness does not have. **Our campaign uses
+`sample_clock=user`**, so that path is first exercised for real by §5.1's profile
+pass — treat §5.1's output as its verification and check the user/total split looks
+sane before sizing anything from it.
+
+**Start at §3.** Re-run §2's gates only if something downstream looks wrong.
 
 ### 0.3 Hard rules
 
@@ -146,11 +168,17 @@ any ChampSim checkout. `/mnt/sherlock/rahbera/qemu-tracing/` holds artifacts onl
   SSH session — that is the "another terminal" §3.5 means.
 - **One VM at a time.** Before any launch:
   ```bash
-  pgrep -u "$(id -un)" -f qemu-system-x86_64 && { echo 'a QEMU of mine is running — STOP'; exit 1; }
+  qemu_running || { echo 'a QEMU of mine is running — STOP'; exit 1; }
   ss -ltn | grep -E ':(2222|4444|4445|11211)\b' && { echo 'port held — STOP'; exit 1; }
   ```
   A second QEMU whose `hostfwd` bind silently fails leaves your `telnet 4444` and
   `nc 11211` talking to the **old** guest — including §3.5's `savevm`.
+  `qemu_running` (defined in §0.4) matches by **executable**, deliberately. Both
+  obvious alternatives are broken and were caught on rnadig by running them:
+  `pgrep -f qemu-system-x86_64` matches its own command line and fires every time,
+  and `pgrep -x qemu-system-x86_64` matches **nothing** — Linux truncates process
+  names to 15 characters and that name is 19, so `pgrep` warns and returns empty.
+  A guard that silently never fires is worse than one that always does.
 - **No `killall`, `pkill` or `sudo` on rnadig itself.** `zhlang` is logged in. If
   you are about to, you are in the wrong shell.
 - **`THETA` and `OUTDIR` are set per phase, never inherited.** Before every
@@ -166,6 +194,16 @@ export PLUGINDIR=$REPO/tracer/rpoint-cs/plugin
 export CONVDIR=$REPO/tracer/rpoint-cs/converter
 export TOOLS=$REPO/tools/trace_sanity_check
 export PLUGIN=$PLUGINDIR/champsim_tracer.so
+qemu_running() {   # match by EXECUTABLE — see the note in 0.3
+  local QBIN p found=""
+  QBIN=$(readlink -f "$HOME/qemu-custom/bin/qemu-system-x86_64")
+  for p in /proc/[0-9]*; do
+    [ "$(readlink -f "$p/exe" 2>/dev/null)" = "$QBIN" ] && found="$found ${p#/proc/}"
+  done
+  [ -n "$found" ] && { echo "QEMU running:$found"; return 1; }
+  return 0
+}
+export -f qemu_running
 export CPUSTR='Haswell,pmu=on,kvmclock=off,kvmclock-stable-bit=off,kvm-asyncpf=off,kvm-steal-time=off,kvm-pv-eoi=off,kvm-pv-unhalt=off,kvm-poll-control=off,kvm-pv-ipi=off,kvm-pv-sched-yield=off,kvm-pv-tlb-flush=off,kvm-asyncpf-int=off,hle=off,rtm=off,pcid=off,invpcid=off,tsc-deadline=off'
 EOF
 source ~/.mcrc && cd $MCROOT
@@ -358,7 +396,7 @@ done                          # REQUIRE: no output
 source ~/.mcrc
 ORIG=/mnt/sherlock/rahbera/qemu-tracing/images/ubuntu-guest-memcached.qcow2
 chmod a-w "$ORIG"; stat -c '%s %Y %a' "$ORIG" > $MCROOT/logs/orig.fingerprint
-pgrep -af 'qemu-system-x86_64.*ubuntu-guest-memcached' && { echo 'source in use — STOP'; exit 1; }
+qemu_running || { echo 'shut the running QEMU down before copying — STOP'; exit 1; }
 [ -e $MCROOT/images/mc-v2.qcow2 ] && { echo 'copy exists — STOP and ask'; exit 1; }
 cp "$ORIG" $MCROOT/images/mc-v2.qcow2 || { echo 'copy failed'; exit 1; }
 [ "$(stat -c %s "$ORIG")" = "$(stat -c %s $MCROOT/images/mc-v2.qcow2)" ] || { echo 'size mismatch'; exit 1; }
@@ -1006,7 +1044,7 @@ is the other logged-in user starting something, not the arithmetic — check
 | Filtered window < 600 M | idle fraction above the pilot's | raise `SLEN` and recapture; do not ship a short trace |
 | `Reached end of trace` in results | trace shorter than warmup + sim | as above |
 | Every rollup cell is `0` | wrong simulator's stat names | Gate 8.0 |
-| Host memory pressure during §7 | **not** the conversion — it peaks at ~300 MB/job. Check whether the other logged-in user started something, or whether a QEMU from §6 is still alive | `free -g`, `pgrep -u "$(id -un)" -f qemu-system-x86_64` |
+| Host memory pressure during §7 | **not** the conversion — it peaks at ~300 MB/job. Check whether the other logged-in user started something, or whether a QEMU from §6 is still alive | `free -g`, `qemu_running` |
 | A new core dump appears | QEMU crashed; `core_pattern` pipes to systemd-coredump on `/` | report it and its size; do not delete it |
 | Anything writes to `/` | wrong path | stop — `/` has 25 GB |
 
