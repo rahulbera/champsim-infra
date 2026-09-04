@@ -313,6 +313,15 @@ latency to 5.26 ms (256 keys in flight per connection). No latency-sensitive cac
 is operated that way. 32-key multigets are worse still: 10.61 ms for no throughput.
 Both were rejected on realism, not on numbers.
 
+**Open question, recorded 2026-09-04 and not yet decided.** `--ratio` is a
+*command*-level ratio, so with 16-key multigets the **key-level** write fraction is
+1 SET per 16×16 = 256 GETs = **0.4 %**, not the 5 % of v1 and not the ~3 %
+(30:1 get:set) of Atikoglu's ETC pool. Restoring 5 % key-level writes would need
+`--ratio≈1:1.2`, which floods the run with single-key SETs and throws away most of
+the multiget gain. Proceeding at 0.4 % and disclosing it; revisit if the study
+needs write traffic. *(An earlier commit message called this move "5.0 % → 5.9 %,
+immaterial" — that was the command-level figure and it was wrong.)*
+
 `--ratio` becomes **1:16** so every multiget batch is full — the GET side of
 `--ratio` caps `--multi-key-get` (`client.cpp:641-642`), and `1:19` would give
 ragged batches of 16 then 3. Write fraction moves 5.0 % → 5.9 %, immaterial.
@@ -552,7 +561,7 @@ printf 'get memtier-1\r\n' | nc -q1 127.0.0.1 11211 | head -1
 | Counter | Required | If it differs |
 |---|---|---|
 | `curr_items` | **1500000** | preload did not cover the range — check `P:P` and `-n allkeys` |
-| `cmd_set` | **1500000** | ≈ 4× means `S:S` was used |
+| `cmd_set` | **1500000 immediately after the preload, and CUMULATIVE thereafter** | ≈ 4× *right after the preload* means `S:S` was used. On any re-run it is legitimately far higher (Gates 3.d/3.e write too). What proves overwrite-not-growth is `curr_items` pinned at N with `bytes` unchanged and `evictions`/`reclaimed`/`expired_unfetched` all 0 — check those, not `cmd_set`. |
 | `evictions` | **0** | `-m` too small — stop and report |
 | `hash_power_level` | **20** | expansion fired; `no_hashexpand` missing |
 | `hash_is_expanding` | **0** | same |
@@ -883,7 +892,7 @@ source ~/.mcrc; set -u
 THETA=$1; k=$2
 OUTDIR=$MCROOT/traces/theta$THETA
 R=$OUTDIR/trace_vcpu1_c$k.raw.zst
-N=memcached_v2_theta${THETA}_rd95_p16_w$k
+N=memcached_v2_theta${THETA}_rd95_mget16_w$k
 F=$OUTDIR/$N.filt.raw.zst ; C=$MCROOT/out/$N.champsim2.zst
 [ -s "$R" ] || { echo "MISSING $R — STOP"; exit 1; }
 [ -e "$C" ] && { echo "$C already exists — STOP and ask"; exit 1; }
@@ -949,8 +958,8 @@ both flags merge across files.
 
 ```yaml
 memcached_v2:
-  memcached_v2_theta0.8_rd95_p16_w00000:
-    path: <tracezoo>/memcached_v2/memcached_v2_theta0.8_rd95_p16_w00000.champsim2.zst
+  memcached_v2_theta0.8_rd95_mget16_w00000:
+    path: <tracezoo>/memcached_v2/memcached_v2_theta0.8_rd95_mget16_w00000.champsim2.zst
     version: 2
     workload: memcached
     category: kvstore
