@@ -49,6 +49,19 @@ EOF
 lang_deps() {
   say "crates"
   export CARGO_HOME=/opt/cargo PATH=/opt/cargo/bin:$PATH
+  # A repo with NO committed Cargo.lock resolves the LATEST versions of every
+  # dependency, which for an older repo means crates published years after it.
+  # axum-1730 (a library, so no lock) pulled rand_core 0.10.1 and cargo 1.75
+  # refused it: "feature `edition2024` is required".
+  #
+  # CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS=fallback (cargo >= 1.84) makes the
+  # resolver prefer dependency versions compatible with the package's declared
+  # rust-version, so an era-appropriate set is chosen instead of today's. It is
+  # opt-in per descriptor because it only matters for lockfile-less repos.
+  if [ -n "${CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS:-}" ]; then
+    export CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS
+    say "resolver: incompatible-rust-versions=$CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS"
+  fi
   cd "$REPO_DIR"
   # `cargo fetch` populates $CARGO_HOME/registry, which lives OUTSIDE the repo.
   # `cargo vendor` would be the obvious alternative and is wrong here: it writes
@@ -76,6 +89,11 @@ lang_deps() {
 
 lang_offline_gate() {
   OFFLINE_ENV=(CARGO_HOME=/opt/cargo RUSTUP_HOME=/opt/rustup CARGO_NET_OFFLINE=true)
+  # run_offline builds a clean environment, so the resolver setting has to be
+  # carried in or the gate re-resolves differently from what was fetched.
+  [ -n "${CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS:-}" ] \
+    && OFFLINE_ENV+=("CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS=$CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS")
+  true
   export PATH=/opt/cargo/bin:$PATH
   local log=/tmp/offline_gate.log
   run_offline "cd $REPO_DIR && $GATE_BUILD_CMD --offline && $GATE_TEST_CMD --offline" \

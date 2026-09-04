@@ -1,1 +1,2 @@
 2026-09-04 01:03:07	infra	provision_instance.sh read the optional EXTRA_MIRRORS with grep under set -e; no match exits 1 and killed the script silently after 'stage guest tools'
+2026-09-04 02:04:01	infra	axum commits no Cargo.lock so cargo resolved 2026 crates; rand_core 0.10.1 needs edition2024 which cargo 1.75 lacks. RUST_VERSION 1.85.0 + resolver fallback to rust-version
