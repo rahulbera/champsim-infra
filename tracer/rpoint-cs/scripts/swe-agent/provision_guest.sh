@@ -179,6 +179,20 @@ say "record installed versions"
   echo "swe_agent_describe=$(git -C /opt/swe-agent describe --always --tags --dirty 2>/dev/null || echo unknown)"
   echo "python=$(/opt/venv/bin/python --version 2>&1)"
   echo "kernel=$(uname -r)"
+  # SWE-ReX's own SOURCE DIGEST. `pip freeze` gives its VERSION, which does not
+  # change when a file is edited in place -- and every proposed fix for the two
+  # replay defects (gin's PTY wedge, the 25 s state-command timeout) is a local
+  # patch to exactly this package. Without a content digest a patched capture is
+  # indistinguishable from an unpatched one after the fact, which is the gap
+  # gin's write-up 4.1.3 says must close BEFORE any patch is applied.
+  # Sorted so the digest does not depend on filesystem ordering.
+  echo "swerex_version=$(/opt/venv/bin/pip show swe-rex 2>/dev/null | awk '/^Version:/{print $2}')"
+  echo "swerex_sha256=$(find /opt/venv/lib/python*/site-packages/swerex -name '*.py' 2>/dev/null \
+      | sort | xargs cat 2>/dev/null | sha256sum | cut -d' ' -f1)"
+  # The guest-side tools WE stage, for the same reason: replay_pinned.sh and the
+  # lang/ modules are ours and they change between runs.
+  echo "guest_tools_sha256=$(find /opt/swe-agent-tools \( -name '*.sh' -o -name '*.py' \) 2>/dev/null \
+      | sort | xargs cat 2>/dev/null | sha256sum | cut -d' ' -f1)"
   echo "# --- pip freeze ---"
   /opt/venv/bin/pip freeze 2>/dev/null
 } | sudo tee /opt/versions.txt >/dev/null

@@ -355,7 +355,24 @@ profile)
     echo "profile_kernel=$kern"
     echo "windows=$WINDOWS"
     echo "window_len=$WINDOW_LEN"
-    echo "sample_gap=$gap"; } > "$META"
+    echo "sample_gap=$gap"
+    # SOFTWARE PROVENANCE, carried into the meta rather than left only in
+    # artifacts/<id>/versions.txt. The meta is what the trace phase reads and
+    # what anyone holding the trace will look at; versions.txt lives beside the
+    # cassettes and is easy not to find.
+    #
+    # This is the prerequisite named in all three replay write-ups (gin
+    # section 4.1.3, preact section 6, php-cs-fixer section 4.2): every proposed
+    # fix is a local patch to SWE-ReX, and until a capture records WHICH
+    # software produced it, a patched and an unpatched trace are
+    # indistinguishable afterwards. swerex_sha256 is a digest of the installed
+    # source, so an in-place edit changes it even though the version does not.
+    _v=${RPOINT_ARTIFACTS:-$ROOT/artifacts}/$INSTANCE/versions.txt
+    if [ -f "$_v" ]; then
+      grep -E '^(swe_agent_commit|swe_agent_describe|swerex_version|swerex_sha256|guest_tools_sha256|python|kernel)=' "$_v" || true
+    else
+      echo "# WARNING: no versions.txt for this instance -- software provenance unknown"
+    fi; } > "$META"
   echo "  total  $total  (user $user / kernel $kern)"
   echo "  gap    $gap   -> $WINDOWS x $WINDOW_LEN on the user clock"
   echo "  wrote  $META"
