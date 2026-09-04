@@ -187,6 +187,7 @@ say "record installed versions"
   # gin's write-up 4.1.3 says must close BEFORE any patch is applied.
   # Sorted so the digest does not depend on filesystem ordering.
   echo "swerex_version=$(/opt/venv/bin/pip show swe-rex 2>/dev/null | awk '/^Version:/{print $2}')"
+  echo "swerex_patch=${SWEREX_PATCH:-none}"
   echo "swerex_sha256=$(find /opt/venv/lib/python*/site-packages/swerex -name '*.py' 2>/dev/null \
       | sort | xargs cat 2>/dev/null | sha256sum | cut -d' ' -f1)"
   # The guest-side tools WE stage, for the same reason: replay_pinned.sh and the
@@ -201,6 +202,54 @@ say "record installed versions"
 # built, which is a costly place to die for a bookkeeping step.
 sudo chown ubuntu:ubuntu /opt/versions.txt
 ok "$(grep -c . /opt/versions.txt) lines -> /opt/versions.txt"
+
+# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# OPTIONAL SWE-ReX PATCH, opt-in per instance via SWEREX_PATCH. Default: none,
+# so every capture so far is unaffected and remains comparable.
+#
+# This exists because gin-2121's write-up section 5 names one cheap experiment --
+# run the session shell with `bash --noediting` -- and it was blocked on
+# provenance: patching SWE-ReX changes the software under trace, and until
+# capture-<id>.meta recorded WHICH software produced a trace, a patched and an
+# unpatched capture were indistinguishable afterwards. That gap closed on
+# 2026-09-04, so the experiment is now runnable.
+#
+# The target is exact, taken from swe-rex 1.4.0 source rather than guessed:
+#     src/swerex/runtime/local.py:158  pexpect.spawn("/usr/bin/env bash", ...)
+# readline is what strips tabs and can transform a line before bash sees it, and
+# that transformation is the one mechanism with positive evidence behind it
+# (gin step 10's str_replace arrived with every leading Go tab removed).
+#
+# It VERIFIES the substitution happened. A patch that silently matches nothing
+# would leave us comparing two identical runs and calling it a result.
+if [ -n "${SWEREX_PATCH:-}" ]; then
+  say "SWE-ReX patch: $SWEREX_PATCH"
+  LOCALPY=$(ls /opt/venv/lib/python*/site-packages/swerex/runtime/local.py 2>/dev/null | head -1)
+  [ -n "$LOCALPY" ] || die "SWEREX_PATCH set but swerex/runtime/local.py not found"
+  case "$SWEREX_PATCH" in
+    noediting)
+      /opt/venv/bin/python - "$LOCALPY" <<'PY' || die "swerex noediting patch failed"
+import sys
+p = sys.argv[1]
+s = open(p).read()
+old = '"/usr/bin/env bash",'
+new = '"/usr/bin/env bash --noediting",'
+if new in s:
+    print("  already patched"); raise SystemExit(0)
+n = s.count(old)
+if n != 1:
+    print(f"  REFUSING: expected exactly 1 occurrence of {old!r}, found {n}")
+    raise SystemExit(1)
+open(p, "w").write(s.replace(old, new, 1))
+print("  patched: session shell now spawns with --noediting")
+PY
+      ;;
+    *) die "unknown SWEREX_PATCH: $SWEREX_PATCH" ;;
+  esac
+  grep -q -- '--noediting' "$LOCALPY" || die "patch reported success but the file does not contain it"
+  ok "swerex patched ($SWEREX_PATCH); swerex_sha256 in versions.txt will differ from an unpatched guest"
+fi
 
 # ---------------------------------------------------------------------------
 say "problem statement"
