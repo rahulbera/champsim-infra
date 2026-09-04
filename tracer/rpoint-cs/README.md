@@ -43,7 +43,7 @@ traces (x86-64).
 | `plugin/` | The QEMU TCG plugin that emits the raw instrumented stream. |
 | `converter/` | Raw stream → ChampSim v2, x86 decode, explicit branch classification, golden tests. |
 | `scripts/` | Boot/snapshot/restore drivers, the `capture-kit`, and a `smoke-trace` end-to-end test. |
-| `docs/` | Pipeline and validation docs, the branch-type contract, and `workloads/` — one subdirectory per workload. |
+| `docs/` | Pipeline and validation docs, the branch-type contract, `verification/` (post-hoc campaign audits — read one before re-running its playbook), and `workloads/` — one subdirectory per workload. |
 | `images/`, `snapshots/`, `dump/` | Gitignored bulk: VM disks, guest snapshots, raw traces. |
 | `CLAUDE.md` | Full operational detail (guest config, capture runbooks). Predates the subsume — see below. |
 
