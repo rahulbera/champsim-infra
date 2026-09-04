@@ -227,28 +227,61 @@ EOF
 Both failures were logged as **infra**, not instance strikes: a wrong gate in a
 descriptor is our bug, and under the house rule the task keeps all three tries.
 
-## OPEN: lombok-3479 needs an Ant language module (2026-09-04)
+## Campaign accounting as of 2026-09-04 12:00
 
-1. `projectlombok__lombok-3479` is Java's cell-S pick and the last Java instance
-   of the 36. It is **not startable today** and the reason is structural, not a
-   descriptor bug.
-2. lombok builds with **Ant** (`build.xml`); it has no `pom.xml` and no
-   `build.gradle`. Every language module in `scripts/swe-agent/lang/` assumes one
-   of: make, cmake, maven, composer, bundler, cargo, go or npm. There is no ant
-   module, so `LANG_MODULE=java_maven` would fail at the first `mvn` call.
-3. Its test harness is also unlike the others: the F2P is
-   `javac-ExtensionMethodOnRecord.java(lombok.transform.TestWithDelombok)`, a
-   fixture-driven javac transformation test, and the test patch is three
-   `test/transform/resource/**` FIXTURES rather than a test source file.
-4. **What it needs:** a `lang/java_ant.sh` doing toolchain (JDK + ant), deps
-   (`ant deps` / ivy resolution, which must be made offline-safe), and an
-   offline gate counting whatever the harness prints. Estimated a couple of
-   hours, most of it in making ivy resolve from a warmed cache.
-5. **Cost of skipping it:** Java ends with cells B (gson-1093), T (gson-2134)
-   and M (javaparser-4538) but no S. Java is the only language that would be
-   short a cell for a tooling reason rather than a stratification one.
-6. Not attempted yet. Recorded here so the gap is visible rather than
-   discovered later as a missing row.
+31 of the 36 picks are captured, validated and archived. Five languages are
+COMPLETE at all four behaviour cells:
+
+| language | captured | cells | missing |
+|---|---|---|---|
+| C | 4/4 | B T M S | — |
+| C++ | 4/4 | B B B B (all four picks are cell B) | — |
+| Ruby | 4/4 | M T T + faker-2705 replacing jekyll-8167 | — |
+| Rust | 4/4 | T B M B | — |
+| TypeScript | 4/4 | — | — |
+| Go | 3/4 | M M B | gin-2121 (T) |
+| Java | 3/4 | B T M | lombok-3479 (S) |
+| PHP | 3/4 | B M S | php-cs-fixer (T) — 7875 in flight |
+| JavaScript | 2/4 | T T | preact (M), three.js (T) |
+
+The five unfilled slots, each with a written-up reason:
+
+1. `gin-gonic__gin-2121` (Go×T) — SWE-ReX PTY wedge, deferred by PI decision.
+2. `projectlombok__lombok-3479` (Java×S) — blocked on tooling, see below.
+3. `preactjs__preact-3763` + runner-up `-4182` (JS×M) — state-command timeout.
+4. `mrdoob__three.js-26589` + runner-up `-27395` (JS×T) — PTY wedge, both
+   deterministic.
+5. `php-cs-fixer-8064` (PHP×T) — state-command timeout; runner-up 7875 running.
+
+## OPEN: lombok-3479 is blocked on tooling, and it is worse than first estimated
+
+**Revised 2026-09-04 after reading the build.** The earlier note here estimated
+"a couple of hours, most of it in making ivy resolve from a warmed cache". That
+was too optimistic. Three separate problems:
+
+1. **No ant module exists.** lombok builds with Ant (`build.xml`, no `pom.xml`,
+   no `build.gradle`); every module in `lang/` assumes make, cmake, maven,
+   composer, bundler, cargo, go or npm.
+2. **The build bootstraps a custom ant library over the network.**
+   `buildScripts/setup.ant.xml` has an `-ipp.download` target that fetches
+   `lib/ivyplusplus.jar` when absent, and the whole build file is declared
+   `xmlns:ivy="antlib:com.zwitserloot.ivyplusplus"`. That is warmable at
+   provision time, but it is a second fetch path to get right.
+3. **The tests need MULTIPLE JDK RUNTIMES resolved through ivy.**
+   `buildScripts/tests.ant.xml`'s `test.javac8` depends on
+   `deps.jdk8-runtime`, and `buildScripts/ivy-repo/` carries custom module
+   descriptors for javac6, javac7, javac11, javac13 and javac14. Making that
+   resolve offline is the real cost, and it is not a couple of hours.
+4. **There is no clean gate even if the build worked.** The junit target runs
+   `<test name="lombok.TestJavac" />` — the whole class — and the FAIL_TO_PASS
+   is a FIXTURE (`ExtensionMethodOnRecord.java`) driving it, not a test method.
+   junit's `<test name=>` is class-level, so the failing case cannot be excluded
+   the way every other instance's gate excludes it.
+5. **The runner-up does not help**: `projectlombok-t3052` is the same repo and
+   the same build system.
+6. **Decision: not attempted.** Java ends at three cells. This is the only slot
+   lost to TOOLING rather than to a defect in the replay, and it is recorded
+   here so it is not mistaken for one.
 
 ## NEVER edit a script while a chain is executing it (2026-09-02)
 
