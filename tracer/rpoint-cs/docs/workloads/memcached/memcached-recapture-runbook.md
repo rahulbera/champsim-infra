@@ -595,7 +595,7 @@ exec memtier_benchmark -s 127.0.0.1 -p 11211 -P memcache_text \
 EOF
 chmod +x ~/start_v2.sh
 taskset -c 5,6 ~/start_v2.sh 0.8 >/tmp/mt_smoke.log 2>&1 &
-sleep 5; pkill -u "$(id -un)" -x memtier_benchmark
+sleep 5; pkill -u "$(id -un)" -x memtier_benchma   # NOT ...benchmark — see 3.5
 grep -qi 'error' /tmp/mt_smoke.log && echo 'start_v2.sh rejected its arguments — STOP'
 ```
 
@@ -610,7 +610,14 @@ done first.
 
 ```bash
 # GUEST
-pkill -u "$(id -un)" -x memtier_benchmark
+# "memtier_benchmark" is 17 chars; Linux truncates comm to 15, so `pkill -x
+# memtier_benchmark` matches NOTHING and silently leaves the client running --
+# you would then snapshot a RUNNING client and lose the determinism the whole
+# design rests on. Match the truncated comm, and VERIFY.
+pkill -u "$(id -un)" -x memtier_benchma
+sleep 2
+pgrep -u "$(id -un)" -x memtier_benchma && { echo "client still running — STOP, do not snapshot"; exit 1; }
+echo "client stopped; safe to snapshot"
 ```
 ```bash
 # HOST — ordinary SSH session, NOT the tmux pane running QEMU
