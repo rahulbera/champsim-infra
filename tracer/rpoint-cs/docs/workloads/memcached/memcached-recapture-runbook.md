@@ -274,7 +274,7 @@ once.
 memtier_benchmark -s 127.0.0.1 -p 11211 -P memcache_text \
   --key-prefix=memtier- --key-minimum=1 --key-maximum=1500000 \
   --key-pattern=Z:Z --key-zipf-exp=${THETA} \
-  --ratio=1:19 --data-size=4000 --pipeline=16 \
+  --ratio=1:16 --multi-key-get=16 --data-size=4000 --pipeline=1 \
   --threads=2 --clients=8 --test-time=100000 --hide-histogram
 ```
 
@@ -290,8 +290,34 @@ overwrite rather than grow the store and `curr_items` stays pinned at N.
 | `--data-size` | 4000 | **4000** | Keeps `unique_ppages` high and warm-up robust. Above the production mode — see §9.3. |
 | `--ratio` | 1:19 | **1:19** | One fewer variable. |
 
-**Do not add `--multi-key-get`** — silently capped by the GET side of `--ratio`
-(`client.cpp:641-642`). **Do not use `--randomize`** — seeds from the clock.
+**`--multi-key-get=16` is the single biggest lever in this campaign, and it was
+added on measurement, not theory.** Gate 3.e on 2026-09-04 measured, on the warm
+guest, instructions per *key lookup*:
+
+| config | I_lookup | lookups/s | avg latency |
+|---|---|---|---|
+| single-key GET, `--pipeline=16` | 19,196 | 140 K | 1.78 ms |
+| **`--multi-key-get=16`, `--pipeline=1`** | **4,463** | 347 K | **0.38 ms** |
+| `--multi-key-get=16`, `--pipeline=16` | 4,201 | 401 K | 5.26 ms |
+| `--multi-key-get=32`, `--pipeline=16` | — | 772 K | 10.61 ms, no throughput gain |
+
+**4.30× fewer instructions per lookup.** `--pipeline` batches 16 *commands* that
+still produce 16 responses, so the per-request fixed cost (~94 % of instructions:
+syscall entry/exit, skb alloc, page zeroing, cgroup accounting, TCP transmit) is
+paid 16 times. A multiget is **one** command and **one** response: paid once.
+This is also the production pattern — batched multigets dominate Atikoglu's
+Facebook study — so it moves the trace toward a representative deployment.
+
+**`--pipeline` stays at 1.** Stacking it on multiget buys 6 % and drives average
+latency to 5.26 ms (256 keys in flight per connection). No latency-sensitive cache
+is operated that way. 32-key multigets are worse still: 10.61 ms for no throughput.
+Both were rejected on realism, not on numbers.
+
+`--ratio` becomes **1:16** so every multiget batch is full — the GET side of
+`--ratio` caps `--multi-key-get` (`client.cpp:641-642`), and `1:19` would give
+ragged batches of 16 then 3. Write fraction moves 5.0 % → 5.9 %, immaterial.
+
+**Do not use `--randomize`** — seeds from the clock.
 
 ### Guest topology
 
@@ -539,8 +565,8 @@ printf 'get memtier-1\r\n' | nc -q1 127.0.0.1 11211 | head -1
 before=$(printf 'stats\r\n'|nc -q1 127.0.0.1 11211|awk '/STAT get_hits /{h=$3}/STAT get_misses /{m=$3}END{print h" "m}')
 taskset -c 5,6 memtier_benchmark -s 127.0.0.1 -p 11211 -P memcache_text \
   --key-prefix=memtier- --key-minimum=1 --key-maximum=1500000 \
-  --key-pattern=Z:Z --key-zipf-exp=0.8 --ratio=1:19 --data-size=4000 \
-  --pipeline=16 --threads=2 --clients=8 --test-time=10 --hide-histogram
+  --key-pattern=Z:Z --key-zipf-exp=0.8 --ratio=1:16 --multi-key-get=16 \
+  --data-size=4000 --pipeline=1 --threads=2 --clients=8 --test-time=10 --hide-histogram
 after=$(printf 'stats\r\n'|nc -q1 127.0.0.1 11211|awk '/STAT get_hits /{h=$3}/STAT get_misses /{m=$3}END{print h" "m}')
 echo "before=$before after=$after"
 # REQUIRE: delta get_hits / (delta get_hits + delta get_misses) > 0.99
@@ -556,10 +582,14 @@ sudo perf stat -e instructions -p $(pgrep -u memcache -x memcached) -- sleep 30 
 G1=$(printf 'stats\r\n'|nc -q1 127.0.0.1 11211|awk '/STAT cmd_get /{g=$3}/STAT cmd_set /{s=$3}END{print g+s}')
 # I_req = instructions / (G1 - G0).  Run at --pipeline=1 AND --pipeline=16.
 ```
-| `I_req` at P=16 | Action |
+Measure **instructions per KEY LOOKUP**, not per request — with multiget they
+differ by 16×, and misses scale with lookups. Use `get_hits + get_misses` as the
+denominator (per-key; `cmd_get` is not).
+
+| `I_lookup` | Action |
 |---|---|
-| 2,000 – 8,000 | **proceed**; §9 predictions stand |
-| 8,000 – 12,000 | proceed, and divide every predicted MPKI and `unique_ppages` in §9.1 by `I_req/4350` before comparing |
+| ≤ 6,000 | **proceed**; §9 predictions stand (measured 4,463 on 2026-09-04) |
+| 6,000 – 12,000 | proceed, and divide every predicted MPKI and `unique_ppages` in §9.1 by `I_lookup/4463` before comparing |
 | **> 12,000** | **STOP and report.** Do not vary §1's locked parameters to chase it. |
 
 If PMU virtualisation is unavailable at all, derive `I_req` from a TCG
@@ -590,7 +620,7 @@ THETA="$1"
 exec memtier_benchmark -s 127.0.0.1 -p 11211 -P memcache_text \
   --key-prefix=memtier- --key-minimum=1 --key-maximum=1500000 \
   --key-pattern=Z:Z --key-zipf-exp="$THETA" \
-  --ratio=1:19 --data-size=4000 --pipeline=16 \
+  --ratio=1:16 --multi-key-get=16 --data-size=4000 --pipeline=1 \
   --threads=2 --clients=8 --test-time=100000 --hide-histogram
 EOF
 chmod +x ~/start_v2.sh
@@ -975,8 +1005,16 @@ models a 48 KB L0D, so the L1D row is directional only.
 FAISS `msturing10m_ivf1024flat` sits at 31.1 LLC load MPKI and 247,753
 `unique_ppages` in the same window, for scale.
 
-**All Grade D — modelled, unvalidated, and linear in Gate 3.e's `I_req`.**
-Rescale before judging.
+**Now measurement-backed, not modelled.** The table assumed 4,350 instructions per
+lookup; Gate 3.e measured **4,463** on the warm guest on 2026-09-04 with the §1
+configuration (`--multi-key-get=16`, `--pipeline=1`) — within 3 %, so these figures
+stand as written rather than needing a rescale. They remain forecasts of
+*simulation* output, which nothing has yet run; treat the first converted window's
+`trace_sanity_check` footprint (Gate 5.b) as the first real check on them.
+
+For the record, the same gate measured **19,196** instructions per lookup for
+single-key GETs — the configuration this campaign started from, and the reason the
+first attempt would have produced ~2.9 MPKI instead of ~12.
 
 ### 9.2 Two criteria that will NOT work
 
