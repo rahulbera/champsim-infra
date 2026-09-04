@@ -227,31 +227,44 @@ EOF
 Both failures were logged as **infra**, not instance strikes: a wrong gate in a
 descriptor is our bug, and under the house rule the task keeps all three tries.
 
-## Campaign accounting as of 2026-09-04 12:00
+## Campaign accounting as of 2026-09-04 18:00
 
-31 of the 36 picks are captured, validated and archived. Five languages are
+32 of the 36 picks are captured, validated and archived. SIX languages are
 COMPLETE at all four behaviour cells:
 
-| language | captured | cells | missing |
-|---|---|---|---|
-| C | 4/4 | B T M S | — |
-| C++ | 4/4 | B B B B (all four picks are cell B) | — |
-| Ruby | 4/4 | M T T + faker-2705 replacing jekyll-8167 | — |
-| Rust | 4/4 | T B M B | — |
-| TypeScript | 4/4 | — | — |
-| Go | 3/4 | M M B | gin-2121 (T) |
-| Java | 3/4 | B T M | lombok-3479 (S) |
-| PHP | 3/4 | B M S | php-cs-fixer (T) — 7875 in flight |
-| JavaScript | 2/4 | T T | preact (M), three.js (T) |
+| language | captured | missing |
+|---|---|---|
+| C | 4/4 | — |
+| C++ | 4/4 | — |
+| PHP | 4/4 | — (php-cs-fixer-7875 replacing 8064) |
+| Ruby | 4/4 | — (faker-2705 replacing jekyll-8167) |
+| Rust | 4/4 | — |
+| TypeScript | 4/4 | — |
+| Go | 3/4 | gin-2121 (T) |
+| Java | 3/4 | lombok-3479 (S) |
+| JavaScript | 2/4 | preact (M), three.js (T) |
 
-The five unfilled slots, each with a written-up reason:
+Four slots unfilled, and they are NOT four equivalent problems:
 
-1. `gin-gonic__gin-2121` (Go×T) — SWE-ReX PTY wedge, deferred by PI decision.
-2. `projectlombok__lombok-3479` (Java×S) — blocked on tooling, see below.
-3. `preactjs__preact-3763` + runner-up `-4182` (JS×M) — state-command timeout.
-4. `mrdoob__three.js-26589` + runner-up `-27395` (JS×T) — PTY wedge, both
-   deterministic.
-5. `php-cs-fixer-8064` (PHP×T) — state-command timeout; runner-up 7875 running.
+1. `lombok-3479` (Java×S) — blocked on TOOLING. No Ant module, and its tests
+   resolve multiple JDK runtimes through custom ivy descriptors. See below.
+   This is the only slot lost to our own toolchain rather than to a defect.
+2. `gin-2121` (Go×T), `preact-3763` (JS×M), `three.js-26589/27395` (JS×T) — all
+   lost to the SWE-ReX PTY wedge, and **all three are now recoverable**:
+   `bash --noediting` took preact-3763 from 27/55 wedged to a complete capture
+   on 2026-09-04 (verify 55/55, profile, trace 55/55). See
+   `known-issue-gin-2121-replay-wedge.md` §5a.
+
+**The open decision is the PI's, not an engineering one.** Filling those three
+cells with patched captures makes a two-generation dataset; re-running the other
+32 for uniformity costs ~4 h each. Captures now record `swerex_patch` and
+`swerex_sha256`, so either choice is auditable after the fact — which was not
+true before 2026-09-04 and is why the patch went unapplied for a month.
+
+Two instances were lost to a DIFFERENT defect and are NOT recoverable by that
+patch: `preact-4182` and `php-cs-fixer-8064` died on the 25-second
+`_state_anthropic` timeout, a wall clock unrelated to readline. Both cells are
+nevertheless filled — JS×M is not, but PHP×T is, by 8064's runner-up.
 
 ## OPEN: lombok-3479 is blocked on tooling, and it is worse than first estimated
 
