@@ -78,6 +78,38 @@ the same. In cost order:
 3. **Patch SWE-ReX.** Changes the software under trace; the provenance gap in
    gin's §4.1.3 must be closed first.
 
+## 4a. The runner-up wedged too, and the heredoc hypothesis FAILED
+
+1. `mrdoob__three.js-27395` was brought in as 26589's recorded runner-up. It
+   wedged on its first verify (12 Bashlex heredoc errors, load 0.00) and again
+   identically on its second (59 min, 13 ticks). Ditched at 2 of 3 for the same
+   determinism reason. **JavaScript therefore ends with two captures**
+   (babel-15649, axios-5892), both cell T; the three.js slot is unfilled.
+2. On 2026-09-04 I proposed that the wedge tracks TRAJECTORY STYLE -- multi-line
+   heredocs through SWE-ReX's PTY. **Measured across the campaign's known
+   outcomes, that is wrong.** Multi-line heredocs as a share of bash actions:
+
+   | instance | outcome | heredocs | bash | share |
+   |---|---|---|---|---|
+   | three.js-26589 | WEDGED | 34 | 98 | 35% |
+   | redis-12272 | wedged, then RECOVERED | 11 | 35 | 31% |
+   | three.js-27395 | WEDGED | 15 | 53 | 28% |
+   | axum-1730 | OK | 11 | 60 | 18% |
+   | babel-15649 | OK | 8 | 60 | 13% |
+   | fluentd-3328 | OK | 14 | 119 | 12% |
+   | preact-3763 | WEDGED | 3 | 52 | **6%** |
+   | gin-2121 | WEDGED | 2 | 31 | **6%** |
+   | axios-5892 | OK | 0 | 61 | 0% |
+
+3. The two lowest heredoc shares in the table both WEDGED, and the third highest
+   RECOVERED. A threshold anywhere separates nothing. gin's §2.3 conclusion --
+   that no static predictor distinguishes these -- survives this attempt to find
+   one, which is now the third such attempt to fail.
+4. What the numbers do support is weaker and worth stating as such: the two
+   highest-heredoc trajectories both wedged unrecoverably. High heredoc use may
+   raise the risk without being necessary or sufficient. That is a hypothesis,
+   not a screen, and it must not be used to skip instances.
+
 ## 5. Tally of this defect
 
 | instance | phase | machine | deterministic? |

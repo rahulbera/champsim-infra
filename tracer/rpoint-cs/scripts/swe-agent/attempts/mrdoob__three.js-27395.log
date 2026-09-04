@@ -1,1 +1,2 @@
 2026-09-04 09:03:42	instance	verify wedged like 26589: 12 Bashlex heredoc errors, last action a python heredoc, load 0.00, sweagent Sl / bash Ss+
+2026-09-04 10:04:05	instance	attempt 2 wedged identically (59 min, 13 ticks); deterministic like 26589 -- ditching rather than spending a third
