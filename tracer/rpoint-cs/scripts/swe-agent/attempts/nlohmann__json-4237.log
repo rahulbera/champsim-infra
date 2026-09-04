@@ -1,0 +1,1 @@
+2026-09-04 04:03:08	infra	I named the cmake target test-algorithms; cmake/test.cmake appends _cpp<standard>, so no such target existed
