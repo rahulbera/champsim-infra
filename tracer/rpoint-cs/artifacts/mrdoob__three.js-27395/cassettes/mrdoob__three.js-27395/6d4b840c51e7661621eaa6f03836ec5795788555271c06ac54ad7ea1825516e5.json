@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The `!` is being interpreted by bash history expansion. Let me write a temp file instead:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/verify.mjs << 'EOF'\\\\nimport { Sphere } from '/testbed/src/math/Sphere.js';\\\\nimport { Box3 } from '/testbed/src/math/Box3.js';\\\\nconst a = new Sphere();\\\\nconsole.log('Sphere().isSphere =', a.isSphere);\\\\nconsole.log('Sphere().isBox3 =', a.isBox3);\\\\nconst b = new Box3();\\\\nconsole.log('Box3().isBox3 =', b.isBox3);\\\\nconsole.log('Box3().isSphere =', b.isSphere);\\\\nif (a.isSphere === true && a.isBox3 === undefined && b.isBox3 === true && b.isSphere === undefined) {\\\\n  console.log('ALL CHECKS PASSED');\\\\n} else {\\\\n  console.log('CHECKS FAILED');\\\\n  process.exit(1);\\\\n}\\\\nEOF\\\\nnode /tmp/verify.mjs && rm -f /tmp/verify.mjs\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355759727856314820\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000073, \"id\": \"synthesized-00073\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00073\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6d4b840c51e7661621eaa6f03836ec5795788555271c06ac54ad7ea1825516e5",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No TypeScript definitions in the repo. Now let me check the build files to see if they need updating:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"isBox3\\\\\\\" /testbed/build/three.module.js | head; echo \\\\\\\"---\\\\\\\"; grep -n \\\\\\\"isSphere\\\\\\\" /testbed/build/three.module.js | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355741379756027762\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000018, \"id\": \"synthesized-00018\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00018\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "19e2f86d670217958f2f97e06d8371f2e1ad879a2d68aefa1492380155dcaf7f",
+ "status": 200
+}

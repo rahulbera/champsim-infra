@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me check the minified build files. Let me look at how `isBox3` appears in the minified files:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -o \\\\\\\"isBox3=!0\\\\\\\" /testbed/build/three.min.js /testbed/build/three.module.min.js 2>/dev/null; echo \\\\\\\"---\\\\\\\"; grep -o \\\\\\\"isBox3\\\\\\\" /testbed/build/three.min.js /testbed/build/three.module.min.js 2>/dev/null\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355742651066344279\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000037, \"id\": \"synthesized-00037\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00037\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a82077ce0a01888acc0c6e4358b1f9db95171ee954208337a64c22d67162c175",
+ "status": 200
+}

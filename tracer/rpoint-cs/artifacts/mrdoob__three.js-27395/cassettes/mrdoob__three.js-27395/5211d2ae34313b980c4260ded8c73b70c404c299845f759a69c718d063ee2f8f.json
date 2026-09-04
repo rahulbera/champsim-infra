@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All tests pass with 0 failures. Let me also run the lint on the whole src to be sure:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npx eslint src/math/Sphere.js src/math/Box3.js 2>&1 | grep -v \\\\\\\"Browserslist\\\\\\\\|caniuse\\\\\\\\|npx update\\\\\\\\|Why you should\\\\\\\\|README\\\\\\\" | head -20; echo \\\\\\\"lint exit: $?\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355759968374484904\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000068, \"id\": \"synthesized-00068\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00068\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5211d2ae34313b980c4260ded8c73b70c404c299845f759a69c718d063ee2f8f",
+ "status": 200
+}

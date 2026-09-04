@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me run the existing Sphere tests to confirm they pass:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npm run test-unit 2>&1 | grep -i \\\\\\\"sphere\\\\\\\\|isSphere\\\\\\\\|fail\\\\\\\\|error\\\\\\\" | head -30\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355741757713151615\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "8f5b6bd0ca42eccfaf00a28e53f9e6a1f6865104c5b0691b9ef22dd6d1b5117d",
+ "status": 200
+}

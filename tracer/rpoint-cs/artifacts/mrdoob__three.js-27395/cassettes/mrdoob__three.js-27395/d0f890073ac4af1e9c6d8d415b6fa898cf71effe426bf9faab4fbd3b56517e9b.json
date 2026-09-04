@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All checks pass. Let me run the full unit test suite one final time to confirm everything is in order:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && npm run test-unit 2>&1 | tail -8\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355738184300356728\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000074, \"id\": \"synthesized-00074\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00074\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "d0f890073ac4af1e9c6d8d415b6fa898cf71effe426bf9faab4fbd3b56517e9b",
+ "status": 200
+}

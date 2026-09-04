@@ -1,1 +1,2 @@
 2026-09-04 07:04:31	instance	verify wedged: SWE-ReX PTY session stuck after a multi-line heredoc action (24 Bashlex heredoc parse failures logged); guest load 0.00, sweagent Sl, its bash Ss+ -- the gin-2121 signature
+2026-09-04 08:04:00	instance	attempt 2 wedged IDENTICALLY: same 24 Bashlex heredoc errors, same final action, load 0.00 -- deterministic, so a third reproduces it

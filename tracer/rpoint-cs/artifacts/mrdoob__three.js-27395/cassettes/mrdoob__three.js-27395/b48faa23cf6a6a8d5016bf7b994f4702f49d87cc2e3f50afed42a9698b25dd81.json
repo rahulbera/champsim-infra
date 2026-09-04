@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me add the `isSphere` property to the English docs, following the same pattern as Box3:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"str_replace\\\",\\\"path\\\":\\\"/testbed/docs/api/en/math/Sphere.html\\\",\\\"old_str\\\":\\\"\\\\t\\\\t<h2>Properties</h2>\\\\n\\\\n\\\\t\\\\t<h3>[property:Vector3 center]</h3>\\\",\\\"new_str\\\":\\\"\\\\t\\\\t<h2>Properties</h2>\\\\n\\\\n\\\\t\\\\t<h3>[property:Boolean isSphere]</h3>\\\\n\\\\t\\\\t<p>Read-only flag to check if a given object is of type [name].</p>\\\\n\\\\n\\\\t\\\\t<h3>[property:Vector3 center]</h3>\\\"}\", \"name\": \"str_replace_editor\"}, \"id\": \"call_-7355760586849771852\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000055, \"id\": \"synthesized-00055\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00055\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b48faa23cf6a6a8d5016bf7b994f4702f49d87cc2e3f50afed42a9698b25dd81",
+ "status": 200
+}

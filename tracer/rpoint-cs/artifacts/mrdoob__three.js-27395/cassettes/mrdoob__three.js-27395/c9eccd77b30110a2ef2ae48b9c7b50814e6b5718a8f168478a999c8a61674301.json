@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me check the Box3 docs to see how isBox3 is documented, and then check the Sphere docs:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"grep -n \\\\\\\"isBox3\\\\\\\" /testbed/docs/api/en/math/Box3.html\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355743269541637037\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000052, \"id\": \"synthesized-00052\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00052\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c9eccd77b30110a2ef2ae48b9c7b50814e6b5718a8f168478a999c8a61674301",
+ "status": 200
+}

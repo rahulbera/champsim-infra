@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The docs use tabs too. Let me handle this with Python:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"python3 << 'EOF'\\\\nfilepath = '/testbed/docs/api/en/math/Sphere.html'\\\\nwith open(filepath, 'r') as f:\\\\n    content = f.read()\\\\n\\\\nold = '\\\\\\\\t\\\\\\\\t<h2>Properties</h2>\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t<h3>[property:Vector3 center]</h3>'\\\\nnew = '\\\\\\\\t\\\\\\\\t<h2>Properties</h2>\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t<h3>[property:Boolean isSphere]</h3>\\\\\\\\n\\\\\\\\t\\\\\\\\t<p>Read-only flag to check if a given object is of type [name].</p>\\\\\\\\n\\\\\\\\n\\\\\\\\t\\\\\\\\t<h3>[property:Vector3 center]</h3>'\\\\n\\\\nif old in content:\\\\n    content = content.replace(old, new, 1)\\\\n    with open(filepath, 'w') as f:\\\\n        f.write(content)\\\\n    print(f'Updated {filepath}')\\\\nelse:\\\\n    print('Pattern not found')\\\\nEOF\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355740486402831736\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000056, \"id\": \"synthesized-00056\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00056\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "463e1a9802bccb784adc0d84d2e5a6068379204f49e83e7515bdde93de57c9f3",
+ "status": 200
+}

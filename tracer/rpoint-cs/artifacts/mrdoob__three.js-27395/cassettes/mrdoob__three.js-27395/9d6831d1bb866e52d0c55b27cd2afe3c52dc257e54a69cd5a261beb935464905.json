@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me verify all the build files have the isSphere property:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"for f in /testbed/build/three.module.js /testbed/build/three.cjs /testbed/build/three.js /testbed/build/three.module.min.js /testbed/build/three.min.js; do echo \\\\\\\"=== $f ===\\\\\\\"; grep -c \\\\\\\"isSphere\\\\\\\" \\\\\\\"$f\\\\\\\"; done\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355736878630298907\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000048, \"id\": \"synthesized-00048\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00048\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9d6831d1bb866e52d0c55b27cd2afe3c52dc257e54a69cd5a261beb935464905",
+ "status": 200
+}

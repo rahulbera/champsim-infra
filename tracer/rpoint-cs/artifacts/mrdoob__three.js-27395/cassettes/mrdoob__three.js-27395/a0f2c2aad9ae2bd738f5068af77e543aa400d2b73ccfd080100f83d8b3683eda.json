@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The diff confirms my changes. Let me verify I haven't modified any test files and that the reproduction is still working:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git status && echo \\\\\\\"=== Checking test files ===\\\\\\\" && git diff --name-only | grep -i test || echo \\\\\\\"No test files modified\\\\\\\"\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355742444907920767\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000070, \"id\": \"synthesized-00070\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00070\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a0f2c2aad9ae2bd738f5068af77e543aa400d2b73ccfd080100f83d8b3683eda",
+ "status": 200
+}
