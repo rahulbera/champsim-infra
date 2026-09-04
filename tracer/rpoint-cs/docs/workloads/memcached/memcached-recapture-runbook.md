@@ -23,9 +23,10 @@
 You are executing this on **rnadig**, and this document plus the repo it lives in
 are everything you get. Read §0 and §1 in full before running anything.
 
-**Your job starts** at §0.4 and **ends** when §7 has produced ten validated
-`.champsim2.zst` files and §8's tlist is written. **Shipping traces to the
-simulation host and running the sweep are NOT yours** — report and stop (§8).
+**Your job starts** at §0.4 and **ends** when §8 has archived the ten validated
+`.champsim2.zst` files to the catalogue on `kratos2`, verified them there by
+SHA-256, reclaimed the space on `/mnt/sherlock`, and written the tlist.
+**Running the simulation sweep is still NOT yours** — report and stop after §8.
 
 **Bootstrap — this is step one, and it is self-contained.** rnadig authenticates
 to GitHub as `rahulbera` (verified 2026-09-04) and can read both branches:
@@ -941,21 +942,67 @@ delete, that is a stop-and-ask.
 
 ## 8. Register and simulate
 
-**§8 does not run on rnadig, and the executing agent's job ends here.** Write the
-tlist, report, and stop. Shipping traces and launching the sweep are the user's
-call — the destination path, the trace catalogue's layout and the simulator choice
-are all decisions this runbook does not make for you.
+**Archive to the catalogue, verify, then reclaim the space.** The destination was
+named by the researcher on 2026-09-05:
 
-What to hand back: the ten paths under `$MCROOT/out/`, their per-window instruction
-counts and footprints from §7, `$MCROOT/logs/PROGRESS.log`, `PROVENANCE.txt`, and
-the `I_req` from Gate 3.e (because §9.1 must be rescaled by it).
+```
+kratos2:/home/rahbera/tracezoo/champsim/version2.1/memcached/
+```
 
-When the user approves, the ship step is:
+`version2.1/` uses one subdirectory per workload family (`agentic/`, `spec26/`),
+and v1's memcached traces live at `version2/memcached/` — so `version2.1/memcached/`
+is the counterpart, and the catalogue revision alone distinguishes them. The
+filenames already carry `_v2_`, so do not also name the directory `memcached_v2`.
+
+**The order below is not negotiable: hash, copy, verify, and only then delete.**
+The traces cost ~10 h of conversion each and the raws are deleted by §7 on success,
+so an unverified delete is unrecoverable.
 
 ```bash
-# on rnadig — only after the user names the destination
-rsync -av $MCROOT/out/*.champsim2.zst kratos2:<tracezoo>/memcached_v2/
+# ---- 1. hash locally (also fills the tlist's checksum field) ----
+cd $MCROOT/out
+sha256sum memcached_v2_theta*_rd95_mget16_w*.champsim2.zst | tee $MCROOT/logs/v2.sha256
+wc -l < $MCROOT/logs/v2.sha256          # REQUIRE: 10
+
+# ---- 2. copy ----
+DEST=/home/rahbera/tracezoo/champsim/version2.1/memcached
+ssh kratos2 "mkdir -p $DEST"
+rsync -av --partial --info=progress2 \
+      memcached_v2_theta*_rd95_mget16_w*.champsim2.zst kratos2:$DEST/
+
+# ---- 3. VERIFY ON THE DESTINATION (this is the gate) ----
+scp $MCROOT/logs/v2.sha256 kratos2:/tmp/v2.sha256
+ssh kratos2 "cd $DEST && sha256sum -c /tmp/v2.sha256"
+#   REQUIRE: ten lines, every one ending ': OK'. Any FAILED or 'No such file'
+#   means STOP -- re-copy that file, do not proceed to step 5.
+
+# ---- 4. register in the catalogue's manifest (flat '<sha256>  <basename>') ----
+ssh kratos2 "cat /tmp/v2.sha256 >> /home/rahbera/tracezoo/champsim/CHECKSUMS.sha256 && \
+             wc -l /home/rahbera/tracezoo/champsim/CHECKSUMS.sha256"
+#   was 156 lines before this campaign; expect 166 after.
+
+# ---- 5. ONLY NOW reclaim /mnt/sherlock ----
+rm -f $MCROOT/out/memcached_v2_theta*_rd95_mget16_w*.champsim2.zst
+rm -f $MCROOT/traces/theta0.8/keep/*.raw.zst $MCROOT/traces/theta0.6/keep/*.raw.zst
+rm -f $MCROOT/traces/theta*/*.filt.raw.zst
+rm -f $MCROOT/traces/pilot/* $MCROOT/out/pilot.*
+df -h --output=target,avail /mnt/sherlock
 ```
+
+**Delete exactly that list and nothing else.** In particular **KEEP**:
+
+| Keep | Why |
+|---|---|
+| `$MCROOT/images/mc-v2.qcow2` (~24 GB) | holds the `mc_v2_a` snapshot. Cost ~1 h of `savevm` plus the preload; deleting it means redoing all of §3 before any re-capture. Cheap insurance against 376 GB free. |
+| `$MCROOT/qemu-avxfix/` (~5 GB) | the AVX-patched QEMU. Every future capture needs it; rebuilding is ~45 min. |
+| `$MCROOT/logs/` | `PROGRESS.log` is the campaign's only record. Tiny. |
+| `/mnt/sherlock/rahbera/qemu-tracing/**` | **not ours** — v1 image, `memcached_rd95`, `tracestore/`. Never touched by this runbook. |
+
+If the researcher later wants the last ~30 GB back, deleting the image and the QEMU
+tree is safe *after* the traces are verified on kratos2 — but it forfeits cheap
+re-capture, so ask rather than assume.
+
+**Then write the tlist** pointing at the catalogue, not at `$MCROOT`:
 
 If any simulation is ever run on rnadig it **must** pass `--no-trace-cache` (or
 `--cache-dir $MCROOT/cache`): the default stages traces into `/tmp/trace_cache`
@@ -968,7 +1015,8 @@ both flags merge across files.
 ```yaml
 memcached_v2:
   memcached_v2_theta0.8_rd95_mget16_w00000:
-    path: <tracezoo>/memcached_v2/memcached_v2_theta0.8_rd95_mget16_w00000.champsim2.zst
+    path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached_v2_theta0.8_rd95_mget16_w00000.champsim2.zst
+    checksum: <from $MCROOT/logs/v2.sha256>
     version: 2
     workload: memcached
     category: kvstore
