@@ -266,6 +266,28 @@ patch: `preact-4182` and `php-cs-fixer-8064` died on the 25-second
 `_state_anthropic` timeout, a wall clock unrelated to readline. Both cells are
 nevertheless filled — JS×M is not, but PHP×T is, by 8064's runner-up.
 
+## CORRECTION: "all four picks" is not "all four cells" (2026-09-04)
+
+Several status reports during this campaign said six languages were "complete at
+all four behaviour cells". **That is wrong**, and the archive README states the
+accurate version. Measured from the selection TSV:
+
+| language | cells captured | cells the selection assigned |
+|---|---|---|
+| C | B M S T | B M S T |
+| PHP | B M S T | B M S T |
+| C++ | B B B B | B B B B |
+| Ruby | M T T T | M T T T |
+| Rust | B B M T | B B M T |
+| TypeScript | S T T T | S T T T |
+
+Six languages have all four PICKS captured. Only **C and PHP span four distinct
+cells**. The stratification deliberately assigned several languages repeated
+cells -- C++ is four B's, and the TSV's own notes record cells being converted
+to majority-T top-ups -- so the repetition is by design and not a gap. But
+"complete at all four cells" claims coverage the dataset does not have, and
+anyone planning an analysis on that basis would be misled.
+
 ## Disk: what was reclaimed, and what is deliberately NOT (2026-09-04 22:00)
 
 1. Reclaimed 111 GB of scratch guest images with `reclaim_space.sh --apply`
