@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The token structure matches exactly. The fix works correctly. The test failure is just about the `$name = \\\"World\\\"` vs `$name = ['key' => \\\"World\\\"]` mismatch in the test data I added \\u00e2\\u0080\\u0094 but wait, that's the PR's test data. Let me re-read the failure.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Fixer/StringNotation/SimpleToComplexStringVariableFixerTest.php --filter \\\\\\\"array\\\\\\\" 2>&1 | head -60\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355287006575851971\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000092, \"id\": \"synthesized-00092\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00092\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "06b3684a94a973602de23492ce0b263be70ed2cb54b6e1203b8df093009bb625",
+ "status": 200
+}

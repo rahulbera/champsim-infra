@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The test failures are because the PR description's test data has a mismatch in the `$name =` line between INPUT and EXPECTED (the fixer only touches the `echo` line). The `doTest` method requires input-after-fix to exactly equal expected.\\n\\nSince the instructions say the test files are already taken care of by the grader (and I shouldn't modify tests), let me revert my test file changes and keep only the source fix. The grader will apply its own consistent test patch.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git checkout tests/Fixer/StringNotation/SimpleToComplexStringVariableFixerTest.php && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355291232823671338\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000093, \"id\": \"synthesized-00093\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00093\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "5ff93a1020bbc60ab085fb767c827e2c3a0bc373bd2da7568e27123a1faf9683",
+ "status": 200
+}

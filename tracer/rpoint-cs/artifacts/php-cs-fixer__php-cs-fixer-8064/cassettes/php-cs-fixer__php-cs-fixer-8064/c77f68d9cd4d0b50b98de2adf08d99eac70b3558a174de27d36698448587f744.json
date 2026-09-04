@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All cases work correctly now. Let me update the actual fixer file with this approach:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '74,110p' src/Fixer/StringNotation/SimpleToComplexStringVariableFixer.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355287865569310591\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000077, \"id\": \"synthesized-00077\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00077\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c77f68d9cd4d0b50b98de2adf08d99eac70b3558a174de27d36698448587f744",
+ "status": 200
+}

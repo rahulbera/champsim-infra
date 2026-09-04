@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro7.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$cases = [\\\\n    'heredoc' => '<?php $name = \\\\\\\\'World\\\\\\\\'; echo <<<TEST\\\\nHello ${name}!\\\\nTEST;\\\\n',\\\\n    'heredoc array' => '<?php $name = \\\\\\\\'World\\\\\\\\'; echo <<<TEST\\\\nHello ${name[\\\\\\\\'key\\\\\\\\']}!\\\\nTEST;\\\\n',\\\\n];\\\\n\\\\nforeach ($cases as $label => $code) {\\\\n    $tokens = Tokens::fromCode($code);\\\\n    echo \\\\\\\"=== $label ===\\\\\\\\n\\\\\\\";\\\\n    foreach ($tokens as $i => $t) {\\\\n        echo \\\\\\\"  $i :: \\\\\\\" . $t->getName() . \\\\\\\" :: \\\\\\\" . json_encode($t->getContent()) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n    }\\\\n}\\\\nPHP\\\\nphp /tmp/repro7.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355312948178314361\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000032, \"id\": \"synthesized-00032\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00032\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "2c5af3536d03099e3c5a01feea76e49c9e59f77629b5229ba3074bdbbf1f6ae4",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The \\\"double dollar heredoc\\\" failure is just my test expectation being wrong (I escaped the `$` incorrectly in my expected). Let me check the actual test file's expectation:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '/double dollar heredoc/,/INPUT,/p' tests/Fixer/StringNotation/SimpleToComplexStringVariableFixerTest.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355257663359283727\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000103, \"id\": \"synthesized-00103\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00103\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b076efe21b11949d4b81b7d9ec330e44c69de14ee54570b30a387e19c0ba7c74",
+ "status": 200
+}

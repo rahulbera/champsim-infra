@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro11.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$cases = [\\\\n    'method' => '<?php echo \\\\\\\"Hello {$name->prop()}!\\\\\\\";',\\\\n    'method array' => '<?php echo \\\\\\\"Hello {$name->prop()[0]}!\\\\\\\";',\\\\n];\\\\n\\\\nforeach ($cases as $label => $code) {\\\\n    $tokens = Tokens::fromCode($code);\\\\n    echo \\\\\\\"=== $label: $code ===\\\\\\\\n\\\\\\\";\\\\n    for ($i = 0; $i < count($tokens); ++$i) {\\\\n        echo \\\\\\\"  $i :: \\\\\\\" . $tokens[$i]->getName() . \\\\\\\" :: \\\\\\\" . json_encode($tokens[$i]->getContent()) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n    }\\\\n}\\\\nPHP\\\\nphp /tmp/repro11.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355281371578756102\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000038, \"id\": \"synthesized-00038\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00038\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1e6bf2a92e4a8df9a3294ef1f1b3c96ae799172420bdbf94c42c11371de461b2",
+ "status": 200
+}

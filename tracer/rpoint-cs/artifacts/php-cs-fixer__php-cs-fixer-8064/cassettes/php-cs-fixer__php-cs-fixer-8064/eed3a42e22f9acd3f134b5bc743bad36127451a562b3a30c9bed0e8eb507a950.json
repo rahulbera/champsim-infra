@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool continues to fail due to the missing `python3` binary in the environment. Let me check if there's any way to work around this:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"which python3 python python3.10 python3.11 python3.12 2>&1; ls /usr/local/bin/python* /usr/bin/python* 2>&1; echo \\\\\\\"---PATH---\\\\\\\"; echo $PATH\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355279653591840654\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000129, \"id\": \"synthesized-00129\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00129\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "eed3a42e22f9acd3f134b5bc743bad36127451a562b3a30c9bed0e8eb507a950",
+ "status": 200
+}

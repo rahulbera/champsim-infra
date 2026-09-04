@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro3.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$cases = [\\\\n    '<?php echo \\\\\\\"Hello ${name[$arr[\\\\\\\\'key\\\\\\\\']]}!\\\\\\\";',\\\\n    '<?php echo \\\\\\\"Hello ${name[a . b]}!\\\\\\\";',\\\\n    '<?php echo \\\\\\\"Hello ${name[\\\\\\\\'key\\\\\\\\']}!\\\\\\\";',\\\\n    '<?php echo \\\\\\\"Hello ${name[0]}!\\\\\\\";',\\\\n];\\\\n\\\\nforeach ($cases as $code) {\\\\n    $tokens = Tokens::fromCode($code);\\\\n    echo \\\\\\\"CODE: $code\\\\\\\\n\\\\\\\";\\\\n    echo \\\\\\\"blockEnd INDEX_SQUARE_BRACE from index 7: \\\\\\\" . $tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, 7) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n    echo \\\\\\\"----\\\\\\\\n\\\\\\\";\\\\n}\\\\nPHP\\\\nphp /tmp/repro3.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355310646075849984\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000024, \"id\": \"synthesized-00024\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00024\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f73905ce8f6bff4c6bd9306427bf4b67aa6f5bf1aceac171ea446d159acb9ea9",
+ "status": 200
+}

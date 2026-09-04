@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -r 'echo \\\\\\\"Hello ${a{$b}}!\\\\\\\";' 2>&1; echo; php -r '$a=\\\\\\\"x\\\\\\\"; $b=\\\\\\\"y\\\\\\\"; echo \\\\\\\"Hello ${a{$b}}!\\\\\\\";' 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355279584872362331\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000065, \"id\": \"synthesized-00065\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00065\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "6f065ca332614dad368d33d81645a5b78cbdb9410acfc48f911786edbdbef8c1",
+ "status": 200
+}

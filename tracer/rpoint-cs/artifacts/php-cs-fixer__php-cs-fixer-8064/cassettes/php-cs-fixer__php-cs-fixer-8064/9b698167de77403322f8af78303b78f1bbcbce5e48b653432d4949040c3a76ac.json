@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/compare_tokens2.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$input = '<?php\\\\n$name = \\\\\\\"World\\\\\\\";\\\\necho \\\\\\\"Hello ${name[\\\\\\\\'key\\\\\\\\']}!\\\\\\\";\\\\n';\\\\n\\\\n$tokens = Tokens::fromCode($input);\\\\necho \\\\\\\"=== input tokens ===\\\\\\\\n\\\\\\\";\\\\nforeach ($tokens as $i => $t) {\\\\n    echo \\\\\\\"  $i :: \\\\\\\" . $t->getName() . \\\\\\\" :: \\\\\\\" . json_encode($t->getContent()) . \\\\\\\" :: id=\\\\\\\" . ($t->isArray() ? token_name($t->getId()) : 'n/a') . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n}\\\\nPHP\\\\nphp /tmp/compare_tokens2.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355283570602010328\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000090, \"id\": \"synthesized-00090\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00090\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "9b698167de77403322f8af78303b78f1bbcbce5e48b653432d4949040c3a76ac",
+ "status": 200
+}

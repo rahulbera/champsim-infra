@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"No PHPStan available locally. Let me check the final state of the fixer file and verify it's clean:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat src/Fixer/StringNotation/SimpleToComplexStringVariableFixer.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355280272067129888\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000115, \"id\": \"synthesized-00115\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00115\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "1d1bd29d05331e8de66e71e96c95b7b2da7c678dc2afac51b78737d8f31370c3",
+ "status": 200
+}

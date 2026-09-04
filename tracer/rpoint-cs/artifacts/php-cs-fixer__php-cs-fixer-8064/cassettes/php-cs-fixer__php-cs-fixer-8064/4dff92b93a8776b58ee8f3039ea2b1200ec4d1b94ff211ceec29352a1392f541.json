@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The str_replace_editor tool seems to be failing due to a python3 dependency issue. Let me use sed/perl to make the edit instead.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"dollarCloseToken\\\\\\\\|index + 2\\\\\\\\|overrideRange\\\\\\\" src/Fixer/StringNotation/SimpleToComplexStringVariableFixer.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355289961513353141\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000055, \"id\": \"synthesized-00055\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00055\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "4dff92b93a8776b58ee8f3039ea2b1200ec4d1b94ff211ceec29352a1392f541",
+ "status": 200
+}

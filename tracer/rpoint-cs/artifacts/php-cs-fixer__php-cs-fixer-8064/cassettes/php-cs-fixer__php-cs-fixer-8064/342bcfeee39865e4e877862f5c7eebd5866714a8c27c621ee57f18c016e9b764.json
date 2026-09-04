@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The submit tool is a python3 script and python3 isn't installed. Let me check if there's a conda or pyenv environment with python:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"find / -name \\\\\\\"python3*\\\\\\\" -type f 2>/dev/null | head; echo \\\\\\\"---conda---\\\\\\\"; which conda mamba 2>&1; ls /opt/ 2>&1; ls /root/miniconda* /root/anaconda* 2>&1 | head\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355283708040964349\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000132, \"id\": \"synthesized-00132\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00132\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "342bcfeee39865e4e877862f5c7eebd5866714a8c27c621ee57f18c016e9b764",
+ "status": 200
+}

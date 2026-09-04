@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me look more carefully at the token types, especially `T_NUM_STRING` vs `T_LNUMBER`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro4.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$cases = [\\\\n    'simple complex' => '<?php echo \\\\\\\"Hello ${name[0]}!\\\\\\\";',\\\\n    'complex' => '<?php echo \\\\\\\"Hello {$name[0]}!\\\\\\\";',\\\\n    'implicit' => '<?php echo \\\\\\\"Hello $name[0]!\\\\\\\";',\\\\n];\\\\n\\\\nforeach ($cases as $label => $code) {\\\\n    $tokens = Tokens::fromCode($code);\\\\n    echo \\\\\\\"=== $label: $code ===\\\\\\\\n\\\\\\\";\\\\n    foreach ($tokens as $i => $t) {\\\\n        echo \\\\\\\"  $i :: \\\\\\\" . $t->getName() . \\\\\\\" :: \\\\\\\" . json_encode($t->getContent()) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n    }\\\\n}\\\\nPHP\\\\nphp /tmp/repro4.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355315044122358670\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000026, \"id\": \"synthesized-00026\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00026\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "462d161f85cbc7d8b820585adc92f0870b023f39bbcadfd22932d2031937598f",
+ "status": 200
+}

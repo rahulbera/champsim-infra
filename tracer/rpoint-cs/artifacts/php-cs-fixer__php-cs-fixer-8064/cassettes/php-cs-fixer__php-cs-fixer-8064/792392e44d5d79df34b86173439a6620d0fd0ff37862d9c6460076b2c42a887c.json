@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All cases pass. The \\\"double dollar heredoc\\\" works correctly \\u00e2\\u0080\\u0094 my earlier test expectation was just wrong due to shell escaping.\\n\\nNow let me run the actual test suite one more time to confirm everything passes:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Fixer/StringNotation/SimpleToComplexStringVariableFixerTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355283227004624983\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000105, \"id\": \"synthesized-00105\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00105\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "792392e44d5d79df34b86173439a6620d0fd0ff37862d9c6460076b2c42a887c",
+ "status": 200
+}

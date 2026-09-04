@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All outputs are valid PHP and correctly transformed. Let me run the full SimpleToComplexStringVariableFixer test one final time:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Fixer/StringNotation/SimpleToComplexStringVariableFixerTest.php 2>&1 | tail -12\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355272334967569580\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000119, \"id\": \"synthesized-00119\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00119\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "92162ffda95e17af02724027bc40c0851b1a01bdff4cdd72f8c01e83fcd22c01",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && timeout 120 ./vendor/bin/phpunit tests/Fixer/StringNotation/ tests/Tokenizer/Transformer/BraceTransformerTest.php tests/Tokenizer/Transformer/SquareBraceTransformerTest.php 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355297658094744117\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000110, \"id\": \"synthesized-00110\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00110\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "c789dc7dc1faaee19b4f46e5a03c478db087996b63abb25a64e75bf084b4f624",
+ "status": 200
+}

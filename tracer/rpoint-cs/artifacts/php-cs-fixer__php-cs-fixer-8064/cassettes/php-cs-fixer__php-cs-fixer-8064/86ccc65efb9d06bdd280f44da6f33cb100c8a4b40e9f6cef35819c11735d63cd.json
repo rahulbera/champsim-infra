@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"All StringNotation tests pass. Let me also run the Tokenizer transformer tests and the tests that reference `T_DOLLAR_OPEN_CURLY_BRACES`:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Tokenizer/ 2>&1 | tail -15\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355289789714656764\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000099, \"id\": \"synthesized-00099\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00099\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "86ccc65efb9d06bdd280f44da6f33cb100c8a4b40e9f6cef35819c11735d63cd",
+ "status": 200
+}

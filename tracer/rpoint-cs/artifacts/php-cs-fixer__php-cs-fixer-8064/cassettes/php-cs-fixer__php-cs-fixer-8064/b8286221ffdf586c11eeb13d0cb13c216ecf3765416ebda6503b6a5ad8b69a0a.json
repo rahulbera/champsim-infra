@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/check.php <<'PHP'\\\\n<?php\\\\n$name = ['key' => 'World'];\\\\necho \\\\\\\"Hello ${name['key']}!\\\\\\\";\\\\necho \\\\\\\"Hello {$name['key']}!\\\\\\\";\\\\necho \\\\\\\"Hello ${name[0]}!\\\\\\\";\\\\necho \\\\\\\"Hello {$name[0]}!\\\\\\\";\\\\nPHP\\\\nphp -r '$name = [\\\\\\\"key\\\\\\\" => \\\\\\\"World\\\\\\\"]; echo \\\\\\\"Hello ${name[\\\\\\\\\\\\\\\"key\\\\\\\\\\\\\\\"]}!\\\\\\\";' 2>&1; echo \\\\\\\"---\\\\\\\"; php /tmp/check.php 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355285185509714075\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000030, \"id\": \"synthesized-00030\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00030\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "b8286221ffdf586c11eeb13d0cb13c216ecf3765416ebda6503b6a5ad8b69a0a",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro5.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$cases = [\\\\n    'nested' => '<?php echo \\\\\\\"Hello ${name[${other}]}!\\\\\\\";',\\\\n    'nested2' => '<?php echo \\\\\\\"Hello ${name[${other}[0]]}!\\\\\\\";',\\\\n];\\\\n\\\\nforeach ($cases as $label => $code) {\\\\n    $tokens = Tokens::fromCode($code);\\\\n    echo \\\\\\\"=== $label: $code ===\\\\\\\\n\\\\\\\";\\\\n    foreach ($tokens as $i => $t) {\\\\n        echo \\\\\\\"  $i :: \\\\\\\" . $t->getName() . \\\\\\\" :: \\\\\\\" . json_encode($t->getContent()) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n    }\\\\n}\\\\nPHP\\\\nphp /tmp/repro5.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355298379649253310\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000027, \"id\": \"synthesized-00027\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00027\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "345b826cc0877f7e03e718d78dd65c1b2dcbed8a6b2fb10218813a4ae0710bad",
+ "status": 200
+}

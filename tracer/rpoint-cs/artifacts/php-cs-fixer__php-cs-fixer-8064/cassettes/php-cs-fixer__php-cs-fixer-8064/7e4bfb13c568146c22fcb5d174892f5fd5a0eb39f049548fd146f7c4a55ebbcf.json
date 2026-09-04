@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Let me also run the linting / PHPStan check on the modified file to ensure code style compliance:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -l src/Fixer/StringNotation/SimpleToComplexStringVariableFixer.php 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355282058773526956\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000112, \"id\": \"synthesized-00112\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00112\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "7e4bfb13c568146c22fcb5d174892f5fd5a0eb39f049548fd146f7c4a55ebbcf",
+ "status": 200
+}

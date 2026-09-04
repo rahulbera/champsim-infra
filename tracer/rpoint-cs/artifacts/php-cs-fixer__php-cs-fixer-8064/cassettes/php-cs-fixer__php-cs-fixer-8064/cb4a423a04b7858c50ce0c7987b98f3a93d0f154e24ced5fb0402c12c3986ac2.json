@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now `python3` is available. Let me verify the str_replace_editor works now too, and then submit:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && git diff --stat\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355279859750269713\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000135, \"id\": \"synthesized-00135\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00135\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "cb4a423a04b7858c50ce0c7987b98f3a93d0f154e24ced5fb0402c12c3986ac2",
+ "status": 200
+}

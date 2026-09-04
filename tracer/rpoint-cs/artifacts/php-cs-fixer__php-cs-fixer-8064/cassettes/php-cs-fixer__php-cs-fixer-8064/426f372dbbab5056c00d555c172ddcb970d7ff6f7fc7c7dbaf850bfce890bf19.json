@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"The token-level equality passes too. Now let me run the broader test suite to ensure nothing else broke. Let me run related tests:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && ./vendor/bin/phpunit tests/Fixer/StringNotation/ 2>&1 | tail -20\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355282333651431644\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000098, \"id\": \"synthesized-00098\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00098\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "426f372dbbab5056c00d555c172ddcb970d7ff6f7fc7c7dbaf850bfce890bf19",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && php -r 'echo \\\\\\\"Hello ${name['key']}!\\\\\\\";' 2>&1; echo; php -r 'echo \\\\\\\"Hello ${name[0]}!\\\\\\\";' 2>&1; echo; php -r 'echo \\\\\\\"Hello ${name->prop}!\\\\\\\";' 2>&1; echo; php -r 'echo \\\\\\\"Hello ${name->prop()}!\\\\\\\";' 2>&1\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355279859750272474\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000066, \"id\": \"synthesized-00066\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00066\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "fe5dadf550419c94828016ebfc34131193ca55cbd8830f88c1a978a2c2945491",
+ "status": 200
+}

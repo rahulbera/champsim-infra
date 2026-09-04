@@ -227,6 +227,29 @@ EOF
 Both failures were logged as **infra**, not instance strikes: a wrong gate in a
 descriptor is our bug, and under the house rule the task keeps all three tries.
 
+## OPEN: lombok-3479 needs an Ant language module (2026-09-04)
+
+1. `projectlombok__lombok-3479` is Java's cell-S pick and the last Java instance
+   of the 36. It is **not startable today** and the reason is structural, not a
+   descriptor bug.
+2. lombok builds with **Ant** (`build.xml`); it has no `pom.xml` and no
+   `build.gradle`. Every language module in `scripts/swe-agent/lang/` assumes one
+   of: make, cmake, maven, composer, bundler, cargo, go or npm. There is no ant
+   module, so `LANG_MODULE=java_maven` would fail at the first `mvn` call.
+3. Its test harness is also unlike the others: the F2P is
+   `javac-ExtensionMethodOnRecord.java(lombok.transform.TestWithDelombok)`, a
+   fixture-driven javac transformation test, and the test patch is three
+   `test/transform/resource/**` FIXTURES rather than a test source file.
+4. **What it needs:** a `lang/java_ant.sh` doing toolchain (JDK + ant), deps
+   (`ant deps` / ivy resolution, which must be made offline-safe), and an
+   offline gate counting whatever the harness prints. Estimated a couple of
+   hours, most of it in making ivy resolve from a warmed cache.
+5. **Cost of skipping it:** Java ends with cells B (gson-1093), T (gson-2134)
+   and M (javaparser-4538) but no S. Java is the only language that would be
+   short a cell for a tooling reason rather than a stratification one.
+6. Not attempted yet. Recorded here so the gap is visible rather than
+   discovered later as a missing row.
+
 ## NEVER edit a script while a chain is executing it (2026-09-02)
 
 1. Bash reads a running script **by byte offset**, re-reading as it goes. Change

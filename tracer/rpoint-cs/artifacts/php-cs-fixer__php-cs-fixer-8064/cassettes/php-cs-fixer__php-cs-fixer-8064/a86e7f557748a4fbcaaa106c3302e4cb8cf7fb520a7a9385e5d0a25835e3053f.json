@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now I understand the issue. The current fixer only handles the simple case where `$tokens[$index + 2]` is the closing brace. When there's array access, the closing brace is further away. Let me check the BraceTransformer behavior with nested cases.\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && cat > /tmp/repro2.php <<'PHP'\\\\n<?php\\\\nrequire '/testbed/vendor/autoload.php';\\\\n\\\\nuse PhpCsFixer\\\\\\\\Tokenizer\\\\\\\\Tokens;\\\\n\\\\n$cases = [\\\\n    '<?php echo \\\\\\\"Hello ${name[$arr[\\\\\\\\'key\\\\\\\\']]}!\\\\\\\";',\\\\n    '<?php echo \\\\\\\"Hello ${name[a . b]}!\\\\\\\";',\\\\n    '<?php echo \\\\\\\"Hello ${name}!\\\\\\\";',\\\\n];\\\\n\\\\nforeach ($cases as $code) {\\\\n    $tokens = Tokens::fromCode($code);\\\\n    echo \\\\\\\"CODE: $code\\\\\\\\n\\\\\\\";\\\\n    foreach ($tokens as $i => $t) {\\\\n        echo \\\\\\\"  $i :: \\\\\\\" . $t->getName() . \\\\\\\" :: \\\\\\\" . json_encode($t->getContent()) . \\\\\\\"\\\\\\\\n\\\\\\\";\\\\n    }\\\\n    echo \\\\\\\"----\\\\\\\\n\\\\\\\";\\\\n}\\\\nPHP\\\\nphp /tmp/repro2.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355283639321487182\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000023, \"id\": \"synthesized-00023\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00023\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "a86e7f557748a4fbcaaa106c3302e4cb8cf7fb520a7a9385e5d0a25835e3053f",
+ "status": 200
+}

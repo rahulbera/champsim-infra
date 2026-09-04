@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"Now let me clean up the reproduction scripts (they're in /tmp, not in the repo, but let me remove them to be tidy) and confirm no test files are modified:\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"rm -f /tmp/repro*.php /tmp/tokenize*.php /tmp/mytest.php /tmp/verify*.php /tmp/compare_tokens*.php /tmp/final_*.php /tmp/pr_exact_test.php /tmp/check.php /tmp/edit*.php /tmp/new_fixer.php /tmp/fixed_output.php 2>&1; echo \\\\\\\"cleaned\\\\\\\"; cd /testbed && git status\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355291816939224062\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000139, \"id\": \"synthesized-00139\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00139\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "61cbd51241a71042d5597f9612a482fc77548fb4bc3982118215105edfee9127",
+ "status": 200
+}

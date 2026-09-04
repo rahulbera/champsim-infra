@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && sed -n '74,110p' src/Fixer/StringNotation/SimpleToComplexStringVariableFixer.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355307347540965278\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000079, \"id\": \"synthesized-00079\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00079\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "f87d1535ec0790b12a440cd8a8a0b2782a8f3fcf229d679dc1d4e4a82cf3961f",
+ "status": 200
+}

@@ -1,0 +1,8 @@
+{
+ "body": "{\"choices\": [{\"finish_reason\": \"tool_calls\", \"index\": 0, \"message\": {\"content\": \"\", \"role\": \"assistant\", \"tool_calls\": [{\"function\": {\"arguments\": \"{\\\"command\\\":\\\"cd /testbed && grep -n \\\\\\\"T_DOLLAR_OPEN_CURLY_BRACES\\\\\\\\|T_DOLLAR_CLOSE_CURLY_BRACES\\\\\\\\|DOLLAR_CLOSE\\\\\\\" src/Tokenizer/CT.php\\\"}\", \"name\": \"bash\"}, \"id\": \"call_-7355249898058407999\", \"index\": 0, \"type\": \"function\"}]}}], \"created\": 1700000012, \"id\": \"synthesized-00012\", \"model\": \"glm-5.2\", \"object\": \"chat.completion\", \"request_id\": \"synthesized-00012\", \"usage\": {\"completion_tokens\": 0, \"prompt_tokens\": 0, \"total_tokens\": 0}}",
+ "headers": {
+  "Content-Type": "application/json; charset=UTF-8"
+ },
+ "key": "61474f5156ef87ed9ee5d6c34f004387a27f5ebc4d8b1495eaa4fd971158f764",
+ "status": 200
+}
