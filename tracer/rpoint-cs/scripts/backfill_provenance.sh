@@ -24,7 +24,7 @@ IMAGES=$RPOINT_IMAGES
 ARTIFACTS=${RPOINT_ARTIFACTS:-$ROOT/artifacts}
 APPLY=0; [ "${1:-}" = "--apply" ] && APPLY=1
 
-FIELDS='^(swe_agent_commit|swe_agent_describe|swerex_version|swerex_sha256|guest_tools_sha256|python|kernel)='
+FIELDS='^(swe_agent_commit|swe_agent_describe|swerex_version|swerex_sha256|guest_tools_sha256|swerex_patch|python|kernel)='
 done_n=0; skip_n=0; miss_n=0
 for meta in "$IMAGES"/capture-*.meta; do
   [ -f "$meta" ] || continue
@@ -43,7 +43,9 @@ for meta in "$IMAGES"/capture-*.meta; do
       # swerex_sha256 and guest_tools_sha256 post-date these captures, so most
       # will carry only the commit/version fields. Saying so beats an absence
       # that later reads as "unrecorded".
-      grep -E "$FIELDS" "$v"
+      # Quoted: the meta is SOURCED by the trace phase, so an unquoted
+      # `python=Python 3.12.3` becomes an assignment plus a stray command.
+      grep -E "$FIELDS" "$v" | sed -E 's/^([a-z_]+)=(.*)$/\1="\2"/'
       grep -qE '^swerex_sha256=' "$v" || echo "# swerex_sha256: not recorded at capture time (field added 2026-09-04)"
     } >> "$meta"
   fi

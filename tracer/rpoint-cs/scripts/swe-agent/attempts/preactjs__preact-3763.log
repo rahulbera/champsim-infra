@@ -1,3 +1,5 @@
 2026-09-02 20:08:10	instance	chain: verify failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-3763/verify.log)
 2026-09-02 21:06:31	instance	chain: verify failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-3763/verify.log)
 2026-09-02 22:04:31	instance	chain: verify failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-3763/verify.log)
+2026-09-04 15:03:49	instance	chain: trace failed (see /home/rbera/work/bpeval/qemu-tracing/images/chain-preactjs__preact-3763/trace.log)
+2026-09-04 16:03:44	infra	trace died on MY bug: provenance added an unquoted 'python=Python 3.12.3' to the meta, which the trace phase sources -- not an instance failure

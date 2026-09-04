@@ -369,7 +369,13 @@ profile)
     # source, so an in-place edit changes it even though the version does not.
     _v=${RPOINT_ARTIFACTS:-$ROOT/artifacts}/$INSTANCE/versions.txt
     if [ -f "$_v" ]; then
-      grep -E '^(swe_agent_commit|swe_agent_describe|swerex_version|swerex_sha256|guest_tools_sha256|python|kernel)=' "$_v" || true
+      # QUOTE THE VALUES. The meta is SOURCED by the trace phase (`. "$META"`),
+      # so an unquoted `python=Python 3.12.3` parses as an assignment followed by
+      # a command and dies with "3.12.3: command not found". That is exactly what
+      # it did to preactjs__preact-3763's trace on 2026-09-04, after I added
+      # provenance without checking how the file is consumed.
+      grep -E '^(swe_agent_commit|swe_agent_describe|swerex_version|swerex_sha256|guest_tools_sha256|swerex_patch|python|kernel)=' "$_v" \
+        | sed -E 's/^([a-z_]+)=(.*)$/\1="\2"/' || true
     else
       echo "# WARNING: no versions.txt for this instance -- software provenance unknown"
     fi; } > "$META"
