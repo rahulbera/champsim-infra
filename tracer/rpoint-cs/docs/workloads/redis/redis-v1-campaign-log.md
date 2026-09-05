@@ -152,3 +152,43 @@ RocksDB's.
     all — the same silent-no-op signature as the bug it was meant to prevent.
     **Correct rule: `-n` on ssh calls made INSIDE a piped script; never on the ssh
     that is being fed the script.**
+
+18. **2026-09-05 20:45Z — Conversion complete: five OK.** All five
+    windows exactly 1,000,000,000 instructions, `decode_fail 0`. Final mixes
+    14.0-14.4% branch / 52.3-53.3% memory ops, 39-41% user / 59-61% kernel.
+    Compression 124-129:1 (~4.0-4.1 bytes/instr). Well clear of the reject band
+    (branch < 10% AND mem > 70%). Window spread on instruction count 0% — all
+    five hit the 1e9 target exactly.
+
+19. **2026-09-05 20:45Z — Bug caught in the ship script before it ran.**
+    I had written the catalogue rows as `version2.1/redis/<name>`. The existing
+    167 rows use **bare basenames**. Had it run, the catalogue would have carried
+    two incompatible row formats and `sha256sum -c` from the champsim/ root
+    would have silently stopped matching for every prior entry. Verified the
+    format against the memcached and RocksDB rows first; fixed before execution.
+
+20. **2026-09-05 21:33Z — SHIPPED AND REGISTERED.** Order held exactly:
+    rename -> re-verify under the new names (5/5, 1e9 each) -> hash locally ->
+    rsync to kratos2 -> `sha256sum -c` **on kratos2** (5/5 OK, the gate) ->
+    append to CHECKSUMS.sha256 (**167 -> 172**) -> only then delete.
+    Independent post-check on kratos2: 172 lines, 5 redis rows, **0 duplicate
+    basenames**, 5 files, 16 GB.
+
+21. **2026-09-05 21:35Z — Provenance preserved before reclamation.**
+    The sampling manifest and the checksum list were copied into the repo
+    (`redis-v1-t08-manifest.txt`, `redis-v1-t08-checksums.sha256`) *before*
+    the raws were deleted. The manifest shows five windows evenly spaced at a
+    ~2.788e9 instruction stride, each exactly 1e9 — no gap structure of the kind
+    that exposed the memcached theta=0.6 regime split. That file is the only
+    remaining evidence of how the windows were positioned; deleting it with the
+    raws would have repeated the audit's central failure.
+
+22. **2026-09-05 21:36Z — Reclaimed 59 GB on minitron** (380G -> 439G):
+    5 converted traces (19 GB), 5 raws + manifest (20 GB), `redis-guest.qcow2`
+    (21 GB, carrying snapshots rd_redis_a / rd_redis_b / rt099). All five traces
+    verified on kratos2 and registered before anything was deleted.
+
+23. **2026-09-05 21:37Z — tlist written**: `scripts/tlists/redis_v1.yml`,
+    built from the catalogue's CHECKSUMS rows (not local copies), 5 entries,
+    validates as YAML, no tabs, and all five checksums cross-checked against the
+    catalogue — 0 mismatches.

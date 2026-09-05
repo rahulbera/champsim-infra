@@ -1,0 +1,70 @@
+# Redis v1 — QEMU/TCG full-system traces, captured 2026-09-05 on minitron
+#
+# First Redis capture; there is no v1 defect to fix here, but the configuration
+# was chosen against the same reject band the memcached and RocksDB audits
+# established: branch < 10% AND mem > 70% marks a degenerate bulk-copy regime
+# that reads as high-MPKI while being trivially prefetchable.
+#
+# Configuration and why:
+#   * 8M keys x 512B. The FIRST pilot used 4000-byte values and measured
+#     7.7% branch / 73.5% mem -- squarely in the reject band. MGET-16 x 4000 B is
+#     64 KB of response per request, which swamps Redis's much leaner per-key
+#     logic (memcached tolerated 4 KB values; Redis does not). 512 B fixed it.
+#   * theta=0.80, NOT 0.99. theta=0.99 measured 7.7% branch / 70.8% mem --
+#     also the reject band, i.e. LLC-resident. Both rejections were on
+#     MEASUREMENT, not prediction.
+#   * ONE driver for load and query (memtier_benchmark), --key-pattern=P:P for
+#     full 1..N coverage, --multi-key-get=16 with --pipeline=1.
+#   * Single traced vCPU; 5 windows x 1e9 instructions, evenly spaced at a
+#     ~2.788e9 instruction stride (see docs/workloads/redis/
+#     redis-v1-t08-manifest.txt), sample_clock=user, capture_pa=on, values=on.
+#
+# NAME NOTE: rd99wr01 is the KEY-LEVEL read fraction. --ratio=1:16 with
+# --multi-key-get=16 means each GET reads 16 keys while each SET writes one, so
+# 99.6% of key touches are reads. Interim filenames said "rd94", which was the
+# request-level figure and is wrong for a memory-system trace.
+#
+# Measured across all five windows: 14.0-14.4% branch, 52.3-53.3% memory ops,
+# 39-41% user / 59-61% kernel, decode_fail 0, 1e9 instructions each,
+# compression 124-129:1 (~4.0-4.1 bytes/instr).
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag) -- see
+# tracer/rpoint-cs/patches/. Guest Ubuntu 24.04, Redis 7.0.15.
+# Built from the kratos2 catalogue's CHECKSUMS.sha256 rows, not from local copies.
+
+redis_v1:
+  - redis_z080_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/redis/redis7.0.15_memtier_8Mx512B_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: redis
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: e7f32b3681b85dc5804fe1dc7723db9effbff0bb94a85e9abebc6033c00efd19
+  - redis_z080_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/redis/redis7.0.15_memtier_8Mx512B_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: redis
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: 098f35f674ba9fd56cd80d60833628f1f166ffca3f5d0238926ba583802ec642
+  - redis_z080_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/redis/redis7.0.15_memtier_8Mx512B_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: redis
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: b9d55f809e11fa23ce5e3a87063d32a8427068177aa88ea1f80c4d5416904b8d
+  - redis_z080_w00003:
+      path: /home/rahbera/tracezoo/champsim/version2.1/redis/redis7.0.15_memtier_8Mx512B_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
+      version: 2
+      workload: redis
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: 1a972de2107c6b0a4c5f0ec139f86d7e29ffa81a23fdbecf172244a29c19c945
+  - redis_z080_w00004:
+      path: /home/rahbera/tracezoo/champsim/version2.1/redis/redis7.0.15_memtier_8Mx512B_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      version: 2
+      workload: redis
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: a01d15799e320be4eb4c0f59de3a44a4b1f0762eea35a11541b057dd54c912da

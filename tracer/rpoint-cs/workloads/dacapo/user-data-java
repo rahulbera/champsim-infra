@@ -1,0 +1,41 @@
+#cloud-config
+hostname: javavm
+manage_etc_hosts: true
+
+users:
+  - name: ubuntu
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    lock_passwd: false
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKiMER5RZYM6J/SbcnO8F7+I7UgLWZi4cH/YQ+fkiqeq rbera@minitron
+
+ssh_pwauth: true
+chpasswd:
+  expire: false
+  users:
+    - name: ubuntu
+      password: tracevm
+      type: text
+
+growpart: {mode: auto, devices: ['/'], ignore_growroot_disabled: false}
+resize_rootfs: true
+
+package_update: true
+packages:
+  - openjdk-21-jdk-headless
+  - unzip
+  - curl
+  - numactl
+  - sysstat
+  - jq
+
+runcmd:
+  - [ systemctl, disable, --now, unattended-upgrades ]
+  - [ systemctl, disable, --now, apt-daily.timer ]
+  - [ systemctl, disable, --now, apt-daily-upgrade.timer ]
+  - [ systemctl, disable, --now, snapd.socket ]
+  - [ systemctl, disable, --now, snapd.service ]
+  - [ sh, -c, "echo never > /sys/kernel/mm/transparent_hugepage/enabled" ]
+  - [ sh, -c, "java -version > /var/log/java-version.log 2>&1" ]
+  - [ sh, -c, "touch /var/log/cloud-init-java-done" ]
