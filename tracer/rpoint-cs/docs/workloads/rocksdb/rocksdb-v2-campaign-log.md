@@ -147,3 +147,80 @@ rnadig's `/mnt/sherlock` is a 5400 rpm HDD (`savevm` measured there at
     `perf -p` counts only the driver process, while the plugin counts everything
     executing on vCPU 1 including interrupt and softirq work.
 
+20. **2026-09-05 11:53Z — Capture sizing derived from the profile.** Used the
+    plugin's own formula, `sample_gap = (user - K*N)/(K-1)`, with K=5 and
+    N=1e9: **SGAP = (15,782,260,124 - 5e9)/4 = 2,695,565,031**, spreading five
+    1e9-instruction windows across exactly the user-instruction span the profile
+    measured. `sample_clock=user`, `capture_pa=on`, `values=on`.
+
+21. **2026-09-05 11:54Z — Confirmed the traced vCPU was working before arming.**
+    The v1 failure class was tracing an idle core, so before creating the trigger
+    file: located the driver by `readlink /proc/PID/exe` (not by name — see entry
+    11), found the worker thread pinned to CPU 1, and sampled its `utime` twice
+    12 s apart (10309 -> 10563 ticks). Only then `touch`ed the trigger. Plugin
+    reported `TRIGGER DETECTED` and `skipped 550000000 instructions during
+    dormant phase`.
+
+22. **2026-09-05 12:02Z — Five windows captured, geometry exact.** Each window
+    exactly 1,000,000,000 instructions; 18.7 GB of raw across ~8 minutes of
+    wall clock.
+
+    | chunk | start_insn | insns | comp_bytes |
+    |---|---|---|---|
+    | 0 | 0 | 1e9 | 3,944,500,319 |
+    | 1 | 5,742,199,498 | 1e9 | 3,930,841,881 |
+    | 2 | 11,482,832,447 | 1e9 | 3,909,744,717 |
+    | 3 | 17,219,713,207 | 1e9 | 3,906,160,451 |
+    | 4 | 22,969,025,976 | 1e9 | 3,898,205,693 |
+
+    Inter-window gaps: 4.742/4.741/4.737/4.749 x 1e9 *total* instructions for a
+    2.696e9 *user* gap, implying **56.9% user** — against the profile's measured
+    56.8%. The sampling clock tracked exactly. Window sizes vary by **under 1%**
+    (3.898-3.944 GB), which says the workload is stationary; contrast memcached
+    theta=0.6, where exactly this variance is what exposed the regime split.
+
+23. **2026-09-05 12:08Z — `sample_count` bounds tracing, not the VM.** After the
+    fifth window the plugin stopped recording but QEMU kept running the guest
+    indefinitely. Shut it down via the monitor socket. *Not a bug — but a capture
+    script that waits for QEMU to exit on its own will hang forever.*
+
+24. **2026-09-05 12:09Z — Filter confirms `IDLE_FRAC=0`, as with memcached.**
+    `trace_filter` reports `filtered=0 (0.0%)` and U=57.4%/K=42.6%, matching the
+    profile. Under TCG recording the traced vCPU saturates and never enters the
+    idle loop, so the TCG-idle-loop filter is a no-op for this workload class —
+    the same result the memcached campaign recorded. The filter stage is
+    therefore a re-compression pass, and its output can be reclaimed
+    aggressively.
+
+25. **2026-09-05 12:22Z — RocksDB conversion measured at ~5.5 M insn/min/window**
+    on minitron against rnadig's 2.0, so ~3 h for five windows in parallel.
+    Converters pinned to cores 0-9 so that a concurrent Redis capture on cores
+    10-31 could not perturb the guest's client/server timing balance.
+
+26. **2026-09-05 12:22Z — First trace-quality read is healthy.** w00000 at
+    **42.8% kernel / 50.2% memory ops / 17.5% branches** — more memory-intensive
+    than memcached theta=0.8 (40% mem) while keeping real control flow, and well
+    clear of the rejected bulk-copy profile (76% mem / 7% branch). This is the
+    profile the campaign was aiming for.
+
+27. **2026-09-05 15:33Z — Conversion complete, five OK verdicts.** Every window
+    exactly 1,000,000,000 instructions, `decode_fail 0`, 18,119,382,919 bytes
+    total (~3.6 GB each, spread under 1.5%). Final profile ~43% kernel / 50%
+    memory ops / 17.5% branches.
+
+28. **2026-09-05 16:03Z — Shipped and verified.** rsync to
+    `version2.1/rocksdb/`, `sha256sum -c` ON KRATOS2 returned exit 0 with all five
+    OK, then registered in CHECKSUMS.sha256 (162 -> 167 lines). Only after that
+    were the local traces, raws and the 77 GB guest qcow2 deleted; minitron went
+    426G -> 542G free. The driver source, run scripts and logs stay — they are the
+    reproducible recipe whose absence the audit identified as v1's core failure.
+
+29. **2026-09-05 16:30Z — Renamed to a self-describing scheme.** Traces now carry
+    workload+version, dataset, true read/write split, skew, the workload-specific
+    knob, threads, guest OS, tracer and instruction budget:
+    `rocksdb9.10.0_customdrv_32Mx1KB_rd95wr05_zipf0.99_bc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst`.
+    `tcg` is deliberate: it marks kernel-inclusive traces with real physical
+    addresses, as against PIN traces which are user-only with PA zeroed — the
+    distinction that makes two trace families incomparable. Renamed on kratos2,
+    CHECKSUMS.sha256 updated in place, and re-verified under the new names (5/5
+    OK, exit 0) to prove rename and manifest stayed consistent.

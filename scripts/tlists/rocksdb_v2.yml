@@ -1,0 +1,73 @@
+# RocksDB v2 — QEMU/TCG full-system traces, captured 2026-09-05 on minitron
+#
+# Recapture of the v1 RocksDB traces. The 2026-09-04 audit found v1 failed BY DESIGN,
+# not by accident: its spec's stated success criterion was "block cache hit rate > 90%
+# after warmup" and the flagship run achieved 97.40%. A cache-resident workload cannot
+# exercise the memory hierarchy. v2 inverts that criterion.
+#
+# v2 configuration and why:
+#   * DB 33.5 GB (32M records x 1024 B) against a 15 GB guest -- the dataset exceeds
+#     RAM, which is the ordinary production reason for memory pressure. Block cache
+#     -c 1 (v1 used 8 GB against a 6-9 GB DB, i.e. the whole DB fit).
+#   * --no-fadvise and --no-warmup-scan: v1's driver actively pre-warmed the page
+#     cache (POSIX_FADV_WILLNEED + pre-touch on every SSTable) and the block cache.
+#   * MEASURED steady state: block-cache hit rate 34.33% (hit 223,258 / miss 427,102)
+#     at alpha=0.99 -- the MOST cache-friendly skew, so the pessimistic case.
+#     ~25x more block-cache misses per lookup than v1.
+#   * Single thread pinned to the traced vCPU. With -t 4 the traced core's block cache
+#     is warmed by three UNTRACED sibling threads; ChampSim simulates one core and
+#     would never see those fills, so its miss rate would be systematically optimistic.
+#
+# DRIVER DEFECTS FOUND AND FIXED (rocksdb_driver_v2.cpp):
+#   * v1 wrote the SAME value bytes to every record -- Snappy compressed the
+#     duplication away, so DB size was unpredictable from n*v (21 GB logical became
+#     6-9 GB on disk) and the captured value channel would have been degenerate under
+#     values=on. Values are now derived per record from a (seed, id) PRNG.
+#   * No attach mode: the driver refused to reuse an existing DB, which made the
+#     load-once / snapshot / restore workflow impossible. Added --attach.
+#
+# --roi-secs is a WALL-CLOCK budget (default 240 s). Under TCG's 50-150x slowdown that
+# traces a sliver of the workload silently; it was set to 200000 s and the plugin's
+# instruction-bounded sampling defines the windows instead.
+#
+# Capture: QEMU 9.2.4 + both TCG-restore patches (tracer/rpoint-cs/patches/),
+# snapshot rd_v2_a, plugin sampling 5 x 1e9 insns, sample_clock=user, capture_pa=on,
+# values=on. Profile: 56.8% user / 43.2% kernel; SGAP=2,695,565,031.
+# Trace profile: ~43% kernel, ~50% memory ops, ~17.5% branches, decode_fail 0.
+
+rocksdb_v2:
+  - rocksdb_z099_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/rocksdb/rocksdb9.10.0_customdrv_32Mx1KB_rd95wr05_zipf0.99_bc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: rocksdb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: 6dd56858777f190da39a5d3ac2c4b630c5e7f9512e3d4f52aba5bcd8fdbd01f4
+  - rocksdb_z099_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/rocksdb/rocksdb9.10.0_customdrv_32Mx1KB_rd95wr05_zipf0.99_bc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: rocksdb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: ade935174fc8339deb138019be42fdf75aa25ed00c49b6d384f8457a0d5e24b9
+  - rocksdb_z099_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/rocksdb/rocksdb9.10.0_customdrv_32Mx1KB_rd95wr05_zipf0.99_bc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: rocksdb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: bca4fddca97b0930b6638d89f7c5c15de85b263e3964fe9292b46666c2062276
+  - rocksdb_z099_w00003:
+      path: /home/rahbera/tracezoo/champsim/version2.1/rocksdb/rocksdb9.10.0_customdrv_32Mx1KB_rd95wr05_zipf0.99_bc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
+      version: 2
+      workload: rocksdb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: ce4793ce6d88e427143884cd6a080123dda6c0f95cf1bbd0196c046339bd1247
+  - rocksdb_z099_w00004:
+      path: /home/rahbera/tracezoo/champsim/version2.1/rocksdb/rocksdb9.10.0_customdrv_32Mx1KB_rd95wr05_zipf0.99_bc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      version: 2
+      workload: rocksdb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: 1c5d3a8d6c84873757d2db8469184755a6be24f52a0ea9f91e24ecc811464dd1

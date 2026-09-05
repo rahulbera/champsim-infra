@@ -1,0 +1,71 @@
+# memcached v2 — QEMU/TCG full-system traces, captured 2026-09-04/05
+#
+# Recapture of the v1 memcached traces, which the 2026-09-04 audit found unusable:
+# the loader (YCSB) and the query driver (memtier) used disjoint keyspaces, so every
+# GET missed and the only live data was what the 5% SET stream created
+# (unique_ppages = 15,958 against a nominal 8 GB store).
+#
+# v2 fixes and deliberate choices:
+#   * ONE driver for both phases. memtier_benchmark preloads with --key-pattern=P:P
+#     (mandatory for full 1..N coverage) and queries with the identical --key-prefix
+#     and key range. Verified in the server's own counters, not in client output.
+#   * --multi-key-get=16 with --pipeline=1, NOT --pipeline=16. ~94% of instructions
+#     are per-REQUEST fixed cost; pipelining 16 commands still produces 16 responses
+#     and pays it 16 times, while a multiget is one command and one response.
+#     Gate 3.e (instructions per key lookup, hard stop 12,000) forced this.
+#   * Single traced vCPU; memcached -t 1 pinned to it with `taskset -acp` (-a is
+#     load-bearing: the request-serving thread is a separate pthread from the pid).
+#   * 5 windows x 1e9 instructions, sample_clock=user, capture_pa=on, values=on.
+#
+# theta=0.6 yielded only ONE usable window. Windows 0-3 sampled an 86%-kernel /
+# 76%-memory-op / 7%-branch bulk-copy regime that theta=0.8 never entered; they
+# would have read as high-MPKI while being trivially prefetchable, and were
+# discarded on 2026-09-05. w00004 matches the theta=0.8 profile and is kept.
+#
+# Capture host: rnadig. QEMU 9.2.4 + two patches (kvmclock, AVX hflag) — see
+# tracer/rpoint-cs/patches/. Snapshot mc_v2_a. Plugin: periodic sampling, commit
+# b5c3d29 on main.
+
+memcached_v2:
+  - memcached_z060_w00004:
+      path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached1.6.43_memtier_1.5Mx4KB_rd99wr01_zipf0.60_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      version: 2
+      workload: memcached
+      category: keyvalue
+      subcategory: zipf0.60
+      checksum: 357cfe2a906223928b9a30ddbb029ccb632518f5fb064967506c02c6c038a5e0
+  - memcached_z080_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached1.6.43_memtier_1.5Mx4KB_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: memcached
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: 734147c10d607ee5eef4be79b0126cc17e4b23f83d2c59ed8f99891a6eb400e8
+  - memcached_z080_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached1.6.43_memtier_1.5Mx4KB_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: memcached
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: 8be6731fe809bf09e40600acd02c65646c7bd229f6d4c574feb1f85585546fc0
+  - memcached_z080_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached1.6.43_memtier_1.5Mx4KB_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: memcached
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: cf9f87b91c5a2995a3608a8f59b19b9c305acfb6db7b7ca61b46ce26fbfd2d14
+  - memcached_z080_w00003:
+      path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached1.6.43_memtier_1.5Mx4KB_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
+      version: 2
+      workload: memcached
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: 8a7f886214f248c5ffe3ea82b6ab546b7b1ef9689d4bfbe6bb9b19a35b2c39ce
+  - memcached_z080_w00004:
+      path: /home/rahbera/tracezoo/champsim/version2.1/memcached/memcached1.6.43_memtier_1.5Mx4KB_rd99wr01_zipf0.80_mget16_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      version: 2
+      workload: memcached
+      category: keyvalue
+      subcategory: zipf0.80
+      checksum: 3d51a3567d0cb79acd40c17e0d209b471cc37c1c64cc57f1adbdcb581846711d

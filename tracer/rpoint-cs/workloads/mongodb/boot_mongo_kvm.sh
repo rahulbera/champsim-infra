@@ -1,0 +1,12 @@
+#!/bin/bash
+set -eu
+. "$HOME/work/new-tracing/cpustr.sh"
+cd "$IMAGES"
+rm -f "$HOME/work/new-tracing/run/monitor-mongo.sock"
+exec taskset -c 10-31 "$QEMU_FIXED" \
+  -name mongo-guest -machine q35,accel=kvm -cpu "$CPUSTR" -smp 6 -m 12G \
+  -drive file=mongo-guest.qcow2,if=virtio,format=qcow2,cache=none,aio=io_uring \
+  -drive file=seed-trace.iso,if=virtio,format=raw,readonly=on \
+  -netdev user,id=n0,hostfwd=tcp:127.0.0.1:2226-:22 -device virtio-net-pci,netdev=n0 \
+  -monitor unix:"$HOME/work/new-tracing/run/monitor-mongo.sock",server,nowait \
+  -nographic -serial null
