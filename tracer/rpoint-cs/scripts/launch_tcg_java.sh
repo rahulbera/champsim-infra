@@ -11,11 +11,15 @@ TRIG=${TRIG:-$HOME/work/new-tracing/run/java_trace_start}
 mkdir -p "$OUT" "$HOME/work/new-tracing/run"; rm -f "$TRIG"
 case "$MODE" in
   bare)    PLUGARG=() ;;
-  profile) PLUGARG=(-plugin "$PLUGIN,outdir=$OUT,vcpus=1,profile=on") ;;
+  profile) PLUGARG=(-plugin "$PLUGIN,outdir=$OUT,vcpus=1,trigger=$TRIG,profile=on") ;;
   capture) PLUGARG=(-plugin "$PLUGIN,outdir=$OUT,vcpus=1,sample_len=${SLEN:?},sample_gap=${SGAP:?},sample_count=${SCOUNT:-3},sample_clock=user,trigger=$TRIG,capture_pa=on,values=on") ;;
   *) echo "unknown MODE=$MODE"; exit 1 ;;
 esac
+QLOG=${QLOG:-$HOME/work/new-tracing/logs/java-tcg-qemu.log}
 cd "$IMAGES"
+# stderr carries the plugin banner and the exit-time PROFILE line; a tmux
+# pane dies with QEMU and takes them with it. Keep a file copy.
+exec 2> >(tee -a "$QLOG" >&2)
 exec taskset -c 10-31 "$QEMU_FIXED" \
   -name java-guest-tcg \
   -machine q35,accel=tcg -cpu "$CPUSTR" -smp 4 -m 24G \

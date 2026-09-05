@@ -1,0 +1,80 @@
+# MongoDB v1 — QEMU/TCG full-system traces, captured 2026-09-05 on minitron
+#
+# First MongoDB capture. Driver is a purpose-written C program against libmongoc
+# (workloads/mongodb/mongo_driver.c), NOT YCSB: a JVM client inside a TCG guest
+# risks becoming the bottleneck and starving the traced server, and the point of
+# the trace is the server's memory behaviour, not the client's.
+#
+# Configuration and why:
+#   * 40M records x 1 KB against a 1 GB WiredTiger cache. The cache is
+#     deliberately far smaller than the dataset so the working set does NOT sit
+#     in cache -- the defect the 2026-09-04 audit found in the v1 corpus.
+#   * theta=0.99 Zipfian. Unlike Redis (where theta=0.99 measured 7.7% branch /
+#     70.8% mem and was REJECTED as LLC-resident), MongoDB at theta=0.99 measures
+#     15.5-17.7% branch / 44.4-48.3% mem -- comfortably outside the reject band,
+#     because WiredTiger's per-request work is far heavier than Redis's.
+#   * rd95wr05 at the operation level.
+#   * Single traced vCPU, server pinned to it (so eviction and checkpoint work
+#     lands IN the trace rather than as invisible sibling work).
+#   * 5 windows x 1e9 instructions, sample_clock=user, capture_pa=on, values=on.
+#
+# WINDOW SPREAD / MIX CHECK. The five windows read (user/kern/branch/mem):
+#   w00000 51.7/48.3/15.5/48.3   w00001 54.8/45.2/16.0/48.2
+#   w00003 55.4/44.6/16.0/48.2   w00002 56.7/43.3/16.8/46.6
+#   w00004 56.1/43.9/17.7/44.4
+# That is a smooth GRADIENT, not a bimodal split: branch rises and memory falls
+# monotonically, w00004 sitting only 0.9 pt of branch and 2.2 pt of memory beyond
+# w00002. Nothing like the memcached theta=0.6 regime split (86% kernel / 76% mem
+# / 7% branch), so all five are kept.
+#
+# Honest note: w00003 converted to 999,985,056 instructions rather than exactly
+# 1e9 -- 14,944 short, 0.0015%, the residue of idle-loop filtering.
+#
+# KNOWN LIMITATION, recorded 2026-09-06. The sample_gap was derived from the
+# plugin's exit-time hint, which mixes units (it subtracts an all-instruction
+# K*N from a user-only counter). The five windows are each internally valid --
+# exact geometry, decode_fail 0 -- but they span less of the run than intended
+# and cluster toward its beginning. See tracer/rpoint-cs/scripts/sgap.py for the
+# derivation and the corrected formula. Recapture is optional and is a
+# representativeness question, not a correctness one.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, MongoDB 8.0.29. Manifest and checksums preserved in
+# docs/workloads/mongodb/. Built from the kratos2 catalogue's CHECKSUMS rows.
+
+mongodb_v1:
+  - mongodb_z099_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/mongodb/mongodb8.0.29_libmongoc_40Mx1KB_rd95wr05_zipf0.99_wt1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: mongodb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: 4e6a847853d8ad265ad5d15e1c6004756805e27b5e14618409f78f922c2a1e3b
+  - mongodb_z099_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/mongodb/mongodb8.0.29_libmongoc_40Mx1KB_rd95wr05_zipf0.99_wt1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: mongodb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: d07178036c40c2385318fcf89a47bf1a5d6202deb008d9399574e649dcfea61d
+  - mongodb_z099_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/mongodb/mongodb8.0.29_libmongoc_40Mx1KB_rd95wr05_zipf0.99_wt1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: mongodb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: 605019809e0d3547b27b5aa892f859212ec01b20136b7ec8143a334c17bc0d60
+  - mongodb_z099_w00003:
+      path: /home/rahbera/tracezoo/champsim/version2.1/mongodb/mongodb8.0.29_libmongoc_40Mx1KB_rd95wr05_zipf0.99_wt1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
+      version: 2
+      workload: mongodb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: 93537200f40ac6a8d021b6808ca13e0390c4699526717e5f9d4bc7fa8c6cb9eb
+  - mongodb_z099_w00004:
+      path: /home/rahbera/tracezoo/champsim/version2.1/mongodb/mongodb8.0.29_libmongoc_40Mx1KB_rd95wr05_zipf0.99_wt1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      version: 2
+      workload: mongodb
+      category: keyvalue
+      subcategory: zipf0.99
+      checksum: 874b641493bb8cb941a73649495f4c0de112a360fa17aec259aff8e0af53f08e
