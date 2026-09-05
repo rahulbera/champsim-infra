@@ -265,6 +265,16 @@ typedef struct
     uint64_t chunk_start_insn;
     uint64_t chunk_bytes_at_open;
     FILE *manifest_fp;
+
+    /* Periodic sampling — inert while sample_len==0 */
+    bool     sample_skipping;      /* true = in the gap between windows */
+    uint64_t sample_phase_insns;   /* instructions counted in the current phase */
+    uint32_t sample_windows_done;  /* completed capture windows */
+    bool     sample_finished;      /* sample_count reached; stop this vCPU */
+    /* Instructions SEEN post-trigger, captured or skipped. insn_count only
+     * counts captured ones, so with sampling the two diverge -- and it is the
+     * stream position that says WHERE in the execution a window came from. */
+    uint64_t stream_insns;
 } VcpuState;
 
 /* ================================================================
@@ -275,6 +285,25 @@ static VcpuState vcpu_state[MAX_VCPUS];
 static bool trace_vcpu[MAX_VCPUS];
 static uint64_t insn_limit = 0;
 static uint64_t rotate_interval = 0;
+
+/* Periodic sampling. Inert while sample_len == 0 (default), which keeps
+ * every existing capture byte-identical. */
+static uint64_t sample_len = 0;        /* instructions per capture window */
+static uint64_t sample_gap = 0;        /* instructions skipped between windows */
+static uint32_t sample_count = 0;      /* windows to capture; 0 = unlimited */
+static bool sample_clock_user = true;  /* gap/window-start gated on user mode */
+static bool profile_mode = false;      /* count only, write nothing */
+
+/* profile=on counters (global: the profile pass measures the whole ROI) */
+static uint64_t profile_total_insns = 0;
+static uint64_t profile_user_insns  = 0;
+
+/* Chunked output is used by BOTH rotation and sampling: each sampling window
+ * is emitted as its own chunk, reusing the rotate= naming and manifest. */
+static bool chunking_active(void)
+{
+    return rotate_interval > 0 || sample_len > 0;
+}
 static char output_dir[4096] = ".";
 static qemu_plugin_id_t plugin_id;
 
@@ -579,9 +608,9 @@ static bool open_chunk(VcpuState *vs)
     ZSTD_CCtx_setParameter(vs->cctx, ZSTD_c_compressionLevel, ZSTD_LEVEL);
     ZSTD_CCtx_setParameter(vs->cctx, ZSTD_c_checksumFlag, 1);
 
-    /* Filename: plain when not rotating, _c<KKKKK> when rotating. */
+    /* Filename: plain when not chunking, _c<KKKKK> when rotating OR sampling. */
     char filepath[4200];
-    if (rotate_interval > 0)
+    if (chunking_active())
     {
         snprintf(filepath, sizeof(filepath),
                  "%s/trace_vcpu%u_c%05u.raw.zst",
@@ -604,7 +633,14 @@ static bool open_chunk(VcpuState *vs)
 
     /* Per-chunk bookkeeping (open_chunk is the single owner). */
     vs->chunk_insn_count    = 0;
-    vs->chunk_start_insn    = vs->insn_count;
+    /* With sampling, insn_count (captured) is not the position in the
+     * execution stream. stream_insns has already been incremented for the
+     * instruction that is about to become this chunk's first record, so step
+     * back one to name it. At install time stream_insns is 0 and chunk 0
+     * legitimately starts at 0. */
+    vs->chunk_start_insn    = (sample_len > 0)
+                                  ? (vs->stream_insns ? vs->stream_insns - 1 : 0)
+                                  : vs->insn_count;
     vs->chunk_bytes_at_open = vs->bytes_compressed;
 
     /* Write the 16-byte v3 header into the zstd stream. */
@@ -645,7 +681,7 @@ static void close_chunk(VcpuState *vs)
     /* Manifest line: only when rotating, a manifest is open, and this
      * chunk actually received instructions (suppresses the empty chunk 0
      * when the trigger never fires). */
-    if (rotate_interval > 0 && vs->manifest_fp && vs->chunk_insn_count > 0)
+    if (chunking_active() && vs->manifest_fp && vs->chunk_insn_count > 0)
     {
         uint64_t comp = vs->bytes_compressed - vs->chunk_bytes_at_open;
         fprintf(vs->manifest_fp,
@@ -686,6 +722,20 @@ static void insn_exec_cb(unsigned int vcpu_index, void *userdata)
         return;
     }
 
+    /* Profile mode: count only. Returning here means no VcpuState is touched,
+     * no chunk is opened, and no file is created -- so a profile pass costs the
+     * same as the dormant phase and leaves no artifacts to clean up. */
+    if (profile_mode)
+    {
+        InsnMeta *m = (InsnMeta *)userdata;
+        profile_total_insns++;
+        if (m->vaddr < kernel_addr_thresh)
+        {
+            profile_user_insns++;
+        }
+        return;
+    }
+
     VcpuState *vs = &vcpu_state[vcpu_index];
 
     if (vs->limit_reached)
@@ -693,7 +743,123 @@ static void insn_exec_cb(unsigned int vcpu_index, void *userdata)
         return;
     }
 
+    vs->stream_insns++;
+
+    /* ---- Periodic sampling: the SKIP phase -----------------------------
+     *
+     * Placed before finalize_pending_insn() so a skipped instruction costs one
+     * counter increment and nothing else -- the same price as the dormant
+     * phase. */
+    if (sample_len > 0)
+    {
+        if (vs->sample_finished)
+        {
+            return;
+        }
+
+        if (vs->sample_skipping)
+        {
+            InsnMeta *m = (InsnMeta *)userdata;
+            bool is_user = (m->vaddr < kernel_addr_thresh);
+
+            /* Flush the last captured instruction once, on entry to the gap.
+             * finalize_pending_insn() is what clears has_pending, and mem_cb()
+             * gates on that flag -- without this, the memory operands of
+             * SKIPPED instructions would attach themselves to the last
+             * CAPTURED instruction. Idempotent once has_pending is false. */
+            finalize_pending_insn(vs);
+
+            /* Compare BEFORE incrementing. Incrementing first would make the
+             * instruction that satisfies the gap also the one that is recorded,
+             * so only sample_gap-1 instructions would actually be skipped. */
+            if (vs->sample_phase_insns < sample_gap)
+            {
+                if (!sample_clock_user || is_user)
+                {
+                    vs->sample_phase_insns++;
+                }
+                return;                   /* this instruction is skipped */
+            }
+            /* Gap complete. With the user clock the next window must BEGIN on a
+             * user-mode instruction, so a TCG idle stretch never starts one. */
+            if (sample_clock_user && !is_user)
+            {
+                return;
+            }
+
+            vs->sample_skipping    = false;
+            vs->sample_phase_insns = 0;
+            vs->chunk_index++;
+            if (!open_chunk(vs))
+            {
+                vs->chunk_insn_count = 0;
+                vs->limit_reached    = true;
+                return;
+            }
+            /* Fall through: record THIS instruction as the window's first. */
+        }
+    }
+
     finalize_pending_insn(vs);
+
+    /* ---- Periodic sampling: the WINDOW BOUNDARY ------------------------
+     *
+     * Window length always counts EVERY instruction, so a window is exactly
+     * sample_len records regardless of sample_clock.
+     *
+     * This must NOT simply return. Each callback finalizes the PREVIOUS
+     * instruction and stores the CURRENT one as pending at the end of the
+     * function, so returning here would leave the current instruction neither
+     * recorded nor counted toward the gap -- one instruction silently dropped
+     * per boundary, and sample_gap=0 would no longer reproduce rotate=.
+     * Instead the boundary accounts for the current instruction explicitly. */
+    if (sample_len > 0 && !vs->sample_skipping && vs->chunk_insn_count >= sample_len)
+    {
+        close_chunk(vs);
+        vs->sample_windows_done++;
+        vs->sample_phase_insns = 0;
+
+        if (sample_count > 0 && vs->sample_windows_done >= sample_count)
+        {
+            vs->sample_finished = true;
+            vs->limit_reached   = true;   /* reuse existing stop/flush machinery */
+            /* close_chunk() does not reset this, and plugin_atexit() calls
+             * close_chunk() again -- which would append a SECOND manifest row
+             * for this same chunk. Zeroing it makes that call a no-op. */
+            vs->chunk_insn_count = 0;
+            return;
+        }
+
+        vs->sample_skipping = true;
+
+        InsnMeta *mb   = (InsnMeta *)userdata;
+        bool      is_u = (mb->vaddr < kernel_addr_thresh);
+        if (vs->sample_phase_insns < sample_gap)
+        {
+            if (!sample_clock_user || is_u)
+            {
+                vs->sample_phase_insns++;
+            }
+            return;                       /* consumed by the gap */
+        }
+        if (sample_clock_user && !is_u)
+        {
+            return;                       /* wait for a user-mode instruction */
+        }
+
+        /* Gap already satisfied (the sample_gap==0 case): reopen immediately
+         * and fall through, so this instruction lands in the next window --
+         * exactly what rotate= does at a chunk boundary. */
+        vs->sample_skipping    = false;
+        vs->sample_phase_insns = 0;
+        vs->chunk_index++;
+        if (!open_chunk(vs))
+        {
+            vs->chunk_insn_count = 0;
+            vs->limit_reached    = true;
+            return;
+        }
+    }
 
     if (insn_limit > 0 && vs->insn_count >= insn_limit)
     {
@@ -934,6 +1100,37 @@ static bool parse_args(int argc, char **argv)
         {
             rotate_interval = strtoull(arg + 7, NULL, 10);
         }
+        else if (g_str_has_prefix(arg, "sample_len="))
+        {
+            sample_len = strtoull(arg + 11, NULL, 10);
+        }
+        else if (g_str_has_prefix(arg, "sample_gap="))
+        {
+            sample_gap = strtoull(arg + 11, NULL, 10);
+        }
+        else if (g_str_has_prefix(arg, "sample_count="))
+        {
+            sample_count = (uint32_t)strtoul(arg + 13, NULL, 10);
+        }
+        else if (g_str_has_prefix(arg, "sample_clock="))
+        {
+            const char *v = arg + 13;
+            if (!strcmp(v, "user"))      sample_clock_user = true;
+            else if (!strcmp(v, "all"))  sample_clock_user = false;
+            else
+            {
+                fprintf(stderr, "[%s] sample_clock= must be user|all\n", PLUGIN_NAME);
+                return false;
+            }
+        }
+        else if (g_str_has_prefix(arg, "profile="))
+        {
+            if (!parse_onoff(arg + 8, &profile_mode))
+            {
+                fprintf(stderr, "[%s] profile= must be on|off|1|0\n", PLUGIN_NAME);
+                return false;
+            }
+        }
         else
         {
             fprintf(stderr, "[%s] Unknown argument: %s\n", PLUGIN_NAME, arg);
@@ -941,10 +1138,23 @@ static bool parse_args(int argc, char **argv)
                             "[,outdir=<path>][,vcpus=<range>][,limit=<N>]"
                             "[,trigger=<host-file>][,arch=auto|x86_64|aarch64]"
                             "[,capture_pa=on|off][,values=on|off]"
-                            "[,rotate=<N>]\n",
+                            "[,rotate=<N>]"
+                            "[,sample_len=<N>][,sample_gap=<M>]"
+                            "[,sample_count=<K>][,sample_clock=user|all]"
+                            "[,profile=on|off]\n",
                     PLUGIN_NAME);
             return false;
         }
+    }
+
+    /* Both features emit chunk files and a manifest; running them together
+     * would interleave two different chunking schedules into one namespace. */
+    if (rotate_interval > 0 && sample_len > 0)
+    {
+        fprintf(stderr,
+                "[%s] rotate= and sample_len= are mutually exclusive\n",
+                PLUGIN_NAME);
+        return false;
     }
 
     return true;
@@ -961,6 +1171,23 @@ static void plugin_atexit(qemu_plugin_id_t id, void *userdata)
     uint64_t total_values = 0;
     uint64_t total_raw = 0;
     uint64_t total_comp = 0;
+
+    /* Profile mode never initialised per-vCPU state (no buffers, no files), so
+     * report and return before anything tries to finalise it. */
+    if (profile_mode)
+    {
+        fprintf(stderr,
+                "\n[%s] PROFILE: %" PRIu64 " instructions (%" PRIu64 " user, %"
+                PRIu64 " kernel)\n",
+                PLUGIN_NAME, profile_total_insns, profile_user_insns,
+                profile_total_insns - profile_user_insns);
+        fprintf(stderr,
+                "[%s] For K windows of N insns: sample_gap = (user - K*N)/(K-1)\n",
+                PLUGIN_NAME);
+        fprintf(stderr, "[%s] Done (profile mode: no records written).\n",
+                PLUGIN_NAME);
+        return;
+    }
 
     fprintf(stderr, "\n[%s] Finalizing traces...\n", PLUGIN_NAME);
 
@@ -1163,6 +1390,26 @@ QEMU_PLUGIN_EXPORT int qemu_plugin_install(qemu_plugin_id_t id,
     else
         fprintf(stderr, "[%s] Rotation: off (single file per vCPU)\n",
                 PLUGIN_NAME);
+    if (sample_len > 0)
+    {
+        if (sample_count > 0)
+            fprintf(stderr,
+                    "[%s] Sampling: %u windows x %" PRIu64 " insns, gap %"
+                    PRIu64 ", clock=%s\n",
+                    PLUGIN_NAME, sample_count, sample_len, sample_gap,
+                    sample_clock_user ? "user" : "all");
+        else
+            fprintf(stderr,
+                    "[%s] Sampling: unlimited windows x %" PRIu64
+                    " insns, gap %" PRIu64 ", clock=%s\n",
+                    PLUGIN_NAME, sample_len, sample_gap,
+                    sample_clock_user ? "user" : "all");
+    }
+    if (profile_mode)
+    {
+        fprintf(stderr, "[%s] PROFILE MODE: counting only, no records written\n",
+                PLUGIN_NAME);
+    }
     fprintf(stderr, "[%s] Compression: zstd level %d\n",
             PLUGIN_NAME, ZSTD_LEVEL);
     fprintf(stderr, "[%s] Arch: %s | capture_pa: %s | values: %s "
@@ -1189,8 +1436,13 @@ QEMU_PLUGIN_EXPORT int qemu_plugin_install(qemu_plugin_id_t id,
                 PLUGIN_NAME);
     }
 
-    /* Initialize per-vCPU state */
-    for (int i = 0; i < MAX_VCPUS; i++)
+    /* Initialize per-vCPU state.
+     *
+     * Skipped entirely in profile mode: open_chunk() runs HERE, before any
+     * instruction callback, so returning early from insn_exec_cb() is too late
+     * to stop an (empty) trace file from being created. A profile pass must
+     * leave no artifacts. */
+    for (int i = 0; i < MAX_VCPUS && !profile_mode; i++)
     {
         if (!trace_vcpu[i])
         {
@@ -1207,7 +1459,7 @@ QEMU_PLUGIN_EXPORT int qemu_plugin_install(qemu_plugin_id_t id,
         vs->outbuf_size = ZSTD_CStreamOutSize();
         vs->outbuf = g_malloc(vs->outbuf_size);
 
-        if (rotate_interval > 0)
+        if (chunking_active())
         {
             char mpath[4300];
             snprintf(mpath, sizeof(mpath), "%s/trace_vcpu%d_manifest.txt",
@@ -1216,8 +1468,9 @@ QEMU_PLUGIN_EXPORT int qemu_plugin_install(qemu_plugin_id_t id,
             if (vs->manifest_fp)
             {
                 fprintf(vs->manifest_fp,
-                        "# vcpu %d rotation manifest: "
-                        "chunk file start_insn insn_count comp_bytes\n", i);
+                        "# vcpu %d %s manifest: "
+                        "chunk file start_insn insn_count comp_bytes\n", i,
+                        sample_len > 0 ? "sampling" : "rotation");
                 fflush(vs->manifest_fp);
             }
             else
