@@ -1,0 +1,19 @@
+--- a/target/i386/machine.c
++++ b/target/i386/machine.c
+@@ -354,6 +354,16 @@
+     env->hflags &= ~HF_CPL_MASK;
+     env->hflags |= (env->segs[R_SS].flags >> DESC_DPL_SHIFT) & HF_CPL_MASK;
+ 
++    /*
++     * hflags is migrated verbatim, but HF_AVX_EN_MASK is only ever set by the
++     * TCG-side writers of CR4 (cpu_x86_update_cr4) and XCR0 (helper_xsetbv).
++     * A snapshot taken under KVM therefore carries hflags WITHOUT that bit --
++     * hardware performed those writes, not QEMU -- so restoring it under TCG
++     * leaves AVX disabled and every VEX-encoded instruction raises #UD.
++     * cr[4] and xcr0 are both migrated, so just recompute the bit here.
++     */
++    cpu_sync_avx_hflag(env);
++
+ #ifdef CONFIG_KVM
+     if ((env->hflags & HF_GUEST_MASK) &&
+         (!env->nested_state ||

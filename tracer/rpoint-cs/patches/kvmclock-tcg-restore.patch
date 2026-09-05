@@ -1,0 +1,71 @@
+--- a/hw/i386/kvm/clock.c
++++ b/hw/i386/kvm/clock.c
+@@ -224,7 +224,13 @@
+     KVMClockState *s = KVM_CLOCK(dev);
+ 
+     if (!kvm_enabled()) {
+-        error_setg(errp, "kvmclock device requires KVM");
++        /*
++         * Under TCG: skip KVM-specific initialization.  The device is
++         * created solely so that its VMStateDescription handler exists
++         * when loading a snapshot that was taken under KVM.  The saved
++         * clock value is read and silently discarded; no KVM ioctls are
++         * needed.
++         */
+         return;
+     }
+ 
+@@ -282,7 +288,7 @@
+ {
+     KVMClockState *s = opaque;
+ 
+-    if (!s->runstate_paused) {
++    if (kvm_enabled() && !s->runstate_paused) {
+         kvm_update_clock(s);
+     }
+ 
+@@ -332,7 +338,17 @@
+ {
+     X86CPU *cpu = X86_CPU(first_cpu);
+ 
+-    assert(kvm_enabled());
++    if (!kvm_enabled()) {
++        /*
++         * Under TCG: always create the device unconditionally so that its
++         * VMStateDescription handler is registered.  This allows QEMU to
++         * silently consume (and discard) the kvmclock section present in
++         * snapshots that were taken under KVM.
++         */
++        sysbus_create_simple(TYPE_KVM_CLOCK, -1, NULL);
++        return;
++    }
++
+     if (create_always ||
+         cpu->env.features[FEAT_KVM] & ((1ULL << KVM_FEATURE_CLOCKSOURCE) |
+                                        (1ULL << KVM_FEATURE_CLOCKSOURCE2))) {
+--- a/hw/i386/pc_q35.c
++++ b/hw/i386/pc_q35.c
+@@ -189,9 +189,7 @@
+     pc_machine_init_sgx_epc(pcms);
+     x86_cpus_init(x86ms, pcmc->default_cpu_version);
+ 
+-    if (kvm_enabled()) {
+-        kvmclock_create(pcmc->kvmclock_create_always);
+-    }
++    kvmclock_create(pcmc->kvmclock_create_always);
+ 
+     /* create pci host bus */
+     phb = OBJECT(qdev_new(TYPE_Q35_HOST_DEVICE));
+--- a/hw/i386/pc_piix.c
++++ b/hw/i386/pc_piix.c
+@@ -183,9 +183,7 @@
+     pc_machine_init_sgx_epc(pcms);
+     x86_cpus_init(x86ms, pcmc->default_cpu_version);
+ 
+-    if (kvm_enabled()) {
+-        kvmclock_create(pcmc->kvmclock_create_always);
+-    }
++    kvmclock_create(pcmc->kvmclock_create_always);
+ 
+     if (pcmc->pci_enabled) {
+         pci_memory = g_new(MemoryRegion, 1);
