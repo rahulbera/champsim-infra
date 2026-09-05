@@ -288,23 +288,48 @@ to majority-T top-ups -- so the repetition is by design and not a gap. But
 "complete at all four cells" claims coverage the dataset does not have, and
 anyone planning an analysis on that basis would be misled.
 
-## Disk: what was reclaimed, and what is deliberately NOT (2026-09-04 22:00)
+## Disk: campaign teardown (2026-09-05)
 
-1. Reclaimed 111 GB of scratch guest images with `reclaim_space.sh --apply`
-   (free: 234 GB → 345 GB). Safe by construction: every phase recreates the
-   working guest from the `.provisioned` image.
-2. **The 147 GB of `.provisioned` images are being KEPT, and the reason is the
-   pending decision.** If the PI chooses to re-run captures under the patched
-   SWE-ReX for a uniform generation, those images are exactly what a re-run
-   starts from. Deleting them would add a full re-provision (20-90 min each) to
-   all 32 instances and would make the uniform option substantially more
-   expensive than it currently is.
-3. **The 98 GB of converted traces are also being kept**, though every one is
-   archived on kratos2 with digests verified on both sides. There is no disk
-   pressure at 345 GB free, and deleting them would leave the cluster copy as
-   the only copy. That trade is worth making under pressure and not before.
-4. Repo mirrors (7 GB) stay: they are what makes a re-provision possible without
-   GitHub, whose clone window was unreliable for most of 2026-09-03/04.
+Reclaimed **263 GB**; free space went 345 GB → 608 GB, and `qemu-tracing/` went
+278 GB → 11 GB. Deleted:
+
+| what | size | why it was safe |
+|---|---|---|
+| 46 `.provisioned` qcow2 images | 147 GB | Regenerable by re-provisioning, which is now reliable and offline (repo mirrors cached). |
+| 162 converted trace files | 91 GB | **Verified before deletion, not trusted:** all 156 September files were re-hashed locally and matched the CLUSTER manifest digest exactly, 0 mismatches. The 5 August `w00001` files were confirmed present on kratos2 at matching sizes (they have no digests anywhere — none were recorded in August). |
+| `swe-agent-guest{,.recorded}.qcow2` | 25 GB | Legacy August images. The `.recorded` snapshot holds API-paid recordings, so it was only deleted after confirming all five August instances' cassettes and trajectories exist on the host **and** are tracked in git (4,742 files, pushed). |
+
+**A verification trap worth remembering.** The first check compared local traces
+against `tracezoo/champsim/CHECKSUMS.sha256` — the LOCAL catalog manifest — and
+reported 156 files with no manifest line plus 3 "digest mismatches". Both were
+artifacts of using the wrong manifest: the September digests live in the
+CLUSTER manifest, and the three "mismatches" were the known stale August entries
+for immutable-js. Had that output been taken at face value it would have looked
+like mass corruption. Fetch the cluster manifest and compare against that.
+
+### Deliberately kept
+
+* `repo-cache/` (7.0 GB) — makes re-provisioning possible without GitHub, whose
+  clone window was refusing `git-upload-pack` for most of 2026-09-03/04.
+* `noble-server-cloudimg-amd64.img` (596 MB) — the backing file every guest
+  overlay is created from.
+* `artifacts/` cassettes and trajectories — API-paid and not regenerable
+  identically. Kept on disk twice and in git.
+* `champsim_out/*/*.check.log` and `capture-*.meta` — the only local record that
+  a window passed validation, plus its software provenance. Tiny.
+* `preactjs__preact-3763` traces (2.7 GB) — the ONLY capture not on kratos2,
+  held back because it was produced under a patched SWE-ReX. Deleting it would
+  destroy the only artifact of the `--noediting` result.
+* The local tracezoo catalog — 6 representative windows shared with other
+  ChampSim projects on this host.
+
+### Consequence to be aware of
+
+Re-running any capture now needs a full re-provision (20–90 min each), because
+the `.provisioned` images are gone. If the two-generation decision goes the
+"re-run everything patched" way, that adds roughly 16 hours of unattended
+machine time across 32 instances. The mirrors being kept is what stops it being
+worse.
 
 ## OPEN: lombok-3479 is blocked on tooling, and it is worse than first estimated
 
