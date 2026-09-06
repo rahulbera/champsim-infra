@@ -1,0 +1,70 @@
+# DaCapo Chopin kafka — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# Apache Kafka 3.3.1 (Scala 2.13) with Zookeeper, the broker and the Trogdor
+# workload driver ALL IN ONE JVM, under TCG restored from a KVM snapshot.
+# Second JVM workload in the corpus; see dacapo_cassandra.yml for the first and
+# for why JVM tracing works at all now (the QEMU AVX hflag patch).
+#
+# Configuration, every field MEASURED from the benchmark rather than assumed:
+#   * kafka3.3.1   <- the run banner "Version: kafka 3.3.1", corroborated by
+#                     jar/kafka/kafka_2.13-3.3.1.jar
+#   * 10Mmsg       <- dat/kafka/simple_produce_bench-large.json maxMessages=10000000
+#   * 2topx10part  <- activeTopics dacapo-[1-2], numPartitions 10,
+#                     replicationFactor 1 (plus 2 inactive topics)
+#   * targetMessagesPerSec 200000 (from the same file)
+#   * jdk21g1gc2G  <- OpenJDK 21.0.12, -XX:+UseG1GC, -Xms2g -Xmx2g pinned
+#                     explicitly. 2 GB is ~5.8x kafka's 345 MB minheap at -s large,
+#                     the same ratio cassandra got (1 GB against 174 MB).
+#   * 1t           <- DaCapo -t 1
+#
+# SINGLE-CORE SLICE: all 101 JVM threads pinned to the traced vCPU
+# (`taskset -acp 1`), verified mask=2 with 0 unpinned after the snapshot restore.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **99.32%** of the profiled
+# trajectory — the best coverage in the campaign — using scripts/sgap.py.
+# The plugin's own exit hint would have given 94.96%. Manifest preserved at
+# docs/workloads/dacapo/kafka-v1-manifest.txt.
+# The two gaps imply user fractions of 0.5158 and 0.5042 against a profile
+# average of 0.5063: Kafka holds a near-constant user/kernel ratio, which is why
+# its coverage beats Cassandra's despite the identical method.
+#
+# MEASURED, all three windows, decode_fail 0:
+#   w00000 52.9/47.1 user/kern, 15.4% branch, 45.4% mem, 999,987,386 insns
+#   w00001 35.6/64.4, 17.1%, 45.8%, 999,999,999
+#   w00002 35.6/64.4, 17.0%, 45.7%, 1,000,000,000
+# Branch spread 1.7 pt, memory spread 0.4 pt, 0 windows in the reject band.
+# As with cassandra, the USER FRACTION moves (52.9 -> 35.6) while the instruction
+# mix does not — JVM phase behaviour, sampled deliberately wide.
+#
+# CORPUS PLACEMENT: Kafka sits at ~16.5% branch / ~45.6% mem, close to MongoDB
+# (16.2/47.1) and far from Cassandra (17.6/40.6). Its profile user fraction is
+# 50.63%, against cassandra 37.14% and tomcat 66.41% — a 29-point spread across
+# three Java server workloads. JVMs do NOT share one memory signature.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 8 GB (-m 8G deliberately: savevm serialises every
+# TOUCHED guest page, so a 24 GB guest cost a 23.6 GiB snapshot where this one
+# cost 7.28 GiB). Built from the kratos2 catalogue's CHECKSUMS rows.
+
+dacapo_kafka:
+  - dacapo_kafka_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: kafka
+      category: messaging
+      subcategory: jvm_dacapo
+      checksum: b7e7525942f2e3edf5e057ad762762f5b49641a8cf782b77698999f3524ff2cb
+  - dacapo_kafka_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: kafka
+      category: messaging
+      subcategory: jvm_dacapo
+      checksum: d66a77ef56cd803b2ad685a512c32b6ed34f811ab2e128d7124cf2b368deaa3c
+  - dacapo_kafka_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: kafka
+      category: messaging
+      subcategory: jvm_dacapo
+      checksum: 1a26ebe14c5b6e5e352a701a743c3f466af2125aff560be876f4b9229bea1b60

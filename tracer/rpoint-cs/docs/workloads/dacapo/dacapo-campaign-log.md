@@ -861,3 +861,139 @@ for free on the way.
     `--force-share`) confirms it still points at `java-guest.qcow2`. The lock
     failing silently is itself the point: it is exactly the write lock that would
     have blocked, or corrupted, a `qemu-img snapshot -d` on the backing file.
+
+64. **2026-09-06 03:36Z — `dc_tomcat_a`: 1.68 GiB in 8 SECONDS**, and the three
+    snapshots together finally pin down the savevm cost model precisely.
+    | guest | RAM | snapshot | why |
+    |---|---|---|---|
+    | cassandra | 24 GB | 23.6 GiB | touched nearly all of it (15 GB DaCapo unzip in page cache) |
+    | kafka | 8 GB | 7.28 GiB | touched most of 8 GB (Kafka log segments in page cache) |
+    | tomcat | 8 GB | **1.68 GiB** | 512 MB heap, small working set, little page cache |
+    So guest RAM **size is the cap** and **touched pages set the actual cost**
+    within it. Entry 46 said this; Tomcat is the clean confirmation, because it
+    has the same 8 GB guest as Kafka and a snapshot 4.3x smaller.
+    It also closes out entry 26 properly: dropping the page cache on the 24 GB
+    guest could never have helped, because freed-but-not-zeroed pages are still
+    touched pages. The fix was always to stop touching 24 GB.
+    Restore time follows: **8 s to write, and the TCG guest was up in ~20 s**,
+    against ~100 s for Cassandra's 23.6 GiB.
+
+65. **2026-09-06 03:36Z — Snapshot point chosen by rule, not by luck.**
+    `scripts/run_tomcat_snap.sh` waits for the run to be **20-80% through an
+    iteration** before snapshotting, and re-verifies the pin immediately before
+    committing. Snapshotting at an iteration boundary would capture DaCapo's
+    per-iteration bookkeeping — result reporting, latency percentile computation,
+    webapp teardown/setup — instead of steady-state request serving. Cassandra
+    and Kafka were both mid-stream by judgement; this makes it a gate.
+    Fired at 20%, pin confirmed `mask=2, 26 threads, 0 unpinned`.
+
+66. **2026-09-06 03:42Z — Tomcat dormant-phase skip: 4.01e9 instructions.**
+    Cassandra 1.84e9, Tomcat 4.01e9, Kafka 12.66e9 — the post-restore transient
+    scales with how much service machinery has to re-establish itself (Kafka
+    restarts Zookeeper + broker + Trogdor; Tomcat re-warms a servlet container;
+    Cassandra least of all). Every one of those is excluded from both the profile
+    and the capture by the `trigger=` fix in entry 33. Without it the profile
+    would have counted a transient the capture skips, and the three benchmarks
+    would have been mis-sized by *different* amounts.
+
+67. **2026-09-06 04:01Z — My own monitor cried wolf, for the second time tonight.**
+    A poll reported Kafka as "1/3 OK, **convert=0**" — which is literally the
+    brief's ESCALATE condition ("converters 0 while windows incomplete") and would
+    have woken the researcher.
+    Nothing was wrong. Both remaining windows had finished `raw2champsim` and were
+    in **`trace_sanity_check`** (pids 605282, 605924), the stage that runs *after*
+    conversion and *before* the OK verdict. My counter only tallied
+    `raw2champsim`, so a healthy pipeline reads as zero.
+    Corroborating evidence I checked before concluding anything: all three output
+    `.champsim2.zst` exist (2.79/3.22/3.25 GB), all three convert logs printed
+    their final compression ratio, the `.filt` intermediates for the two pending
+    windows are still on disk (they are deleted only in the OK branch), and both
+    `convert_one_kafka.sh` instances are alive.
+    Fixed with **`scripts/convstat.sh`**, which counts filter + convert + sanity
+    and prints a pipeline total. Same lesson as entry 59 and the same shape: the
+    dangerous monitoring bug is not the one that misses a failure, it is the one
+    that manufactures one — an escalation at 4am on a working system costs trust
+    and sleep, and the next real alarm gets discounted.
+
+68. **2026-09-06 04:11Z — KAFKA 3/3 OK, mix check PASS.**
+    | win | user | kern | branch | mem | insns |
+    |-----|------|------|--------|-----|-------|
+    | w00000 | 52.9 | 47.1 | 15.4% | 45.4% | 999,987,386 |
+    | w00001 | 35.6 | 64.4 | 17.1% | 45.8% | 999,999,999 |
+    | w00002 | 35.6 | 64.4 | 17.0% | 45.7% | 1,000,000,000 |
+    Branch spread 1.7 pt, memory spread 0.4 pt, **0 in the reject band**,
+    decode_fail 0. Same signature as Cassandra: the **user fraction moves
+    (52.9 -> 35.6) while the instruction mix does not**. Two independent JVM
+    workloads now show that pattern, so it is a property of JVM phase behaviour
+    rather than a quirk of one benchmark. Ship driver fired on the gate.
+
+69. **2026-09-06 04:11Z — TOMCAT PROFILE, and three JVMs with three genuinely
+    different kernel balances.**
+    `PROFILE: 45,986,418,193 instructions (30,539,128,998 user, 15,447,289,195
+    kernel)` over 600 s = 76.6 MIPS, **66.41% user**.
+    | workload | user % | why |
+    |---|---|---|
+    | cassandra | 37.14 | YCSB request/response over loopback — syscall-bound |
+    | kafka | 50.63 | batches and serialises in-JVM before hitting the socket |
+    | **tomcat** | **66.41** | 1-thread pool serving an in-memory webapp; barely touches the kernel |
+    This is the strongest evidence yet for the entry-51 conclusion: "trace one JVM,
+    they are all alike" would have been badly wrong. Three Java server workloads
+    span a **29-point** range in user fraction and sit in three different places
+    on branch/memory density.
+    It also means a per-workload profile pass is load-bearing, not ceremony:
+    reusing Cassandra's ratio for Tomcat would have mis-sized the gap by ~79%.
+
+70. **2026-09-06 04:11Z — Tomcat capture launched.**
+    `sgap.py --total 45986418193 --user 30539128998 --windows 3`
+      -> **SGAP = 14,273,429,220**, spanning **100.00%**.
+      Plugin hint 13,769,564,499 -> 96.70%.
+    The hint's error is smallest here of any benchmark so far (3.3%), which is
+    consistent with the model: the shortfall `K*N*(1-f)/U` shrinks as the user
+    fraction rises, and Tomcat has the highest f in the campaign. Redis, with the
+    lowest f (0.372), lost 41%. The bug's magnitude is a function of the workload,
+    which is exactly why it went unnoticed through four campaigns.
+    Capture driver is detached and chains straight into conversion on completion.
+
+71. **2026-09-06 04:31Z — KAFKA SHIPPED AND REGISTERED.** `SHIP_RC=0`, CHECKSUMS
+    **182 -> 185**. Independent post-check on kratos2: 185 lines, 3 kafka rows,
+    5 cassandra rows, **0 duplicate basenames**, 8 files in `version2.1/dacapo/`.
+    Manifest preserved first; locals reclaimed (**493G -> 512G**).
+
+72. **2026-09-06 04:31Z — Tomcat captured: 3 windows, 97.64% coverage, and the
+    steadiest workload in the campaign.**
+    span 44,902,147,786 of a profiled 45,986,418,193. The two gaps imply user
+    fractions of **0.6812 and 0.6813** against a profile average of 0.6641 —
+    essentially identical, where Cassandra's swung 0.308-0.488. A single-thread-pool
+    servlet container serving identical requests is about as stationary as a real
+    workload gets, and the gap prediction lands accordingly.
+    Coverage across all six benchmarks:
+    | workload | coverage | gap from |
+    |---|---|---|
+    | redis | 58.92% | plugin hint |
+    | rocksdb | 86.35% | plugin hint |
+    | tomcat | 97.64% | sgap.py |
+    | cassandra | 97.84% | sgap.py |
+    | kafka | 99.32% | sgap.py |
+
+73. **2026-09-06 04:41Z — THE SAME TRAP CAUGHT ME TWICE IN ONE NIGHT, AND IT IS
+    WRITTEN IN MY OWN RUNBOOK.**
+    `grep -c` prints **"0" AND exits 1** when there are no matches. So
+    `grep -c ... || echo 0` emits **two lines** — `0\n0` — and `[ "0\n0" -eq 3 ]`
+    is a shell **error**, not a false. Demonstrated rather than asserted:
+    ```
+    { grep -acE '^OK' /tmp/empty.log || echo 0; } -> "0|0|"
+    { grep -acE '^OK' /tmp/empty.log || echo 0; } | head -1 -> "0"
+    ```
+    The runbook line reads, verbatim: "`pgrep -c X || echo 0` prints 0\n0 and
+    breaks numeric tests." I wrote that down, and then wrote the identical
+    construct twice in the same night, in the tomcat ship driver.
+    Consequence was mild (the `until` loop treats an erroring test as "not yet",
+    so it waited correctly and only spammed the log) but the same construct inside
+    an `if` takes the WRONG BRANCH silently, which in a ship driver means shipping
+    on a gate that has not passed.
+    Fixed: `n=$( grep -acE '^OK' "$LOG" 2>/dev/null | head -1 ); echo "${n:-0}"`.
+    **The pattern across entries 59, 67 and 73 is the real lesson: three of
+    tonight's defects were in MONITORING and CONTROL code, not in the pipeline.
+    The traces were never at risk; my ability to see them correctly was.** Two of
+    the three manufactured a false alarm on a healthy system, which is the failure
+    mode that erodes trust in the alarm that matters.
