@@ -1,0 +1,86 @@
+# Apache Spark — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# THE BIG-DATA CATEGORY. This is the workload the researcher had wanted to trace
+# for a long time and never attempted, because "most of the big data frameworks
+# are in Java, and it breaks pretty quickly inside TCG restore". That blocker was
+# the QEMU AVX hflag bug; see tracer/rpoint-cs/patches/ and the DaCapo campaign
+# log for how it was diagnosed and retired.
+#
+# Apache Spark 3.5.3 (Scala 2.13, hadoop-client 3.3.6) via Renaissance 0.16.1,
+# benchmark `page-rank`: RDD-based iterative PageRank.
+#
+# *** RECORDED DEVIATION — READ THIS BEFORE USING THESE TRACES ***
+# Spark runs in LOCAL MODE, one JVM, no cluster. That means the traces contain
+# Tungsten's memory management, the shuffle machinery with its disk spill,
+# columnar batch processing and G1 GC -- but NOT network shuffle serialisation
+# over TCP. Single-node Spark is a genuinely common deployment, so this is a
+# stated limitation rather than an unrealistic configuration, but it is the one
+# thing these traces do not exercise.
+# Local mode was chosen deliberately: a distributed Spark under a 50-100x TCG
+# slowdown would blow through every timeout it owns (executor heartbeat 10 s,
+# spark.network.timeout 120 s, block-manager liveness). A heartbeat never sent
+# over a socket cannot be missed.
+#
+# Configuration, every field MEASURED from the artifact:
+#   * spark3.5.3        <- unique/apache-spark/spark-core_2.13-3.5.3.jar
+#   * renaissance0.16.1 <- release v0.16.1 (2025-11-10), one self-contained jar
+#   * pagerank          <- chosen over `als` on MEASURED live set: 149 MB vs
+#                          65 MB after GC, and RDD iteration chases pointers over
+#                          a PERSISTED structure rather than transient MLlib
+#                          intermediates. Screened on behaviour, not on name.
+#   * jdk21g1gc4G       <- OpenJDK 21.0.12, -XX:+UseG1GC, -Xms4g -Xmx4g pinned
+#   * 1t                <- one traced vCPU (see pinning below)
+#
+# SINGLE-CORE SLICE: 268 JVM threads -- the largest of any workload in this
+# corpus (cassandra 88, kafka 101, tomcat 26) -- ALL pinned to the traced vCPU
+# with `taskset -acp 1`, verified mask=2 with 0 unpinned before the snapshot and
+# again after the TCG restore. Unpinned, `vcpus=1` would have sampled roughly
+# 1/268th of the work interleaved with unrelated guest activity, and would have
+# produced a plausible-looking scheduler artifact.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **99.86%** of the profiled
+# trajectory via scripts/sgap.py. Profile: 111,822,210,176 instructions,
+# **95.09% user**, 186 MIPS -- the widest trajectory and by far the most
+# user-heavy workload in the corpus (cassandra 37.1%, kafka 50.6%, tomcat 66.4%).
+# Manifest at docs/workloads/spark/spark-v1-manifest.txt.
+#
+# Spark is also the workload that explains how the sample_gap unit bug survived
+# four campaigns: the shortfall is K*N*(1-f)/U, so it scales with KERNEL
+# fraction. At 95% user the plugin's broken hint would have covered 99.86% --
+# indistinguishable from correct. Redis, at 37% user, lost 41% of its run.
+#
+# MEASURED, all three windows, decode_fail 0:
+#   w00000 79.2/20.8 user/kern, 18.1% branch, 40.4% mem, 999,999,999 insns
+#   w00001 80.8/19.2, 17.1%, 40.6%, 1,000,000,000
+#   w00002 79.3/20.7, 18.5%, 45.2%, 1,000,000,000
+# Branch spread 1.4 pt; memory spread **4.8 pt** -- the widest in the campaign
+# (cassandra 0.5, kafka 0.4, tomcat 0.1). With windows 51.7e9 instructions apart,
+# that is PageRank's iteration structure showing up as genuinely different memory
+# behaviour between windows, not just a different privilege split. A gradient,
+# not a divergent regime: 0 windows in the reject band (branch<10 AND mem>70).
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+spark_pagerank:
+  - spark_pagerank_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: 72eb81358fa893bb0e44da72aff72c52f1ea4e49b1a2e6165bcc35273ea1f1f6
+  - spark_pagerank_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: 94c78e0dce6f7150fd2fd719b4e44d60906eff0e58c5af679acda60ffe00eb0c
+  - spark_pagerank_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: d9c7ae62ee18d7ab9dc6ec3d636390ec9e1af3f46aa332f88d8c935f0a27bb15
