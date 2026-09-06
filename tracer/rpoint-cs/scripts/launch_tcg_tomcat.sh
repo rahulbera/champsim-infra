@@ -5,7 +5,7 @@ set -eu
 . "$HOME/work/new-tracing/cpustr.sh"
 MODE=${MODE:-bare}
 SNAP=${SNAP:?set SNAP to the savevm tag}
-OUT=${OUT:-$HOME/work/new-tracing/traces/java_profile}
+OUT=${OUT:-$HOME/work/new-tracing/traces/tomcat_profile}
 PLUGIN=$HOME/work/new-tracing/champsim-infra/tracer/rpoint-cs/plugin/champsim_tracer.so
 TRIG=${TRIG:-$HOME/work/new-tracing/run/java_trace_start}
 mkdir -p "$OUT" "$HOME/work/new-tracing/run"; rm -f "$TRIG"
@@ -15,17 +15,17 @@ case "$MODE" in
   capture) PLUGARG=(-plugin "$PLUGIN,outdir=$OUT,vcpus=1,sample_len=${SLEN:?},sample_gap=${SGAP:?},sample_count=${SCOUNT:-3},sample_clock=user,trigger=$TRIG,capture_pa=on,values=on") ;;
   *) echo "unknown MODE=$MODE"; exit 1 ;;
 esac
-QLOG=${QLOG:-$HOME/work/new-tracing/logs/java-tcg-qemu.log}
+QLOG=${QLOG:-$HOME/work/new-tracing/logs/tomcat-tcg-qemu.log}
 cd "$IMAGES"
 # stderr carries the plugin banner and the exit-time PROFILE line; a tmux
 # pane dies with QEMU and takes them with it. Keep a file copy.
 exec 2> >(tee -a "$QLOG" >&2)
 exec taskset -c 10-31 "$QEMU_FIXED" \
-  -name java-guest-tcg \
-  -machine q35,accel=tcg -cpu "$CPUSTR" -smp 4 -m 24G \
-  -drive file=java-guest.qcow2,if=virtio,format=qcow2,cache=none,aio=io_uring \
+  -name java8g-guest-tcg \
+  -machine q35,accel=tcg -cpu "$CPUSTR" -smp 4 -m 8G \
+  -drive file=tomcat-guest.qcow2,if=virtio,format=qcow2,cache=none,aio=io_uring \
   -drive file=seed-java.iso,if=virtio,format=raw,readonly=on \
-  -netdev user,id=n0,hostfwd=tcp:127.0.0.1:2227-:22 -device virtio-net-pci,netdev=n0 \
-  -monitor unix:"$HOME/work/new-tracing/run/monitor-java-tcg.sock",server,nowait \
+  -netdev user,id=n0,hostfwd=tcp:127.0.0.1:2231-:22 -device virtio-net-pci,netdev=n0 \
+  -monitor unix:"$HOME/work/new-tracing/run/monitor-tomcat-tcg.sock",server,nowait \
   "${PLUGARG[@]}" -loadvm "$SNAP" \
-  -nographic -serial file:"$HOME/work/new-tracing/logs/java-tcg-console.log" < /dev/null
+  -nographic -serial file:"$HOME/work/new-tracing/logs/tomcat-tcg-console.log" < /dev/null

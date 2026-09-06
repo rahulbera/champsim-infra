@@ -14,4 +14,4 @@ exec taskset -c 10-31 "$QEMU_FIXED" \
   -drive file=seed-java.iso,if=virtio,format=raw,readonly=on \
   -netdev user,id=n0,hostfwd=tcp:127.0.0.1:2226-:22 -device virtio-net-pci,netdev=n0 \
   -monitor unix:"$HOME/work/new-tracing/run/monitor-java.sock",server,nowait \
-  -nographic -serial file:"$HOME/work/new-tracing/logs/java-console.log"
+  -nographic -serial file:"$HOME/work/new-tracing/logs/java-console.log" < /dev/null

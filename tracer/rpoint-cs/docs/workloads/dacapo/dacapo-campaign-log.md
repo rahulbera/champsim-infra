@@ -580,3 +580,210 @@ for free on the way.
     Note the corpus consequence: at **rd50wr50** this is by far the most
     write-heavy workload in the set (memcached/Redis rd99wr01, RocksDB/MongoDB
     rd95wr05), which is real diversity rather than a fifth read-mostly KV store.
+
+44. **2026-09-06 23:32Z — Kafka pipelined onto a COW overlay while Cassandra
+    converts.** Cassandra's conversion has ~2.5 h to run and holds only 5 of 32
+    cores, so kafka's KVM warm-up is free wall-clock. The scheduling risk was
+    that both benchmarks want the same guest image: if a Cassandra window failed
+    conversion I would need `dc_cass_c` back, but running kafka on that image
+    would make restoring it discard kafka's state.
+    Solved with a copy-on-write overlay:
+    `qemu-img create -f qcow2 -b .../java-guest.qcow2 -F qcow2 kafka-guest.qcow2`
+    — 196 KiB on creation, DaCapo and the JDK inherited from the backing file,
+    and `java-guest.qcow2` (with `j1_canary_a` and `dc_cass_c`) untouched
+    underneath. The recapture path stays open.
+
+45. **2026-09-06 23:33Z — Kafka is running, and `-m 8G` is in effect.**
+    Guest: 8 GB, 4 vcpu, JDK 21.0.12 — the RAM-size fix from entry 26, since
+    savevm cost scales with guest RAM *size*, not usage.
+    `Version: kafka 3.3.1`, Zookeeper + Kafka Server + Trogdor all in one JVM,
+    `Starting 10000000 requests`, **0 errors**. (DaCapo issue #281, kafka's
+    `InvocationTargetException`, was fixed in MR1; MR2 runs clean.)
+    Config read from the benchmark, not assumed —
+    `dat/kafka/simple_produce_bench-large.json`: ProduceBenchSpec,
+    `maxMessages=10000000`, `targetMessagesPerSec=200000`, 2 active topics
+    (`dacapo-[1-2]`) x 10 partitions, replicationFactor 1, plus 2 inactive topics.
+    Heap pinned `-Xms2g -Xmx2g` — kafka's minheap at `-s large` is 345 MB, so 2 GB
+    is ~5.8x, the same ratio Cassandra got (1 GB against a 174 MB minheap).
+    Pinned immediately: **101 threads, all mask `2`, zero unpinned** — entry 30's
+    lesson applied up front this time rather than caught by an audit.
+    Planned name (fields already measured):
+    `kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_wNNNNN`
+
+46. **2026-09-06 23:54Z — `dc_kafka_a` = 7.28 GiB, against Cassandra's 23.6 GiB.**
+    The `-m 8G` fix from entry 26 works, and confirms the mechanism: guest RAM
+    **size** is the cap on savevm cost. Note it is 7.28 GiB and not ~2 GiB even
+    though Kafka's live set is far smaller — the guest had touched most of its
+    8 GB with Kafka log-segment page cache, and QEMU writes every touched page.
+    That is exactly why dropping the page cache did not help the 24 GB guest
+    (entry 26): dropping marks pages free, it does not zero them.
+    3.2x smaller snapshot, 3.2x faster restore, on every restore from here.
+
+47. **2026-09-06 23:56Z — Kafka warmed and snapshotted mid-stream.** Completed
+    warmup iteration 1 in full (10,000,000 events, DaCapo printed its metered
+    tail-latency line) and was 55% into warmup 2 at snapshot time, so the JIT is
+    thoroughly settled and the snapshot sits in steady state rather than at an
+    iteration boundary.
+    `scripts/launch_tcg_java8g.sh` created for the 8 GB guest (separate ports,
+    monitor socket and QEMU log so it cannot collide with the Cassandra guest).
+
+48. **2026-09-06 00:11Z — Kafka PROFILE, and a genuinely different JVM shape.**
+    `PROFILE: 58,058,009,732 instructions (29,393,411,013 user, 28,664,598,719
+    kernel)` over 600 s = **96.8 MIPS**, **50.63% user**.
+    Cassandra was 37.14% user; Kafka is 50.63%. The two JVMs are not
+    interchangeable: YCSB request/response against Cassandra is syscall-bound,
+    while Kafka's ProduceBench is dominated by in-JVM serialisation and batching
+    before anything reaches the socket. Useful corpus diversity, and a reminder
+    that a per-workload profile pass is not a formality — reusing Cassandra's
+    ratio for Kafka would have mis-sized the gap by ~36%.
+    Dormant-phase skip was **12.66e9 instructions**, against Cassandra's 1.84e9:
+    Zookeeper + broker + Trogdor do far more work re-establishing themselves after
+    a restore. Without `trigger=` in the profile pass (entry 33) that entire
+    transient would have been counted in the profile and excluded from the
+    capture — the two passes would have measured visibly different things.
+
+49. **2026-09-06 00:11Z — Kafka capture launched, 3 windows.**
+    `sgap.py --total 58058009732 --user 29393411013 --windows 3`
+      -> **SGAP = 13,937,290,626**, spanning **100.00%**.
+      Plugin hint would have been 13,196,705,506 -> 94.96%.
+    Note the hint's error is much smaller here (5%) than for Cassandra (14%) or
+    Redis (41%), because the shortfall is `K*N*(1-f)/U` — it shrinks as the user
+    fraction rises and as fewer/shorter windows are used. That is exactly why the
+    bug survived four campaigns: its magnitude is workload-dependent and it never
+    produces an obviously broken trace, only a quietly narrower one.
+    Capture and profile drivers are now **detached `nohup setsid` scripts**
+    (`run_kafka_profile.sh`, `run_kafka_capture.sh`) logging to files, after
+    orchestrator task kills interrupted three timed sequences. Same principle as
+    persisting QEMU's stderr: put the state where it survives the thing that dies.
+
+50. **2026-09-06 00:31Z — Kafka capture complete: 3 windows, 99.32% coverage.**
+    ```
+    0  start           0   1,000,000,000
+    1  start 28,021,041,838   1,000,000,000
+    2  start 56,660,816,939   1,000,000,000
+    ```
+    span 57,660,816,939 of a profiled 58,058,009,732.
+    The two gaps imply user fractions of **0.5158 and 0.5042** against a profile
+    average of 0.5063 — Kafka holds a near-constant user/kernel ratio, where
+    Cassandra's swung 0.308-0.488. A steadier workload makes the gap prediction
+    land almost exactly, which is why Kafka beats Cassandra's 97.84% despite
+    using the identical method.
+
+    Trajectory coverage across the campaign, all four measured the same way:
+    | workload   | coverage | gap from        |
+    |------------|----------|-----------------|
+    | Redis v1   | 58.92%   | plugin hint     |
+    | RocksDB v2 | 86.35%   | plugin hint     |
+    | Cassandra  | 97.84%   | sgap.py         |
+    | Kafka      | 99.32%   | sgap.py         |
+
+51. **2026-09-06 00:41Z — Kafka's instruction mix is NOT Cassandra's.**
+    Early conversion figures: Kafka **branch 15.9-16.2%, mem 46.2-47.4%**;
+    Cassandra **branch 17.2-19.1%, mem 40.0-41.2%**.
+    So the two JVM workloads sit in genuinely different places — Kafka lands near
+    MongoDB (16.2/47.1), Cassandra is the highest-branch / lowest-memory-density
+    workload in the whole corpus. Neither is anywhere near the reject band.
+    This is the answer to the question the Chopin segue was meant to settle: a
+    JVM does not have one characteristic memory signature that makes all Java
+    workloads redundant with each other. Worth having measured rather than
+    assumed, since the cheap prior would have been "JVMs all look alike".
+
+52. **2026-09-06 01:00Z — Tomcat started, third and last Chopin benchmark.**
+    Own COW overlay (`tomcat-guest.qcow2`, 196 KiB on creation) off the same
+    `java-guest.qcow2` base, so Cassandra's and Kafka's snapshots both stay
+    intact and independent. 8 GB guest, pinned from the start.
+    Measured, not assumed: **`Version: tomcat 10.1.11`** printed by the benchmark
+    itself and corroborated by `dat/tomcat/RELEASE-NOTES` ("Apache Tomcat Version
+    10.1.11"); **800,000 requests** per iteration at `-s large`; "Server created
+    with thread pool size 1" from `-t 1`. 0 errors.
+    Pinned immediately: 26 threads, all mask `2`, zero unpinned. (Far fewer
+    threads than Cassandra's 88 or Kafka's 101 — Tomcat with a 1-thread pool is a
+    much leaner process.)
+
+53. **2026-09-06 01:01Z — DELIBERATE deviation on heap size, recorded because it
+    breaks the pattern of the other two.** Cassandra got 1 GB against a 174 MB
+    minheap (5.7x) and Kafka 2 GB against 345 MB (5.8x). The same ratio for
+    Tomcat's **35 MB** minheap would be ~200 MB — a heap nobody would actually
+    deploy Tomcat with, and the researcher's standing constraint is memory
+    intensity *without* an unrealistic deployment.
+    Chose **`-Xms512m -Xmx512m`** (~15x minheap): the smallest heap a real Tomcat
+    deployment would plausibly use, still tight enough to keep G1 genuinely
+    active. The ratio-consistency argument loses to the realism argument here, and
+    the heap is in the trace name (`g1gc512M`) so the choice is visible rather
+    than buried.
+    Note DaCapo's own nominal stats for tomcat were measured at 2x minheap
+    (70 MB), tighter still than what we are using — so if anything our
+    configuration will show *less* GC pressure than their published 5119 LLC
+    misses/M-instr, not more.
+
+54. **2026-09-06 01:30Z — A tmux attach killed the Tomcat guest, and it was my
+    setup that made that possible.** The researcher attached with `tmux att -d`,
+    landed in the `tomcatvm` pane, and pressed Ctrl+D. QEMU exited; the session
+    went with it.
+    **Root cause: QEMU inherited the tmux pane's stdin.** Every boot/launch script
+    ran `exec qemu ... -nographic` with stdin still attached to the terminal, so
+    an EOF typed into an attached pane reaches QEMU and ends it. Monitor control
+    has always been via the unix socket, so QEMU never needed stdin at all — it
+    was pure exposure with no benefit.
+    **Fix applied to all seven scripts** (`boot_java_kvm.sh`,
+    `boot_java_kvm_restore.sh`, `boot_java8g_kvm.sh`, `boot_tomcat_kvm.sh`,
+    `launch_tcg_java.sh`, `launch_tcg_java8g.sh`, `launch_tcg_tomcat.sh`):
+    append `< /dev/null` to the exec'd QEMU command. A stray keystroke in an
+    attached pane can no longer reach any guest.
+    **Damage: 30 minutes of Tomcat warm-up, nothing else.** Verified rather than
+    assumed — `qemu-img check` on `tomcat-guest.qcow2` reports no errors;
+    `java-guest.qcow2` still carries `j1_canary_a` and `dc_cass_c`;
+    `kafka-guest.qcow2` and `dc_kafka_a` intact; **all capture raws safe**
+    (cass_v1 37 GB / 10 files, kafka_v1 21 GB / 6 files) and both conversions
+    still running with no FAIL/MISSING. Nothing had been snapshotted or captured
+    for Tomcat yet, so there was no irreplaceable state to lose.
+    Worth stating plainly: this was a latent defect in every guest launch this
+    campaign has done, including the four KV workloads. It happened to be
+    triggered by a human attaching to a pane, but a stray EOF from any source
+    would have done the same — and if it had landed mid-capture instead of
+    mid-warm-up, it would have killed QEMU without the clean `quit` that
+    terminates the zstd frame, losing the in-flight window.
+
+55. **2026-09-06 01:33Z — Tomcat relaunched on the guarded script; PIN RE-APPLIED.**
+    Worth its own line because it is easy to miss: **a guest restart loses the
+    CPU pin.** The pin is guest kernel state attached to a specific pid, so it
+    survives `savevm`/`-loadvm` (entry 36) but NOT a fresh boot and a fresh JVM.
+    After the relaunch the new java pid came up with the default mask again and
+    had to be re-pinned: now `affinity=2`, **zero threads unpinned**.
+    Rule: pin AFTER the JVM starts, and re-check the mask any time the guest or
+    the JVM is restarted — never assume it carried over.
+    Also note the relaunch task reported "failed, exit 143". That was the
+    120-second ssh timeout, not a failure: the benchmark had already started and
+    was serving requests. The logged trap ("ssh times out while the remote
+    command succeeds — check the artifact") applied exactly as written.
+
+56. **2026-09-06 01:38Z — Handover to autonomous overnight operation.**
+    Researcher asleep; machine handed over with three standing orders: keep
+    archiving to kratos2 and reclaiming locally, keep documenting, and never trade
+    deployment realism for MPKI. Cron brief rewritten to carry the full remaining
+    plan (Cassandra ship -> Kafka ship -> Tomcat capture -> Spark) plus every trap
+    paid for so far, so the plan survives even if this session does not.
+    Storage at handover: minitron 464G free (47% used); kratos2 126T free,
+    CHECKSUMS at 177. Local footprint: cass_v1 34G, kafka_v1 21G, out/ 18G,
+    java-guest 49G, kafka-guest 16G, tomcat-guest 168M.
+
+57. **2026-09-06 01:39Z — `scripts/ship_dacapo.sh`: one parameterised ship script
+    for all three DaCapo benchmarks** (BENCH / NEW / NWIN / EXPECT), replacing the
+    copy-and-sed lineage of ship_redis -> ship_mongo. It keeps every gate from the
+    originals: N OK verdicts, re-verify under the shipped names, hash locally,
+    rsync, **`sha256sum -c` ON KRATOS2 as the gate**, CHECKSUMS line-count
+    precondition, bare basenames, and it STOPS before reclamation — deletion stays
+    a separate deliberate act.
+    Bug caught before first use, worth recording because it would have been
+    silent: I generated the window keys with
+    `seq -w 0 $((NWIN-1)) | sed 's/^/000/'`, which yields **`0000`**, not
+    `00000` — `seq -w` pads to the width of the largest value, which is one digit
+    here. Every file lookup would have missed and the script would have aborted
+    with "missing", looking like a capture failure rather than a script bug.
+    Replaced with `printf "%05d"`. Verified it emits 00000-00004 for NWIN=5 and
+    00000-00002 for NWIN=3, and confirmed the gate correctly ABORTS on a window
+    count mismatch before touching anything.
+
+58. **2026-09-06 01:39Z — First Cassandra window converted: w00003, 999,999,999
+    instructions** (one short of 1e9 — idle-loop filtering), compression 176.5:1,
+    decode_fail 0. The other four are at 840-920M.
