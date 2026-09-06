@@ -1,0 +1,92 @@
+# PostgreSQL / TPC-H Q1 — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# THE DATABASE CATEGORY — the last uncovered class in the OSDI'24 CXL-tiering
+# taxonomy (Zhong et al., §3.2). The other categories are covered by memcached,
+# Redis, RocksDB and MongoDB (KV-store), DaCapo Cassandra/Kafka/Tomcat (JVM
+# services), Spark (big data) and the PIN-traced GAP suite (graph).
+#
+# PostgreSQL 16.15 on Ubuntu 24.04, TPC-H scale factor 10, one backend.
+#
+# Configuration, every field MEASURED from the running system, not assumed:
+#   * postgres16.15 <- `select version()` in the guest
+#   * tpch_sf10     <- dbgen -s 10, row counts verified against the spec
+#                      (lineitem 59,986,052 exactly). 14 GB database.
+#   * q1            <- TPC-H Q1, "pricing summary report": a single sequential
+#                      scan of lineitem with a grouped aggregate. Kept at the
+#                      researcher's explicit direction -- I had screened it out
+#                      for low memory traffic, and was told "pure-sequential scan
+#                      is also a legit behavior for which we should have some
+#                      traces". That was the right call: Q1 is the streaming-scan
+#                      end of the corpus.
+#   * sb2G          <- shared_buffers=2GB against a 14 GB database: **7x
+#                      overcommit**, so the working set CANNOT be buffer-resident
+#                      and the scan genuinely reaches the memory system.
+#   * wm64M         <- work_mem=64MB. Stock 4MB would spill every sort to disk
+#                      and turn this into an I/O study rather than a memory one.
+#   * nopar         <- max_parallel_workers_per_gather=0, the researcher's
+#                      explicit call. ONE execution process, matching the 1t
+#                      convention used across this corpus.
+#   * 1t            <- one traced vCPU
+#
+# *** RECORDED DEVIATION — READ BEFORE USING THESE TRACES ***
+# Real analytics deployments use parallel query. Disabling it is a deliberate
+# choice to keep one execution process on one pinned vCPU, so the trace is a
+# clean single-core slice rather than a scheduler artifact. It is a stated
+# limitation, not an accident.
+# Foreign keys were NOT created. tpch-kit's `dss.ri` is DB2 syntax targeting a
+# TPCD schema; it ran to completion against PostgreSQL and created ZERO
+# constraints while appearing to succeed. Caught by querying pg_constraint
+# directly (0 rows). The 8 primary keys were then written by hand and verified;
+# FKs were skipped deliberately, since Q1 touches only lineitem.
+#
+# SINGLE-CORE SLICE: the query runs in a server-side PL/pgSQL `LOOP`, not a shell
+# loop over psql. This is load-bearing: the CPU pin is PID-BOUND, and a shell
+# loop would spawn a fresh backend every ~35 s, silently losing the pin. One
+# backend, `taskset -acp 1`, mask=2 verified before the snapshot and again after
+# the TCG restore.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **101.29%** of the profiled
+# trajectory via scripts/sgap.py (SGAP 49,436,071,266). Over 100% because the
+# capture is not time-bounded and ran marginally faster than the 600 s profile.
+# Profile: 122,849,691,352 instructions (101,347,046,090 user, 21,502,645,262
+# kernel) = 82.50% user, **204.7 MIPS -- the fastest TCG rate in the campaign**.
+# Manifest at docs/workloads/postgres/postgres-q1-manifest.txt.
+# The plugin's own exit-time gap hint was NOT used; it is unit-inconsistent and
+# its error scales with kernel fraction. See scripts/sgap.py for the derivation.
+#
+# MEASURED, all three windows, decode_fail 0, 1,000,000,000 insns each:
+#   w00000 72.8/27.2 user/kern, 15.0% branch, 50.8% mem
+#   w00001 79.8/20.2,           15.4%,        49.9%
+#   w00002 76.9/23.1,           15.3%,        50.2%
+# Branch spread 0.4 pt, memory spread 0.9 pt -- the tightest in the corpus, which
+# is what a pure sequential scan should look like: the same loop over different
+# data. Contrast Spark page-rank's 4.8 pt memory spread across its iterations.
+# Corpus placement: 15% branch / 50% memory puts Q1 at the low-branch,
+# high-memory end near Redis and RocksDB, clearly separated from all four JVMs.
+# 0 windows in the reject band (branch<10 AND mem>70).
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+postgres_tpch_q1:
+  - postgres_tpch_q1_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q1_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 3e5f5eefffc97d84c69dfa79f09567708598839b461c534ffbbb2a5eb0cb20a9
+  - postgres_tpch_q1_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q1_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 1919568c81c8dc22e2d1cecdf801dfb1bb08f9239653307de29f9574623b99f5
+  - postgres_tpch_q1_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q1_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 584dcb8d8b6e07f8b585b6657ab9d7a72020b4e6daa1fbfc5843158d95a616c5

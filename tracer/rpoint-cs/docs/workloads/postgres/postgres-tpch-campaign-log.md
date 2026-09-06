@@ -241,3 +241,95 @@ or HammerDB) is the realistic route.
     rather than something retyped per poll. That is the third time this campaign
     has answered a monitoring defect by promoting the check to a script; the
     pattern is now the default response.
+
+18. **2026-09-06 13:18Z — pipelining: the profile is the only stage that must
+    run on a quiet machine.** The researcher asked whether the next query could
+    be pipelined against the current one's conversion. It can, and I had been
+    too conservative: Q9 was warming in parallel, but its profile was queued
+    behind Q1's ~2.4 h conversion, leaving the guest idle for ~40 minutes.
+
+    The constraint is narrower than I was treating it. Capture and conversion are
+    instruction- and data-bounded, so contention there costs wall-clock and
+    nothing else. **The 600 s profile is the only time-bounded stage**: a
+    contended profile executes fewer instructions in its fixed window, yielding a
+    smaller SGAP, spreading the three windows over a NARROWER slice of the
+    query's trajectory. Not wrong -- but not comparable to Q1, profiled idle at
+    204.7 MIPS. Comparability across queries is the thing worth protecting.
+
+    Capacity was never the issue: 32 cores at load 4.2, NVMe at 46% util, 43 GB
+    RAM free. So rather than wait, fence only the measured window -- `SIGSTOP`
+    the three converters for the ~12 minutes around the profile, `SIGCONT`
+    after, via a trap so it fires even on failure. `SIGSTOP` is safe on
+    `raw2champsim` specifically: a plain read/write filter, no timers, no
+    sockets, no guest, no monitor. **This is not a loosening of the
+    never-signal-QEMU rule**; a capture is still stopped with a monitor `quit`.
+    Written into `scripts/run_pg_snap_profile.sh`'s header so it cannot be
+    misread later as general permission to signal things.
+
+    Result: load fell 4.26 -> 1.05 for the measured window, restore took 53 s
+    with the disk free, and Q9's capture then ran concurrently with Q1's resumed
+    conversion. ~28 minutes recovered, and the same again on Q18 and Q21.
+
+19. **2026-09-06 13:35Z — Q9 profile, and what the fence bought.**
+    `PROFILE: 102,794,750,124 instructions (73,027,808,407 user,
+    29,766,941,717 kernel)` = 171.3 MIPS, **71.04% user**.
+
+    | query | TCG rate | user % | measured |
+    | q1 | 204.7 MIPS | 82.50 | idle machine |
+    | q9 | 171.3 MIPS | 71.04 | idle machine (fenced) |
+
+    Both idle, so the 11-point gap is the query. Q9's six-way join over
+    lineitem/partsupp/orders/part/supplier/nation touches far more data than
+    Q1's single scan, so more of its time is kernel-side page-cache work --
+    consistent with the KVM screen (86.4% vs 88.8% CPU-bound). Profiled against
+    three running converters, that difference would have been unreadable.
+
+    `sgap.py` gave SGAP 35,448,268,921, spanning 100.00%. The plugin's hint
+    would have given 35,013,904,204 -- only 1.2% low here, because Q9's kernel
+    fraction is moderate. That is the bug's signature: **the error scales with
+    kernel fraction**, which is exactly how it survived four campaigns of
+    mostly-user workloads.
+
+20. **2026-09-06 13:59Z — Q9 capture, 3/3 windows, 99.73% coverage.**
+    Windows at 0 / 54,689,421,023 / 101,513,826,678; span 102,513,826,678 of
+    102,794,750,124 profiled. Q1 came in at 101.29% from the other side of 100%.
+
+    `trace_filter` removed **0.0%** from every Q9 window. PostgreSQL under a
+    server-side DO-LOOP never idles, so there is no idle-loop noise to strip --
+    the exact opposite of Tomcat, the only workload in the corpus that genuinely
+    idles and legitimately loses 0.6-0.9% per window. Worth recording because
+    that Tomcat number is what forced the ship gate down from a mis-generalised
+    99.99% to 99%.
+
+    The filter also showed Q9's user fraction varying **82.3% / 55.3% / 54.3%**
+    across the three chunks, against Q1's steady 73-80%. The join moves through
+    genuinely different phases (hash build, probe, aggregate); spreading windows
+    across the whole trajectory is what captures that.
+
+21. **2026-09-06 14:43Z — Q1 SHIPPED. CHECKSUMS 191 -> 194.**
+    All three verified with `sha256sum -c` ON kratos2 before registering; bare
+    basenames; manifest preserved to `docs/workloads/postgres/`; tlist
+    `scripts/tlists/postgres_tpch_q1.yml` written (9 tlists, 38 names, 0
+    duplicates); then and only then reclaimed 5.9 GB raw + 5.8 GB converted.
+
+    Final mix, decode_fail 0, 1,000,000,000 insns each:
+    w00000 72.8/27.2 user/kern 15.0% branch 50.8% mem; w00001 79.8/20.2 15.4%
+    49.9%; w00002 76.9/23.1 15.3% 50.2%. Branch spread 0.4 pt, memory spread
+    0.9 pt -- **the tightest in the corpus**, which is what a pure sequential
+    scan should look like: the same loop over different data. Spark page-rank,
+    by contrast, spread 4.8 pt across its iterations.
+
+22. **2026-09-06 14:17Z — an eighth monitoring defect, caught before use:
+    `bash -n` reports "syntax OK" on a zero-byte file.** Building `ship_pg.sh`
+    from `ship_spark.sh` with `sed`, one expression used `|` as both the
+    delimiter and a literal alternation. `sed` aborted at parse time -- but `>`
+    had already truncated the output file, so `ship_pg.sh` was 0 bytes, and
+    `bash -n` on an empty file exits 0. The verdict "syntax OK" was true and
+    meaningless.
+
+    Same family as the `grep -c` and `decode_fail` traps: **a check that passes
+    on nothing.** Caught only because the follow-up `grep` for `DEST=` printed
+    no lines. Rebuilt in Python and verified 3,491 bytes with the right `DEST`,
+    `STAGE` and log path before running. Nothing shipped from the empty file.
+    Rule to carry forward: after generating a file, assert on its SIZE and on a
+    known-present string, never on a syntax check alone.
