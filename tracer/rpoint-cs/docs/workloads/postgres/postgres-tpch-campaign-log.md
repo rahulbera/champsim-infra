@@ -147,3 +147,97 @@ or HammerDB) is the realistic route.
     caught for Cassandra. A `DO $$ LOOP PERFORM count(*) FROM (<query>) $$` keeps
     ONE backend for the whole run. Verified: backend 8014, `mask=2`, 1 thread,
     0 unpinned, busy-tick delta cpu1=831 vs cpu0=9.
+
+12. **2026-09-06 11:13Z — Q1 PROFILE, and the KVM/TCG I/O prediction CONFIRMED.**
+    `PROFILE: 122,849,691,352 instructions (101,347,046,090 user,
+    21,502,645,262 kernel)` over 600 s = **204.7 MIPS, 82.50% user**.
+    * **Widest trajectory and fastest TCG rate in the whole campaign** — 122.8e9
+      against Spark's 111.8e9, and 204.7 MIPS against Spark's 186.4. Both make
+      sense for a tight scan-and-aggregate loop over 60M rows: a small hot code
+      footprint means very high TCG translation-block reuse.
+    * The prediction from entry 10 held. Under KVM, Q1 measured **60.2% CPU /
+      24.9% iowait** (pinned). Under TCG the trace is **82.5% user / 17.5%
+      kernel** — the I/O wait has effectively vanished, because TCG stretches
+      compute ~35x while the disk runs at unchanged wall-clock speed.
+      That is the reasoning that justified keeping Q1 *and* weakened my objection
+      to Q21, now confirmed by measurement rather than argument.
+
+13. **2026-09-06 11:14Z — A sed bug of mine killed the first Q1 profile launch.**
+    Building `launch_tcg_pg.sh` I wrote `sed 's/pg-guest/pg-guest-tcg/'` intending
+    to rename only the QEMU `-name` label; it also rewrote the **disk filename**,
+    so QEMU died at startup with `Could not open 'pg-guest-tcg.qcow2'`. The no-op
+    protective sed I had added ran later in the chain and could not help.
+    Cost ~9 minutes; **no data at risk** — QEMU died before opening anything, and
+    `tpch_q1_a` with its warm buffer cache was verified intact afterwards.
+    Fixed, and added a **fail-fast check** to the driver: 20 s after launch it
+    confirms QEMU is running and dumps stderr if not. Without that the failure
+    would have sat in an ssh retry loop for 40 minutes, which is exactly what it
+    did the first time.
+
+14. **2026-09-06 11:33Z — Q1 captured: 3 windows, 101.29% coverage.**
+    `sgap.py --total 122849691352 --user 101347046090 --windows 3`
+      -> SGAP = 49,436,071,266, spanning 100.00% of the profile.
+    Achieved span 124,432,608,087 of a profiled 122,849,691,352 = **101.29%**.
+    Over 100% is not an error: the gap is sized from the profile's 600 s
+    trajectory, but the capture is not time-bounded — it runs until 3 windows are
+    collected. The capture ran marginally faster (warmer TB cache, less dormant
+    overhead), so the third window landed just past where the profile's sample
+    ended. The query loops indefinitely, so there is always more workload there.
+    Implied user fractions 0.8215 / 0.8070 against a profile 0.8250 — consistent.
+
+15. **2026-09-06 11:43Z — Q1's instruction mix puts it in a NEW part of the
+    corpus, which is exactly why the researcher was right to keep it.**
+    Early conversion: **branch 15.0-15.5%, mem 49.8-50.8%**, decode_fail 0.
+    | workload | branch % | mem % |
+    |---|---|---|
+    | redis | 14.2 | 52.8 |
+    | **postgres Q1** | **~15.3** | **~50.2** |
+    | mongodb | 16.2 | 47.1 |
+    | kafka | 16.5 | 45.6 |
+    | rocksdb | 17.5 | 50.0 |
+    | tomcat | 17.6 | 41.8 |
+    | cassandra | 17.6 | 40.6 |
+    | spark | 17.9 | 42.1 |
+    Q1 sits at the **low-branch / high-memory** end, near Redis and RocksDB and
+    clearly separated from all four JVMs — the signature of a tight scan-and-
+    aggregate loop: few branches per instruction, heavy streaming load traffic.
+    I had screened Q1 OUT for "near-zero buffer hits, memory barely involved".
+    That was a category error: I was screening for *traffic volume* rather than
+    for *coverage of behaviours*, and a corpus with no streaming-scan point is
+    poorer for it. The researcher overruled me and the measurement supports them.
+
+16. **2026-09-06 11:54Z — Q9 warm-up started in parallel with Q1's conversion,
+    pin RE-APPLIED after the guest reboot.** The guest was shut down for Q1's TCG
+    capture, so this is a fresh boot: new postmaster, new backend pid (1084), and
+    the pin is pid-bound. Re-applied and verified `mask=2`, 1 thread. Assuming it
+    had carried over would have produced an unpinned Q9 trace — the same silent
+    failure the preflight audit caught for Cassandra.
+
+17. **2026-09-06 12:45Z — a monitoring poll reported `decode_fail=1606302`; it
+    was the SIMD counter.** The seventh monitoring defect of this campaign, and
+    the same family as the `grep -c` trap. The converter's progress line is
+
+    ```
+    [raw2champsim] 560M insns | user 79.6% kern 20.4% | branch 15.4% mem 49.9% \
+      | decode_fail 0 memop_overflow 35856 | INT 558393616 FP 82 SIMD 1606302
+    ```
+
+    An earlier poll extracted the field correctly with
+    `grep -oE 'decode_fail[= ]+[0-9]+' | grep -oE '[0-9]+$'`. Retyping the poll
+    by hand I dropped the middle stage, leaving `grep -oE '[0-9]+$'` applied to
+    any line *containing* the string `decode_fail` — which returns the last
+    number on the line. That is `SIMD`. The value 1,606,302 is w00001's SIMD
+    instruction count at 560M, not a decode failure.
+
+    This is the literal ESCALATE condition (`decode_fail non-zero`),
+    manufactured on a healthy converter — exactly like the `convert=0` reading
+    that produced `convstat.sh`. Verified before escalating: all three windows
+    show `decode_fail 0`.
+
+    **Rule, now stated generally: never extract a number without anchoring it to
+    its label.** Both defects are the same mistake — a positional extraction
+    (`$?`, `[0-9]+$`) standing in for a named one. Added `scripts/dfstat.sh`
+    alongside `convstat.sh` and `guestpin.sh`, so the check is a definition
+    rather than something retyped per poll. That is the third time this campaign
+    has answered a monitoring defect by promoting the check to a script; the
+    pattern is now the default response.
