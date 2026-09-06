@@ -997,3 +997,61 @@ for free on the way.
     The traces were never at risk; my ability to see them correctly was.** Two of
     the three manufactured a false alarm on a healthy system, which is the failure
     mode that erodes trust in the alarm that matters.
+
+74. **2026-09-06 05:11Z — SPARK PREP: the Renaissance plan is VERIFIED, not
+    assumed.** The brief said to check before committing, so I did.
+    Renaissance **0.16.1** (released 2025-11-10), one self-contained jar (419 MB,
+    560 entries), bundling **Apache Spark 3.5.3** (Scala 2.13) with
+    hadoop-client 3.3.6 under `unique/apache-spark/` — spark-core, spark-sql and
+    spark-mllib all present, plus every transitive dependency.
+    **Eight `apache-spark` benchmarks**, each with a configured repetition count:
+    `als` (30), `chi-square` (60), `dec-tree` (40), `gauss-mix` (40),
+    `log-regression` (20), `movie-lens` (20), `naive-bayes` (30),
+    `page-rank` (20).
+    This is decisive for the plan: **no cluster, no HDFS, no Zookeeper, no
+    external services** — Spark runs in-process, which removes the entire class
+    of failure I was most worried about under TCG (driver/executor heartbeats
+    default 10 s, `spark.network.timeout` 120 s, block-manager liveness). A
+    50-100x slowdown cannot miss a heartbeat that is never sent over a socket.
+    The repetition counts also mean the load -> warm -> steady-state pattern that
+    has now worked six times maps straight onto it: run with a high `-r`, warm
+    under KVM, snapshot mid-repetition, restore under TCG, capture.
+    First screening candidates on memory grounds: **page-rank** (RDD-based,
+    iterative, pointer-chasing over a graph — the classic bad-locality shape) and
+    **als** (MLlib matrix factorisation, large dense/sparse intermediates).
+    Deviation to record in the tlist when we get there, per the standing order on
+    realism: local mode exercises Tungsten's memory manager, the shuffle
+    machinery with its disk spill, columnar batches and GC, but NOT network
+    shuffle serialisation over TCP. Single-node Spark is a genuinely common
+    deployment, so this is a recorded limitation rather than an unrealistic
+    configuration — but it must be stated in the tlist, not buried here.
+
+75. **2026-09-06 07:21Z — The tomcat ship ABORTED on my own gate. The data was
+    fine; the threshold was miscalibrated. Worth recording in full because the
+    gate behaved correctly by stopping.**
+    `ABORT: ..._w00000 has 997,166,412 insns, expected >=999,900,000`.
+    Investigated before touching anything. `trace_filter` output explains it to
+    the instruction:
+    ```
+    in=1000000000 ... out=997166412 filtered=2833588 (0.6%)
+    in=1000000000 ... out=995947780 filtered=4052220 (0.9%)
+    in=1000000000 ... out=995871453 filtered=4128547 (0.9%)
+    ```
+    `out + filtered = 1e9` exactly. The shortfall **is** the idle-loop removal.
+    | workload | filtered | why |
+    |---|---|---|
+    | cassandra | 0 (0.0%) | YCSB hammers continuously, never idles |
+    | kafka | 0 (0.0%) | Trogdor produces continuously |
+    | **tomcat** | **0.6-0.9%** | 1-thread servlet pool **blocks between requests** |
+    Tomcat is the **first workload in this campaign that genuinely idles**, so it
+    is the first where TCG's emulated idle loop appears at all and gets stripped.
+    That is the filter doing its job — the alternative is 4M instructions of
+    worthless idle churn inside a 1e9 window.
+    **My error**: the `>=999,900,000` gate was a 0.01% tolerance generalised from
+    MongoDB's 0.0015% case, i.e. a prior taken from a workload that barely idles.
+    Recalibrated to **>=990,000,000 (99%)**, which accommodates legitimate idle
+    filtering while still catching a genuinely truncated window.
+    The gate stopping a valid ship is a **false positive, not a failure**: a
+    conservative gate that halts and forces an investigation is the right shape
+    for an unattended run. Had it been loose, three shortened windows would have
+    shipped without anyone looking at why.

@@ -1,0 +1,76 @@
+# DaCapo Chopin tomcat — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# Apache Tomcat 10.1.11 serving its bundled sample web applications, in one JVM
+# under TCG restored from a KVM snapshot. Third and last of the Chopin trio; see
+# dacapo_cassandra.yml for why JVM tracing works at all now.
+#
+# Configuration, every field MEASURED from the benchmark:
+#   * tomcat10.1.11 <- run banner "Version: tomcat 10.1.11", corroborated by
+#                      dat/tomcat/RELEASE-NOTES "Apache Tomcat Version 10.1.11"
+#   * 800Kreq       <- "Starting 800000 requests..." at -s large
+#   * 1t            <- "Server created with thread pool size 1" from -t 1
+#   * jdk21g1gc512M <- OpenJDK 21.0.12, -XX:+UseG1GC, -Xms512m -Xmx512m
+#
+# HEAP: a DELIBERATE deviation from the ~5.8x-minheap ratio used for cassandra
+# (1 GB / 174 MB) and kafka (2 GB / 345 MB). Tomcat's minheap at -s large is only
+# 35 MB, and 5.8x of that (~200 MB) is not a heap anyone would deploy. 512 MB is
+# the smallest realistic one and still keeps G1 active. Realism over
+# ratio-consistency, per the standing constraint; the value is in the trace name
+# so the choice is visible rather than buried. For reference DaCapo's own
+# published stats were measured at 2x minheap (70 MB), TIGHTER than ours — so if
+# anything this configuration shows LESS GC pressure than their 5119 LLC/Mi.
+#
+# SINGLE-CORE SLICE: all 26 JVM threads pinned to the traced vCPU. Note the pin
+# had to be RE-APPLIED after a guest restart (it is pid-bound; it survives
+# savevm/-loadvm but not a fresh boot). Verified mask=2, 0 unpinned, before the
+# snapshot and again after the TCG restore.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **97.64%** of the profiled
+# trajectory via scripts/sgap.py (the plugin's own hint would have given 96.70%).
+# The two gaps imply user fractions of 0.6812 and 0.6813 against a profile
+# average of 0.6641 — Tomcat is the most stationary workload in the campaign, as
+# a single-thread-pool servlet container serving identical requests should be.
+# Manifest at docs/workloads/dacapo/tomcat-v1-manifest.txt.
+#
+# MEASURED, all three windows, decode_fail 0:
+#   w00000 50.9/49.1 user/kern, 17.5% branch, 41.8% mem, 997,166,412 insns
+#   w00001 53.8/46.2, 17.6%, 41.7%, 995,871,453
+#   w00002 53.8/46.2, 17.6%, 41.7%, 995,947,779
+# Branch spread 0.1 pt, memory spread 0.1 pt — the tightest in the campaign.
+# 0 windows in the reject band (branch < 10% AND mem > 70%).
+#
+# INSTRUCTION COUNTS ARE SHORT BY 0.4-0.9%, LEGITIMATELY. Tomcat is the only
+# workload here that genuinely IDLES: a 1-thread pool blocks between requests, so
+# TCG's emulated idle loop runs and `trace_filter` strips it
+# (filtered=2,833,588 / 4,052,220 / 4,128,547; out+filtered = 1e9 exactly).
+# Cassandra and Kafka filtered 0 because they never idle. The ship gate was
+# recalibrated from >=999,900,000 to >=990,000,000 after it correctly ABORTED on
+# this — see docs/workloads/dacapo/dacapo-campaign-log.md entry 75.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 8 GB. Snapshot dc_tomcat_a was 1.68 GiB written in
+# 8 s — the cheapest in the campaign, because savevm cost tracks TOUCHED guest
+# pages and Tomcat touches little. Built from the kratos2 catalogue's rows.
+
+dacapo_tomcat:
+  - dacapo_tomcat_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: tomcat
+      category: web
+      subcategory: jvm_dacapo
+      checksum: 96626e0587f5371ee51de8384d091babbc9a8581075664b9097625cef5e1efa2
+  - dacapo_tomcat_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: tomcat
+      category: web
+      subcategory: jvm_dacapo
+      checksum: 0e2a4f91304e5b9513da40d848a9d4d56606e159dadcbdfbc3c2d3e7c453a9c2
+  - dacapo_tomcat_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: tomcat
+      category: web
+      subcategory: jvm_dacapo
+      checksum: 2f6471002d332b28605c0a0cb9cea69b8407565d526b31bee5d5635b95638e4b

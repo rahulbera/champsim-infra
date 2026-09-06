@@ -37,7 +37,7 @@ for k in $KS; do
   "$W/champsim-infra/tools/trace_sanity_check/trace_sanity_check" -i "$f" -f v2 --check >/dev/null 2>&1 \
     || { echo "ABORT: sanity check failed on $(basename "$f")"; exit 1; }
   ins=$("$W/champsim-infra/tools/trace_sanity_check/trace_sanity_check" -i "$f" -f v2 2>/dev/null | awk '/total instructions/{print $NF}')
-  [ "${ins:-0}" -ge 999900000 ] || { echo "ABORT: $(basename \"$f\") has $ins insns, expected >=999,900,000"; exit 1; }
+  [ "${ins:-0}" -ge 990000000 ] || { echo "ABORT: $(basename \"$f\") has $ins insns, expected >=990,000,000 (99% of the window; idle-loop filtering legitimately removes up to ~1%)"; exit 1; }
   echo "  OK $(basename "$f") ($ins insns)"
 done
 
