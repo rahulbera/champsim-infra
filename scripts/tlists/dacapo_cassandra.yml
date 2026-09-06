@@ -1,0 +1,96 @@
+# DaCapo Chopin cassandra — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# THE FIRST JVM TRACES THIS PIPELINE HAS PRODUCED. Apache Cassandra 5.1-pre driven
+# by YCSB 0.17.0, both inside ONE JVM (DaCapo runs server and client in-process),
+# under TCG restored from a KVM snapshot.
+#
+# Why this was previously thought impossible: the standing blocker was that Java
+# workloads "break pretty quickly inside TCG restore". Root cause was almost
+# certainly the QEMU AVX hflag bug (cpu_post_load never re-synced HF_AVX_EN_MASK,
+# so a KVM snapshot restored under TCG ran with AVX disabled and every VEX
+# instruction raised #UD). A JVM is the worst case for it: HotSpot bakes AVX into
+# C2-compiled code it cannot fall back from. Patched; see tracer/rpoint-cs/patches/.
+# Verified before capture: a JVM with C2-compiled AVX2/FMA survives the restore,
+# javac runs to completion under TCG, and a vectorised-vs-scalar cross-check agrees
+# element-by-element (workloads/dacapo/{AvxCanary,VecCheck}.java).
+#
+# Configuration, every field MEASURED from the benchmark rather than assumed:
+#   * cassandra5.1pre <- jar/cassandra/cassandra-1ba458c-pre-5.1.jar
+#   * 100Kx1KB        <- dat/cassandra/ycsb/workload-large recordcount=100000;
+#                        CoreWorkload default 10 fields x 100 B = 1 KB
+#   * rd50wr50        <- readproportion=0.5, updateproportion=0.5 (scan/insert 0).
+#                        The MOST WRITE-HEAVY workload in this corpus; everything
+#                        else is rd95-rd99.
+#   * zipf0.99        <- requestdistribution=zipfian, YCSB default constant 0.99
+#   * jdk21g1gc1G     <- OpenJDK 21.0.12, -XX:+UseG1GC, -Xms1g -Xmx1g pinned
+#                        explicitly (NOT ergonomics, which would size from guest RAM)
+#   * 1t              <- DaCapo -t 1, one external client thread
+#   * -s large        <- 2,000,000 YCSB operations per iteration
+#
+# SINGLE-CORE SLICE. The whole JVM (88 threads: YCSB, Cassandra pools, G1, JIT) is
+# pinned to the single traced vCPU with `taskset -acp 1`. Verified by busy-tick
+# delta, not by the stale `processor` field in /proc: cpu1 took 1,925 of a possible
+# 2,000 ticks over 20 s while cpu0/2/3 took 1, 1, 0. Without this the trace would
+# have been "whatever the scheduler put on vCPU 1" — about a quarter of the JVM,
+# arbitrarily interleaved — and it would have looked entirely plausible.
+#
+# WINDOW PLACEMENT: 5 windows x 1e9 instructions spanning 97.84% of the profiled
+# trajectory, using the CORRECTED gap from scripts/sgap.py. The plugin's own
+# exit-time hint mixes units and would have covered 85.75% here (it cost Redis 41%
+# and RocksDB 14% of their runs). Manifest preserved at
+# docs/workloads/dacapo/cassandra-v1-manifest.txt.
+#
+# MEASURED, all five windows, decode_fail 0:
+#   w00000 34.6/65.4 user/kern, 17.6% branch, 40.4% mem
+#   w00001 50.8/49.2, 18.8%, 40.9%      w00002 39.7/60.3, 17.8%, 40.8%
+#   w00003 53.9/46.1, 17.3%, 40.5%      w00004 33.2/66.8, 17.5%, 40.4%
+# Branch spread 1.5 pt, memory spread 0.5 pt, 0 windows in the reject band
+# (branch < 10% AND mem > 70%). Note the user fraction swings 20 points across
+# windows while the instruction mix does not: the windows landed in different
+# phases (GC/syscall-heavy vs compute-heavy) and still agree on memory character.
+# trace_filter reported filtered=0 on every window — there is NO TCG idle-loop
+# content; the kernel share is genuine loopback syscall + GC work.
+#
+# Highest branch density and lowest memory-op density in the corpus. Kafka, the
+# other JVM traced here, sits at ~16.0%/46.8% — so JVMs do NOT share one memory
+# signature, and one Java trace would not have stood in for the others.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 24 GB. Built from the kratos2 catalogue's rows.
+
+dacapo_cassandra:
+  - dacapo_cassandra_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: cassandra
+      category: database
+      subcategory: jvm_dacapo
+      checksum: a8be972d42a7e2faa7e8eb1463a0611d15e96bf9c0744fa5223a03313ad18cf9
+  - dacapo_cassandra_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: cassandra
+      category: database
+      subcategory: jvm_dacapo
+      checksum: 9badf8b8f92eb5dd74a27cc31b212824d67f73cfd4e56ed112d0a080f392e470
+  - dacapo_cassandra_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: cassandra
+      category: database
+      subcategory: jvm_dacapo
+      checksum: f00e8c08ee901f0ae12e0d651a5abc18482290565226af5f0584600cd502c9a7
+  - dacapo_cassandra_w00003:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
+      version: 2
+      workload: cassandra
+      category: database
+      subcategory: jvm_dacapo
+      checksum: 55aabaa781da03d56473ef09916aa6be539b7e6d225906bd756ab54da68585f6
+  - dacapo_cassandra_w00004:
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      version: 2
+      workload: cassandra
+      category: database
+      subcategory: jvm_dacapo
+      checksum: e6a5e548374748bde0dce6909c4108c69b9cc66e091200aa2d05fd9016f7b1bc

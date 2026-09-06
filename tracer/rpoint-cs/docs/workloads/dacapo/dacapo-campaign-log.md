@@ -787,3 +787,77 @@ for free on the way.
 58. **2026-09-06 01:39Z — First Cassandra window converted: w00003, 999,999,999
     instructions** (one short of 1e9 — idle-loop filtering), compression 176.5:1,
     decode_fail 0. The other four are at 840-920M.
+
+59. **2026-09-06 01:41Z — I tripped my own logged trap, in a monitoring command.**
+    A poll reported Tomcat's JVM as `mask=f`, i.e. pin lost. It was not: I had
+    written `taskset -p $(pgrep -f dacapo-23.11 | head -1)`, and `pgrep -f`
+    matches the **bash wrappers** as well as the JVM. Three pids match the
+    pattern in that guest — 1051 (bash, mask f), **1053 (java, mask 2)**, 1403
+    (bash, mask f) — and `head -1` picked a wrapper.
+    The trap was already in the runbook in exactly these words. Knowing a trap and
+    writing a one-off command that avoids it are different things, so the check is
+    now a script instead of a habit: **`scripts/guestpin.sh <ssh-port>`** resolves
+    the JVM by `/proc/PID/exe` and reports mask, thread count and unpinned count.
+    Cost: nothing, because I checked before believing it. But the same misreading
+    in the other direction — a wrapper showing mask 2 while the JVM was unpinned —
+    would have let a bad capture through, and that is the case this script closes.
+
+60. **2026-09-06 02:12Z — CASSANDRA COMPLETE: 5/5 OK, mix check PASS.**
+    | win | user | kern | branch | mem | decode_fail | insns |
+    |-----|------|------|--------|-----|-------------|-------|
+    | w00000 | 34.6 | 65.4 | 17.6% | 40.4% | 0 | 999,999,999 |
+    | w00001 | 50.8 | 49.2 | 18.8% | 40.9% | 0 | 1,000,000,000 |
+    | w00002 | 39.7 | 60.3 | 17.8% | 40.8% | 0 | 1,000,000,000 |
+    | w00003 | 53.9 | 46.1 | 17.3% | 40.5% | 0 | 999,999,999 |
+    | w00004 | 33.2 | 66.8 | 17.5% | 40.4% | 0 | 1,000,000,000 |
+    Branch spread **1.5 pt**, memory spread **0.5 pt**, **0 windows in the reject
+    band** (branch < 10% AND mem > 70%). Two windows one instruction short of 1e9
+    from idle-loop filtering; accepted.
+
+61. **2026-09-06 02:13Z — The most interesting number in that table is the one
+    that ISN'T stable.** The user fraction ranges **33.2% to 53.9%** across the
+    five windows — a 20-point swing — while branch stays within 1.5 pt and memory
+    within 0.5 pt.
+    So the windows genuinely landed in different phases (GC- and syscall-heavy
+    versus compute-heavy), and the *privilege split* tracks that, but the
+    *instruction mix* does not. For trace quality that is the good outcome: the
+    windows sample different parts of the workload yet agree on its memory
+    character, which is what spread-out sampling is supposed to buy.
+    It also retro-justifies the corrected gap. Under the plugin's hint these
+    windows would have clustered in the leading 86% of the run; the 97.84% span is
+    what put w00004 out at instruction 57.1e9 where the user fraction is 33.2%,
+    a regime none of the earlier windows sampled.
+    And it explains the varying gaps recorded in entry 41 (implied user fractions
+    0.308-0.488): those were not noise, they were this phase structure, measured.
+
+62. **2026-09-06 03:12Z — CASSANDRA SHIPPED AND REGISTERED.** Order held: 5/5 OK
+    -> manifest preserved into the repo -> re-verify under the shipped names ->
+    hash locally -> rsync -> **`sha256sum -c` on kratos2, all five OK** -> append
+    to CHECKSUMS (**177 -> 182**) -> only then delete. `SHIP_RC=0`.
+    Independent post-check on kratos2: 182 lines, 5 cassandra rows, **0 duplicate
+    basenames**, 5 files, 17 GB in `version2.1/dacapo/`.
+    **Reclaimed 36 GB locally** (473G -> 507G): converted traces + raws.
+    This is the campaign's **first JVM trace set in the catalogue** — 26 traces
+    total now.
+
+63. **2026-09-06 03:13Z — DEFERRING the `dc_cass_c` snapshot deletion the brief
+    asks for, deliberately.** The brief says to reclaim it (23.6 GiB) once
+    Cassandra ships. I am not doing that yet, because `dc_cass_c` lives *inside*
+    `java-guest.qcow2`, and that file is the **backing file** for both
+    `kafka-guest.qcow2` and `tomcat-guest.qcow2` — and tomcat's QEMU is running on
+    that chain right now.
+    `qemu-img snapshot -d` takes a **write** lock on the image. Doing that to a
+    backing file with a live overlay attached is at best refused and at worst
+    corrupting; the runbook rule "never delete a backing file while an overlay
+    exists" was written about deletion, but *modifying* it under a live overlay is
+    the same hazard wearing a different hat.
+    There is no space pressure to justify the risk: 507 G free, and the whole
+    reclaim is 23.6 GiB. Deferred until no overlay is in use — i.e. after Tomcat
+    is captured and its guest is down. Recorded so it is not silently forgotten:
+    **dc_cass_c and dc_kafka_a both still owe ~31 GiB of reclamation.**
+    Precision note on entry 63: when I checked the chain, `qemu-img info` printed
+    nothing for `tomcat-guest.qcow2`. That was the **running QEMU's lock**, not
+    evidence of a missing backing file — reading the qcow2 header directly (or
+    `--force-share`) confirms it still points at `java-guest.qcow2`. The lock
+    failing silently is itself the point: it is exactly the write lock that would
+    have blocked, or corrupted, a `qemu-img snapshot -d` on the backing file.
