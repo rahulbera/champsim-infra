@@ -60,35 +60,35 @@
 
 dacapo_cassandra:
   - dacapo_cassandra_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: cassandra
       category: database
       subcategory: jvm_dacapo
       checksum: a8be972d42a7e2faa7e8eb1463a0611d15e96bf9c0744fa5223a03313ad18cf9
   - dacapo_cassandra_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: cassandra
       category: database
       subcategory: jvm_dacapo
       checksum: 9badf8b8f92eb5dd74a27cc31b212824d67f73cfd4e56ed112d0a080f392e470
   - dacapo_cassandra_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: cassandra
       category: database
       subcategory: jvm_dacapo
       checksum: f00e8c08ee901f0ae12e0d651a5abc18482290565226af5f0584600cd502c9a7
   - dacapo_cassandra_w00003:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00003.champsim2.zst
       version: 2
       workload: cassandra
       category: database
       subcategory: jvm_dacapo
       checksum: 55aabaa781da03d56473ef09916aa6be539b7e6d225906bd756ab54da68585f6
   - dacapo_cassandra_w00004:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/cassandra/cassandra5.1pre_dacapo23.11ycsb_100Kx1KB_rd50wr50_zipf0.99_jdk21g1gc1G_1t_ubu24.04_qemu9.2.4tcg_1B_w00004.champsim2.zst
       version: 2
       workload: cassandra
       category: database

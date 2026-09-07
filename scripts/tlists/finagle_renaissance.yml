@@ -68,42 +68,42 @@
 
 finagle_renaissance:
   - finagle_http_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/finagle-http/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: finagle
       category: web
       subcategory: jvm_renaissance
       checksum: daa1030be17a722c0437f17d48855fbc1031362508b48a2940e764386f4972a2
   - finagle_http_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/finagle-http/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: finagle
       category: web
       subcategory: jvm_renaissance
       checksum: 779b5440b4368d7955357051f87a006c8b5af755e3c6b3db776698a08eda0b27
   - finagle_http_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/finagle-http/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: finagle
       category: web
       subcategory: jvm_renaissance
       checksum: 29b86d0eae825d342235e379580ffb3df4a8d3def1981927a3bbc894298f9bb7
   - finagle_chirper_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/finagle-chirper/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: finagle
       category: web
       subcategory: jvm_renaissance
       checksum: ff1b1c2e85689fe9968666396ebc7821db1b13678878e5773f6820530e4bddc9
   - finagle_chirper_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/finagle-chirper/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: finagle
       category: web
       subcategory: jvm_renaissance
       checksum: 5fdf0fc6161c8e8b9ca6d39b75be13ff762073eb90f5da6eec23c87f9a4bd17e
   - finagle_chirper_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/finagle-chirper/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: finagle
       category: web

@@ -48,21 +48,21 @@
 
 dacapo_kafka:
   - dacapo_kafka_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: kafka
       category: messaging
       subcategory: jvm_dacapo
       checksum: b7e7525942f2e3edf5e057ad762762f5b49641a8cf782b77698999f3524ff2cb
   - dacapo_kafka_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: kafka
       category: messaging
       subcategory: jvm_dacapo
       checksum: d66a77ef56cd803b2ad685a512c32b6ed34f811ab2e128d7124cf2b368deaa3c
   - dacapo_kafka_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/kafka/kafka3.3.1_dacapo23.11trogdor_10Mmsg_2topx10part_jdk21g1gc2G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: kafka
       category: messaging

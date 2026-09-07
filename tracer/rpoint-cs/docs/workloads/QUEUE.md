@@ -87,9 +87,9 @@ Both are in the `web,twitter-finagle` group and share the java guest.
 
 # Follow-ups agreed 2026-09-07 (post-campaign reorganisation)
 
-`scripts/` was reorganised per workload with `renaissance/` as the parent and
-`spark/` as one benchmark under it. `docs/workloads/` now matches (item 1, done).
-The kratos2 catalogue does not yet (item 2).
+`scripts/`, `docs/workloads/` and the kratos2 catalogue now all agree: per
+workload, with `renaissance/` as parent and `spark/` a benchmark under it.
+Both items below are done; kept for the record of what was changed and why.
 
 ## 1. Mirror the new hierarchy in `docs/workloads/` — **DONE 2026-09-07**
 
@@ -100,34 +100,38 @@ The manifests moved with their benchmarks and lost their redundant
 `../../verification/…`, so moving `spark-campaign-log.md` one level deeper
 required re-pointing it to `../../../verification/…`.
 
-## 2. Regroup the kratos2 catalogue
+## 2. Regroup the kratos2 catalogue — **DONE 2026-09-07**
 
-Currently `version2.1/` has `spark/` (page-rank + naive-bayes + dec-tree) and
-`finagle/` (the two web workloads), which groups by *what shipped when* rather
-than by what the workloads are.
-
-**This is far cheaper than it looks, and the reason is worth stating: the
-catalogue records BARE BASENAMES.** Verified 2026-09-07 —
-`CHECKSUMS.sha256` lines are `<sha256>  <basename>` with no directory
-component, so **moving a trace between directories does not invalidate the
-catalogue at all**. What actually has to change:
-
-- the per-directory `*.sha256` files move with their traces;
-- the `path:` field in `scripts/tlists/*.yml` (14 files, 59 entries).
-
-`CHECKSUMS.sha256` itself needs no edit. Re-run the audit afterwards
-(`ok=N mismatch=0 missing=0`) to confirm nothing was lost in the move.
-
-Proposed target, matching scripts/ and docs/:
+`version2.1/` now nests by benchmark, matching `scripts/` and `docs/workloads/`:
 
 ```
-version2.1/renaissance/spark/            spark3.5.3_..._pagerank_...
-version2.1/renaissance/naivebayes/       spark3.5.3_..._naivebayes_...
-version2.1/renaissance/dectree/          spark3.5.3_..._dectree_...
-version2.1/renaissance/finagle-http/     finagle24.2.0_..._finaglehttp_...
-version2.1/renaissance/finagle-chirper/  finagle24.2.0_..._finaglechirper_...
+dacapo/{cassandra,kafka,tomcat}/                            11 traces
+renaissance/{spark,naivebayes,dectree,
+             finagle-http,finagle-chirper}/                 15 traces
+memcached/ mongodb/ postgres/ redis/ rocksdb/               unchanged
 ```
 
-Open question for the researcher: whether `version2.1/dacapo/{cassandra,kafka,
-tomcat}` should be regrouped the same way — they are currently flat siblings
-too. Not proposed here because nothing about them is misleading as-is.
+The prediction held: **`CHECKSUMS.sha256` needed no edit**, 215 lines before and
+after, because it records bare basenames — a trace's directory is not part of its
+identity. The six per-directory `.sha256` files moved with their traces; six
+tlists were repointed.
+
+`mv` within one NFS filesystem is a rename, so the moves were instant and no data
+was copied. Audited afterwards anyway, because "should be safe" is a prediction:
+
+```
+tlist paths resolve      ok=59 missing=0
+re-checksum moved traces ok=26 mismatch=0 not-catalogued=0
+CHECKSUMS.sha256         215 lines, untouched
+```
+
+One process note. The first path check reported `ok=58 missing=0` against 59
+paths: the path file had no trailing newline, so `while read` silently dropped
+the last one — and would have reported success either way. Same class as the
+defects in `../../verification/2026-09-07-capture-campaigns-findings.md` §5.1,
+hit while verifying a move made because of that document. The audit script now
+carries `[ -n "$p" ] || continue` and writes a trailing newline.
+
+The open question about `dacapo/` was answered yes and done in the same pass:
+once `renaissance/` nested, `dacapo/` was the only place the three trees
+disagreed.

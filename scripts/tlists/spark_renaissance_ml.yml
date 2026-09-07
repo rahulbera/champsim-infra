@@ -63,42 +63,42 @@
 
 spark_renaissance_ml:
   - spark_dectree_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/dectree/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: 85b865fcf2a77115494a4aff217413b80011f0a5af7976b1091ac0bb92baa100
   - spark_dectree_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/dectree/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: cc919e80e2deeb4fff86ee328549302757ba5542919bab4d65817f332bc1a470
   - spark_dectree_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/dectree/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: 1622817a375a549adefd321cfae398bb5dac0bf83ca37f3fedd3ac466e13c2ad
   - spark_naivebayes_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/naivebayes/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: ae5f83e394494cf9ea8d384eaf5760fd309fd40ca2150b2c83c34cbb39629bd2
   - spark_naivebayes_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/naivebayes/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: 21d639c29da192644711a53de862f4dff1c24949e51371eeba800d1fca380fac
   - spark_naivebayes_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/naivebayes/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: spark
       category: bigdata

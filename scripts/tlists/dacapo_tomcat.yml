@@ -54,21 +54,21 @@
 
 dacapo_tomcat:
   - dacapo_tomcat_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: tomcat
       category: web
       subcategory: jvm_dacapo
       checksum: 96626e0587f5371ee51de8384d091babbc9a8581075664b9097625cef5e1efa2
   - dacapo_tomcat_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: tomcat
       category: web
       subcategory: jvm_dacapo
       checksum: 0e2a4f91304e5b9513da40d848a9d4d56606e159dadcbdfbc3c2d3e7c453a9c2
   - dacapo_tomcat_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/dacapo/tomcat/tomcat10.1.11_dacapo23.11_800Kreq_jdk21g1gc512M_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: tomcat
       category: web

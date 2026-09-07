@@ -64,21 +64,21 @@
 
 spark_pagerank:
   - spark_pagerank_w00000:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: 72eb81358fa893bb0e44da72aff72c52f1ea4e49b1a2e6165bcc35273ea1f1f6
   - spark_pagerank_w00001:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
       subcategory: jvm_renaissance
       checksum: 94c78e0dce6f7150fd2fd719b4e44d60906eff0e58c5af679acda60ffe00eb0c
   - spark_pagerank_w00002:
-      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      path: /home/rahbera/tracezoo/champsim/version2.1/renaissance/spark/spark3.5.3_renaissance0.16.1_pagerank_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
       version: 2
       workload: spark
       category: bigdata
