@@ -82,3 +82,61 @@ Both are in the `web,twitter-finagle` group and share the java guest.
   plugin's buggy exit-time gap hint before `sgap.py` existed. The traces are
   VALID; this is representativeness, not correctness. Recapture is the
   researcher's call.
+
+---
+
+# Follow-ups agreed 2026-09-07 (post-campaign reorganisation)
+
+`scripts/` has been reorganised per workload, mirroring this directory
+(`docs/workloads/`), with `renaissance/` as the parent and `spark/` as one
+benchmark under it. Two consumers of that structure still need updating.
+
+## 1. Mirror the new hierarchy in `docs/workloads/`
+
+`docs/workloads/` currently has `spark/` and `renaissance/` as siblings, which
+splits one guest and one harness jar across two directories. `scripts/` now
+nests them. Bring the docs into line:
+
+```
+docs/workloads/renaissance/
+    (guest + harness notes, currently split across spark/ and renaissance/)
+    spark/              <- spark-campaign-log.md, spark-v1-manifest.txt
+    naivebayes/  dectree/  finagle-http/  finagle-chirper/
+                        <- the four renaissance-*-manifest.txt files
+```
+
+Cheap and self-contained: these are markdown and manifest files with no
+cross-references outside `docs/`. Check the tlist header comments afterwards,
+since several point at `docs/workloads/<x>/` paths.
+
+## 2. Regroup the kratos2 catalogue
+
+Currently `version2.1/` has `spark/` (page-rank + naive-bayes + dec-tree) and
+`finagle/` (the two web workloads), which groups by *what shipped when* rather
+than by what the workloads are.
+
+**This is far cheaper than it looks, and the reason is worth stating: the
+catalogue records BARE BASENAMES.** Verified 2026-09-07 —
+`CHECKSUMS.sha256` lines are `<sha256>  <basename>` with no directory
+component, so **moving a trace between directories does not invalidate the
+catalogue at all**. What actually has to change:
+
+- the per-directory `*.sha256` files move with their traces;
+- the `path:` field in `scripts/tlists/*.yml` (14 files, 59 entries).
+
+`CHECKSUMS.sha256` itself needs no edit. Re-run the audit afterwards
+(`ok=N mismatch=0 missing=0`) to confirm nothing was lost in the move.
+
+Proposed target, matching scripts/ and docs/:
+
+```
+version2.1/renaissance/spark/            spark3.5.3_..._pagerank_...
+version2.1/renaissance/naivebayes/       spark3.5.3_..._naivebayes_...
+version2.1/renaissance/dectree/          spark3.5.3_..._dectree_...
+version2.1/renaissance/finagle-http/     finagle24.2.0_..._finaglehttp_...
+version2.1/renaissance/finagle-chirper/  finagle24.2.0_..._finaglechirper_...
+```
+
+Open question for the researcher: whether `version2.1/dacapo/{cassandra,kafka,
+tomcat}` should be regrouped the same way — they are currently flat siblings
+too. Not proposed here because nothing about them is misleading as-is.

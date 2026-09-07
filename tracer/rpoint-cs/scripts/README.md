@@ -1,197 +1,98 @@
 # scripts/
 
-## Goal
+Host-side drivers for the QEMU snapshot/replay tracing pipeline, organised
+**per workload**, mirroring `docs/workloads/`.
 
-Top-of-pipeline **bash launchers** for the QEMU-based tracing flow.
-Three scripts that cover the three ways you'll invoke QEMU in this
-project: boot fresh under KVM, restore a snapshot under KVM, and
-restore a snapshot under TCG *with the tracing plugin attached*.
+Every script that produced a trace in the kratos2 catalogue is kept here, even
+where several are near-identical. That is deliberate: a catalogued trace should
+be traceable to the exact file that made it, and each `convert_one_*` carries
+the measured provenance for its workload in its header ("fields MEASURED, not
+assumed"). Fifteen near-duplicate converters are a cheap price for that.
 
-This directory also holds two self-contained subdirectories:
-`capture-kit/` for AArch64 collaborators, and `smoke-trace/`, a
-two-minute end-to-end correctness check of the x86-64 pipeline
-(plugin → raw → converter → acceptance invariants) that boots a
-throwaway kernel + initramfs rather than a VM image. See their entries
-under Files below and the note at the end of this section.
-
-## How this fits into the repo
-
-These scripts are what you actually run on the host to move a workload
-through the pipeline:
+## Layout
 
 ```
-scripts/boot_kvm.sh          →  fresh guest VM under KVM (setup, install workload)
-                                     │
-                                     ▼   (savevm from QEMU monitor)
-                                 snapshot named e.g. "scylla_run"
-                                     │
-        ┌────────────────────────────┴─────────────────────────────┐
-        ▼                                                          ▼
-scripts/restore_kvm.sh <ckpt>                         scripts/boot_tcg_trace.sh <limit> <ckpt>
-    (KVM, fast — verify workload)                        (TCG + plugin, the actual tracing run)
-                                                              │
-                                                              ▼
-                                                    plugin writes .raw.zst
+common/        shared by everything: lib.sh, cpustr.sh, hmp.py, sgap.py,
+               ship_trace.sh, convstat.sh, guestpin.sh, dfstat.sh,
+               build_qemu_avxfix.sh
+scylladb/      the original ubuntu-guest trio (7 vCPU, shard-per-core)
+rocksdb/       boot/launch/convert for rocksdb-guest
+redis/         + redis_theta_{prep,scout}.sh (the zipf-theta scouting pair)
+mongodb/
+dacapo/        ship_dacapo.sh, shared by all three
+  cassandra/   java-guest
+  kafka/       kafka-guest  (boot_java8g_*)
+  tomcat/      tomcat-guest
+renaissance/   boot_spark_kvm.sh + launch_tcg_spark.sh + run_ren_*.sh
+  spark/         page-rank
+  naivebayes/    dec-tree/    finagle-http/    finagle-chirper/
+postgres/      TPC-H q1, q9, q18, q21
+capture-kit/   AArch64 collaborators (self-contained, unchanged)
+smoke-trace/   two-minute end-to-end pipeline check (self-contained, unchanged)
 ```
 
-All three scripts share a common set of QEMU flags (CPU model,
-disable-kvm-features, port forwards, monitor/QMP sockets) so snapshots
-taken under `boot_kvm.sh` load cleanly under either `restore_kvm.sh`
-or `boot_tcg_trace.sh`.
+`renaissance/` is the parent because all five benchmarks share one guest and one
+harness jar; Spark page-rank is a Renaissance benchmark like the others. See
+`renaissance/README.md`.
 
-## Files
+## Path resolution — `common/lib.sh`
 
-### `boot_kvm.sh`
+Every script resolves its own location and finds the rest of the tree from
+there, so **the checkout is self-contained and relocatable**. Each begins:
 
-Boots the guest VM under KVM from scratch (no `-loadvm`). Use this
-when setting up a new workload, installing packages, or reaching a
-warm state you plan to snapshot.
-
-Layout (7 vCPUs — ScyllaDB style):
-- vCPU 0: OS / bootstrap (not traced)
-- vCPUs 1–4: ScyllaDB shards (traced under TCG)
-- vCPUs 5–6: benchmark client + OS housekeeping (not traced)
-
-QEMU CPU model: `Haswell` with a long list of KVM-specific features
-disabled (`kvmclock=off`, `kvm-asyncpf=off`, etc.). This is
-intentional — features that only KVM implements would leave TCG
-unable to restore the snapshot. Read `docs/pipeline/kvmclock-patch-details.md`
-for why kvmclock in particular is worth its own document.
-
-Port forwards: `2222→22` (SSH), `9042→9042` (CQL / ScyllaDB).
-
-Monitor: telnet `127.0.0.1:4444`. QMP: TCP `127.0.0.1:4445`.
-
-Usage:
-
-```bash
-./boot_kvm.sh
+```sh
+SDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SROOT="$SDIR"; while [ ! -d "$SROOT/common" ] && [ "$SROOT" != / ]; do SROOT="$(dirname "$SROOT")"; done
+. "$SROOT/common/lib.sh"
 ```
 
-No arguments. Take snapshots from the QEMU monitor (`savevm <name>`).
+and then has `SROOT` (this tree), `COMMON`, `RPCS` (`tracer/rpoint-cs`, for
+`plugin/` and `converter/`), `REPO` (`champsim-infra`, for `tools/`), plus
+`CPUSTR`/`QEMU_FIXED`/`IMAGES`/`MON` from `cpustr.sh`.
 
-### `restore_kvm.sh`
+`W` is the **data** root — `traces/`, `logs/`, `run/`, `out/`, `images/` — which
+deliberately lives outside the repo. It defaults to `$HOME/work/new-tracing` and
+is overridable: `W=/scratch/foo bash postgres/run_pg_capture.sh`.
 
-Loads a named snapshot under KVM. Same QEMU flags as `boot_kvm.sh`;
-adds `-loadvm $1`. Use this to sanity-check that a snapshot is intact
-before spending hours running it under TCG.
+The `SROOT` walk is depth-independent on purpose, so a script can move between
+`postgres/` and `dacapo/tomcat/` without its references breaking.
 
-Usage:
+**Why this exists:** during the campaigns these scripts lived flat in the working
+directory and referred to each other by absolute path. The committed copies
+inherited those references, so the repo could not run itself — 26 scripts called
+back into `$HOME/work/new-tracing`, and `cpustr.sh`, which carries the
+load-bearing `kvmclock=off` CPU model, had never been committed at all.
 
-```bash
-./restore_kvm.sh scylla_run
-```
+## Two name collisions the flat layout was hiding
 
-### `boot_tcg_trace.sh`
+Both were found while reorganising, and both would have caused silent damage:
 
-**The actual tracing run.** Loads a snapshot under TCG multi-threaded
-mode, attaches `plugin/champsim_tracer.so`, and writes per-vCPU
-`.raw.zst` files under `~/qemu-tracing/traces/`. Uses the
-plugin's `trigger=/tmp/trace_start` mode — tracing does not begin
-until the file appears on the host, letting you defer the start of
-tracing until the workload reaches steady state inside the (slow)
-TCG-restored VM.
+- **`boot_kvm.sh` was two unrelated scripts.** The committed copy booted
+  `ubuntu-guest.qcow2` with 7 vCPUs (ScyllaDB, shard-per-core); the working copy
+  booted `rocksdb-guest.qcow2` with 6. Syncing either direction would have
+  destroyed the other. They are now `scylladb/boot_scylla_kvm.sh` and
+  `rocksdb/boot_rocksdb_kvm.sh`.
+- **`boot_kvm.sh`, `launch_tcg.sh`, `convert_one.sh` were not generic.** All
+  three referenced `rocksdb-guest.qcow2` / `traces/rocksdb_v2`; they were
+  unnamed only because they came first. Filed as "common" they would have been a
+  standing trap — someone editing `launch_tcg.sh` expecting a generic driver
+  would have silently reconfigured RocksDB. Renamed with explicit suffixes.
 
-Layout: same 7-vCPU model, `-cpu Haswell` (with `hle/rtm/pcid/invpcid/tsc-deadline` off for TCG compatibility).
+Also: the committed `run_tomcat_ship.sh` still had the `grep -c … || echo 0`
+trap (which prints `0\n0` and makes numeric tests a shell error); the working
+copy had the fix. The fixed copy is the one carried forward.
 
-Cleans previous traces in `~/qemu-tracing/traces/` before starting.
+## Shipping
 
-Usage:
+`common/ship_trace.sh` is the current driver, parameterised over
+`DEST`/`BENCH`/`NEW`/`NWIN`/`EXPECT`. It superseded the four per-workload
+`ship_*.sh` during the PostgreSQL campaign and shipped everything from Q1
+onward. The originals (`redis/ship_redis.sh`, `mongodb/ship_mongo.sh`,
+`dacapo/ship_dacapo.sh`, `renaissance/spark/ship_spark.sh`) are kept as the
+historical record of how their traces were shipped; they hardcode what
+`ship_trace.sh` parameterises.
 
-```bash
-# Signature: ./boot_tcg_trace.sh [instruction_limit_per_vcpu] [checkpoint_name]
-
-./boot_tcg_trace.sh 1000000 scylla_run     # 1 M insns per vCPU (smoke test)
-./boot_tcg_trace.sh 200000000 scylla_run   # 200 M insns per vCPU (production)
-./boot_tcg_trace.sh 0 scylla_run           # unlimited (until VM shutdown)
-./boot_tcg_trace.sh                        # defaults: 1 M, no checkpoint (won't work)
-```
-
-To actually start tracing after the VM has settled:
-
-```bash
-touch /tmp/trace_start
-```
-
-The plugin polls once every 10 M instructions across all vCPUs
-(≈once per wall-clock second under TCG). Traces land at
-`~/qemu-tracing/traces/trace_vcpu<N>.raw.zst`.
-
-### `capture-kit/`
-
-A self-contained subdirectory, not a single launcher script — the
-capture kit for an **AArch64 collaborator** capturing raw v3 traces on
-their own (AArch64) host, where this project's x86-specific
-`boot_kvm.sh`/`restore_kvm.sh`/`boot_tcg_trace.sh` don't apply. It
-holds `probe_guest.sh` (collects guest facts), `configure_tracer.sh`
-(turns those facts plus host facts into a ready-to-run
-`run_trace.sh` and a `trace_metadata.txt` provenance sidecar), and its
-own `README.md` — read that file, not this one, for the full flow.
-
-**The one guest-side exception to "scripts/ is host-side":**
-`probe_guest.sh` is the single script in this directory meant to run
-*inside* the guest VM, not on the host — everything else here,
-including the rest of the capture kit, runs on the host. See
-`plugin/README.md` for the v3 raw format and knob semantics the kit
-configures on the collaborator's behalf.
-
-### `smoke-trace/`
-
-Also a subdirectory rather than a launcher: a **two-minute end-to-end
-correctness check** of the x86-64 pipeline — plugin → raw v3 →
-converter → ChampSim v2 → acceptance invariants. It boots a throwaway
-kernel + busybox initramfs running one branchy static workload, so it
-needs no VM image, installs nothing into a guest, and leaves no state.
-
-Use it after touching `plugin/champsim_tracer.c`, `converter/decode_x86.c`
-or `converter/raw2champsim.c`, and before trusting a batch of traces:
-
-```bash
-make -C ../plugin plugin CC=gcc && make -C ../converter CC=gcc
-./smoke-trace/smoke_trace.sh
-```
-
-It is *not* a way to produce research traces — that is what the three
-launchers above and `capture-kit/` are for. Read
-`smoke-trace/README.md` for the env knobs and the two failure modes
-that are easy to misread (`WORK_ITERS` too small makes a working
-trigger look broken; a conda `CC` builds the plugin for the wrong
-architecture).
-
-## How to use
-
-Full pipeline flow — pick up the pieces you need:
-
-```bash
-# --- One-time setup: bring up a fresh VM and install the workload. ---
-cd scripts/
-./boot_kvm.sh
-#   (inside the VM: install workload, load data, warm up)
-#   (from QEMU monitor on 127.0.0.1:4444: savevm scylla_run)
-
-# --- Later: verify snapshot loads cleanly under KVM. ---
-./restore_kvm.sh scylla_run
-#   (inside the VM: confirm workload responds normally)
-#   quit QEMU
-
-# --- The tracing run: same snapshot under TCG with the plugin. ---
-./boot_tcg_trace.sh 200000000 scylla_run
-#   (inside the guest — via SSH on port 2222 — wait for workload steady state)
-#   (from another host shell:)
-touch /tmp/trace_start
-#   (QEMU exits when the per-vCPU instruction limit is reached, then:)
-ls -lh ~/qemu-tracing/traces/
-```
-
-Then hand off to `plugin/trace_inspector` (validate), optionally
-`plugin/trace_filter` (strip idle-loop noise), and finally
-`converter/raw2champsim` (produce the ChampSim v2 file).
-
-## Notes on scripts vs docs/pipeline/boot-commands.md
-
-`docs/pipeline/boot-commands.md` is a hand-typed cheat sheet that
-predates these scripts and reflects the older 5-vCPU Memcached
-layout. When something in the two disagrees, **the scripts are
-authoritative** — they're what actually gets executed. The doc is
-kept because it's a useful compact reference and shows the deferred-
-tracing pattern (`trigger=/tmp/trace_start`) explicitly.
+The ship order is non-negotiable and every variant implements it:
+hash locally → rsync → **`sha256sum -c` ON kratos2** → append to CHECKSUMS
+(bare basenames, guarded by an `EXPECT` line-count precondition) → and only then,
+as a separate deliberate step, reclaim.
