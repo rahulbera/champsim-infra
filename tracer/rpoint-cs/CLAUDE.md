@@ -5,6 +5,9 @@
 > `~/qemu-tracing/…` mean this directory. Start with [README.md](README.md)
 > for the current shape of the tool; the sections below keep the full
 > operational detail, some of it from the original Memcached/NUMA phase.
+> **Reorganised 2026-09-07** after the capture campaigns closed: `scripts/` is a
+> per-workload hierarchy that resolves its own paths, `workloads/` is guest-side
+> source only, and the PIN recipes moved to `tracer/pintool/scripts/`.
 > The SWE-agent capture campaign lives on the `swe-agent-tracing` branch.
 > **Read "Scope" below before adding anything**: this directory prepares
 > workloads and generates traces, and deliberately does not hold experiments
@@ -41,9 +44,11 @@ using the traces** is not.
 
 The traces were first produced for a 2-socket NUMA study (2 cores per socket,
 each with its own DRAM node; data sharing and placement/migration policies) —
-which is why the Memcached guest below is configured as it is: 5 vCPUs, 4
+which is why the original Memcached guest was configured as it was: 5 vCPUs, 4
 pinned worker threads, ~6 GB footprint, threads sharing a hash table and slab
-allocator to create real cross-socket sharing. That study, and the later
+allocator to create real cross-socket sharing. **Every workload since traces a
+single pinned vCPU instead** (the `1t` in each trace name); that history is in
+"Pipeline Stages Completed". That study, and the later
 branch-prediction campaigns, live elsewhere. The configuration rationale is
 kept here because it explains the setup; the findings are not.
 
@@ -51,68 +56,83 @@ kept here because it explains the setup; the findings are not.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    QEMU VM (5 vCPUs)                     │
+│                      QEMU guest                          │
 │                                                           │
-│  vCPU 0-3: Memcached workers (pinned, traced)            │
-│  vCPU 4:   memtier_benchmark + OS (pinned, NOT traced)   │
+│  ONE traced vCPU. Every workload thread is pinned to it   │
+│  with `taskset -acp 1`, verified mask=2 with 0 unpinned   │
+│  BEFORE the snapshot and AGAIN after the TCG restore.     │
 │                                                           │
-│  Phase 1 (KVM): Boot, load data, take snapshot           │
-│  Phase 2 (TCG+Plugin): Restore snapshot, trace           │
+│  Phase 1 (KVM):  boot, load, warm, savevm                 │
+│  Phase 2 (TCG):  -loadvm + plugin, profile then capture   │
 └─────────────────────────────────────────────────────────┘
          │                              │
          ▼                              ▼
   ┌──────────────┐           ┌────────────────────┐
-  │ .raw.zst     │           │ Offline Converter   │
-  │ per-vCPU     │ ────────► │ (x86 decode,        │
-  │ trace files  │           │  register extract,  │
-  │              │           │  branch classify)   │
+  │ .raw.zst     │ ────────► │ trace_filter       │  strip TCG idle-loop noise
+  │ per-vCPU     │           │ raw2champsim       │  x86 decode, branch classify
   └──────────────┘           └────────────────────┘
                                        │
                                        ▼
                              ┌────────────────────┐
-                             │ ChampSim Traces     │
-                             │ (extended format    │
-                             │  with values +      │
-                             │  privilege bit)     │
-                             └────────────────────┘
-                                       │
-                                       ▼
-                             ┌────────────────────┐
-                             │ Extended ChampSim   │
-                             │ (2 sockets, NUMA)   │
+                             │ .champsim2.zst      │  512-byte input_instr_v2
                              └────────────────────┘
 ```
 
+**The single-vCPU slice is the whole method, not a simplification.** `vcpus=` is a
+vCPU *index range*, not a count. Unpinned, `vcpus=1` samples ~1/Nth of a
+multi-threaded workload interleaved with unrelated guest activity and yields a
+plausible-looking scheduler artifact rather than the workload — Spark page-rank
+runs 268 threads, Kafka 101, Cassandra 88. The pin is **pid-bound**: it survives
+`savevm`/`-loadvm` but *not* a guest restart, which is why PostgreSQL drives its
+query from a server-side PL/pgSQL `LOOP` rather than a shell loop over `psql`
+(a fresh backend every ~35 s would silently lose it).
+
 ## Host Machine
 
-- **CPU:** Intel i7-8700 (6 cores / 12 threads)
-- **RAM:** 32 GB
-- **OS:** Ubuntu 24.04 LTS
-- **QEMU:** 9.2.4 (built from source with `--enable-kvm --enable-plugins`)
-- **QEMU source:** `~/work/softwares/qemu-9.2.4/`
-- **QEMU install:** `~/qemu-custom/bin/qemu-system-x86_64`
+- **Host:** minitron — 32 cores, 60 GB RAM, Ubuntu 24.04, NVMe
+- **QEMU:** 9.2.4 built from source, **plus the two patches in `patches/`**
+  (`kvmclock-tcg-restore`, `avx-hflag-tcg-restore`). Path:
+  `$W/qemu-avxfix/build/qemu-system-x86_64`, exported as `QEMU_FIXED` by
+  `scripts/common/cpustr.sh`. A QEMU without *both* patches cannot run a capture.
+- **CPU model:** `CPUSTR` in `scripts/common/cpustr.sh` — `Haswell` with every
+  paravirtual feature off, `kvmclock=off` foremost. Not tuning: a KVM snapshot
+  cannot restore under `-cpu host`, and paravirt clock state does not cross the
+  boundary. The cost is that the guest falls back to `hpet` (~7270 ns/call),
+  which is why `track_io_timing` is unusable in these guests and I/O fractions
+  were measured from two `/proc/stat` samples instead.
 
-## Guest VM Configuration
+## Guests
 
-- **OS:** Ubuntu Server 24.04, kernel 6.8.0-107-generic
-- **vCPUs:** 5 (`-smp 5`)
-- **RAM:** 12 GB (`-m 12G`)
-- **Disk:** `~/qemu-tracing/images/ubuntu-guest.qcow2` (qcow2, 40 GB)
-- **Networking:** SLIRP user-mode, port forwards: 2222→22 (SSH), 11211→11211 (Memcached)
-- **Guest tuning:** ASLR disabled, swap off, THP disabled, unnecessary services disabled
+One guest image per workload family, each 4 vCPU / 12 GB, Ubuntu 24.04. **All were
+deleted on 2026-09-07 after the traces were verified on kratos2**, reclaiming
+290 GB. They are rebuildable: the guest-side scripts, configs and generated queries
+are preserved under `docs/workloads/*/guest-files/`, and jar checksums under
+`docs/workloads/renaissance/guest-files/`.
 
-## Workload Setup (Inside Guest)
+`-m 12G` and not more: `savevm` serialises all *touched* guest RAM, so a
+24 GB guest cost a 23.6 GiB snapshot for a workload whose live set was ~2 GB.
+Guest RAM **size** is what a snapshot costs.
 
-- **Memcached:** 4 worker threads (`-t 4`), 8 GB memory (`-m 8192`), workers pinned to vCPUs 0-3
-- **Data:** ~2.25M records loaded via YCSB, ~6 GB footprint
-- **Benchmark:** memtier_benchmark (native C), pinned to vCPU 4
-  - Default: `--ratio=1:1` (50/50 GET:SET), `--key-maximum=2250000`, Gaussian distribution
-  - Duration set to 86400s (effectively infinite for tracing)
-- **Snapshots:**
-  - `roi_ready`: Memcached warm with 6 GB data, idle, threads pinned
-  - `roi_running`: Same as roi_ready but memtier_benchmark actively sending requests
+## What this tracer has produced
+
+**59 traces in the kratos2 catalogue** (`CHECKSUMS.sha256` at 215), covering every
+category of the OSDI'24 CXL-tiering taxonomy:
+
+| workload | traces | | workload | traces |
+|---|---|---|---|---|
+| postgres (TPC-H q1/q9/q18/q21) | 12 | | spark (page-rank, naive-bayes, dec-tree) | 9 |
+| memcached | 6 | | finagle (http, chirper) | 6 |
+| redis, mongodb, rocksdb, cassandra | 5 each | | kafka, tomcat | 3 each |
+
+Per-workload provenance — configuration, recorded deviations, measured mix — is in
+`scripts/<workload>/README.md` and `scripts/tlists/*.yml` in the parent repo.
 
 ## Pipeline Stages Completed
+
+> **This is the original Memcached-era build-out log, kept as the record of how
+> the pipeline was brought up.** It is not the current recipe — for that, see
+> "Layout" below and `scripts/<workload>/README.md`. Paths here say
+> `~/qemu-tracing/…`, which means this directory.
 
 ### Stage 1: VM Setup ✅
 - QEMU installed with KVM
@@ -229,7 +249,7 @@ with 0 decode failures — conditionals 43.04% taken, unconditionals
 100% taken, calls (24.00%) exactly balancing returns (24.00%).
 Re-runnable in ~2 minutes: `scripts/smoke-trace/smoke_trace.sh`.
 
-## Current Blocker: kvmclock Snapshot Incompatibility
+## Historical: the kvmclock blocker (SOLVED — patch in `patches/`)
 
 > **Historical (x86/Memcached era).** This blocker was resolved (see
 > Stage 4) and the section is kept for the debugging pattern it records.
@@ -381,35 +401,82 @@ After rebuilding, test with:
 **If additional unknown sections appear** (e.g., `kvm-tpr-opt`, `apic-msi`),
 the same approach applies: find the device, make it instantiable under TCG.
 
-## File Locations
+## Layout
 
 ```
-~/qemu-tracing/
-├── images/ubuntu-guest.qcow2          # VM disk + snapshots
-├── plugin/
-│   ├── champsim_tracer.c              # TCG tracing plugin source
-│   ├── champsim_tracer.so             # Compiled plugin
-│   ├── build_plugin.sh                # Plugin build script
-│   ├── trace_inspector.c              # Trace validation tool source
-│   └── trace_inspector                # Compiled inspector
-├── traces/                            # Output directory for traces
-├── snapshots/roi_ready_metadata.txt
-└── scripts/
-    ├── boot_kvm.sh                    # Stage 1 KVM boot (4 vCPU)
-    ├── boot_kvm_5vcpu.sh              # Stage 2+ KVM boot (5 vCPU)
-    └── boot_tcg_trace.sh              # Stage 4 TCG+plugin boot
-
-~/work/softwares/qemu-9.2.4/                # QEMU source tree
-~/qemu-custom/                         # QEMU install prefix
+plugin/        champsim_tracer.so — the TCG plugin, and trace_filter
+converter/     raw2champsim — x86 decode, register extract, branch classify
+patches/       the TWO QEMU patches; neither is optional
+scripts/       host-side drivers, per workload — see scripts/README.md
+workloads/     guest-side SOURCE: benchmark drivers, cloud-init, AVX canaries
+docs/          pipeline references, per-workload playbooks, campaign logs,
+               and verification/ — post-hoc audits of finished campaigns
+tools/         trace_cutter, and the AArch64 capture-kit
 ```
 
-## Guest-Side Scripts
+### `scripts/` — per workload, self-contained
 
+Reorganised 2026-09-07 to mirror `docs/workloads/`:
+`common/ scylladb/ rocksdb/ redis/ mongodb/ dacapo/{cassandra,kafka,tomcat}/
+renaissance/{spark,naivebayes,dectree,finagle-http,finagle-chirper}/ postgres/`
+
+Every script resolves its own location and finds the rest of the tree from there,
+so the checkout is relocatable. Each begins:
+
+```sh
+SDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SROOT="$SDIR"; while [ ! -d "$SROOT/common" ] && [ "$SROOT" != / ]; do SROOT="$(dirname "$SROOT")"; done
+. "$SROOT/common/lib.sh"
 ```
-~/run_experiment_v2.sh     # Load data into Memcached + prepare for snapshot
-~/start_benchmark.sh       # Launch memtier_benchmark (run after restore)
-~/start_memcached_pinned.sh # Start Memcached with thread pinning
-```
+
+giving `SROOT`, `COMMON`, `RPCS` (this directory), `INFRA` (`champsim-infra`, for
+`tools/`), plus `CPUSTR`/`QEMU_FIXED`/`IMAGES`/`MON`. **`W` is the DATA root** —
+`traces/`, `logs/`, `run/`, `out/`, `images/` — deliberately outside the repo,
+defaulting to `$HOME/work/new-tracing` and overridable:
+`W=/scratch/foo bash postgres/run_pg_capture.sh`.
+
+Nothing here calls back into the working directory. Before that reorganisation 26
+scripts did, and `cpustr.sh` had never been committed at all.
+
+### `workloads/` — guest-side only
+
+Benchmark **sources** built and run inside the guest: `rocksdb_driver_v2.cpp`,
+`mongo_driver.c`, the cloud-init seed, and the `AvxCanary`/`VecCheck` J1 gate.
+Host-side orchestration lives in `scripts/`; the split is by layer, not by
+workload. The RocksDB `run_prod_*.sh` moved to **`tracer/pintool/scripts/`** —
+they drive the PIN tracer, not this one.
+
+## Gap sizing — use `scripts/common/sgap.py`
+
+**Do NOT use the plugin's exit-time `sample_gap` hint.** It mixes an
+all-instruction window length with a user-only counter; the correct form is
+`SGAP = (user/(K-1)) * (1 - K*N/total)`, derived in the file. Its error grows with
+kernel fraction *and* with short trajectories — finagle-http is the worst case
+measured (96.95% coverage vs the correct 100.00%) despite *less* kernel than
+PostgreSQL q21, because its trajectory is under half as long. Redis (58.92%) and
+RocksDB (86.35%) shipped before this was understood; their traces are valid, but
+their coverage is narrower than intended.
+
+**The 600 s profile is the only time-bounded stage.** Capture and conversion are
+instruction- and data-bounded, so contention there costs wall-clock only; a
+contended profile yields a smaller SGAP and a narrower slice, making user
+fractions incomparable across workloads. `run_*_snap_profile.sh` therefore pauses
+running converters (`SIGSTOP`) for the measured window. That is safe on
+`raw2champsim` specifically — a plain read/write filter, no timers, sockets, guest
+or monitor. **It is not a licence to signal QEMU:** a capture is stopped with a
+monitor `quit`, never a signal.
+
+## Shipping
+
+`scripts/common/ship_trace.sh`, parameterised over `DEST`/`BENCH`/`NEW`/`NWIN`/
+`EXPECT`. The order is non-negotiable:
+
+hash locally → rsync → **`sha256sum -c` ON the remote** → append to CHECKSUMS
+→ and only then, as a separate deliberate step, reclaim.
+
+The catalogue records **bare basenames**, so a trace can be moved between
+directories without invalidating it. `EXPECT` is a line-count precondition that
+makes concurrent ships abort rather than interleave.
 
 ## Raw Trace Format (v3)
 
