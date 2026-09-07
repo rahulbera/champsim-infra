@@ -43,7 +43,7 @@ and drift silently otherwise.
 | `regression/README.md` | The exact build + run incantation for a regression. |
 | `docs/cluster-run.md` | Remote Slurm runbook, caveats, per-cluster specifics. |
 | `tracer/README.md` | Which tracer to use for which workload class. |
-| `tracer/pintool/README.md`, `tools/README.md`, `tests/README.md` | Tracer knobs, C++ tool flags, test layout. |
+| `tracer/pintool/pin/README.md`, `tools/README.md`, `tests/README.md` | Tracer knobs, C++ tool flags, test layout. |
 | `tracer/rpoint-cs/README.md` | The QEMU snapshot/replay tracer (subsumed repo; own CLAUDE.md inside). Excluded from the cluster rsync. Mainline = universal tool; SWE-agent campaign + cassettes on branch `swe-agent-tracing`. |
 
 ## Commands
@@ -74,12 +74,12 @@ tools/trace_sanity_check/trace_sanity_check -i <trace>.champsim2.zst -f v2 --che
 
 # Pintool (x86-64 host with an Intel PIN 4.0 kit; PIN is at
 # /home/rbera/work/softwares/pin-external-4.0-99633-g5ca9893f2-gcc-linux here)
-cd tracer/pintool && env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS \
+cd tracer/pintool/pin && env -u CXX -u CC -u CXXFLAGS -u CFLAGS -u CPPFLAGS -u LDFLAGS \
   PIN_ROOT=<pin-kit> ZSTD_HOME=<dir with include/zstd.h + lib/libzstd.a> \
   bash make_tracer.sh
 
 # Full tracer loop, ~1 minute end to end (no instrumented workload needed)
-<pin-kit>/pin -t tracer/pintool/obj-intel64/champsim_tracer_mt_roi_v3.so \
+<pin-kit>/pin -t tracer/pintool/pin/obj-intel64/champsim_tracer_mt_roi_v3.so \
   -use_markers 0 -o out -t 200000 -n 1 -- /bin/ls /usr/lib
 ```
 

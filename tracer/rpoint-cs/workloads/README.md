@@ -12,12 +12,29 @@ CPU-model string that makes a KVM snapshot restorable under TCG.
 
 | | |
 |---|---|
-| `cpustr.sh` | the TCG-compatible CPU model + patched-QEMU path, sourced by every launcher. A KVM snapshot cannot restore under `-cpu host`. |
 | `rocksdb/rocksdb_driver_v2.cpp` | RocksDB driver with **two fixes over v1**: per-record derived values, and `--attach` |
+| `rocksdb/{Makefile,zipfian.h}` | its build and Zipfian generator |
 | `mongodb/mongo_driver.c` | MongoDB driver, libmongoc, deliberately mirroring the RocksDB one phase-for-phase |
-| `*/boot_*_kvm.sh` | boot the guest under KVM (load, warm, snapshot happen here — never under TCG) |
-| `*/launch_tcg_*.sh` | restore the snapshot under TCG with the tracer plugin; `MODE=profile` or `MODE=capture` |
-| `*/convert_one_*.sh` | one window: filter → convert → validate → verdict |
+| `dacapo/{AvxCanary,VecCheck}.java` | the J1 gate: proof a JVM with C2-compiled AVX2/FMA survives a KVM→TCG restore |
+| `dacapo/{meta-data,user-data}-java` | cloud-init seed for the Java guest |
+
+## Scope, as of 2026-09-07
+
+**This directory holds what runs INSIDE the guest, and how the guest is built.**
+Host-side orchestration — `boot_*_kvm.sh`, `launch_tcg_*.sh`, `convert_one_*.sh`,
+`cpustr.sh` — moved to `../scripts/<workload>/`, where the equivalents for every
+later campaign already lived.
+
+That split is the reconciliation of two answers to the same question. This
+directory was created on 2026-09-05 in response to the audit quoted above; the
+later campaigns (DaCapo, Spark, PostgreSQL, Renaissance) committed their recipes
+to `../scripts/` instead, and for two days the same seven files existed in both
+places, byte-identical and free to diverge. They now exist once, in
+`../scripts/`, split from these by layer rather than by workload name.
+
+The nine RocksDB `run_prod_*.sh` also left, to `tracer/pintool/scripts/`: they
+drive the **PIN** tracer, not this one, and had no business inside the QEMU
+tracer's directory.
 
 **Redis needs no driver** — `memtier_benchmark` drives it natively, which is why
 it was the cheapest of the three to stand up.

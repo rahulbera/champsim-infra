@@ -28,7 +28,7 @@ contrasts the two and says which to reach for.
 
 The PIN workloads are documented here because the trace *format* (v2:
 512-byte records, memory values, privilege bit) is shared with the QEMU
-pipeline — `tracer/pintool/champsim_tracer_mt_roi_v3.cpp` emits the same
+pipeline — `tracer/pintool/pin/champsim_tracer_mt_roi_v3.cpp` emits the same
 512-byte record this repo's `converter/raw2champsim.c` produces. The
 workload *drivers* for FAISS/DLRM/RocksDB still live outside the repo, on
 `/mnt/sherlock/rahbera/workloadzoo/`.
