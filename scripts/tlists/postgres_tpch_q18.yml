@@ -1,0 +1,74 @@
+# PostgreSQL / TPC-H Q18 — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# THE DATABASE CATEGORY (OSDI'24 CXL-tiering taxonomy, Zhong et al. §3.2).
+# Companion to postgres_tpch_q1 (sequential scan) and postgres_tpch_q9 (wide
+# join). Same guest, same database, same configuration -- only the SQL differs.
+#
+# PostgreSQL 16.15, Ubuntu 24.04, TPC-H scale factor 10 (14 GB), one backend.
+# For the full configuration rationale (sb2G 7x overcommit, wm64M, nopar, the
+# server-side PL/pgSQL LOOP that keeps the pid-bound pin, and the dss.ri
+# foreign-key defect) see scripts/tlists/postgres_tpch_q1.yml -- it is identical
+# here and not repeated.
+#
+#   * q18 <- TPC-H Q18, "large volume customer": a grouped aggregate over
+#            lineitem feeding an IN-subquery, then joined back to orders and
+#            customer.
+#
+# SCREENED IN ON A MEASUREMENT THAT OVERTURNED MY RECOMMENDATION. I had proposed
+# dropping Q18 for its 4.06M temp reads, expecting a spill-dominated I/O study.
+# The researcher asked "can we not measure the IO runtime fraction using perf".
+# Measured: Q18 is the MOST compute-bound of the four at 87.6% CPU / 2.8% iowait
+# -- the hash-aggregate spill is absorbed by the OS page cache (12 GB guest RAM
+# against a 14 GB database). Under TCG that became emphatic.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **101.41%** of the profiled
+# trajectory via scripts/sgap.py (SGAP 70,558,918,318). Over 100% because the
+# capture is not time-bounded and outran the 600 s profile.
+# Profile: 153,433,767,083 instructions (143,932,055,266 user, 9,501,711,817
+# kernel) = **93.81% user, 255.7 MIPS** -- the fastest TCG rate and the longest
+# trajectory of any workload in this corpus, and second only to Spark page-rank
+# (95.09%) in user purity.
+# Manifest at docs/workloads/postgres/postgres-q18-manifest.txt.
+#
+# Q18 is also this corpus's demonstration of the SAFE end of the sample_gap bug:
+# at 93.81% user the plugin's broken hint would have covered 99.87%,
+# indistinguishable from correct. Q21, at 60.90% user, would have covered
+# 98.14%. The error scales with KERNEL fraction -- see scripts/sgap.py.
+#
+# MEASURED, all three windows, decode_fail 0, 1,000,000,000 insns each:
+#   w00000 86.3/13.7 user/kern, 15.2% branch, 49.6% mem, SIMD 8,589,378
+#   w00001 87.3/12.7,           15.5%,        48.7%,     SIMD 9,495,450
+#   w00002 87.0/13.0,           15.4%,        49.1%,     SIMD 9,229,142
+# Branch spread 0.3 pt, memory spread 0.9 pt -- as tight as Q1's.
+# The SIMD counts are the tell: 8.6-9.5M against Q9's 0.9-3.5M and Q1's ~2.7M.
+# The hash-aggregate path vectorises far more than the join or scan paths do.
+# Window user fraction (86-87%) sits below the 600 s profile's 93.81% because
+# the profile averages the whole trajectory including the stretches between
+# windows; the same gap appears in Q1 (82.50% profile vs 73-80% windows).
+# 0 windows in the reject band (branch<10 AND mem>70).
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+postgres_tpch_q18:
+  - postgres_tpch_q18_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q18_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 7d55172330b69c37c50fa1e96e5555cc1cb5842304c0ee99b493266dea56656a
+  - postgres_tpch_q18_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q18_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 9645bd02c0d4394ca23979176d7f6ee3378b5eb43dc53639b7cda31bad591dfb
+  - postgres_tpch_q18_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q18_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: bc29c090d1f2d254c6c5b9b2d92695b3089ce7ff1f206d73aaf7144c107cc7aa

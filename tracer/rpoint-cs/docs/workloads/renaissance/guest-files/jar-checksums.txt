@@ -1,0 +1,3 @@
+bcf666209e01798dfa8c0474b9ba05397fe3583f6bd97bb4efbf0ed1a1d044bc  renaissance-mit-0.16.1.jar
+c488cc61fcd02bb04b87e601fd80517b8b0991c0baf564cae17538fdc1edb792  dacapo-23.11-MR2-chopin.jar
+70a1fd4ed959f09053bb7ef8b2745a19d6f28dd8a7d0b350362039d89b49eb26  dacapo-23.11-MR2-chopin.zip

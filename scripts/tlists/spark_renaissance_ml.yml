@@ -1,0 +1,106 @@
+# Spark ML via Renaissance — naive-bayes and dec-tree, captured 2026-09-06 on minitron
+#
+# SPARK ROUND 2. The v1 campaign captured only `page-rank`, which is the ONLY one
+# of Renaissance's eight apache-spark benchmarks using the raw RDD API. These two
+# run the other half of Spark's execution engine: Spark ML on DataFrames ->
+# Catalyst -> **Tungsten whole-stage codegen**, which generates Java at runtime,
+# compiles it with Janino, and operates on packed off-heap UnsafeRow buffers.
+# A different machine, not a different algorithm.
+#
+# The measurements bear that out. All three Spark benchmarks are ~95% user and
+# 170-190 MIPS, so they are indistinguishable on privilege split -- the whole
+# difference is in the instruction mix:
+#
+#   | benchmark   | branch  | mem    | SIMD per 1e9 |
+#   | page-rank   | 17-19%  | 40-45% | (RDD, low)   |
+#   | dec-tree    | 17-19%  | 41-43% | ~19 M        |
+#   | naive-bayes | 16.7%   | 51.4%  | ~54 M        |
+#
+# **naive-bayes emits ~54 M SIMD instructions per billion -- 5.4% of the entire
+# stream**, 2.8x dec-tree, 6x PostgreSQL Q18, 20x Q1. That is Tungsten's
+# generated sparse-vector code JITing into wide vector loops, and it is the
+# clearest single piece of evidence in this corpus that the DataFrame path is not
+# the RDD path.
+#
+# dec-tree sits at the corpus's HIGH-BRANCH / LOW-MEMORY extreme (18.8% / 41.0%),
+# the exact opposite corner from PostgreSQL Q21 (12.5% / 57.7%). Between them the
+# two bracket every other trace in the catalogue.
+#
+# CONFIGURATION, measured from the artifact and from benchmarks.properties:
+#   * spark3.5.3        <- unique/apache-spark/spark-core_2.13-3.5.3.jar
+#   * renaissance0.16.1 <- release v0.16.1; jar sha256 recorded in
+#                          docs/workloads/renaissance/guest-files/jar-checksums.txt
+#   * naivebayes        <- copy_count=8000 (largest input multiplier in the
+#                          group), spark_thread_limit=$cpu.count.
+#                          MEASURED before committing: live set 1.35 GB after GC
+#                          vs page-rank's 149 MB (9x), peak RSS 4.42 GB, and
+#                          3.7 GB spilled to disk per 3 iterations.
+#   * dectree           <- copy_count=100, spark_thread_limit=6. Random Forest,
+#                          chosen for irregular histogram aggregation and
+#                          branchier control flow.
+#   * local             <- Spark local mode, ONE JVM, no cluster. Recorded
+#                          deviation, same as page-rank: no network shuffle over
+#                          TCP. Deliberate -- a distributed Spark under a ~35x TCG
+#                          slowdown blows through every timeout it owns.
+#   * jdk21g1gc4G       <- OpenJDK 21.0.12, -XX:+UseG1GC, -Xms4g -Xmx4g
+#
+# SINGLE-CORE SLICE: naive-bayes 291 JVM threads at launch / 274 at capture;
+# dec-tree 290 / 287. ALL pinned with `taskset -acp 1`, verified mask=2 with
+# 0 unpinned before the snapshot AND again after the TCG restore.
+#
+# WINDOW PLACEMENT via scripts/sgap.py, both profiled on a DELIBERATELY IDLE
+# machine (the running converters were paused for the 600 s measured window --
+# see scripts/run_ren_snap_profile.sh):
+#   naive-bayes  107,476,839,742 insns (95.01% user, 179.1 MIPS)
+#                SGAP 49,632,933,549 -> 100.15% coverage
+#   dec-tree     103,861,568,088 insns (94.47% user, 173.1 MIPS)
+#                SGAP 47,640,707,930 -> 101.01% coverage
+# Manifests in docs/workloads/renaissance/. decode_fail 0 on all six windows.
+# 0 windows in the reject band (branch<10 AND mem>70).
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+spark_renaissance_ml:
+  - spark_dectree_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: 85b865fcf2a77115494a4aff217413b80011f0a5af7976b1091ac0bb92baa100
+  - spark_dectree_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: cc919e80e2deeb4fff86ee328549302757ba5542919bab4d65817f332bc1a470
+  - spark_dectree_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_dectree_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: 1622817a375a549adefd321cfae398bb5dac0bf83ca37f3fedd3ac466e13c2ad
+  - spark_naivebayes_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: ae5f83e394494cf9ea8d384eaf5760fd309fd40ca2150b2c83c34cbb39629bd2
+  - spark_naivebayes_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: 21d639c29da192644711a53de862f4dff1c24949e51371eeba800d1fca380fac
+  - spark_naivebayes_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/spark/spark3.5.3_renaissance0.16.1_naivebayes_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: spark
+      category: bigdata
+      subcategory: jvm_renaissance
+      checksum: 5c03d4d7dd4f7e785dae45dcb23989786dd711e5cee8f7aeb4affab2888faf51

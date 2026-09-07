@@ -1,15 +1,18 @@
 #!/bin/bash
-# Ship PostgreSQL TPC-H traces to the kratos2 catalogue.
+# Ship traces to the kratos2 catalogue.  Generic over BENCH/NEW/NWIN/EXPECT,
+# and over DEST so one script serves postgres, spark and the Renaissance web
+# workloads.  DEST defaults to the postgres directory for backwards
+# compatibility with the Q1/Q9/Q18 invocations already in the campaign log.
 # ORDER IS NON-NEGOTIABLE: rename -> hash local -> rsync -> verify ON KRATOS2
 # -> register -> (only then, separately) reclaim.  This script STOPS before
 # reclamation; deletion is a separate, deliberate step.
 set -euo pipefail
 W=$HOME/work/new-tracing
 OUT=$W/out
-DEST=/home/rahbera/tracezoo/champsim/version2.1/postgres
+DEST=${DEST:-/home/rahbera/tracezoo/champsim/version2.1/postgres}
 CAT=/home/rahbera/tracezoo/champsim/CHECKSUMS.sha256
 STAGE=$W/ship_pg
-BENCH=${BENCH:?set BENCH to pgq1|pgq9|pgq18|pgq21}
+BENCH=${BENCH:?set BENCH -- names the convert log: logs/convert.$BENCH.log}
 NEW=${NEW:?set NEW to the trace basename prefix}
 NWIN=${NWIN:?set NWIN to the window count}
 EXPECT=${EXPECT:?set EXPECT to the current CHECKSUMS line count}

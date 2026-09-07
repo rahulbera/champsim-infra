@@ -1,0 +1,4 @@
+# vcpu 1 sampling manifest: chunk file start_insn insn_count comp_bytes
+0 trace_vcpu1_c00000.raw.zst 0 1000000000 2309750814
+1 trace_vcpu1_c00001.raw.zst 51985019606 1000000000 2248632320
+2 trace_vcpu1_c00002.raw.zst 103907316465 1000000000 2234683130

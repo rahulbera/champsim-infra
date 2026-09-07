@@ -1,0 +1,72 @@
+# PostgreSQL / TPC-H Q21 — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# THE DATABASE CATEGORY (OSDI'24 CXL-tiering taxonomy, Zhong et al. §3.2), and
+# the fourth and last query of the set. Companions: postgres_tpch_q1 (sequential
+# scan), _q9 (six-way join), _q18 (grouped aggregate). Same guest, same 14 GB
+# database, same configuration -- only the SQL differs. Full configuration
+# rationale is in postgres_tpch_q1.yml and is not repeated.
+#
+#   * q21 <- TPC-H Q21, "suppliers who kept orders waiting": correlated EXISTS
+#            and NOT EXISTS subqueries over a self-joined lineitem, plus orders,
+#            supplier and nation.
+#
+# Included at the researcher's direction as LAST priority, and it turned out to
+# anchor an end of the corpus that nothing else reaches.
+#
+# *** THE MOST KERNEL-HEAVY AND MOST MEMORY-BIASED TRACES IN THIS CORPUS ***
+#   w00000 55.0/45.0 user/kern, 12.7% branch, 56.0% mem, SIMD 592,468
+#   w00001 48.0/52.0,           12.7%,        57.7%,     SIMD 948,133
+#   w00002 53.9/46.1,           12.5%,        56.5%,     SIMD 593,521
+#
+# w00001 is the FIRST trace in this corpus where kernel exceeds user (52.0%).
+# All three sit at the corpus's low-branch / high-memory extreme. They are
+# outside the reject band (branch<10% AND mem>70%) on BOTH axes -- 12.5% branch
+# against a 10% floor, 57.7% memory against a 70% ceiling -- so they are
+# accepted, but a future reader screening on aggregates should know these sit at
+# the edge deliberately. For a CXL/tiering study this is the regime of interest.
+#
+# The opposite corner of the same corpus is spark dec-tree (18.8% branch, 41.0%
+# mem). Between them the two bracket every other trace here.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **101.93%** via scripts/sgap.py
+# (SGAP 30,550,087,496). Profile: 103,321,622,204 instructions
+# (62,927,303,789 user, 40,394,318,415 kernel) = **60.90% user, 172.2 MIPS**.
+# Manifest at docs/workloads/postgres/postgres-q21-manifest.txt.
+# Profiled on a deliberately idle machine (converters paused for the measured
+# window -- scripts/run_pg_snap_profile.sh), so the 60.90% is comparable to
+# q1 82.50%, q9 71.04%, q18 93.81%: a 33-point range from one guest, by SQL
+# alone.
+#
+# Q21 is also the corpus's WORST case for the plugin's broken sample_gap hint
+# among the TPC-H queries: it would have covered 98.14% against the correct
+# 100.00%, because the hint's shortfall scales with KERNEL fraction and Q21 is
+# 39.10% kernel. See scripts/sgap.py for the derivation and both counterexamples.
+#
+# decode_fail 0, 1,000,000,000 insns each. trace_filter removed 0.0%:
+# PostgreSQL under a server-side DO-LOOP never idles.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+postgres_tpch_q21:
+  - postgres_tpch_q21_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q21_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 4339d470c4785124a3d439583d168900932cc899787d7175b26934e7a03eaa5f
+  - postgres_tpch_q21_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q21_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 4cd14c4d59a779fedd6ff19b108d3ecf0cd9ce0a2c40e5f7e7ab4aaabcb3e946
+  - postgres_tpch_q21_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q21_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 82b9f397abb14833098268c7fd8d832f5722acd7a9c2a96bae4bc0b8b4163d41

@@ -333,3 +333,93 @@ or HammerDB) is the realistic route.
     `STAGE` and log path before running. Nothing shipped from the empty file.
     Rule to carry forward: after generating a file, assert on its SIZE and on a
     known-present string, never on a syntax check alone.
+
+23. **2026-09-06 14:43Z – 2026-09-07 01:03Z — the database category, complete.**
+    Q1, Q9, Q18, Q21 shipped in that order; CHECKSUMS 191 -> 209.
+
+    | query | user % | TCG rate | branch | mem | coverage |
+    |---|---|---|---|---|---|
+    | q18 | 93.81 | 255.7 MIPS | 15.2-15.5 | 48.7-49.6 | 101.41% |
+    | q1  | 82.50 | 204.7 MIPS | 15.0-15.4 | 49.9-50.8 | 101.29% |
+    | q9  | 71.04 | 171.3 MIPS | 12.9-15.8 | 47.3-56.7 |  99.73% |
+    | q21 | 60.90 | 172.2 MIPS | 12.5-12.7 | 56.0-57.7 | 101.93% |
+
+    **A 33-point user-fraction range out of one guest, one database, one
+    configuration — by changing only the SQL.** Wider than the three DaCapo JVMs
+    managed (37.1 -> 66.4) and achieved without any deployment-realism
+    compromise. That is the strongest argument for treating "database" as
+    several points in the space rather than one.
+
+    Two queries turned out to be corpus extremes:
+    - **Q9** is the only workload here whose windows split into two REGIMES
+      rather than a gradient: w00000/w00001 at 55% user / 12.9% branch / 56.6%
+      mem, w00002 at 82% user / 15.8% / 47.3% with 4x the SIMD. Hash-build and
+      probe versus aggregate, visible in the trace.
+    - **Q21** is the most kernel-heavy (w00001 at 52.0% kernel, the first
+      majority-kernel trace in the corpus) and the most memory-biased. Both are
+      outside the reject band on both axes and were accepted deliberately; the
+      tlists say so explicitly rather than leaving it to be rediscovered.
+
+24. **2026-09-06 19:34Z – 2026-09-07 02:34Z — Renaissance round 2: four
+    workloads, all four the researcher asked for.** CHECKSUMS 209 -> 215.
+
+    | workload | user % | TCG rate | branch | mem | live set |
+    |---|---|---|---|---|---|
+    | naive-bayes | 95.01 | 179.1 MIPS | 16.7 | 51.4 | 1.35 GB |
+    | dec-tree | 94.47 | 173.1 MIPS | 18.6 | 41.3 | -- |
+    | finagle-chirper | 82.12 | 100.5 MIPS | 18.6 | 41.6 | 18.8 MB |
+    | finagle-http | 68.49 | **75.4 MIPS** | 18.3 | 41.2 | 14.1 MB |
+
+    **The Spark ML pair proved the hypothesis they were chosen to test.**
+    page-rank is the only one of Renaissance's eight apache-spark benchmarks on
+    the raw RDD API; these two run DataFrames through Catalyst and Tungsten
+    whole-stage codegen. All three are ~95% user and 170-190 MIPS, so they are
+    indistinguishable on privilege split -- the difference is entirely mix, and
+    it is stark: **naive-bayes emits ~54 M SIMD instructions per billion, 5.4% of
+    the whole stream**, 2.8x dec-tree, 6x Q18, 20x Q1. Tungsten's generated
+    sparse-vector code JITing into wide vector loops.
+
+    **finagle-http is the slowest workload this project has ever traced** at
+    75.4 MIPS -- below Tomcat (76.6) and Cassandra (84.5), a third of Q18. Two of
+    its three windows are majority-kernel. Client and server share one JVM over
+    TCP loopback; every request crosses the kernel twice and TCG cannot
+    accelerate a syscall.
+
+    The two finagle workloads differ by ~9 points of kernel fraction while their
+    branch/memory mixes are nearly identical (18.3 vs 18.6% branch, 41.2 vs
+    41.6% mem). The Netty stack dominates the user-mode shape regardless of the
+    service above it, so the pair isolates kernel involvement with user code held
+    roughly constant. Recorded because it is a useful property, not an accident.
+
+    **The waiver was load-bearing.** Judged on memory intensity both finagle
+    workloads would have been screened out, and they carry the corpus's ONLY
+    high-branch + kernel-heavy traces. The researcher's call:
+    *"they may or may not be interesting from memory perspective. But that's
+    fine. These traces may come in handy for new studies."*
+
+25. **The sample_gap bug, now with five measured points across a 33-point
+    kernel range.** Every capture in this campaign computed the gap with
+    `scripts/sgap.py` and recorded what the plugin's hint would have produced:
+
+    | workload | kernel % | hint would cover |
+    |---|---|---|
+    | q18 | 6.19 | 99.87% |
+    | naive-bayes | 4.99 | 99.85% |
+    | dec-tree | 5.53 | 99.83% |
+    | q9 | 28.96 | 98.81% |
+    | q21 | 39.10 | 98.14% |
+    | **finagle-http** | **31.51** | **96.95%** |
+
+    The error tracks kernel fraction, as derived. finagle-http is the worst case
+    measured anywhere in this project -- and note it is worse than Q21 despite a
+    lower kernel fraction, because the shortfall is K*N*(1-f)/U and its
+    trajectory is less than half Q21's, so the fixed 3e9 of window is a much
+    larger share of it. **The bug is not a function of kernel fraction alone;
+    short trajectories amplify it.** That is the refinement this campaign adds.
+
+26. **2026-09-07 — pipelining, in numbers.** The insight that the 600 s profile
+    is the ONLY time-bounded stage (entry 18) held for all eight remaining
+    workloads. Every profile ran on a machine fenced to load ~1.1 by pausing the
+    converters; peak concurrency otherwise reached **13 filter/convert processes
+    across four workloads** at load 14.9 on 32 cores, with captures and ships
+    overlapping freely. Zero pipeline defects throughout.

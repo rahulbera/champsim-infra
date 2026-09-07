@@ -1,0 +1,78 @@
+# PostgreSQL / TPC-H Q9 — QEMU/TCG full-system traces, captured 2026-09-06 on minitron
+#
+# THE DATABASE CATEGORY (OSDI'24 CXL-tiering taxonomy, Zhong et al. §3.2).
+# Companion to postgres_tpch_q1 (sequential scan) and postgres_tpch_q18 (grouped
+# aggregate). Same guest, same database, same configuration -- only the SQL
+# differs. For the full configuration rationale (sb2G 7x overcommit, wm64M,
+# nopar, the server-side PL/pgSQL LOOP that keeps the pid-bound pin, and the
+# dss.ri foreign-key defect) see postgres_tpch_q1.yml; it is identical here.
+#
+#   * q9 <- TPC-H Q9, "product type profit measure": a SIX-WAY join over
+#           lineitem, partsupp, orders, part, supplier and nation with a grouped
+#           aggregate on top. The widest join in the set.
+#
+# *** THE MOST MEMORY-BIASED TRACES IN THIS CORPUS -- READ BEFORE USING ***
+# Q9 is the first workload here whose windows fall into TWO DISTINCT REGIMES
+# rather than a gradient:
+#
+#   w00000 54.6/45.4 user/kern, 12.9% branch, 56.7% mem, SIMD   895,783
+#   w00001 55.3/44.7,           12.9%,        56.4%,     SIMD   921,607
+#   w00002 82.2/17.8,           15.8%,        47.3%,     SIMD 3,504,067
+#
+# A 27-point user swing and a 9-point memory swing between windows of the SAME
+# query -- against Spark page-rank's 4.8 pt, previously the widest measured.
+# This is the join's phase structure: hash-build and probe against the large
+# tables are memory- and kernel-bound; the aggregate phase is compute-bound and
+# vectorises (4x the SIMD). The filter stage saw the same shape live, reporting
+# per-chunk user fractions of 82.3 / 55.3 / 54.3%.
+#
+# w00000 and w00001 are the closest anything in this corpus comes to the reject
+# band (branch<10% AND mem>70%): 12.9% branch against a 10% floor, 56.7% memory
+# against a 70% ceiling. Clearly outside on BOTH axes, so they are accepted --
+# and for a CXL/tiering study this is arguably the most useful regime in the set,
+# since it is precisely what §3.2 of the OSDI paper is about. Stated explicitly
+# rather than buried, because a future reader screening on aggregate numbers
+# should know these two windows sit at the edge by design, not by accident.
+#
+# WINDOW PLACEMENT: 3 windows x 1e9 spanning **99.73%** of the profiled
+# trajectory via scripts/sgap.py (SGAP 35,448,268,921).
+# Profile: 102,794,750,124 instructions (73,027,808,407 user, 29,766,941,717
+# kernel) = 71.04% user, 171.3 MIPS.
+# Manifest at docs/workloads/postgres/postgres-q9-manifest.txt.
+#
+# The profile was measured on a DELIBERATELY IDLE machine: the three converters
+# then running were paused for the 600 s window (see
+# scripts/run_pg_snap_profile.sh). That matters -- a contended profile executes
+# fewer instructions in its fixed window, yielding a smaller gap and a narrower
+# slice of the trajectory, which would have made Q9's 71.04% incomparable to
+# Q1's 82.50% and Q18's 93.81%.
+#
+# `trace_filter` removed 0.0% from every window: PostgreSQL under a server-side
+# DO-LOOP never idles, the opposite of Tomcat (0.6-0.9% per window).
+# decode_fail 0, 1,000,000,000 insns each.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+postgres_tpch_q9:
+  - postgres_tpch_q9_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q9_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: 67f7a5eb46586937d407a05f289c4a619f03bc18e73573e33d79597ab0efb2e4
+  - postgres_tpch_q9_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q9_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: e0ba0d53571a0e9fc3f04139288b5b33df1ffa49781933b17f625be925de79ab
+  - postgres_tpch_q9_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/postgres/postgres16.15_tpch_sf10_q9_sb2G_wm64M_nopar_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: postgres
+      category: database
+      subcategory: rdbms_tpch
+      checksum: d229e19394255e63d2d4c52f3f57b78e088f8df1f8c25129f75f70b840d2e26e

@@ -1,0 +1,111 @@
+# Twitter Finagle via Renaissance — finagle-http and finagle-chirper
+# Captured 2026-09-07 on minitron.
+#
+# *** THESE TWO ARE ACCEPTED ON CONTROL-FLOW GROUNDS, NOT MEMORY INTENSITY ***
+# The standing constraint for this whole corpus is "memory-intensive traces, but
+# NOT at the cost of an unrealistic deployment scenario". For these two the
+# researcher explicitly waived the first half:
+#
+#   "The finagle workloads are more interesting from control-flow perspective:
+#    they may or may not be interesting from memory perspective. But that's
+#    fine. These traces may come in handy for new studies."
+#
+# So DO NOT screen these out for a small footprint, and do not read a low memory
+# fraction as a defect. Deployment realism still applies and still holds.
+# The measured live set is 14.1 MB (http) and 18.8 MB (chirper) after GC, against
+# naive-bayes's 1.35 GB -- roughly 100x smaller, exactly as anticipated.
+#
+# WHAT THEY CONTRIBUTE. These are the corpus's only HIGH-BRANCH + KERNEL-HEAVY
+# traces, a combination nothing else here has:
+#
+#   | workload         | user/kern   | branch | mem   | TCG rate   |
+#   | finagle-http     | ~50/50      | 18.3%  | 41.2% |  75.4 MIPS |
+#   | finagle-chirper  | ~59/41      | 18.6%  | 41.6% | 100.5 MIPS |
+#   | spark dec-tree   | ~77/23      | 18.6%  | 41.3% | 173.1 MIPS |
+#   | postgres q21     | ~52/48      | 12.6%  | 56.7% | 172.2 MIPS |
+#
+# TWO OF THREE finagle-http windows are MAJORITY KERNEL (50.2%, 51.2%), and its
+# 75.4 MIPS is the SLOWEST TCG rate ever measured in this project -- below Tomcat
+# (76.6) and Cassandra (84.5), a third of PostgreSQL Q18 (255.7). Client and
+# server share one JVM over TCP loopback, so every request crosses the kernel
+# twice and TCG cannot accelerate a syscall.
+#
+# The pair is also useful as a matched comparison: they differ by ~9 points of
+# kernel fraction while their branch and memory mixes are nearly identical (18.3
+# vs 18.6% branch, 41.2 vs 41.6% mem). The Netty/Finagle stack dominates the
+# user-mode instruction shape regardless of the service above it, so these two
+# isolate kernel involvement while holding user code roughly constant.
+#
+# CONFIGURATION, measured:
+#   * finagle24.2.0     <- unique/twitter-finagle/finagle-core_2.13-24.2.0.jar
+#   * renaissance0.16.1 <- release v0.16.1; jar sha256 in
+#                          docs/workloads/renaissance/guest-files/jar-checksums.txt
+#   * finaglehttp       <- "many small HTTP requests to a Finagle HTTP server"
+#   * finaglechirper    <- "simulates a microblogging service"
+#   * local             <- one JVM, loopback TCP. Recorded deviation: no traffic
+#                          leaves the guest, so no NIC driver or real network
+#                          stack latency -- but the full socket syscall path,
+#                          Netty event loop and TCP processing ARE present.
+#   * jdk21g1gc4G       <- OpenJDK 21.0.12, -XX:+UseG1GC, -Xms4g -Xmx4g
+#
+# SINGLE-CORE SLICE: finagle-http 47 threads at launch / 49 at capture;
+# chirper 72 / 83. ALL pinned `taskset -acp 1`, mask=2, 0 unpinned, verified
+# before the snapshot AND after the TCG restore.
+#
+# WINDOW PLACEMENT via scripts/sgap.py, both profiled on a deliberately idle
+# machine (converters paused for the measured window):
+#   finagle-http     45,227,376,391 insns (68.49% user,  75.4 MIPS)
+#                    SGAP 14,460,483,723 -> 103.36% coverage
+#   finagle-chirper  60,272,603,054 insns (82.12% user, 100.5 MIPS)
+#                    SGAP 23,515,140,285 -> 103.90% coverage
+# finagle-http is the corpus's WORST case for the plugin's broken gap hint:
+# it would have covered 96.95% against the correct 100.00%, the largest error
+# measured, because the shortfall scales with kernel fraction. See sgap.py.
+# Manifests in docs/workloads/renaissance/. decode_fail 0 on all six windows.
+#
+# Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
+# Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.
+
+finagle_renaissance:
+  - finagle_http_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: finagle
+      category: web
+      subcategory: jvm_renaissance
+      checksum: daa1030be17a722c0437f17d48855fbc1031362508b48a2940e764386f4972a2
+  - finagle_http_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: finagle
+      category: web
+      subcategory: jvm_renaissance
+      checksum: 779b5440b4368d7955357051f87a006c8b5af755e3c6b3db776698a08eda0b27
+  - finagle_http_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglehttp_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: finagle
+      category: web
+      subcategory: jvm_renaissance
+      checksum: 29b86d0eae825d342235e379580ffb3df4a8d3def1981927a3bbc894298f9bb7
+  - finagle_chirper_w00000:
+      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00000.champsim2.zst
+      version: 2
+      workload: finagle
+      category: web
+      subcategory: jvm_renaissance
+      checksum: ff1b1c2e85689fe9968666396ebc7821db1b13678878e5773f6820530e4bddc9
+  - finagle_chirper_w00001:
+      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00001.champsim2.zst
+      version: 2
+      workload: finagle
+      category: web
+      subcategory: jvm_renaissance
+      checksum: 5fdf0fc6161c8e8b9ca6d39b75be13ff762073eb90f5da6eec23c87f9a4bd17e
+  - finagle_chirper_w00002:
+      path: /home/rahbera/tracezoo/champsim/version2.1/finagle/finagle24.2.0_renaissance0.16.1_finaglechirper_local_jdk21g1gc4G_1t_ubu24.04_qemu9.2.4tcg_1B_w00002.champsim2.zst
+      version: 2
+      workload: finagle
+      category: web
+      subcategory: jvm_renaissance
+      checksum: 9431c9fa4e4fdd24726081dfa8dc98117eaacb5b6a63b4fa0b8cce893f8af928
