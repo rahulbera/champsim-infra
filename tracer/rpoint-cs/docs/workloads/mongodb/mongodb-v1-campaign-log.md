@@ -1,7 +1,20 @@
 # MongoDB v1 Capture Campaign — Running Log
 
-**Status:** IN PROGRESS. Append-only, enumerated, timestamped UTC. Dead ends
-recorded deliberately. Compact into a runbook only when the campaign closes.
+
+> **This is the chronological record — the primary source, kept unedited.**
+> 17 numbered entries, UTC-timestamped, dead ends and mistakes included.
+>
+> - **Distilled findings** (what recurs across all six campaigns, the defect
+>   classes, the load-bearing pipeline properties):
+>   [`../../verification/2026-09-07-capture-campaigns-findings.md`](../../verification/2026-09-07-capture-campaigns-findings.md)
+> - **Per-trace measured numbers** (mix, coverage, profile, recorded deviations):
+>   `scripts/tlists/mongodb_v1.yml` in the parent repo — beside the traces they describe.
+>
+> Read this file when you need to know *what happened and in what order*. Read
+> the findings document when you need to know *what was learned*.
+
+**Status:** CLOSED. Traces shipped, verified on kratos2 and registered.
+The compaction this header anticipated is the findings document linked above.
 
 **Why MongoDB is the hardest of the three.** It is the *union* of the two shapes
 already traced: WiredTiger has an internal cache (like RocksDB's block cache)

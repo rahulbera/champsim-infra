@@ -1,5 +1,18 @@
 # DaCapo (Chopin) + Spark — campaign log
 
+
+> **This is the chronological record — the primary source, kept unedited.**
+> 75 numbered entries, UTC-timestamped, dead ends and mistakes included.
+>
+> - **Distilled findings** (what recurs across all six campaigns, the defect
+>   classes, the load-bearing pipeline properties):
+>   [`../../verification/2026-09-07-capture-campaigns-findings.md`](../../verification/2026-09-07-capture-campaigns-findings.md)
+> - **Per-trace measured numbers** (mix, coverage, profile, recorded deviations):
+>   `scripts/tlists/dacapo_cassandra.yml, dacapo_kafka.yml, dacapo_tomcat.yml` in the parent repo — beside the traces they describe.
+>
+> Read this file when you need to know *what happened and in what order*. Read
+> the findings document when you need to know *what was learned*.
+
 Running log of the Java/big-data tracing effort. Enumerated, timestamped UTC,
 appended as things happen, **dead ends included**. The point of this file is
 that the recipe should never again exist only on one disk.

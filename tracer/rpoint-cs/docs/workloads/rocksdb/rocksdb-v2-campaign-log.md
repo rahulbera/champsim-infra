@@ -1,8 +1,20 @@
 # RocksDB v2 Capture Campaign — Running Log
 
-**Status:** IN PROGRESS. This is a raw, append-only trail written as the work
-happens, not a finished document. It will be compacted and reorganized into a
-coherent runbook once the campaign completes.
+
+> **This is the chronological record — the primary source, kept unedited.**
+> 29 numbered entries, UTC-timestamped, dead ends and mistakes included.
+>
+> - **Distilled findings** (what recurs across all six campaigns, the defect
+>   classes, the load-bearing pipeline properties):
+>   [`../../verification/2026-09-07-capture-campaigns-findings.md`](../../verification/2026-09-07-capture-campaigns-findings.md)
+> - **Per-trace measured numbers** (mix, coverage, profile, recorded deviations):
+>   `scripts/tlists/rocksdb_v2.yml` in the parent repo — beside the traces they describe.
+>
+> Read this file when you need to know *what happened and in what order*. Read
+> the findings document when you need to know *what was learned*.
+
+**Status:** CLOSED. Traces shipped, verified on kratos2 and registered.
+The compaction this header anticipated is the findings document linked above.
 
 **Format:** enumerated entries, each timestamped UTC. Dead ends and corrected
 mistakes are recorded deliberately — they are the entries that were lost last

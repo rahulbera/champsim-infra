@@ -6,6 +6,17 @@ Audits of **completed capture campaigns** — what was actually run, what the
 resulting traces actually measured, and where the methodology failed silently.
 These are written after the fact, about a campaign that is already finished.
 
+## Contents
+
+| document | subject |
+|---|---|
+| `2026-09-04-memcached-rocksdb-capture-audit.md` | the v1 audit: why the first memcached and RocksDB traces did not exercise the memory system |
+| `2026-09-07-capture-campaigns-findings.md` | **distillate of all six capture campaigns** (188 log entries, 59 traces): the one defect that reached shipped artifacts, the five times measurement overturned a prediction, the load-bearing pipeline properties, and the six recurring defect classes |
+
+The 2026-09-07 document is the one to hand someone new. The per-campaign
+chronological logs it distils remain unedited at `../workloads/*/`; each carries a
+header pointing here.
+
 ## Not to be confused with `docs/validation/`
 
 The two names are close and the distinction is load-bearing:
