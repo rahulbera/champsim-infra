@@ -1,5 +1,15 @@
 # AArch64 Capture Kit (raw v3) Implementation Plan
 
+
+> **Historical implementation record**, executed 2026-07-06. The shipped code is
+> authoritative: `scripts/capture-kit/` (with its own README),
+> `plugin/champsim_tracer.c`, `converter/`. **Line anchors and quoted code here
+> are stale** — this quotes `champsim_tracer.c` at 885 lines against today's
+> ~1500, and Tasks 9–11 reproduce files that exist for real in
+> `scripts/capture-kit/`.
+>
+> Read it for the sequencing and the decisions, not as current guidance.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Implement raw trace format v3 (arch byte, PA capture, value knob) across the QEMU TCG plugin and all three readers, plus the collaborator-facing AArch64 capture kit (probe/configure scripts + README).

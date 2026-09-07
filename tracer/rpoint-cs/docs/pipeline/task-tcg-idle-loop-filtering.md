@@ -1,5 +1,15 @@
 # Design Document: TCG Idle Loop Filtering for Raw Traces
 
+
+> **Shipped** as `plugin/trace_filter.c`; algorithm and Option A as specified.
+> The filter now reads raw v2 and v3 with `has_pa`-conditional framing and
+> refuses `arch=aarch64` — see `plugin/README.md` for current behaviour.
+>
+> The figures under "Statistics Output" are an illustrative example, not a
+> measurement. For what filtering actually removed per workload, see
+> `../../verification/2026-09-07-capture-campaigns-findings.md` §3.4 (Tomcat
+> 0.6–0.9%, PostgreSQL 0.0%).
+
 ## Problem Statement
 
 When QEMU runs in TCG mode, the guest kernel's idle loop is emulated

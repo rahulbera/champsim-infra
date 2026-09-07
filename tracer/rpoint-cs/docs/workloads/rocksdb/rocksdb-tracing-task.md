@@ -1,5 +1,16 @@
 # RocksDB Key-Value Store Instruction Trace Generation — Claude Code Task Spec
 
+
+> **Superseded twice** — by the PIN v3 20 M matrix
+> (`tracer/pintool/scripts/`), then by the QEMU v2 campaign whose five traces are
+> the ones in the catalogue.
+>
+> **Read `../../verification/2026-09-04-memcached-rocksdb-capture-audit.md` §4
+> before following any of it:** this spec's ">90% block-cache hit rate" success
+> criterion is the documented defect — it is a statement that the workload never
+> reaches DRAM. v2 measured 34.33%. See also
+> `../../verification/2026-09-07-capture-campaigns-findings.md` §3.3.
+
 ## Migration Context
 
 This document specifies a task for Claude Code to execute on a machine with

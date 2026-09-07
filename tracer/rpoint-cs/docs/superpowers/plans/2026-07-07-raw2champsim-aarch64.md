@@ -1,5 +1,20 @@
 # raw2champsim AArch64 Support Implementation Plan
 
+
+> **Superseded build record**, 2026-07-07. Live successors:
+> `../specs/2026-07-07-raw2champsim-aarch64-design.md` (the §3/§4 rationale, and
+> the authority the code cites), `converter/README.md` (current conventions —
+> frozen register IDs, LR-not-SP, ERET→OTHER, CBZ has no FLAGS), and
+> `converter/tests/` (current validation).
+>
+> **Task 1's "x86 converts byte-identically" gate was deliberately voided** by the
+> 2026-08-05 branch-type work; see `converter/README.md`.
+>
+> Retained for one measurement recorded nowhere else: the Capstone 4.0.2 enum
+> values verified before implementation — X29=350, X30=351, NZCV=352, SP=353,
+> WSP=354, XZR=356, X0=548 — which are the evidence for the non-contiguity claim
+> that `decode_aarch64.c` and `converter/README.md` state only qualitatively.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
 
 **Goal:** Add a Capstone-based A64 decode path so raw v3 traces with `arch=1` convert to 512-byte ChampSim v2 records, behind a self-complete decode module; x86 conversion stays byte-identical.

@@ -1,5 +1,13 @@
 # Stage 1: Setting Up QEMU + Memcached + YCSB
 
+
+> **v1 / NUMA-era build-out, 2026-04. Not the current capture recipe** — see
+> `memcached-recapture-runbook.md`, and read
+> `../../verification/2026-09-04-memcached-rocksdb-capture-audit.md` first.
+>
+> Retained as the only record of how the memcached guest image was built and
+> tuned. Note the credentials here belong to a different image than the v2 guest.
+
 ## Your Setup
 - **Host:** Intel i7-8700 (6C/12T), 32 GB RAM, Ubuntu 24.04
 - **Guest:** Ubuntu Server 24.04, 4 vCPUs, 12 GB RAM, 40 GB disk

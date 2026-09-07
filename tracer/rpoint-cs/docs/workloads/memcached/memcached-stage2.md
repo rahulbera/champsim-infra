@@ -1,5 +1,17 @@
 # Stage 2: Identifying the ROI and Creating the Golden Snapshot
 
+
+> **v1 record, 2026-04.** Superseded as a recipe by
+> `memcached-recapture-runbook.md`. Three numbers in it are wrong and the audit
+> says why — the ~6 GB footprint, the "zero evictions" checklist item, and the
+> "Gaussian" key distribution in §Part 8's unfilled template: see
+> `../../verification/2026-09-04-memcached-rocksdb-capture-audit.md` §2–§3.
+>
+> Kept for the YCSB-load / memtier-run rationale. One procedural point survives
+> from the former `memcached-stage4.md`, folded in here: **restore the checkpoint
+> under KVM and confirm the workload is alive and still pinned before paying for
+> the far slower TCG restore.**
+
 ## Overview
 
 In this stage we:

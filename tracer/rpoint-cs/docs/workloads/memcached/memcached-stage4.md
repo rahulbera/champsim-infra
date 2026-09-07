@@ -1,5 +1,18 @@
 # Stage 2: Restoring VM Checkpoint in TCG Mode and Start Tracing
 
+
+> **Superseded, 2026-04 record.** Every mechanism here is now documented more
+> completely elsewhere: the deferred trigger and its sharp edge (it polls only
+> while instructions retire, so "Trigger was never activated" is ambiguous) in
+> `plugin/README.md` under `trigger=`; the KVM/TCG/plugin invocations in
+> `../../pipeline/boot-commands.md`; the "confirm cmd_get/cmd_set are rising
+> before you arm" ordering in `memcached-recapture-runbook.md`.
+>
+> Its one surviving idea — restore under KVM and confirm the workload is alive
+> and pinned *before* paying for the far slower TCG restore — has been folded
+> into `memcached-stage2.md`'s header, since the runbook boots fresh under KVM
+> and goes straight to the TCG restore.
+
 ## Overview
 
 In this stage we will:

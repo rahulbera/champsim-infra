@@ -1,5 +1,14 @@
 # Memcached re-capture runbook (v2 campaign, 2026-09)
 
+
+> **Campaign closed 2026-09-05.** 6 of the planned 10 traces shipped; the outcome
+> and the theta=0.6 reject-band discard are in `scripts/tlists/memcached_v2.yml`.
+>
+> Two things in the procedure are now wrong: sampling is on main, so skip the
+> branch step in §0.0/§2.1; and **use `scripts/common/sgap.py` for the window gap,
+> never §11's `sample_len` hint** — that hint mixes units and is the defect
+> described in `../../verification/2026-09-07-capture-campaigns-findings.md` §2.
+
 > **Target host:** `rnadig` = `safari-rnadig0.ee.ethz.ch`, reached as
 > `ssh -J kratos2 rahbera@safari-rnadig0.ee.ethz.ch`.
 > **Why there:** kvmclock-patched QEMU 9.2.4, the memcached guest image, a clean

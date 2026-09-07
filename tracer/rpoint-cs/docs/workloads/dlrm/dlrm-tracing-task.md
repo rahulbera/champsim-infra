@@ -1,5 +1,14 @@
 # DLRM / FBGEMM Embedding Workload Instruction Trace Generation — Claude Code Task Spec
 
+
+> **Pre-implementation spec. The campaign ran off-repo and no DLRM trace is in
+> the kratos2 catalogue.**
+>
+> Two things it specifies are superseded: the ROI marker contract is now magic
+> NOPs from `tracer/pintool/pin/champsim_markers.h`, **not**
+> `__pin_roi_begin`/`__pin_roi_end`; and §2.1's "ASK THE USER" block is answered
+> by `tracer/pintool/pin/README.md`.
+
 ## Migration Context
 
 This document specifies a task for Claude Code to execute on a machine

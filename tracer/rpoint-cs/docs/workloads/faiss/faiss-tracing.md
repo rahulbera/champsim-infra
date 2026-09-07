@@ -1,5 +1,14 @@
 # FAISS Vector Database Instruction Trace Generation — Claude Code Task Spec
 
+
+> **Campaign executed off-repo; no FAISS trace is in the catalogue** (one
+> measured reference number survives in
+> `../../verification/2026-09-04-memcached-rocksdb-capture-audit.md`).
+>
+> §Task 1 is shipped and superseded by `tracer/pintool/pin/README.md` — in
+> particular loads are captured at `IPOINT_BEFORE`, not after, and ROI uses magic
+> NOPs from `champsim_markers.h`, not `__pin_roi_*` symbols.
+
 ## Migration Context
 
 This document specifies a task for Claude Code to execute on a machine with

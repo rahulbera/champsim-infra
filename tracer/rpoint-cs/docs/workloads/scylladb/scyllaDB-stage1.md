@@ -1,5 +1,16 @@
 # ScyllaDB Tracing Pipeline — Stage 1
 
+
+> **Stage 1 completed as written; stages 2+ never ran, and no ScyllaDB trace
+> exists in the catalogue.**
+>
+> Two conventions here are superseded: the CPU model by `CPUSTR` in
+> `scripts/common/cpustr.sh` (Haswell, paravirt off, `kvmclock=off`), and the
+> 7-vCPU shard-per-core layout by the **single pinned vCPU** convention every
+> later workload uses — see `scripts/scylladb/README.md`.
+>
+> Kept as the origin record of the pipeline's shape.
+
 ## Installation, Data Loading, and Cache Warmup
 
 This document captures the complete, tested procedure for setting up

@@ -1,5 +1,19 @@
 # Online Raw-Trace Rotation — Design Spec
 
+
+> **Historical design record** for the `rotate=` knob (2026-07-06).
+> Current reference: `plugin/README.md` (knob, naming, manifest, caveats) and
+> `plugin/tests/sampling_test.sh`. **§5's line anchors predate the sampling
+> extension and no longer match `champsim_tracer.c`**, which has roughly doubled
+> in size; the later `sample_len`/`sample_gap`/`sample_clock` feature subsumed
+> rotation and has no spec of its own.
+>
+> Kept for rationale that exists nowhere else: why per-vCPU manifests avoid the
+> plugin's first lock (§4.1), and the refactor trap that the one-time per-vCPU
+> init must not move into `open_chunk` (§5.1) — moving the `memset` would wipe
+> cumulative counters and moving the `g_malloc`s would leak both buffers every
+> rotation.
+
 **Date:** 2026-07-06
 **Status:** Approved (design walkthrough approved by project owner)
 **Scope:** QEMU TCG plugin only (`plugin/champsim_tracer.c`) plus capture-kit
