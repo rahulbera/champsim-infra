@@ -87,27 +87,18 @@ Both are in the `web,twitter-finagle` group and share the java guest.
 
 # Follow-ups agreed 2026-09-07 (post-campaign reorganisation)
 
-`scripts/` has been reorganised per workload, mirroring this directory
-(`docs/workloads/`), with `renaissance/` as the parent and `spark/` as one
-benchmark under it. Two consumers of that structure still need updating.
+`scripts/` was reorganised per workload with `renaissance/` as the parent and
+`spark/` as one benchmark under it. `docs/workloads/` now matches (item 1, done).
+The kratos2 catalogue does not yet (item 2).
 
-## 1. Mirror the new hierarchy in `docs/workloads/`
+## 1. Mirror the new hierarchy in `docs/workloads/` — **DONE 2026-09-07**
 
-`docs/workloads/` currently has `spark/` and `renaissance/` as siblings, which
-splits one guest and one harness jar across two directories. `scripts/` now
-nests them. Bring the docs into line:
-
-```
-docs/workloads/renaissance/
-    (guest + harness notes, currently split across spark/ and renaissance/)
-    spark/              <- spark-campaign-log.md, spark-v1-manifest.txt
-    naivebayes/  dectree/  finagle-http/  finagle-chirper/
-                        <- the four renaissance-*-manifest.txt files
-```
-
-Cheap and self-contained: these are markdown and manifest files with no
-cross-references outside `docs/`. Check the tlist header comments afterwards,
-since several point at `docs/workloads/<x>/` paths.
+`docs/workloads/renaissance/` now nests `spark/`, `naivebayes/`, `dectree/`,
+`finagle-http/` and `finagle-chirper/`, matching `scripts/renaissance/`.
+The manifests moved with their benchmarks and lost their redundant
+`renaissance-` prefix. One trap worth recording: the campaign-log headers use
+`../../verification/…`, so moving `spark-campaign-log.md` one level deeper
+required re-pointing it to `../../../verification/…`.
 
 ## 2. Regroup the kratos2 catalogue
 

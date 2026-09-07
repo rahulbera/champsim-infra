@@ -61,7 +61,7 @@
 # finagle-http is the corpus's WORST case for the plugin's broken gap hint:
 # it would have covered 96.95% against the correct 100.00%, the largest error
 # measured, because the shortfall scales with kernel fraction. See sgap.py.
-# Manifests in docs/workloads/renaissance/. decode_fail 0 on all six windows.
+# Manifests in docs/workloads/renaissance/ (per benchmark). decode_fail 0 on all six windows.
 #
 # Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
 # Guest Ubuntu 24.04, 4 vcpu / 12 GB. Built from the kratos2 catalogue's rows.

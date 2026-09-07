@@ -6,7 +6,7 @@
 >
 > - **Distilled findings** (what recurs across all six campaigns, the defect
 >   classes, the load-bearing pipeline properties):
->   [`../../verification/2026-09-07-capture-campaigns-findings.md`](../../verification/2026-09-07-capture-campaigns-findings.md)
+>   [`../../../verification/2026-09-07-capture-campaigns-findings.md`](../../../verification/2026-09-07-capture-campaigns-findings.md)
 > - **Per-trace measured numbers** (mix, coverage, profile, recorded deviations):
 >   `scripts/tlists/spark_pagerank.yml` in the parent repo — beside the traces they describe.
 >

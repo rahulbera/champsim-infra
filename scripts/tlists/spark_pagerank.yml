@@ -42,7 +42,7 @@
 # trajectory via scripts/sgap.py. Profile: 111,822,210,176 instructions,
 # **95.09% user**, 186 MIPS -- the widest trajectory and by far the most
 # user-heavy workload in the corpus (cassandra 37.1%, kafka 50.6%, tomcat 66.4%).
-# Manifest at docs/workloads/spark/spark-v1-manifest.txt.
+# Manifest at docs/workloads/renaissance/spark/spark-v1-manifest.txt.
 #
 # Spark is also the workload that explains how the sample_gap unit bug survived
 # four campaigns: the shortfall is K*N*(1-f)/U, so it scales with KERNEL

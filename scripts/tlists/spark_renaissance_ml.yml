@@ -55,7 +55,7 @@
 #                SGAP 49,632,933,549 -> 100.15% coverage
 #   dec-tree     103,861,568,088 insns (94.47% user, 173.1 MIPS)
 #                SGAP 47,640,707,930 -> 101.01% coverage
-# Manifests in docs/workloads/renaissance/. decode_fail 0 on all six windows.
+# Manifests in docs/workloads/renaissance/ (per benchmark). decode_fail 0 on all six windows.
 # 0 windows in the reject band (branch<10 AND mem>70).
 #
 # Capture host: minitron. QEMU 9.2.4 + two patches (kvmclock, AVX hflag).
