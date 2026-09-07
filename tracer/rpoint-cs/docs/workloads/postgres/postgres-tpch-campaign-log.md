@@ -423,3 +423,46 @@ or HammerDB) is the realistic route.
     converters; peak concurrency otherwise reached **13 filter/convert processes
     across four workloads** at load 14.9 on 32 cores, with captures and ships
     overlapping freely. Zero pipeline defects throughout.
+
+27. **2026-09-07 02:35Z – 03:01Z — campaign closed: independent audit, then
+    290 GB reclaimed.**
+
+    Before deleting anything, every trace this campaign produced was
+    **re-hashed on kratos2 and compared against the catalogue's own recorded
+    checksums** -- not against the ship logs, which are the thing being checked.
+    24 files, ~60 GB read, 26 minutes:
+
+    ```
+    CHECKSUMS total lines: 215
+    campaign rows in catalogue: 24
+    RESULT ok=24 mismatch=0 missing=0
+    ```
+
+    Only then were the guests deleted, at the researcher's explicit instruction
+    ("delete all the qcow images, and all big files"). Reclaimed 290 GB:
+    pg-guest 184 GB, java-guest 77 GB, spark-guest 28 GB, kafka-guest 17 GB,
+    tomcat-guest 2.5 GB, the base cloud image, the last trace set, all converted
+    output, and the DaCapo/Renaissance archives. 316G -> 606G free.
+
+    **The guests were made disposable BEFORE they were deleted.** Booting each
+    one a final time and extracting its contents was the difference between a
+    documented rebuild and a re-derivation:
+    - `docs/workloads/postgres/guest-files/` — all eight in-guest scripts
+      (`load_tpch.sh`, `finish_tpch.sh`, `mkkeys.sh`, `mkqueries.sh`,
+      `screen_tpch.sh`, `iofrac.sh`, `run_query_loop.sh`), the five generated
+      queries, `tpch_keys.sql` and `tpch.conf`.
+      `mkqueries.sh` is the one that matters most: it carries the four tpch-kit
+      portability fixes without which the queries do not run on PostgreSQL.
+    - `docs/workloads/renaissance/guest-files/` — `AvxCanary.java` and
+      `VecCheck.java`, the J1 gate that proved the AVX hflag patch works, plus
+      sha256 for all three benchmark jars.
+
+    KEPT: `qemu-avxfix/` (2.3 GB). It is the patched QEMU carrying both the
+    kvmclock and AVX hflag fixes and is the tool, not an artifact. Deleting it
+    would have cost a rebuild AND a re-derivation of the patches. Also kept the
+    cloud-init seed ISOs (1.5 MB) since they are part of the build recipe.
+
+    **What a rebuild would now cost**, recorded so the trade-off is explicit if
+    the images are ever wanted again: PostgreSQL guest several hours (dbgen at
+    SF=10, load, index, validate row counts); Java/Renaissance guest about an
+    hour. Everything needed to do it is in this repo.
