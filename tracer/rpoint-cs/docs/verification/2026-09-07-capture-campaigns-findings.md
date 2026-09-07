@@ -300,6 +300,13 @@ The largest class, and the most dangerous, because the check *reports success*.
   directly: 0 rows.
 - A dpkg-lock race against cloud-init, under `set -e` plus a `/dev/null`
   redirect, produced a **silent no-op install**.
+- *(2026-09-07, verifying the catalogue regroup)* A path-existence check
+  reported `ok=58 missing=0` against **59** paths: the input file had no trailing
+  newline, so `while read` dropped the last line. The check reported success on
+  98% of its input and would have done so on any fraction. Guard with
+  `[ -n "$p" ] || continue` and ensure the trailing newline. Logged here because
+  it was hit *while verifying a change made because of this document* — the class
+  is not one you outgrow by knowing about it.
 
 **Rule: never extract a number without anchoring it to its label, and never let a
 check pass on nothing.** Assert on size and on a known-present string, not on a
@@ -363,7 +370,7 @@ existed and was not looked for.
 | **Redis (58.92%) and RocksDB (86.35%) coverage** | Traces valid; narrower sampling than intended (§2). Recapture is a representativeness decision, not a correctness fix. |
 | **h2o** | DaCapo rank-1 by LLC misses/M-instr (8506); would fill the ML category. Never requested, recorded so it is not lost. |
 | **`db-shootout`, `als`, `movie-lens`, `log-regression`** | Renaissance benchmarks screened but not captured; rationale in `scripts/renaissance/README.md`. |
-| **Docs and catalogue hierarchy** | `docs/workloads/` and the kratos2 `version2.1/` layout still predate the `scripts/` reorganisation. See `../workloads/QUEUE.md`. |
+| **Docs and catalogue hierarchy** | **Done 2026-09-07.** `scripts/`, `docs/workloads/` and the kratos2 `version2.1/` catalogue all nest per workload, with `renaissance/` as parent. `CHECKSUMS.sha256` needed no edit (bare basenames); audited after: paths `ok=59 missing=0`, moved traces `ok=26 mismatch=0`. |
 
 ---
 
