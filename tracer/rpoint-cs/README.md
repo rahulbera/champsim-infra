@@ -5,7 +5,7 @@ traces with explicit branch types**. Boot and set up the guest once under KVM
 at near-native speed, snapshot it, then restore the snapshot under TCG with the
 tracing plugin and convert the instrumented stream offline:
 
-1. **Capture** — `scripts/boot_kvm.sh` / `restore_kvm.sh` prepare the guest and
+1. **Capture** — `scripts/<workload>/boot_*_kvm.sh` prepare the guest and
    snapshot it; `boot_tcg_trace.sh` restores under TCG with `plugin/` attached,
    emitting a raw per-vCPU stream.
 2. **Convert** — `converter/` decodes the raw stream to ChampSim v2 records

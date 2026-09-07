@@ -119,7 +119,7 @@ scripts.
 ## How to use
 
 - New collaborator? Read `pipeline-stages.md` end-to-end.
-- Producing traces? Use `scripts/boot_tcg_trace.sh` and refer to
+- Producing traces? Use `scripts/scylladb/boot_tcg_trace.sh` and refer to
   `boot-commands.md` when you need to modify a flag.
 - Snapshot won't load under TCG? `kvmclock-patch-details.md`.
 - Kernel-idle noise in traces? `task-tcg-idle-loop-filtering.md` plus

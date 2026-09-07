@@ -18,7 +18,7 @@ Producing traces (see `docs/pipeline/pipeline-stages.md` for the whole
 picture):
 
 ```
-scripts/boot_tcg_trace.sh
+scripts/scylladb/boot_tcg_trace.sh
         │  loads plugin via QEMU's -plugin flag
         ▼
 plugin/champsim_tracer.so  ────►  traces/trace_vcpu*.raw.zst
@@ -384,8 +384,8 @@ sequence):
 cd plugin/
 make                                     # or: bash build_plugin.sh
 
-# 2. Launch a traced VM (see scripts/boot_tcg_trace.sh).
-../scripts/boot_tcg_trace.sh 200000000 roi_running
+# 2. Launch a traced VM (see scripts/scylladb/boot_tcg_trace.sh).
+../scripts/scylladb/boot_tcg_trace.sh 200000000 roi_running
 
 # 3. Validate output.
 ./trace_inspector ../traces/trace_vcpu1.raw.zst

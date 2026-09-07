@@ -19,7 +19,7 @@ qemu-img snapshot -l ~/qemu-tracing/images/ubuntu-guest.qcow2
 
 and reference them by name from the QEMU monitor (`loadvm <name>`) or
 via the `-loadvm <name>` command-line flag in
-`scripts/restore_kvm.sh` and `scripts/boot_tcg_trace.sh`.
+`scripts/scylladb/restore_scylla_kvm.sh` and `scripts/scylladb/boot_tcg_trace.sh`.
 
 This directory exists so that anything *auxiliary* to a snapshot —
 notes on when it was taken, what data it contains, the exact QEMU
