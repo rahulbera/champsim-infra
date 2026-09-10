@@ -181,9 +181,10 @@ Disable the whole cache with `--no-trace-cache`.
 
 **`fetch_trace.py`** — the concurrency-critical piece. 16–32 array jobs landing on a node
 all want the same trace, so it takes a per-trace `flock` and publishes via tempfile +
-atomic `rename(2)`; readers see no entry or a complete one, never a torn copy. Optional
-SHA-256 checksum verification; cache key is the path basename. Importable
-(`fetch_trace.fetch(...)`) or a standalone CLI.
+atomic `rename(2)`; readers see no entry or a complete one, never a torn copy. The source
+is an absolute path or an `s3://` object, downloaded with the AWS CLI for clusters with no
+shared trace storage. Optional SHA-256 checksum verification; cache key is the path
+basename. Importable (`fetch_trace.fetch(...)`) or a standalone CLI.
 
 **`rollup.py`** — fan-out (`ProcessPoolExecutor`, one task per trace) over the
 `{trace}_{exp}.out/.err` files in the stats dir(s). `-d` takes **one or more** directories,

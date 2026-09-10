@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """fetch_trace.py — make a trace available on a node's local disk.
 
-Given an NFS-resident trace path (and optionally its expected SHA-256
-checksum), ensure a complete, validated copy exists in a local cache
-directory and print the absolute local path to stdout.
+Given a trace path -- absolute on shared storage, or an s3:// object --
+(and optionally its expected SHA-256 checksum), ensure a complete,
+validated copy exists in a local cache directory and print the absolute
+local path to stdout.
 
 Concurrency is the load-bearing concern: with 16-32 Slurm array jobs
 landing on a node within seconds of each other, all wanting the same
@@ -26,6 +27,7 @@ import argparse
 import fcntl
 import hashlib
 import os
+import subprocess
 import sys
 import tempfile
 
@@ -64,6 +66,17 @@ def _copy_with_checksum(src, dst):
     return h.hexdigest()
 
 
+def _download_s3(src, dst, want_checksum):
+    """Download an s3:// object to dst with the AWS CLI.
+
+    Returns the SHA-256 hex, or None when no checksum is wanted: hashing a
+    20 GB trace costs a full extra pass.
+    """
+    subprocess.run(["aws", "s3", "cp", src, dst, "--no-progress", "--only-show-errors"],
+                   check=True, stdout=subprocess.DEVNULL)
+    return _checksum_file(dst) if want_checksum else None
+
+
 def fetch(path, checksum=None, cache_dir=CACHE_DIR_DEFAULT, log=None):
     """Ensure `path` is cached locally; return absolute path of cached file.
 
@@ -73,8 +86,9 @@ def fetch(path, checksum=None, cache_dir=CACHE_DIR_DEFAULT, log=None):
     Raises RuntimeError on any hard failure: source missing, checksum
     mismatch after a fresh fetch, or unrecoverable I/O error.
     """
-    if not os.path.isabs(path):
-        raise RuntimeError(f"trace path must be absolute: {path}")
+    s3 = path.startswith("s3://")
+    if not (s3 or os.path.isabs(path)):
+        raise RuntimeError(f"trace path must be absolute or s3://: {path}")
 
     name = os.path.basename(path)
     if not name:
@@ -111,7 +125,7 @@ def fetch(path, checksum=None, cache_dir=CACHE_DIR_DEFAULT, log=None):
                 f"(got {actual}, want {checksum.lower()}); re-fetching")
             os.remove(cached_path)
 
-        if not os.path.exists(path):
+        if not s3 and not os.path.exists(path):
             raise RuntimeError(f"source trace not found: {path}")
 
         # Fetch into a tempfile in the cache dir so rename(2) is atomic
@@ -124,7 +138,10 @@ def fetch(path, checksum=None, cache_dir=CACHE_DIR_DEFAULT, log=None):
         tmp.close()
         try:
             log(f"fetching {path} -> {cached_path}")
-            actual = _copy_with_checksum(path, tmp_path)
+            if s3:
+                actual = _download_s3(path, tmp_path, checksum is not None)
+            else:
+                actual = _copy_with_checksum(path, tmp_path)
             if checksum is not None and actual.lower() != checksum.lower():
                 raise RuntimeError(
                     f"checksum mismatch after fetch of {path}: "
@@ -150,7 +167,7 @@ def main():
                     "cached path on stdout."
     )
     p.add_argument("--path", required=True,
-                   help="absolute path to the source trace (typically NFS)")
+                   help="source trace: an absolute path (typically NFS) or an s3:// object")
     p.add_argument("--checksum", default=None,
                    help="expected SHA-256 (hex). If omitted, presence in "
                         "cache is taken as validity.")

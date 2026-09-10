@@ -49,7 +49,7 @@ are runnable templates — copy and edit them.
 |--------|------|
 | `create_jobfile.py` | Generates `jobfile.sh` — one tagged command per `(trace × exp)` pair. Slurm (`sbatch --wrap`) by default, or raw local commands with `--local`. |
 | `run_champsim.py` | The per-job wrapper that `create_jobfile.py` puts in front of each ChampSim command. Stages the trace into the cache, substitutes the local path, then `exec`s ChampSim. |
-| `fetch_trace.py` | The concurrency-safe trace cacher used by `run_champsim.py`. Also a standalone CLI / importable module. |
+| `fetch_trace.py` | The concurrency-safe trace cacher used by `run_champsim.py`. Fetches from an absolute path or an `s3://` object (AWS CLI). Also a standalone CLI / importable module. |
 | `rollup.py` | Scans the per-run `.out`/`.err` files and writes `stats.csv` of your metrics. |
 | `tsv_to_tlist.py` | Generates a tlist YAML from a trace-metadata TSV. |
 | `cluster_run.py` | Remote Slurm orchestration over SSH (its own runbook — see below). |
@@ -99,7 +99,7 @@ Key flags (see `--help` for the full list):
 | `--local-parallel N` | `1` | Max local commands in flight (`--local` mode). |
 | `--slurm-part` / `--ncores` / `--nodename` / `--include` / `--exclude` / `--extra` | `compute` / `1` / `ntl-zeus` / … | Slurm placement knobs. |
 | `--snapshot-exe` / `--no-snapshot-exe` | snapshot on | Hardlink the binary into `<out>/bin/<exe>.<ts>` and run that. |
-| `--no-trace-cache` | cache on | Skip `fetch_trace`; read traces directly from NFS. |
+| `--no-trace-cache` | cache on | Skip `fetch_trace`; read traces directly from NFS. Not usable with `s3://` tlist paths. |
 | `--trace-cache-dir DIR` | `/tmp/trace_cache` | Override the node-local cache dir. |
 | `--smoke-test` | off | Run one pair locally with tiny warmup/sim counts to sanity-check before the full sweep. |
 | `--smoke-warmup` / `--smoke-sim` / `--smoke-test-idx` | `1M` / `1M` / `0` | Smoke-test instruction counts and which pair to use. |
