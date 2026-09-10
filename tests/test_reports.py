@@ -99,6 +99,33 @@ def test_create_jobfile_autolaunch():
         check(not os.path.isfile(os.path.join(d, ".sbcount")), "sbatch never ran")
 
 
+def test_create_jobfile_snapshot_exe():
+    """--snapshot-exe (the default) runs a private copy of the binary: a hardlink would share its
+    inode, so a build step that rewrites the binary in place would change queued jobs."""
+    print("test_create_jobfile_snapshot_exe")
+    with tempfile.TemporaryDirectory() as d:
+        make_fixtures(d)
+        exe, run = os.path.join(d, "champsim_ok"), os.path.join(d, "run")
+        os.makedirs(run)
+        r = subprocess.run([PY, CREATE_JOBFILE, "--no-trace-cache", "--exe", exe,
+                            "--tlist", os.path.join(d, "t.yml"), "--exp", os.path.join(d, "e.yml"),
+                            "-o", os.path.join(run, "jf.sh"), "--report-json", "-"],
+                           stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        check(r.returncode == 0, "snapshot run rc 0")
+        snap = infra_json(r.stdout)["exe"]
+        check(os.path.dirname(snap) == os.path.join(run, "bin")
+              and os.path.basename(snap).startswith("champsim_ok."), "snapshot is <output-dir>/bin/<exe>.<ts>")
+        check(os.listdir(os.path.join(run, "bin")) == [os.path.basename(snap)], "no temp file left in bin/")
+        src, dst = os.stat(exe), os.stat(snap)
+        check(src.st_ino != dst.st_ino and dst.st_nlink == 1, "a copy, not a hardlink")
+        check(dst.st_mode & 0o777 == src.st_mode & 0o777, "the copy keeps the binary's mode")
+        check(f"{snap} --config base.ini" in open(os.path.join(run, "jf.sh")).read(), "the jobfile runs the copy")
+        before = open(snap).read()
+        with open(exe, "w") as f:  # a build step that writes the binary in place, like cp or strip
+            f.write("#!/bin/bash\necho rebuilt\n")
+        check(open(snap).read() == before, "rewriting the binary in place leaves the snapshot unchanged")
+
+
 def test_create_jobfile_backward_compat():
     print("test_create_jobfile_backward_compat")
     with tempfile.TemporaryDirectory() as d:
@@ -269,6 +296,7 @@ def test_create_jobfile_dangling_option():
 
 def main():
     test_create_jobfile_autolaunch()
+    test_create_jobfile_snapshot_exe()
     test_create_jobfile_backward_compat()
     test_create_jobfile_dangling_option()
     test_rollup_reports()

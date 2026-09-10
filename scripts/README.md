@@ -85,8 +85,9 @@ bash jobfile.sh        # launch (sbatch lines, or local commands with --local)
 ```
 
 Each emitted command writes stdout to `<tag>.out` and stderr to `<tag>.err`.
-By default the binary is **snapshotted** (hardlinked into `<output-dir>/bin/`)
-so a mid-sweep rebuild can't change which binary queued jobs run.
+By default the binary is **snapshotted** (copied into `<output-dir>/bin/`) so a
+mid-sweep rebuild can't change which binary queued jobs run; a copy, not a hardlink,
+so neither can a build step that writes the binary in place.
 
 Key flags (see `--help` for the full list):
 
@@ -98,7 +99,7 @@ Key flags (see `--help` for the full list):
 | `--local` | off | Emit raw local commands instead of `sbatch` lines. |
 | `--local-parallel N` | `1` | Max local commands in flight (`--local` mode). |
 | `--slurm-part` / `--ncores` / `--nodename` / `--include` / `--exclude` / `--extra` | `compute` / `1` / `ntl-zeus` / … | Slurm placement knobs. |
-| `--snapshot-exe` / `--no-snapshot-exe` | snapshot on | Hardlink the binary into `<out>/bin/<exe>.<ts>` and run that. |
+| `--snapshot-exe` / `--no-snapshot-exe` | snapshot on | Copy the binary into `<out>/bin/<exe>.<ts>` and run that. |
 | `--no-trace-cache` | cache on | Skip `fetch_trace`; read traces directly from NFS. Not usable with `s3://` tlist paths. |
 | `--trace-cache-dir DIR` | `/tmp/trace_cache` | Override the node-local cache dir. |
 | `--smoke-test` | off | Run one pair locally with tiny warmup/sim counts to sanity-check before the full sweep. |
@@ -161,6 +162,16 @@ Runs the above pipeline on an **SSH-only** Slurm cluster (`bootstrap | submit |
 status | rollup | combine | list`). It has its own full runbook —
 see **[`../docs/cluster-run.md`](../docs/cluster-run.md)** and the `cluster-run`
 skill. Don't drive it by hand from this README.
+
+Each batch is **self-contained**: `submit` copies the sim's `snapshot_dirs` (default
+`config/`) and this `scripts/` dir into the batch run dir, runs `create_jobfile.py`
+(which copies the binary) from that copy, and repoints the staged exp files' paths
+under those dirs at it; `rollup` later runs the batch's own `rollup.py`. So a sync or
+rebuild never changes a queued batch, and an edit to these scripts reaches only batches
+submitted after it (batches from before snapshots still roll up with the live copy).
+Submits of one checkout run one at a time. An exp that would still read the live sim
+tree is refused for the spellings `docs/cluster-run.md` lists; the check is textual,
+so write sim paths as `$(SIM_HOME_IN_CLUSTER)/...`.
 
 ## Tests
 

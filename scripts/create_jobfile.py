@@ -2,7 +2,7 @@
 
 import yaml
 import argparse
-import errno
+import contextlib
 import json
 import re
 import shlex
@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import os
+import tempfile
 import time
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -117,7 +118,11 @@ def create_experiments(data):
 
 
 def snapshot_exe(exe_path, output_path):
-    """Hardlink exe into <output_dir>/bin/<basename>.<UTC-timestamp>; fall back to copy on EXDEV."""
+    """Copy exe to <output_dir>/bin/<basename>.<UTC-timestamp>.
+
+    A copy, not a hardlink: a hardlink shares the binary's inode, so a build step that
+    writes the binary in place (cp, strip) would change what every queued job runs.
+    """
     if not os.path.isfile(exe_path):
         raise CJError("CJ_EXE_NOT_FOUND", f"--snapshot-exe: executable not found: {exe_path}")
     src = os.path.abspath(exe_path)
@@ -125,15 +130,17 @@ def snapshot_exe(exe_path, output_path):
     os.makedirs(bin_dir, exist_ok=True)
     ts = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
     dst = os.path.join(bin_dir, f"{os.path.basename(src)}.{ts}")
+    # Copy under a temp name, then rename, so dst never exists half-written.
+    fd, tmp = tempfile.mkstemp(prefix=f".{os.path.basename(src)}.", suffix=".tmp", dir=bin_dir)
+    os.close(fd)
     try:
-        os.link(src, dst)
-        kind = "hardlink"
-    except OSError as e:
-        if e.errno != errno.EXDEV:
-            raise
-        shutil.copy2(src, dst)
-        kind = "copy (cross-filesystem)"
-    print(f"Snapshotted exe to {dst} ({kind})", file=sys.stderr)
+        shutil.copy2(src, tmp)
+        os.replace(tmp, dst)
+    except BaseException:
+        with contextlib.suppress(OSError):
+            os.unlink(tmp)
+        raise
+    print(f"Snapshotted exe to {dst} (copy)", file=sys.stderr)
     return dst
 
 
@@ -384,7 +391,7 @@ def parse_args():
     parser.add_argument('--report-json', default=None, metavar='PATH', help="Emit a machine-readable JSON report (stable error_id + per-job status) to PATH, or to stdout (delimited) when PATH is '-'. Default behavior is unchanged when omitted.")
     parser.add_argument('--local', action='store_true', help='Emit raw ChampSim commands instead of sbatch lines, so the jobfile runs locally on this host')
     parser.add_argument('--local-parallel', type=int, default=1, help='Max number of local commands to run in parallel when --local is set (default: 1)')
-    parser.add_argument('--snapshot-exe', action=argparse.BooleanOptionalAction, default=True, help='Hardlink the executable to <output-dir>/bin/<basename>.<UTC-timestamp> and reference that snapshot in the jobfile, so all jobs use the same binary even if the original is rebuilt before they finish queuing. Default: on (use --no-snapshot-exe to disable).')
+    parser.add_argument('--snapshot-exe', action=argparse.BooleanOptionalAction, default=True, help='Copy the executable to <output-dir>/bin/<basename>.<UTC-timestamp> and reference that snapshot in the jobfile, so all jobs use the same binary even if the original is rebuilt or overwritten in place before they start. Default: on (use --no-snapshot-exe to disable).')
     parser.add_argument('--wrapper', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'run_champsim.py'), help='Path to the orchestrator script that fetches traces into a node-local cache before launching ChampSim. Default: run_champsim.py next to this script.')
     parser.add_argument('--no-trace-cache', dest='wrapper', action='store_const', const=None, help='Skip the trace cache: each job reads its trace directly from NFS (or wherever --tlist points), exactly as before fetch_trace existed. Use when you do not want fetch_trace involved at all.')
     parser.add_argument('--trace-cache-dir', dest='cache_dir', default=None, help='Forwarded to run_champsim.py as --cache-dir (override the wrapper default).')

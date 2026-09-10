@@ -52,8 +52,8 @@ There is no linter and no CI; the two test scripts are the only gate.
 
 ```bash
 # Tests — run both when touching create_jobfile.py / rollup.py / cluster_run.py
-python3.12 tests/test_reports.py        # 29 checks
-python3.12 tests/test_cluster_run.py    # 60 checks
+python3.12 tests/test_reports.py        # 50 checks
+python3.12 tests/test_cluster_run.py    # 199 checks
 
 # Local sweep end to end
 python3.12 scripts/create_jobfile.py --exe <champsim-bin> --tlist t.yml --exp e.yml \
@@ -168,8 +168,9 @@ Two traps in the exp file:
 (trace × experiment) pair it writes one command tagged `<trace>_<exp>`, with stdout/stderr
 to `<tag>.out`/`<tag>.err`. Two modes: default `sbatch … --wrap=<cmd>` lines (Slurm), or
 `--local` raw commands with a `MAX_PARALLEL` throttle (background + `wait -n`). By default
-the binary is snapshotted (hardlinked) into `<output>/bin/<exe>.<ts>` so a mid-sweep
-rebuild can't change which binary queued jobs run (`--no-snapshot-exe` to opt out).
+the binary is snapshotted (copied, not hardlinked, so not even an in-place write to it
+reaches queued jobs) into `<output>/bin/<exe>.<ts>` so a mid-sweep rebuild can't change
+which binary queued jobs run (`--no-snapshot-exe` to opt out).
 `--smoke-test` runs one pair locally with tiny warmup/sim counts before the full sweep.
 
 Each emitted command is wrapped by **`run_champsim.py`**, which finds the `-traces` path,
@@ -218,7 +219,8 @@ friendly; `--tol` allows relative tolerance).
 `scripts/cluster_run.py` runs sims on an **SSH-only** Slurm cluster from the local machine
 (the cluster login node bars AI agents). Subcommands: `bootstrap | submit | status |
 rollup | combine | list`. `submit` rsyncs the sim **and this repo** to the cluster, builds
-over SSH, smoke-gates on the login node, then launches the sbatch jobs. Per-repo state
+over SSH, snapshots the sim's `snapshot_dirs` (default `config/`) and this repo's `scripts/` into the batch run dir,
+smoke-gates on the login node, then launches the sbatch jobs. Per-repo state
 (config + per-batch job ledger) lives in `<sim-repo>/.cluster-run/` (gitignored). Driven by
 the global `cluster-run` skill. **Full runbook + caveats: `docs/cluster-run.md`.**
 
@@ -236,14 +238,35 @@ the global `cluster-run` skill. **Full runbook + caveats: `docs/cluster-run.md`.
   channel are printed to stdout by the CBP6 adapter and have no TOML key, so the `.out` is
   still parsed for those, and a run without a `.toml` rolls up exactly as before.
 - `$(SIM_HOME_IN_CLUSTER)` in a tlist/exp resolves to the cluster sim path at submit time
-  (for `--config` paths that live inside the rsynced sim tree).
+  (for `--config` paths that live inside the rsynced sim tree); exp paths under each
+  `snapshot_dirs` entry are then repointed at the batch's snapshot.
+- **Batches are self-contained**, so a sync or rebuild while others run is safe: the run
+  dir holds `bin/` (binary copy), a copy of each `snapshot_dirs` entry (per-repo
+  config key, default `[config]`; a ChampSim tree keeping runtime TOMLs in `configs/`
+  sets `[configs]`), `scripts/` (`create_jobfile.py` and `rollup.py` run from here) and
+  `inputs/`. `submit` refuses, before any change on the cluster, an exp that would still
+  read the sim tree: a path outside `snapshot_dirs`, or any spelling but the canonical one
+  (a longer alias path, `//`, `/./`, `..`, `$HOME`, `~`, a path split across definitions).
+  It fails before `create_jobfile` on a copied symlink that leaves the run dir, or on an exp
+  repointed into a `snapshot_dirs` entry the cluster lacks. The ledger records
+  `self_contained` + `snapshot`.
+- **Submits of one checkout serialize** on `.cluster-run/submit.lock`, held from before the
+  batch id is picked until `create_jobfile` returns; separate checkouts of one sim must not
+  submit concurrently. The batch id is claimed first (`runs/<batch>.json` created
+  exclusively as a `submitting` placeholder, then a plain `mkdir` of the run dir). A submit
+  whose `create_jobfile` returns no report keeps the placeholder and says it MAY have
+  queued jobs; `status` lists it, `rollup`/`combine` refuse it.
 - `combine --batches A,B[,…]` merges several **finished** batches into one table for
   incremental experiments (batch B adds an experiment without re-running A's): it feeds
-  every batch's `remote_run_dir` to one `rollup.py -d …` and concatenates their
-  exp/tlist/mfiles, writing a `combine_<name>/stats.csv` (no ledger, no diff). Only
-  `submit` rsyncs this repo; `status`/`rollup`/`combine` assume the **remote infra is
-  current**, so after editing a remote-executed script (`rollup.py`, …) you must rsync it
-  (or run a `submit`) before `rollup`/`combine`, else the cluster runs the stale copy.
+  every batch's `remote_run_dir` to one `rollup.py -d …` with their tlist/mfiles plus
+  per-batch exp copies (`<name>/inputs/<batch>__<exp>`, each batch's snapshot paths
+  mapped back to the sim tree so a repeated definition still merges), writing a
+  `combine_<name>/stats.csv` (no ledger, no diff). `--out-name` may not be a batch id.
+- **Which `rollup.py` runs**: `rollup` uses the batch's own snapshot, `combine` the newest
+  batch's; ledgers from before snapshots use the live `remote_infra_path` copy. So an
+  edit to `rollup.py` reaches no snapshotted batch, even after a `submit` (rsync it into
+  `<run_dir>/scripts/` to re-roll one), while a pre-snapshot batch runs the stale live
+  copy until you rsync it or run a `submit`.
 - **Pre-flight a new cluster** (`sinfo`, remote `python3 -c 'import yaml'`): the config
   defaults (`compute`, `python3.12`) are often wrong — kratos2 uses `cpu_part` +
   `python3.10`. SSH/rsync need network (run the orchestrator with the Bash sandbox

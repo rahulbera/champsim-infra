@@ -6,29 +6,36 @@ agents); everything on the cluster happens over SSH. This orchestrator turns one
 local command into the whole loop:
 
   bootstrap  one-time per simulator repo: record host + remote paths + build cmd
-  submit     rsync sim + champsim-infra to the cluster, build over SSH, then
-             generate + smoke-test + auto-launch the sbatch jobs (capturing each
-             tag -> job_id exactly), and log the batch locally
+  submit     rsync sim + champsim-infra to the cluster, build over SSH, snapshot
+             the sim's snapshot_dirs (default: config) + infra scripts into the
+             batch run dir, then generate + smoke-test + auto-launch the sbatch
+             jobs (capturing each tag -> job_id exactly), and log the batch locally
   status     squeue/sacct over SSH; update the batch ledger
-  rollup     run rollup.py on the cluster, fetch stats.csv back, optionally diff
+  rollup     run the batch's own rollup.py on the cluster, fetch stats.csv back,
+             optionally diff
   list       show logged batches and their status
 
 State lives in a gitignored dotfile dir inside the simulator repo:
   <sim-repo>/.cluster-run/config.yml          (per-repo config)
+  <sim-repo>/.cluster-run/submit.lock         (serializes this checkout's submits)
   <sim-repo>/.cluster-run/runs/<batch>.json   (per-batch ledger)
   <sim-repo>/.cluster-run/runs/<batch>/        (fetched stats.csv, etc.)
 
 The heavy lifting reuses create_jobfile.py / rollup.py / compare_runs.py — they
-are rsynced to the cluster and invoked there (submit/rollup) or imported locally
-(compare). create_jobfile.py / rollup.py emit machine-readable JSON (delimited by
-INFRA_JSON markers) that this script parses to learn job ids / failures.
+are rsynced to the cluster, copied into each batch's run dir and invoked from
+there (submit/rollup), or imported locally (compare). create_jobfile.py /
+rollup.py emit machine-readable JSON (delimited by INFRA_JSON markers) that this
+script parses to learn job ids / failures.
 """
 
 import argparse
+import contextlib
 import datetime
+import fcntl
 import glob
 import json
 import os
+import posixpath
 import re
 import shlex
 import shutil
@@ -56,6 +63,17 @@ SIM_HOME_PLACEHOLDER = "$(SIM_HOME_IN_CLUSTER)"
 # Must match the markers emitted by create_jobfile.py / rollup.py.
 INFRA_JSON_BEGIN = "===INFRA-JSON-BEGIN==="
 INFRA_JSON_END = "===INFRA-JSON-END==="
+
+# Printed by submit's snapshot command for each snapshot_dirs entry the sim tree lacks,
+# and for each copied symlink that resolves outside the run dir.
+SNAPSHOT_SKIP = "CLUSTER-RUN-SNAPSHOT-SKIP "
+SNAPSHOT_LINK = "CLUSTER-RUN-SNAPSHOT-LINK "
+
+# A claimed ledger's status until its submit records the jobs.
+SUBMITTING = "submitting"
+
+# Run-dir entries a snapshotted sim dir would collide with.
+RUN_DIR_RESERVED = {"bin", "inputs", "scripts"}
 
 # Shared SSH multiplexing so repeated calls reuse one connection.
 _CONTROL_PATH = os.path.expanduser("~/.ssh/cm-%r@%h:%p")
@@ -154,6 +172,20 @@ def runs_dir(repo):
     return os.path.join(state_dir(repo), "runs")
 
 
+def check_snapshot_dirs(dirs):
+    """Normalize snapshot_dirs: the sim-tree dirs, relative to remote_sim_path, that
+    submit copies into each batch's run dir. An entry under another is dropped."""
+    out = []
+    for d in [dirs] if isinstance(dirs, str) else (dirs or []):
+        parts = str(d).strip().rstrip("/").split("/")
+        if {"", ".", ".."} & set(parts) or parts[0] in RUN_DIR_RESERVED:
+            raise ClusterRunError(
+                f"snapshot_dirs entry {d!r} must be a relative dir inside the sim tree "
+                f"(no leading '/', no '.', '..' or empty segments; not {sorted(RUN_DIR_RESERVED)})")
+        out.append("/".join(parts))
+    return [d for d in dict.fromkeys(out) if not any(d.startswith(o + "/") for o in out)]
+
+
 def derive_defaults(cfg):
     """Fill in path/python defaults that follow from remote_sim_path + sim_name."""
     cfg.setdefault("remote_python", "python3.12")
@@ -163,6 +195,7 @@ def derive_defaults(cfg):
     cfg.setdefault("remote_runs_base", base + "/runs/" + cfg["sim_name"])
     cfg.setdefault("clusters", [cfg["default_cluster"]])
     cfg.setdefault("rsync_excludes", [".git", STATE_DIRNAME, "bin/"])
+    cfg["snapshot_dirs"] = check_snapshot_dirs(cfg.get("snapshot_dirs", ["config"]))
     cfg.setdefault("slurm", {})
     s = cfg["slurm"]
     s.setdefault("partition", "compute")
@@ -234,6 +267,46 @@ def all_ledgers(repo):
         with open(p) as f:
             out.append(json.load(f))
     return out
+
+
+@contextlib.contextmanager
+def submit_lock(repo):
+    """Hold <repo>/.cluster-run/submit.lock: submits of one checkout sync, build and snapshot
+    the same live remote tree, so they run one at a time."""
+    os.makedirs(state_dir(repo), exist_ok=True)
+    path = os.path.join(state_dir(repo), "submit.lock")
+    with open(path, "a") as fh:  # closing it releases the lock on every exit path
+        try:
+            fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            log(f"waiting for another submit of this checkout to launch its jobs ({path} is held)")
+            fcntl.flock(fh, fcntl.LOCK_EX)
+        yield
+
+
+def claim_ledger(repo, batch, host, run_dir):
+    """Create the batch's ledger exclusively, as a placeholder, so no two submits share a batch id."""
+    os.makedirs(runs_dir(repo), exist_ok=True)
+    path = ledger_path(repo, batch)
+    try:
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
+    except FileExistsError:
+        raise ClusterRunError(f"batch {batch} is already taken ({path}); submit again or pick another "
+                              "--label. Nothing was done.") from None
+    with os.fdopen(fd, "w") as f:
+        json.dump({"batch_id": batch, "cluster": host, "status": SUBMITTING,
+                   "remote_run_dir": run_dir, "jobs": [], "stats_csv": None}, f, indent=2)
+    return path
+
+
+def recorded(ledger):
+    """Refuse a placeholder ledger: its submit is still running, or stopped before recording jobs."""
+    if ledger.get("status") == SUBMITTING:
+        raise ClusterRunError(
+            f"batch {ledger['batch_id']} has no recorded jobs: its submit is still running, or stopped "
+            f"before recording them and MAY have queued jobs (check squeue on {ledger.get('cluster')} "
+            f"for jobs writing to {ledger.get('remote_run_dir')})")
+    return ledger
 
 
 # --------------------------------------------------------------------------- #
@@ -355,6 +428,112 @@ def substitute_sim_home(text, sim_home):
     return text.replace(SIM_HOME_PLACEHOLDER, sim_home), text.count(SIM_HOME_PLACEHOLDER)
 
 
+# Path boundaries. The rewrite takes /x/Hermes only as a whole path: not a sibling (/x/Hermes2,
+# /x/Hermes.old, /x/Hermes+2) nor the tail of a longer one (/scratch/x/Hermes). The refusal uses
+# only the right boundary, so a longer path that may alias the live tree is refused, not missed.
+_PATH_LEFT, _PATH_RIGHT = r"(?<![\w.+@~/-])", r"(?![\w.+@~-])"
+
+# A path token in exp text ends at whitespace, a quote or one of = , : ;
+_TOKEN = re.compile(r"[^\s\"'=,:;]+")
+# What a job's shell expands to the cluster's home.
+_HOME_REF = re.compile(r"\$\{HOME\}|\$HOME(?!\w)|^~(?=/|$)")
+# Spellings whose text differs from the path a job opens.
+_NONCANONICAL = re.compile(r"//|/\.(?=/|$)|(?:^|/)\.\.(?=/|$)|" + _HOME_REF.pattern)
+
+
+def swap_dirs(text, src_root, dst_root, dirs, counts=None):
+    """Replace each <src_root>/<d> path, for d in dirs, by <dst_root>/<d>.
+
+    Returns (new_text, num_replacements); `counts`, if given, gets the replacements per d.
+    The bare dir matches too, so a definition like CFG: "<src_root>/config" is swapped as
+    well. A non-canonical token (//, /./, .., $HOME, ~) is never swapped: live_tree_refs
+    refuses it instead.
+    """
+    if not dirs:
+        return text, 0
+    pat = re.compile(_PATH_LEFT + re.escape(src_root.rstrip("/"))
+                     + "/(" + "|".join(map(re.escape, dirs)) + ")" + _PATH_RIGHT)
+    n = 0
+
+    def swap(m):
+        nonlocal n
+        n += 1
+        if counts is not None:
+            counts[m.group(1)] = counts.get(m.group(1), 0) + 1
+        return dst_root.rstrip("/") + "/" + m.group(1)
+
+    def token(t):
+        return t.group(0) if _NONCANONICAL.search(t.group(0)) else pat.sub(swap, t.group(0))
+
+    return _TOKEN.sub(token, text), n
+
+
+def rewrite_config_paths(text, sim_home, run_dir, dirs=("config",), counts=None):
+    """Repoint <sim_home>/<d> paths (d in snapshot_dirs) at the batch's snapshot <run_dir>/<d>."""
+    return swap_dirs(text, sim_home, run_dir, dirs, counts)
+
+
+def normalize_path(token, home, run_dir):
+    """The path a job opens for `token`: $HOME, ${HOME} and ~ expanded to `home`, relative to
+    run_dir (its cwd), with //, /./ and .. collapsed. None if it needs an unknown home."""
+    if _HOME_REF.search(token):
+        if home is None:
+            return None
+        token = _HOME_REF.sub(lambda _: home.rstrip("/"), token)
+    if not token.startswith("/"):
+        token = run_dir + "/" + token
+    return posixpath.normpath(re.sub(r"/{2,}", "/", token))
+
+
+def live_tree_refs(text, sim_home, run_dir, home=None):
+    """Return (lineno, line) for each line of `text` that still reads the live sim tree: naming
+    it, even as the tail of a longer path, or through a token that normalizes to it."""
+    live = re.compile(re.escape(sim_home.rstrip("/")) + _PATH_RIGHT)
+
+    def names(s):
+        # Mask run_dir so a runs base nested inside the sim tree doesn't read as live.
+        return live.search(s.replace(run_dir, ""))
+
+    out = []
+    for i, line in enumerate(text.splitlines(), 1):
+        if names(line):
+            out.append((i, line.strip()))
+            continue
+        alias = next((f"{tok} resolves to {p}" for tok in _TOKEN.findall(line) if _NONCANONICAL.search(tok)
+                      for p in [normalize_path(tok, home, run_dir)] if p and names(p)), None)
+        if alias:
+            out.append((i, f"{line.strip()}  ({alias})"))
+    return out
+
+
+def remote_home(host):
+    """The cluster's $HOME: what a job's shell substitutes for $HOME, ${HOME} and a leading ~."""
+    r = ssh(host, 'printf %s "$HOME"')
+    home = r.stdout.strip()
+    if r.returncode != 0 or not home.startswith("/"):
+        raise ClusterRunError(f"could not read $HOME on {host} to check the exp's $HOME/~ paths "
+                              f"(rc={r.returncode}): {r.stderr.strip()}")
+    return home
+
+
+def expand_experiments(text):
+    """(name, params) for each experiment in exp YAML `text`, with its own definitions substituted
+    in one pass as create_jobfile does; [] if it doesn't parse (create_jobfile then fails)."""
+    try:
+        data = yaml.safe_load(text)
+        defs = {k: str(v) for d in data.get("definitions") or [] for k, v in list(d.items())[:1]}
+        out = []
+        for exp in data.get("experiments") or []:
+            for name, params in exp.items():
+                for var in re.findall(r"\$\((.*?)\)", params):
+                    if var in defs:
+                        params = params.replace(f"$({var})", defs[var])
+                out.append((name, params))
+        return out
+    except (yaml.YAMLError, AttributeError, TypeError):
+        return []
+
+
 def _prepare_inputs(flat, sim_home, dest_dir):
     """Write each input file into dest_dir with $(SIM_HOME_IN_CLUSTER) resolved.
 
@@ -372,11 +551,14 @@ def _prepare_inputs(flat, sim_home, dest_dir):
 
 def _stage_inputs(repo, cfg, host, run_dir, args):
     """Stage tlist/exp/mfile into <run_dir>/inputs on the cluster, resolving the
-    $(SIM_HOME_IN_CLUSTER) placeholder to the cluster sim path first.
+    $(SIM_HOME_IN_CLUSTER) placeholder to the cluster sim path first, then
+    repointing each exp's <sim>/<d> paths (d in snapshot_dirs) at the batch's snapshot.
 
     Substitution happens on temp copies, so the local source files are never
     modified — only the cluster-side copies (used to generate the jobfile) get
-    the resolved absolute paths.
+    the resolved absolute paths. An exp that would still read the live sim tree
+    is refused before anything changes on the cluster. Returns the staged paths
+    and {d: [exps repointed into <run_dir>/<d>]}.
     """
     groups = {"tlist": args.tlist, "exp": args.exp, "mfile": args.mfile}
     flat = [f for g in groups.values() for f in g]
@@ -389,32 +571,102 @@ def _stage_inputs(repo, cfg, host, run_dir, args):
             "input files have colliding basenames; rename so each tlist/exp/mfile "
             f"is unique: {basenames}")
 
+    sim = cfg["remote_sim_path"]
     inputs_dir = run_dir + "/inputs"
     tmp = tempfile.mkdtemp(prefix="cluster_run_inputs.")
     try:
-        n = _prepare_inputs(flat, cfg["remote_sim_path"], tmp)
+        n = _prepare_inputs(flat, sim, tmp)
         if n:
-            log(f"resolved {SIM_HOME_PLACEHOLDER} -> {cfg['remote_sim_path']} "
+            log(f"resolved {SIM_HOME_PLACEHOLDER} -> {sim} "
                 f"({n} occurrence(s) across staged inputs)")
+        exps, repointed = {}, {}
+        for f in groups["exp"]:
+            staged, counts = os.path.join(tmp, os.path.basename(f)), {}
+            with open(staged) as fh:
+                text, n = rewrite_config_paths(fh.read(), sim, run_dir, cfg["snapshot_dirs"], counts)
+            with open(staged, "w") as fh:
+                fh.write(text)
+            if n:
+                log(f"repointed {n} snapshot_dirs path(s) in {os.path.basename(f)} -> {run_dir}")
+            for d in counts:
+                repointed.setdefault(d, []).append(f)
+            exps[f] = (text, expand_experiments(text))
+        texts = [s for text, ex in exps.values() for s in [text, *(p for _, p in ex)]]
+        home = remote_home(host) if any(_HOME_REF.search(t) for s in texts for t in _TOKEN.findall(s)) else None
+        live = []
+        for f, (text, ex) in exps.items():
+            live += [f"  {f}:{i}: {line}" for i, line in live_tree_refs(text, sim, run_dir, home)]
+            # A path split across definitions shows only once they are substituted.
+            live += [f"  {f}: experiment {name!r}: {line}" for name, params in ex if params not in text
+                     for _, line in live_tree_refs(params, sim, run_dir, home)]
+        if live:
+            raise ClusterRunError(
+                f"exp still reads the live sim tree {sim}, which a later sync or rebuild would change under "
+                f"this batch's queued jobs. Write each path inside it as {SIM_HOME_PLACEHOLDER}/<dir>/... with "
+                f"<dir> in snapshot_dirs {cfg['snapshot_dirs']} (add dirs in {config_path(repo)}): only that "
+                "spelling is repointed at the snapshot; a longer alias path, //, /./, .., $HOME or ~ is "
+                "refused:\n" + "\n".join(live))
+
+        # Plain mkdir for the run dir: one that another submit already made fails before any copy.
+        mk = ssh(host, f"mkdir -p {q(cfg['remote_runs_base'])} && mkdir {q(run_dir)} {q(inputs_dir)}")
+        if mk.returncode != 0:
+            raise ClusterRunError(
+                f"mkdir {run_dir} failed, so nothing was copied or queued (if it exists, another submit took "
+                f"batch id {os.path.basename(run_dir)}: submit again or pick another --label): "
+                f"{mk.stderr.strip()}")
         srcs = [os.path.join(tmp, b) for b in basenames]
         res = rsync(srcs, f"{host}:{inputs_dir}/", excludes=None, delete=False)
         if res.returncode != 0:
             raise ClusterRunError(f"rsync of input files failed: {res.stderr.strip()}")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
-    return {k: [f"{inputs_dir}/{os.path.basename(f)}" for f in v] for k, v in groups.items()}
+    return {k: [f"{inputs_dir}/{os.path.basename(f)}" for f in v] for k, v in groups.items()}, repointed
+
+
+def snapshot_command(infra_path, sim, run_dir, dirs):
+    """Shell run after the build: cp -a the infra scripts/ and each snapshot_dirs entry into run_dir.
+
+    Prints SNAPSHOT_SKIP for an entry that isn't a dir under sim, and SNAPSHOT_LINK for each
+    copied symlink resolving outside run_dir, through which jobs would still read the live tree.
+    """
+    links = ('R=$(realpath -- "$1") || exit 1; shift; for l do t=$(realpath -m -- "$l") || t="?"; '
+             f'case "$t/" in "$R"/*) ;; *) printf "{SNAPSHOT_LINK}%s -> %s\\n" "$l" "$t";; esac; done')
+
+    def take(src, dst):
+        return f"cp -a {q(src)} {q(dst)} && find {q(dst)} -type l -exec sh -c {q(links)} sh {q(run_dir)} {{}} +"
+    steps = [take(infra_path + "/scripts", run_dir + "/scripts")]
+    steps += [f"if [ -d {q(sim + '/' + d)} ]; then mkdir -p {q(os.path.dirname(run_dir + '/' + d))} && "
+              f"{take(sim + '/' + d, run_dir + '/' + d)}; else echo {q(SNAPSHOT_SKIP + d)}; fi"
+              for d in dirs]
+    return " && ".join(steps)
 
 
 def cmd_submit(args):
     repo = get_repo(args)
     cfg = load_config(repo)
     host = args.cluster or cfg["default_cluster"]
-    slurm = cfg["slurm"]
-    batch = utc_stamp() + (f"_{args.label}" if args.label else "")
-    run_dir = cfg["remote_runs_base"] + "/" + batch
-    log(f"batch {batch} -> {host}:{run_dir}")
+    with submit_lock(repo):
+        batch = utc_stamp() + (f"_{args.label}" if args.label else "")
+        run_dir = cfg["remote_runs_base"] + "/" + batch
+        claim = claim_ledger(repo, batch, host, run_dir)
+        log(f"batch {batch} -> {host}:{run_dir}")
+        try:
+            remote_inputs, snapshot, parts = _prepare_batch(repo, cfg, host, run_dir, args)
+        except BaseException:
+            with contextlib.suppress(OSError):
+                os.remove(claim)  # create_jobfile never ran, so nothing was queued
+            raise
+        res = ssh(host, f"cd {q(run_dir)} && {remote_join(parts)}")
+    return _record_submit(repo, cfg, host, batch, run_dir, claim, args, remote_inputs, snapshot, res)
 
-    # 1. sync the simulator and champsim-infra to the cluster.
+
+def _prepare_batch(repo, cfg, host, run_dir, args):
+    """Submit steps 1-4, then step 5's create_jobfile command. Queues nothing."""
+    slurm = cfg["slurm"]
+    # 1. make the run dir and stage inputs; first, so a refused exp costs no sync.
+    remote_inputs, repointed = _stage_inputs(repo, cfg, host, run_dir, args)
+
+    # 2. sync the simulator and champsim-infra to the cluster.
     r = rsync(repo.rstrip("/") + "/", f"{host}:{cfg['remote_sim_path']}/",
               excludes=cfg["rsync_excludes"], delete=True)
     if r.returncode != 0:
@@ -428,12 +680,6 @@ def cmd_submit(args):
               excludes=[".git", "__pycache__", STATE_DIRNAME, "tracer/rpoint-cs"], delete=True)
     if r.returncode != 0:
         raise ClusterRunError(f"rsync of champsim-infra failed: {r.stderr.strip()}")
-
-    # 2. make the run dir and stage inputs.
-    mk = ssh(host, f"mkdir -p {q(run_dir)}/inputs")
-    if mk.returncode != 0:
-        raise ClusterRunError(f"mkdir {run_dir} failed: {mk.stderr.strip()}")
-    remote_inputs = _stage_inputs(repo, cfg, host, run_dir, args)
 
     # 3. build over SSH and resolve the produced binary.
     rc, build_out = ssh_stream(host, f"cd {q(cfg['remote_sim_path'])} && {cfg['build_command']}")
@@ -454,8 +700,34 @@ def cmd_submit(args):
         raise ClusterRunError(f"built binary not found/executable on cluster: {exe}")
     log(f"built binary: {exe}")
 
-    # 4. generate + smoke-gate + auto-launch via create_jobfile.py on the cluster.
-    cj = os.path.join(cfg["remote_infra_path"], "scripts", "create_jobfile.py")
+    # 4. snapshot scripts + snapshot_dirs into the run dir: jobs read them when they
+    #    start, possibly after a later submit has re-synced the live trees.
+    #    create_jobfile snapshots the binary itself.
+    sim, dirs = cfg["remote_sim_path"], cfg["snapshot_dirs"]
+    cp = ssh(host, snapshot_command(cfg["remote_infra_path"], sim, run_dir, dirs))
+    if cp.returncode != 0:
+        raise ClusterRunError(f"snapshot of scripts + {dirs} into {run_dir} failed: {cp.stderr.strip()}")
+    out = cp.stdout.splitlines()
+    links = [l[len(SNAPSHOT_LINK):] for l in out if l.startswith(SNAPSHOT_LINK)]
+    if links:
+        raise ClusterRunError(
+            f"the snapshot in {run_dir} holds symlink(s) resolving outside it, through which queued jobs "
+            "would still read the live tree; replace each with the file it names (or a link inside its "
+            "dir). Nothing was queued:\n  " + "\n  ".join(links))
+    # A listed dir the sim tree lacks is skipped, but staging repointed exp paths under it regardless.
+    skipped = {l[len(SNAPSHOT_SKIP):].strip() for l in out if l.startswith(SNAPSHOT_SKIP)}
+    missing = {d: repointed[d] for d in sorted(skipped) if d in repointed}
+    if missing:
+        raise ClusterRunError(
+            "; ".join(f"snapshot_dirs entry {d!r} is not a dir under {sim} on {host}, but "
+                      f"{', '.join(fs)} now read {run_dir}/{d}, which does not exist" for d, fs in missing.items())
+            + f". Fix snapshot_dirs in {config_path(repo)} or the exp. Nothing was queued.")
+    for d in sorted(skipped):
+        log(f"WARNING: snapshot_dirs entry {d!r} is not a dir under {sim} on {host}; skipped")
+    snapshot = {"scripts": run_dir + "/scripts", **{d: run_dir + "/" + d for d in dirs if d not in skipped}}
+
+    # 5. generate + smoke-gate + auto-launch via the snapshot's create_jobfile.py.
+    cj = snapshot["scripts"] + "/create_jobfile.py"
     parts = [cfg["remote_python"], cj, "--exe", exe,
              "--tlist", *remote_inputs["tlist"], "--exp", *remote_inputs["exp"],
              "--no-trace-cache", "--smoke-test-auto-launch",
@@ -478,14 +750,19 @@ def cmd_submit(args):
         parts += ["--exclude", slurm["exclude"]]
     if args.no_snapshot_exe:
         parts += ["--no-snapshot-exe"]
+        log("WARNING: --no-snapshot-exe: jobs run the live binary, so a rebuild can change them")
+    return remote_inputs, snapshot, parts
 
-    res = ssh(host, f"cd {q(run_dir)} && {remote_join(parts)}")
+
+def _record_submit(repo, cfg, host, batch, run_dir, claim, args, remote_inputs, snapshot, res):
+    """Read create_jobfile's report and replace the claimed placeholder with the batch's ledger."""
     try:
         report = extract_infra_json(res.stdout)
     except ValueError:
         raise ClusterRunError(
-            "create_jobfile produced no JSON report (rc="
-            f"{res.returncode}). stderr tail:\n{res.stderr[-800:]}")
+            f"create_jobfile produced no JSON report (rc={res.returncode}), so it MAY have queued jobs: "
+            f"check squeue on {host} for jobs writing to {run_dir} before submitting again. {claim} stays "
+            f"as a '{SUBMITTING}' placeholder until you delete it. stderr tail:\n{res.stderr[-800:]}")
 
     # A smoke failure (or any pre-submit error) launches nothing -> hard error, no
     # ledger. A partial submit (some sbatch succeeded, some failed) DID launch real
@@ -493,6 +770,7 @@ def cmd_submit(args):
     ok = report.get("status") == "ok"
     submitted = [j for j in report.get("jobs", []) if j.get("job_id")]
     if not ok and not (report.get("error_id") == "CJ_SUBMIT_FAILED" and submitted):
+        os.remove(claim)
         msg = f"submit failed: {report.get('error_id')}: {report.get('message')}"
         smoke = report.get("smoke") or {}
         if smoke.get("output_tail"):
@@ -501,12 +779,13 @@ def cmd_submit(args):
             msg += f"\n  sbatch {fail['tag']} rc={fail['submit_rc']}: {fail.get('stderr_tail','')}"
         raise ClusterRunError(msg)
 
-    # 5. log the batch (full success, or partial submit we must not orphan).
+    # 6. log the batch (full success, or partial submit we must not orphan).
     jobs = [{"tag": j["tag"], "job_id": j["job_id"], "state": "PENDING"} for j in submitted]
     ledger = {
         "batch_id": batch, "cluster": host, "submitted_utc": utc_stamp(),
         "status": "submitted" if ok else "partial", "remote_run_dir": run_dir,
         "remote_infra_path": cfg["remote_infra_path"], "remote_python": cfg["remote_python"],
+        "self_contained": not args.no_snapshot_exe, "snapshot": snapshot,
         "exe": report.get("exe"), "exe_original": report.get("exe_original"),
         "build_command": cfg["build_command"],
         "local_inputs": {k: [os.path.abspath(f) for f in v]
@@ -570,6 +849,10 @@ def cmd_status(args):
 
     for ledger in ledgers:
         host = args.cluster or ledger["cluster"]
+        if ledger.get("status") == SUBMITTING:
+            print(f"{ledger['batch_id']}  [{SUBMITTING}]  no jobs recorded: its submit is still running, or "
+                  f"stopped before recording them and MAY have queued jobs (check squeue on {host})")
+            continue
         _refresh_states(host, ledger["jobs"])
         if ledger.get("status") != "rolledup":
             ledger["status"] = _batch_status(ledger["jobs"])
@@ -596,9 +879,17 @@ def _print_csv_table(path):
         print("".join(c.ljust(w[i]) for i, c in enumerate(r)))
 
 
+def _rollup_script(ledger, cfg):
+    """The batch's own rollup.py snapshot; ledgers from before snapshots use the live infra's."""
+    scripts = (ledger.get("snapshot") or {}).get("scripts")
+    if not scripts:
+        scripts = os.path.join(ledger.get("remote_infra_path") or cfg["remote_infra_path"], "scripts")
+    return scripts + "/rollup.py"
+
+
 def cmd_rollup(args):
     repo = get_repo(args)
-    ledger = load_ledger(repo, args.batch)
+    ledger = recorded(load_ledger(repo, args.batch))
     host = args.cluster or ledger["cluster"]
 
     if not args.force and ledger.get("status") not in ("complete", "rolledup"):
@@ -614,9 +905,8 @@ def cmd_rollup(args):
     ri = ledger["remote_inputs"]
     run_dir = ledger["remote_run_dir"]
     cfg = load_config(repo)
-    remote_infra = ledger.get("remote_infra_path") or cfg["remote_infra_path"]
     remote_python = ledger.get("remote_python") or cfg["remote_python"]
-    ru = os.path.join(remote_infra, "scripts", "rollup.py")
+    ru = _rollup_script(ledger, cfg)
     parts = [remote_python, ru, "--mfile", *ri["mfile"],
              "--tlist", *ri["tlist"], "--exp", *ri["exp"],
              "-d", run_dir, "-o", run_dir + "/stats.csv", "--report-json", "-"]
@@ -677,13 +967,55 @@ def _maybe_compare(repo, batch_id, new_dir, tol):
           else "OK: no change vs previous batch")
 
 
+def _stage_combine_exps(host, cfg, ledgers, remote_combo):
+    """Copy every batch's staged exps to <remote_combo>/inputs/<batch>__<exp>.
+
+    A snapshotted batch's staged exps name its own <run_dir>/<d>, so one source exp
+    stages differently per batch and rollup.py would abort on the "conflict". The
+    copies map each <run_dir>/<d> back to <remote_sim_path>/<d>; rollup never opens
+    those paths. Returns the copies' remote paths, in ledger then exp order.
+    """
+    sim = cfg["remote_sim_path"]
+    tmp = tempfile.mkdtemp(prefix="cluster_run_combine.")
+    try:
+        up = os.path.join(tmp, "inputs")
+        os.makedirs(up)
+        remote = []
+        for led in ledgers:
+            dirs = [d for d in (led.get("snapshot") or {}) if d != "scripts"]
+            for p in led["remote_inputs"]["exp"]:
+                base = f"{led['batch_id']}__{os.path.basename(p)}"
+                local = os.path.join(tmp, base)
+                r = rsync(f"{host}:{p}", local, delete=False)
+                if r.returncode != 0:
+                    raise ClusterRunError(f"fetch of {p} for combine failed: {r.stderr.strip()}")
+                with open(local) as fh:
+                    text, _ = swap_dirs(fh.read(), led["remote_run_dir"], sim, dirs)
+                with open(os.path.join(up, base), "w") as fh:
+                    fh.write(text)
+                remote.append(f"{remote_combo}/inputs/{base}")
+        mk = ssh(host, f"mkdir -p {q(remote_combo + '/inputs')}")
+        if mk.returncode != 0:
+            raise ClusterRunError(f"mkdir {remote_combo}/inputs failed: {mk.stderr.strip()}")
+        r = rsync(up + "/", f"{host}:{remote_combo}/inputs/", delete=True)
+        if r.returncode != 0:
+            raise ClusterRunError(f"rsync of combine inputs failed: {r.stderr.strip()}")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    return remote
+
+
 def cmd_combine(args):
     repo = get_repo(args)
     batch_ids = [b.strip() for b in args.batches.split(",") if b.strip()]
     if len(batch_ids) < 2:
         raise ClusterRunError("combine needs at least two batches (--batches B1,B2)")
     cfg = load_config(repo)
-    ledgers = [load_ledger(repo, b) for b in batch_ids]
+    name = args.out_name or ("combine_" + max(batch_ids))
+    if name in {l.get("batch_id") for l in all_ledgers(repo)}:
+        raise ClusterRunError(f"--out-name {name} is a batch id: combine would replace that batch's "
+                              "staged inputs and its stats.csv; pick another name")
+    ledgers = [recorded(load_ledger(repo, b)) for b in batch_ids]
     host = args.cluster or ledgers[0]["cluster"]
     clusters = {l["cluster"] for l in ledgers}
     if len(clusters) > 1 and not args.cluster:
@@ -703,25 +1035,26 @@ def cmd_combine(args):
                     "use --force to combine anyway")
 
     # Assemble one rollup.py call over every batch's run dir + merged inputs.
-    # rollup.py merges duplicate-but-identical names and aborts on real conflicts.
+    # rollup.py merges duplicate-but-identical names and aborts on real conflicts;
+    # exps go in as copies with each batch's snapshot paths normalized away.
+    remote_combo = cfg["remote_runs_base"] + "/" + name
+    out_csv = remote_combo + "/stats.csv"
     run_dirs = [led["remote_run_dir"] for led in ledgers]
-    mfiles, tlists, exps = [], [], []
+    mfiles, tlists = [], []
     for led in ledgers:
         ri = led["remote_inputs"]
         mfiles += ri["mfile"]
         tlists += ri["tlist"]
-        exps += ri["exp"]
-
-    name = args.out_name or ("combine_" + max(batch_ids))
-    remote_combo = cfg["remote_runs_base"] + "/" + name
-    out_csv = remote_combo + "/stats.csv"
-    remote_infra = ledgers[0].get("remote_infra_path") or cfg["remote_infra_path"]
-    remote_python = ledgers[0].get("remote_python") or cfg["remote_python"]
-    ru = os.path.join(remote_infra, "scripts", "rollup.py")
+    exps = _stage_combine_exps(host, cfg, ledgers, remote_combo)
+    # The newest batch's rollup.py (its snapshot, else the live infra's): newer code
+    # reads older batches' outputs, not necessarily the reverse.
+    newest = max(ledgers, key=lambda l: l["batch_id"])
+    remote_python = newest.get("remote_python") or cfg["remote_python"]
+    ru = _rollup_script(newest, cfg)
     parts = [remote_python, ru, "--mfile", *mfiles,
              "--tlist", *tlists, "--exp", *exps,
              "-d", *run_dirs, "-o", out_csv, "--report-json", "-"]
-    res = ssh(host, f"mkdir -p {q(remote_combo)} && {remote_join(parts)}")
+    res = ssh(host, remote_join(parts))
     try:
         report = extract_infra_json(res.stdout)
     except ValueError:
