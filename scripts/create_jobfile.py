@@ -281,7 +281,9 @@ def build_sbatch_argv(args, tag, inner, parsable):
         argv += shlex.split(args.extra)
     if parsable:
         argv.append("--parsable")
-    argv += ["-J", tag, "-o", f"{tag}.out", "-e", f"{tag}.err", "--wrap", inner]
+    # exec: the wrapper must be the batch process, or the batch shell dies on a reclaim's
+    # SIGTERM and Slurm records the job finished before the wrapper can requeue it.
+    argv += ["-J", tag, "-o", f"{tag}.out", "-e", f"{tag}.err", "--wrap", f"exec {inner}"]
     return argv
 
 
@@ -465,7 +467,7 @@ def _run(args):
                         f" -o {tag}.out"
                         f" -e {tag}.err"
                     )
-                    print(f"{slurm_cmd} --wrap={shlex.quote(inner)}", file=out)
+                    print(f"{slurm_cmd} --wrap={shlex.quote('exec ' + inner)}", file=out)
                     job_units.append((tag, inner))
 
         if args.local:
